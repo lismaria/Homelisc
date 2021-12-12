@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>{% block content %}{% endblock %}</main>
+    <nav>
+        <ul>
+            <li><img src="{% static 'home.svg' %}" alt="Home"></li>
+            <li><img src="{% static 'search.svg' %}" alt="Search"></li>
+            <li><img src="{% static 'wishlist.svg' %}" alt="Wishlist"></li>
+            <li><img src="{% static 'user.svg' %}" alt="Account"></li></li>
+        </ul>
+    </nav>
+</body>
+</html>
