@@ -6,7 +6,7 @@ def home(request):
     return HttpResponse("Home")
 
 def search(request):
-    return HttpResponse("Search")
+    return render(request,"search-component.html")
 
 def wishlist(request):
     return HttpResponse("Wishlist")
