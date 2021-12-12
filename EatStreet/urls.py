@@ -18,6 +18,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path
+from django.conf.urls import include
 from . import views
 from django.conf.urls import include
 
@@ -26,7 +27,7 @@ urlpatterns = [
     path('',views.home,name="home"),
     path('search/',views.search,name="search"),
     path('wishlist/',views.wishlist,name="wishlist"),
-    path('account/', include('Account.urls')) 
+    path('account/', include('Account.urls')),    
 ]
 
 
