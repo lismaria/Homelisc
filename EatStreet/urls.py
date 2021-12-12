@@ -19,12 +19,14 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path
 from . import views
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name="home"),
     path('search/',views.search,name="search"),
-    path('wishlist',views.wishlist,name="wishlist"),
+    path('wishlist/',views.wishlist,name="wishlist"),
+    path('account/', include('Account.urls')) 
 ]
 
 
