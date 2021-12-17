@@ -177,6 +177,7 @@
 .lowernav-home-svg.scrolled:hover{
     stroke: var(--primary);
     fill: var(--primary);
+    filter: drop-shadow(0px 6px 20px rgba(215, 56, 0, 0.9));
 }
 
 .lowernav-home-svg:hover{
@@ -197,4 +198,41 @@
     font-size: 18px;
     font-weight:bold;
     justify-self:start;
+}
+
+.top-cuisines-frame{
+    grid-column:1/13;
+    grid-row:2/6;
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 28px;
+    row-gap: 14px;
+}
+
+.top-cuisines{
+    /* grid-column:1/4;
+    grid-row:2/4; */
+    /* display:grid; */
+    display: flex;
+    /* align-content: space-evenly; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.top-cuisines-image{
+    background-color: var(--black);
+    border-radius:100px;
+    width:70px;
+    height:70px;
+}
+
+.top-cuisines-descr{
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
 }
