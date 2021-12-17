@@ -22,6 +22,7 @@
     --icon-grey:#ADADAF;
     --blue: #166EF3;
     --ds_cuisine:0px 4px 15px rgba(0, 0, 0, 0.3);
+    --ds3:0px 10px 20px rgba(0, 0, 0, 0.06);
 }
 
 /* body{
@@ -250,4 +251,35 @@
     font-size: 12px;
     text-align: center;
     white-space: nowrap;
+}
+
+.top-places-title{
+    margin-top: 35px;
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.top-places-frame{
+    margin-top:10px;
+    padding: 0px 25px 0px 0px;
+    display:grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-auto-rows: auto;
+    gap:20px;
+}
+
+.top-places-card{
+    background-color: var(--white);
+    border-radius: 8px;
+    width:100%;
+    height:210px;
+    overflow: hidden;
+    box-shadow: var(--ds3);
+}
+
+.top-places-card-img{
+    height:70%;
+    width:auto;
+    background-color: var(--black);
 }
