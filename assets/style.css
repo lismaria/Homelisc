@@ -4,6 +4,12 @@
     box-sizing: border-box;
     /* font-family: 'Poppins', sans-serif; */
     font-family: 'Roboto', sans-serif;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 /* Defining ROOT variables */
@@ -15,7 +21,12 @@
     --black: #000000;
     --icon-grey:#ADADAF;
     --blue: #166EF3;
+    --ds_cuisine:0px 4px 15px rgba(0, 0, 0, 0.3);
 }
+
+/* body{
+    overflow-x: hidden;
+} */
 
 .wrapper {
     display:grid;
@@ -190,6 +201,8 @@
 
 .homepage-two{
     background-color: var(--neutral);
+    height:100vh;
+    padding:25px 0px 25px 25px;
 }
 
 .top-cuisines-title{
@@ -201,21 +214,22 @@
 }
 
 .top-cuisines-frame{
-    grid-column:1/13;
-    grid-row:2/6;
-    display:grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(2,1fr);
+    margin-top:20px;
+    display: flex;
+    flex-wrap: nowrap;
     gap: 28px;
-    row-gap: 14px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.top-cuisines-column{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
 }
 
 .top-cuisines{
-    /* grid-column:1/4;
-    grid-row:2/4; */
-    /* display:grid; */
     display: flex;
-    /* align-content: space-evenly; */
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -227,6 +241,7 @@
     border-radius:100px;
     width:70px;
     height:70px;
+    box-shadow: var(--ds_cuisine);
 }
 
 .top-cuisines-descr{
