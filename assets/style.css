@@ -26,9 +26,10 @@
     --ds3:.0rem 1.0rem 2.0rem rgba(0, 0, 0, 0.06);
 }
 
-/* body{
+body{
+    background-color: var(--neutral);
     overflow-x: hidden;
-} */
+}
 
 .wrapper {
     display:grid;
@@ -202,7 +203,6 @@
 } */
 
 .homepage-two{
-    background-color: var(--neutral);
     height:100vh;
     padding:2.5rem .0rem 2.5rem 2.5rem;
 }
@@ -214,45 +214,6 @@
     font-weight:bold;
     justify-self:start;
 }
-
-/* .top-cuisines-frame{
-    margin-top:2.0rem;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 2.8rem;
-    overflow: auto;
-    white-space: nowrap;
-}
-
-.top-cuisines-column{
-    display: flex;
-    flex-direction: column;
-    gap:1.0rem;
-}
-
-.top-cuisines{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: .8rem;
-}
-
-.top-cuisines-image{
-    background-color: var(--black);
-    border-radius:10.0rem;
-    width:7.0rem;
-    height:7.0rem;
-    box-shadow: var(--ds_cuisine);
-}
-
-.top-cuisines-descr{
-    font-family: Roboto;
-    font-weight: 300;
-    font-size: 1.2rem;
-    text-align: center;
-    white-space: nowrap;
-} */
 
 .top-cuisines-frame{
     margin-top:2.0rem;
@@ -304,6 +265,7 @@
     grid-auto-rows: auto;
     gap:2.0rem;
     padding-bottom: 6.0rem;
+    padding-left: 0rem;;
 }
 
 .top-places-card{
@@ -321,20 +283,47 @@
     background-color: var(--black);
 }
 
+/* Top Cuisines media queries */
+
+/* Mobile L */
+@media screen and (min-width: 425px){
+    .top-cuisines-frame{
+        grid-auto-columns:19%;
+    }
+}
+
 /* Tablet */
+@media screen and (min-width: 768px){
+    .top-cuisines-frame{
+        grid-auto-columns:17%;
+    }
+}
+
+/* Laptop */
+@media screen and (min-width: 1024px){
+    .top-cuisines-frame{
+        grid-auto-columns:15%;
+    }
+}
+
+
+/* Top Places media queries */
+
+/* Mobile L */
 @media screen and (min-width: 425px){
     .top-places-frame{
         grid-template-columns: repeat(2,1fr);
     }
 }
 
-/* Laptop */
+/* Tablet */
 @media screen and (min-width: 768px){
     .top-places-frame{
         grid-template-columns: repeat(3,1fr);
     }
 }
 
+/* Laptop */
 @media screen and (min-width: 1024px){
     .top-places-frame{
         grid-template-columns: repeat(4,1fr);
