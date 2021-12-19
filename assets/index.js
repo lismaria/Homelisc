@@ -1,5 +1,5 @@
 $(function () {
-    $(document).scroll(function () {
+    $(".wrapper").scroll(function () {
         var $nav = $(".lower-nav-ul");
         var $nav1 = $(".lowernav-home-svg")
         var $nav2 = $(".lowernav-ul-p")
