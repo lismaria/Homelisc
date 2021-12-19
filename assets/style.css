@@ -7,6 +7,7 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     font-size:62.5%; /* 10 px */
+    scroll-behavior: smooth;
 }
 
 *::-webkit-scrollbar {
@@ -43,7 +44,7 @@ body{
     grid-template-rows: repeat(11,1fr);
     height:90vh;
     justify-items: center;
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
     padding:2.5rem;
 }
 
@@ -51,6 +52,7 @@ body{
     grid-column: 1/13;
     /* grid-row: 1; */
     width: 100%;
+    min-height: 54px;
     background-color:var(--white);
     border-radius: 3.0rem;
     padding:0 1.8rem 0 1.8rem;
