@@ -160,7 +160,7 @@ body{
 }
 
 .lower-nav-ul.scrolled{
-    background:none;
+    background-color: var(--neutral);
     transition: background-color 200ms linear;
 }
 
@@ -209,7 +209,7 @@ body{
 } */
 
 .homepage-two{
-    height:100vh;
+    height:auto;
     padding:2.5rem .0rem 2.5rem 2.5rem;
 }
 
@@ -287,6 +287,20 @@ body{
     height:70%;
     width:auto;
     background-color: var(--black);
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: end;
+    padding: 0.5rem;
+}
+
+.top-places-card-heart{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:40px;
+    height:40px;
+    border-radius:20px;
+    background-color: var(--white);
 }
 
 .top-places-card-body{
@@ -295,28 +309,37 @@ body{
     grid-template-columns: 60% 40%;
     height: 30%;
     align-items: center;
+    padding:.5rem;
 }
 
 .top-places-card-body h2{
     font-family: Poppins;
-    font-style: normal;
-    font-weight: 500;
+    font-weight:700;
     font-size: 16px;
-    line-height: 24px;
+    color:var(--primary);
 }
 
-.top-places-card-body h4, .top-places-card-body h3{
+.top-places-card-body-rating{
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap:.5rem;
+}
+
+.top-places-card-body h4{
     font-family: Roboto;
-    font-style: normal;
     font-weight: normal;
     font-size: 12px;
-    line-height: 14px;
+}
+
+.top-places-card-body h4:nth-child(even){
+    justify-self: end;
 }
 
 .top-places-card-body h3{
-    font-family: Poppins;
     font-size: 14px;
 }
+
 /* Top Cuisines media queries */
 
 /* Mobile L */
