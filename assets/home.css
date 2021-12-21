@@ -12,82 +12,6 @@
     padding:2.5rem;
 }
 
-.search-bar{
-    grid-column: 1/13;
-    /* grid-row: 1; */
-    width: 100%;
-    min-height: 54px;
-    background-color:var(--white);
-    border-radius: 3.0rem;
-    padding:0 1.8rem 0 1.8rem;
-}
-
-.search-bar ul{
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    align-items: center;    
-    list-style: none;
-    height: 100%;
-}
-
-.search-bar li:last-child{
-    justify-self: end;
-}
-
-.search-bar li input[type=text]{
-    border:none;
-    font-family: Poppins;
-    font-size:1.6rem;
-    width:100%
-}
-
-.search-bar li input[type=text]:focus{
-    outline:none;
-}
-
-
-.home-momos{
-    grid-column:2/5;
-    grid-row:3/5;
-    width:7.5rem;
-    height:7.5rem;
-    align-self: center;
-}
-
-.home-panipuri{
-    grid-column:8/11;
-    grid-row:3/5;
-    width:6.0rem;
-    height:6.5rem;
-    align-self: center;
-}
-
-.home-samosa{
-    grid-column:10/13;
-    grid-row:6/8;
-    width:5.0rem;
-    height:4.0rem;
-    align-self: center;
-}
-
-.home-vadapav{
-    grid-column:6/9;
-    grid-row:7/9;
-    width:8.2rem;
-    height:3.7rem;
-    align-self: center;
-}
-
-.home-dosa{
-    grid-column:1/4;
-    grid-row:6/8;
-    width:6.5rem;
-    height:5.0rem;
-    align-self: center;
-}
-
-
-
 .logo{
     grid-column:3/11;
     grid-row:4/8;
@@ -308,4 +232,42 @@
     .top-places-frame{
         grid-template-columns: repeat(4,1fr);
     }
+}
+
+.lower-nav-ul{
+    background-color: var(--primary);
+    z-index: 2;
+}
+
+.lower-nav-ul li,.lowernav-ul-p{
+    color:var(--white);
+}
+
+.lowernav-home-svg{
+    stroke:var(--white);
+}
+
+.lowernav-home-svg:hover{
+    fill:var(--white);
+    stroke:var(--white);
+}
+
+.lower-nav-ul.scrolled{
+    background-color: var(--neutral);
+    transition: background-color 200ms linear;
+}
+
+.lowernav-ul-p.scrolled{
+    color:var(--primary);
+}
+
+.lowernav-home-svg.scrolled{
+    stroke: var(--icon-grey);
+    transition: stroke 200ms linear;    
+}
+
+.lowernav-home-svg.scrolled:hover{
+    stroke: var(--primary);
+    fill: var(--primary);
+    filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
 }

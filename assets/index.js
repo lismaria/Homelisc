@@ -1,10 +1,25 @@
 $(function () {
-    $(".wrapper").scroll(function () {
-        var $nav = $(".lower-nav-ul");
-        var $nav1 = $(".lowernav-home-svg")
-        var $nav2 = $(".lowernav-ul-p")
-        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-        $nav1.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-        $nav2.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-      });
+
+  // For changing the nav bar design of homepage
+  $(".wrapper").scroll(function () {
+      var $nav = $(".lower-nav-ul, .lowernav-home-svg, .lowernav-ul-p");
+      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+  });
+
+  // For bottom nav bar in almost every mobile device
+  window.addEventListener('resize', () => {
+    // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+    let vh = window.innerHeight * 0.01;
+    // Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  });
+
+  // So that the content doesn't push up everytime the mobile keyboard is opened
+  if ('ontouchstart' in window) {
+    $(document).on('focus', 'textarea,input,select', function() {
+      $('body, .lower-nav-ul').css('position', 'absolute');
+    }).on('blur', 'textarea,input,select', function() {
+      $('body, .lower-nav-ul').css('position', '');
+    });
+  }
 });
