@@ -4,28 +4,9 @@
 {% load static %}
     <div class="homepage-one">
         {% include "search-component.html" %}
+
         <div class="logo">
-            <img src="{% static 'new-logo.png' %}" width="100%" height="auto">
-        </div>
-
-        <div class="home-momos">
-            <img src="{% static 'momos.png' %}" width="100%" height="auto">
-        </div>
-
-        <div class="home-panipuri">
-            <img src="{% static 'panipuri.png' %}" width="100%" height="auto">
-        </div>
-
-        <div class="home-samosa">
-            <img src="{% static 'samosa.png' %}" width="100%" height="auto">
-        </div>
-        
-        <div class="home-vadapav">
-            <img src="{% static 'vadapav.png' %}" width="100%" height="auto">
-        </div>
-
-        <div class="home-dosa">
-            <img src="{% static 'dosa.png' %}" width="100%" height="auto">
+            <img src="{% static 'streetsnax-logo.svg' %}" width="100%" height="auto">
         </div>
 
         <div class="tagline" style='color:var(--white)'>
@@ -281,4 +262,6 @@
             </div>
         </div>
     </div>
+
+    <link rel="stylesheet" href="{% static 'home.css' %}">
 {% endblock %}
