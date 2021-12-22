@@ -7,6 +7,7 @@
     grid-template-columns:repeat(12,1fr);
     grid-template-rows: repeat(11,1fr);
     height:90vh;
+    height: calc(var(--vh, 1vh) * 90);
     justify-items: center;
     /* margin-bottom: 60px; */
     padding:2.5rem;

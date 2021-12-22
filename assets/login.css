@@ -1,3 +1,109 @@
-h1{
-    font-size: 2rem;
+.login-wrapper{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows:repeat(20,1fr);
+    height:90vh;
+    height: calc(var(--vh, 1vh) * 90);
+    justify-items: center;
+}
+
+.login-header{
+    grid-column: 1/13;
+    grid-row:1/6;
+    width:100%;
+    display: grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows:repeat(5,1fr);
+    background-color: var(--white);
+    box-shadow: 0px 3.48417px 26.1313px rgba(0, 0, 0, 0.06);
+    border-radius: 0 0 2.5rem 2.5rem;
+}
+
+.logo{
+    grid-column:4/10;
+    grid-row:2/3;
+}
+
+.login-nav{
+    grid-column:2/6;
+    grid-row:4/6;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+}
+
+.login-nav p, .signup-nav p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.nav-line{
+    width: 100%;
+    height: 0.2rem;
+    background-color: var(--primary);
+    border-radius:3.5rem;
+}
+
+.signup-nav{
+    grid-column:8/12;
+    grid-row:4/6;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+}
+
+.login-form{
+    width: 100%;
+    grid-column:1/13;
+    grid-row:6/21;
+    padding:2.5rem;
+    display: grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows:repeat(9,1fr);
+}
+
+.login-illustration{
+    grid-column:2/12;
+    grid-row:1/6;
+}
+
+.login-as-vendor, .login-as-user{
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 2.2rem;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius:2.5rem;
+    margin:2rem;
+}
+
+.login-as-vendor{
+    grid-column:3/10;
+    grid-row:6/8;
+    background-color:var(--primary);
+}
+
+.login-form div:nth-child(3)
+{
+    grid-column:7/8;
+    grid-row:7/9;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+}
+
+.login-as-user{
+    grid-column:3/10;
+    grid-row:8/10;
+    background-color:var(--blue);
 }

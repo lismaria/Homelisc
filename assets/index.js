@@ -14,12 +14,23 @@ $(function () {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
 
-  // So that the content doesn't push up everytime the mobile keyboard is opened
-  if ('ontouchstart' in window) {
-    $(document).on('focus', 'textarea,input,select', function() {
-      $('body, .lower-nav-ul').css('position', 'absolute');
-    }).on('blur', 'textarea,input,select', function() {
-      $('body, .lower-nav-ul').css('position', '');
-    });
-  }
+  // //So that the content doesn't push up everytime the mobile keyboard is opened
+
+  //Try 1
+  // if ('ontouchstart' in window) {
+  //   $(document).on('focus', 'textarea,input,select', function() {
+  //     $('body, .lower-nav-ul').css('position', 'absolute');
+  //   }).on('blur', 'textarea,input,select', function() {
+  //     $('body, .lower-nav-ul').css('position', '');
+  //   });
+  // }
+
+  //Try 2
+  setTimeout(function () {
+    var viewheight = $(window).height();
+    var viewwidth = $(window).width();
+    var viewport = $("meta[name=viewport]");
+    viewport.attr("content", "height=" + viewheight + "px, width=" + 
+    viewwidth + "px, initial-scale=1.0");
+}, 300);
 });
