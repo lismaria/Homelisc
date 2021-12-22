@@ -21,7 +21,7 @@
 
 .logo{
     grid-column:4/10;
-    grid-row:2/3;
+    grid-row:2/4;
 }
 
 .login-nav{
@@ -72,38 +72,39 @@
     grid-row:1/6;
 }
 
+.login-vendor-user{
+    grid-column: 4/10;
+    grid-row: 6/10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-around;
+    padding:1rem;
+}
+
 .login-as-vendor, .login-as-user{
     font-family: Poppins;
     font-weight: bold;
-    font-size: 2.2rem;
+    font-size:1.8rem;
     color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 30%;
     border-radius:2.5rem;
-    margin:2rem;
 }
 
 .login-as-vendor{
-    grid-column:3/10;
-    grid-row:6/8;
     background-color:var(--primary);
 }
 
-.login-form div:nth-child(3)
-{
-    grid-column:7/8;
-    grid-row:7/9;
+.login-vendor-user h2{
     font-style: normal;
     font-weight: 600;
     font-size: 1.6rem;
-    display: flex;
-    align-items: center;
 }
 
 .login-as-user{
-    grid-column:3/10;
-    grid-row:8/10;
     background-color:var(--blue);
 }
