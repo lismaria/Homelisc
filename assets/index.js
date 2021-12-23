@@ -1,10 +1,23 @@
-$(function () {
+$(document).ready(function () {
 
   // For changing the nav bar design of homepage
   $(".wrapper").scroll(function () {
       var $nav = $(".lower-nav-ul, .lowernav-home-svg, .lowernav-ul-p");
       $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
   });
+
+  // $(".login-nav .nav-line").css('background-color', 'var(--primary)');
+  // $(document).on('click', '.login-nav,.already-login', function (e) {
+  //   e.preventDefault();
+  //   $(".login-nav .nav-line").css('background-color', 'var(--primary)');
+  //   $(".signup-nav .nav-line").css('background-color', 'var(--white)');
+  // })
+
+  // $(document).on('click', '.login-nav,.already-login', function (e) {
+  //   e.preventDefault();
+  //   $(".signup-nav .nav-line").css('background-color', 'var(--primary)');
+  //   $(".login-nav .nav-line").css('background-color', 'var(--white)');
+  // })
 
   // For bottom nav bar in almost every mobile device
   window.addEventListener('resize', () => {
@@ -33,4 +46,13 @@ $(function () {
 //     viewport.attr("content", "height=" + viewheight + "px, width=" + 
 //     viewwidth + "px, initial-scale=1.0");
 // }, 300);
+});
+
+var obj=angular.module("mod",[]);
+obj.controller("cont",function($scope)
+{
+  $scope.switcher=function ()
+  {
+    $scope.acc = $scope.acc == 'login' ? 'signup': 'login';
+  }
 });

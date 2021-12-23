@@ -3,36 +3,54 @@
 {% block content%}
 {% load static %}
 
-    <div class="login-wrapper">
+    <div class="login-wrapper" ng-init="acc='login'">
         <div class="login-header">
             <div class="logo">
                 <img src="{% static 'streetsnax.svg' %}" width="100%" height="100%">
             </div>
 
             <div class="login-nav">
-                <p>Login</p>
+                <p ng-click="acc='login'">Login</p>
                 <div class="nav-line"></div>
             </div>
 
             <div class="signup-nav">
-                <p>Sign-up</p>
-                <div class="nav-line" style="background-color:var(--white)"></div>
+                <p ng-click="acc='signup'">Sign-up</p>
+                <div class="nav-line"></div>
             </div>
         </div>
 
-        <div class="login-form">
-            <div class="login-illustration">
-                <img src="{% static 'login-illustration.svg' %}" width="100%" height="100%">
+        <div ng-switch="acc" class="switcher">
+            <div class="login-form" ng-switch-default="login">
+                <div class="login-illustration">
+                    <img src="{% static 'login-illustration.svg' %}" width="100%" height="100%">
+                </div>
+
+                <div class="login-vendor-user">
+                    <div class="login-as-vendor"><p>Vendor</p></div>
+                    <h2>or</h2>
+                    <div class="login-as-user"><p>User</p></div>
+                </div>
+
+                <div class="new-here">
+                    <p>New here? <span ng-click="switcher()" style="color:var(--primary)">Sign-up</span> now!</p>
+                </div>
             </div>
 
-            <div class="login-vendor-user">
-                <div class="login-as-vendor"><p>Vendor</p></div>
-                <h2>or</h2>
-                <div class="login-as-user"><p>User</p></div>
-            </div>
+            <div class="login-form" ng-switch-when="signup">
+                <div class="login-illustration">
+                    <img src="{% static 'signup-illustration.svg' %}" width="100%" height="100%">
+                </div>
 
-            <div class="new-here">
-                <p>New here? <a href="" style="color:var(--primary)">Sign-up</a> now!</p>
+                <div class="login-vendor-user">
+                    <div class="login-as-vendor"><p>Vendor</p></div>
+                    <h2>or</h2>
+                    <div class="login-as-user"><p>User</p></div>
+                </div>
+
+                <div class="new-here">
+                    <p>Already a Member? <span ng-click="switcher()" style="color:var(--primary)">Login</span></p>
+                </div>
             </div>
         </div>
     </div>
