@@ -27,9 +27,9 @@
                 </div>
 
                 <div class="login-vendor-user">
-                    <div class="login-as-vendor"><p>Vendor</p></div>
+                    <a href="{% url 'account:login' %}?as=vendor"><div class="login-as-vendor"><p>Vendor</p></div></a>
                     <h2>or</h2>
-                    <div class="login-as-user"><p>User</p></div>
+                    <a href="{% url 'account:login' %}?as=user"><div class="login-as-user"><p>User</p></div></a>
                 </div>
 
                 <div class="new-here">
@@ -43,9 +43,9 @@
                 </div>
 
                 <div class="login-vendor-user">
-                    <div class="login-as-vendor"><p>Vendor</p></div>
+                    <a href="{% url 'account:signup' %}?as=vendor"><div class="login-as-vendor"><p>Vendor</p></div></a>
                     <h2>or</h2>
-                    <div class="login-as-user"><p>User</p></div>
+                    <a href="{% url 'account:signup' %}?as=user"><div class="login-as-user"><p>User</p></div></a>
                 </div>
 
                 <div class="new-here">
@@ -56,7 +56,7 @@
     </div>
 
     <script>
-        document.title = "Login"
+        document.title = "Account"
     </script>
     <link rel="stylesheet" href="{% static 'login.css' %}">
 {% endblock %}
