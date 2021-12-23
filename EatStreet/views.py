@@ -9,4 +9,4 @@ def search(request):
     return render(request,"search-component.html")
 
 def wishlist(request):
-    return HttpResponse("Wishlist")
+    return render(request,"wishlist.html")
