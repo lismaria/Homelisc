@@ -2,7 +2,7 @@ $(document).ready(function () {
 
   // For changing the nav bar design of homepage
   $(".wrapper").scroll(function () {
-      var $nav = $(".lower-nav-ul, .lowernav-home-svg, .lowernav-ul-p");
+      var $nav = $(".lower-nav-ul, .lowernav-home-svg, .lowernav-ul-p, .lowernav-ul-p__hide");
       $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
   });
 

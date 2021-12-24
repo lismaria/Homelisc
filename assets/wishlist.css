@@ -248,3 +248,19 @@
     display: flex;
     align-items: center;
 }
+
+/* Active State Code */
+
+#wishlist p.lowernav-ul-p__hide{
+    display:block;
+    text-align: center;
+    font-family: Poppins;
+    font-size:1.2rem; 
+    color:var(--primary); 
+}
+
+#wishlist svg.lowernav-home-svg{
+    stroke: var(--primary);
+    fill: var(--primary);
+    filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
+}

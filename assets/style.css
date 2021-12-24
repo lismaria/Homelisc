@@ -90,7 +90,13 @@ body{
     font-size:1.2rem;
     color:var(--primary);
 }
+p.lowernav-ul-p{
+    display:block;
+}
 
+.lowernav-ul-p__hide{
+    display: none;
+}
 .lowernav-home-svg{
     stroke:var(--icon-grey);
 }

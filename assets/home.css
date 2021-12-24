@@ -272,3 +272,28 @@
     fill: var(--primary);
     filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
 }
+
+/* Active State Code */
+
+#home p.lowernav-ul-p__hide{
+  display:block;
+  text-align: center;
+  font-family: Poppins;
+  font-size:1.2rem; 
+  color:var(--white);   
+}
+
+#home p.lowernav-ul-p__hide.scrolled{
+    color:var(--primary);
+}
+
+#home svg.lowernav-home-svg{
+    fill:var(--white);
+    stroke:var(--white);
+}
+
+#home svg.lowernav-home-svg.scrolled{
+    stroke: var(--primary);
+    fill: var(--primary);
+    filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
+}
