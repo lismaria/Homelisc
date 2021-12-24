@@ -20,22 +20,20 @@
 .wishlist-food{
     grid-column:4/6;
     grid-row:1/3;
-    color:var(--white);
-    background-color: var(--black);
-    border-radius: .6rem;
 }
 
 .wishlist-place{
     grid-column:7/9;
     grid-row:1/3;
-    color:var(--icon-grey);
-    background-color: var(--nuetral);
 }
 
 .wishlist-food, .wishlist-place{
     display:flex;
     align-items: center;
     justify-content: center;
+    
+    color:var(--icon-grey);
+    background-color: var(--nuetral);
 }
 
 .wishlist-food p, .wishlist-place p{
@@ -66,6 +64,11 @@
     gap:2.0rem;
 }
 
+.wishlist-sec{
+    color:var(--white);
+    background-color: var(--black);
+    border-radius: .6rem;
+}
 
 
 

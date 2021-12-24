@@ -6,12 +6,12 @@ $(document).ready(function () {
       $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
   });
 
-  // $(".login-nav .nav-line").css('background-color', 'var(--primary)');
-  // $(document).on('click', '.login-nav,.already-login', function (e) {
-  //   e.preventDefault();
-  //   $(".login-nav .nav-line").css('background-color', 'var(--primary)');
-  //   $(".signup-nav .nav-line").css('background-color', 'var(--white)');
-  // })
+
+  // For toggling between Food and Places in Wishlist
+  $(".wishlist-header div").on('click', function(){
+    $(".wishlist-sec").removeClass('wishlist-sec');
+    $(this).addClass('wishlist-sec');
+});
 
   // $(document).on('click', '.login-nav,.already-login', function (e) {
   //   e.preventDefault();
@@ -61,5 +61,12 @@ obj.controller("cont",function($scope)
     $scope.loginCol= $scope.acc == 'login' ? 'nav-line__red' : 'nav-line__white';
     $scope.signupCol= $scope.acc == 'signup' ? 'nav-line__red' : 'nav-line__white';
   }
+
+  // $scope.wishlist=function ()
+  // {
+  //   $scope.acc = $scope.acc == 'login' ? 'signup': 'login';
+  //   $scope.loginCol= $scope.acc == 'login' ? 'nav-line__red' : 'nav-line__white';
+  //   $scope.signupCol= $scope.acc == 'signup' ? 'nav-line__red' : 'nav-line__white';
+  // }
 
 });
