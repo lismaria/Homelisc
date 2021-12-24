@@ -237,7 +237,7 @@
 
 .lower-nav-ul{
     background-color: var(--primary);
-    z-index: 2;
+    /* z-index: 2; */
 }
 
 .lower-nav-ul li,.lowernav-ul-p{
