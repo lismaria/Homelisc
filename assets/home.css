@@ -297,3 +297,13 @@
     fill: var(--primary);
     filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
 }
+
+/* For Vector Fill of Search Icon */
+
+#search svg.lowernav-home-svg path{
+    fill:var(--white);
+}
+
+#search svg.lowernav-home-svg.scrolled path{
+    fill: var(--icon-grey);
+}

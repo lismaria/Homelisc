@@ -109,3 +109,7 @@
     fill: var(--primary);
     filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
 }
+
+#search svg path{
+  fill: var(--primary);  
+}
