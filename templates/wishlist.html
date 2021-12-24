@@ -4,8 +4,16 @@
 {% load static %}
     <!-- <div class="no-wishlists-wrapper">
         <div class="wishlist-svg">
-            <img src="{% static 'wishlist.svg' %}" width="100%" height="100%">
+            <img src="{% static 'no-wishlist.svg' %}" width="100%" height="100%">
         </div>
+
+        <div class="no-wishlist-msg">
+            <p>Food and Places marked as favorites will appear here</p>
+        </div>
+
+        <a href="{% url 'home' %}" style="text-decoration: none;"  class="add-favorites scroll-link" data-scroll-to="homepage-2">
+            <p>Add favorites</p>
+        </a>
     </div> -->
 
     <div class="yes-wishlists-wrapper" ng-init="wishlist='food'">
