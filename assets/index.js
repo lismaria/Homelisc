@@ -11,7 +11,7 @@ $(document).ready(function () {
   $(".wishlist-header div").on('click', function(){
     $(".wishlist-sec").removeClass('wishlist-sec');
     $(this).addClass('wishlist-sec');
-});
+  });
 
 
   // For bottom nav bar in almost every mobile device
