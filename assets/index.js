@@ -51,8 +51,15 @@ $(document).ready(function () {
 var obj=angular.module("mod",[]);
 obj.controller("cont",function($scope)
 {
+  $scope.acc = 'login'
+  $scope.loginCol = "nav-line__red"
+  $scope.signupCol = "nav-line__white"
+
   $scope.switcher=function ()
   {
     $scope.acc = $scope.acc == 'login' ? 'signup': 'login';
+    $scope.loginCol= $scope.acc == 'login' ? 'nav-line__red' : 'nav-line__white';
+    $scope.signupCol= $scope.acc == 'signup' ? 'nav-line__red' : 'nav-line__white';
   }
+
 });

@@ -9,14 +9,14 @@
                 <img src="{% static 'streetsnax.svg' %}" width="100%" height="100%">
             </div>
 
-            <div class="login-nav">
-                <p ng-click="acc='login'">Login</p>
-                <div class="nav-line"></div>
+            <div class="login-nav" ng-click="switcher()">
+                <p>Login</p>
+                <div class="nav-line" ng-class= loginCol></div>
             </div>
 
-            <div class="signup-nav">
-                <p ng-click="acc='signup'">Sign-up</p>
-                <div class="nav-line"></div>
+            <div class="signup-nav" ng-click="switcher()">
+                <p>Sign-up</p>
+                <div class="nav-line" ng-class = signupCol></div>
             </div>
         </div>
 

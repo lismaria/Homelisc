@@ -55,6 +55,14 @@
     border-radius:3.5rem;
 }
 
+.nav-line__red{
+    background-color: var(--primary);
+}
+
+.nav-line__white{
+    background-color: var(--white);
+}
+
 .signup-nav{
     grid-column:8/12;
     grid-row:3/5;
