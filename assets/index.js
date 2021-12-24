@@ -13,11 +13,6 @@ $(document).ready(function () {
     $(this).addClass('wishlist-sec');
 });
 
-  // $(document).on('click', '.login-nav,.already-login', function (e) {
-  //   e.preventDefault();
-  //   $(".signup-nav .nav-line").css('background-color', 'var(--primary)');
-  //   $(".login-nav .nav-line").css('background-color', 'var(--white)');
-  // })
 
   // For bottom nav bar in almost every mobile device
   window.addEventListener('resize', () => {
@@ -27,25 +22,17 @@ $(document).ready(function () {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
 
-  // //So that the content doesn't push up everytime the mobile keyboard is opened
 
-  //Try 1
-  // if ('ontouchstart' in window) {
-  //   $(document).on('focus', 'textarea,input,select', function() {
-  //     $('body, .lower-nav-ul').css('position', 'absolute');
-  //   }).on('blur', 'textarea,input,select', function() {
-  //     $('body, .lower-nav-ul').css('position', '');
-  //   });
-  // }
+  // Scrolling to hash
+  // $('.scroll-link').click(function() {
+  //   var scrollTo = $(this).data('scroll-to');
+  //   var nav = $('.wrapper');
+  //   if (nav.length) {
+  //     $(nav).animate({
+  //       scrollTop: $('#'+scrollTo).offset().top}, 400);
+  //   }
+  // });
 
-  //Try 2
-//   setTimeout(function () {
-//     var viewheight = $(window).height();
-//     var viewwidth = $(window).width();
-//     var viewport = $("meta[name=viewport]");
-//     viewport.attr("content", "height=" + viewheight + "px, width=" + 
-//     viewwidth + "px, initial-scale=1.0");
-// }, 300);
 });
 
 var obj=angular.module("mod",[]);

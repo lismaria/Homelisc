@@ -7,6 +7,43 @@
     justify-items: center;
 }
 
+.wishlist-svg{
+    grid-column:3/11;
+    grid-row:3/11;
+}
+
+.no-wishlist-msg{
+    grid-column:3/11;
+    grid-row:12/14;
+}
+
+.no-wishlist-msg p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.add-favorites{
+    grid-column:4/10;
+    grid-row:16/18;
+    background-color: var(--primary);
+    border-radius: 3rem;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+}
+
+.add-favorites p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: var(--white);
+}
+
 .wishlist-header{
     grid-column:1/13;
     grid-row:2/4;
@@ -15,6 +52,10 @@
     grid-template-columns:repeat(11,1fr);
     grid-template-rows:repeat(2,1fr);
     padding:1rem;
+}
+
+.wishlist-header div:hover{
+    cursor:pointer;
 }
 
 .wishlist-food{
