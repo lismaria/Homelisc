@@ -79,14 +79,25 @@ input:focus{
     align-items: center;
     list-style: none;
     justify-items: center;
-    /* position: fixed;
-    bottom: 0; */
+    /* position: fixed; */
     position: relative;
+    bottom: 0;
+    
     width: 100vw;
     height: 10vh;
     height: calc(var(--vh, 1vh) * 10);
     background-color: var(--neutral);
+
+    min-height:100%;
+       margin-bottom: -10vh; /* Put negative height of the footer here */
+       padding-bottom: 10vh; /* Put height of the footer here. Needed for higher than screen height pages */
+   
 }
+
+/* ++ */
+   html,body {
+       height: 100%; /* Needed for container's min-height  */  
+   }
 
 .lower-nav-ul li,.lowernav-ul-p{
     text-align: center;
