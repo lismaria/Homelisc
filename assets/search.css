@@ -11,7 +11,7 @@
 
 .recent-search{
     grid-row: 2/6;
-    grid-column: 1/12;
+    grid-column: 1/13;
     display: flex;
     flex-wrap: wrap; 
     gap: 0.8rem 1.6rem;

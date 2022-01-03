@@ -8,7 +8,7 @@ def account_view(request):
 
 def signup_view(request):
     signup_as = request.GET['as']
-    return HttpResponse(signup_as)
+    return render(request,"Account/signup.html",{'signup_as':signup_as})
 
 def login_view(request):
     login_as = request.GET['as']

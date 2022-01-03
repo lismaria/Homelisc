@@ -31,6 +31,10 @@ body{
     overflow: hidden;
 }
 
+input{
+    border:none;
+}
+
 .wrapper{
     overflow-y: auto;
     height:90vh;
@@ -60,14 +64,9 @@ body{
 }
 
 .search-bar li input[type=text]{
-    border:none;
     font-family: Poppins;
     font-size:1.6rem;
     width:100%
-}
-
-.search-bar li input[type=text]:focus{
-    outline:none;
 }
 
 .lower-nav-ul{
