@@ -6,7 +6,7 @@
     <div class="login-wrapper" ng-init="acc='login'">
         <div class="login-header">
             <div class="logo">
-                <img src="{% static 'streetsnax.svg' %}" width="100%" height="100%">
+                <img src="{% static 'svg/streetsnax.svg' %}" width="100%" height="100%">
             </div>
 
             <div class="login-nav" ng-click="switcher()">
@@ -23,7 +23,7 @@
         <div ng-switch="acc" class="switcher">
             <div class="login-form" ng-switch-default="login">
                 <div class="login-illustration">
-                    <img src="{% static 'login-illustration.svg' %}" width="100%" height="100%">
+                    <img src="{% static 'svg/login-illustration.svg' %}" width="100%" height="100%">
                 </div>
 
                 <div class="login-vendor-user">
@@ -39,7 +39,7 @@
 
             <div class="login-form" ng-switch-when="signup">
                 <div class="login-illustration">
-                    <img src="{% static 'signup-illustration.svg' %}" width="100%" height="100%">
+                    <img src="{% static 'svg/signup-illustration.svg' %}" width="100%" height="100%">
                 </div>
 
                 <div class="login-vendor-user">
