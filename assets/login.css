@@ -5,6 +5,7 @@
     height:90vh;
     height: calc(var(--vh, 1vh) * 90);
     justify-items: center;
+    min-height: 600px;
 }
 
 .login-header{
