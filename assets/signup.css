@@ -50,7 +50,15 @@
 
 .signup-form{
     grid-column: 1/13;
-    grid-row:4/14;
+    grid-row:4/21;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows:repeat(17,1fr);
+}
+
+.signup-form form{
+    grid-column: 1/13;
+    grid-row:1/10;
 }
 
 .signup-form input{
@@ -68,7 +76,7 @@
 
 .signup-buttons{
     grid-column: 1/13;
-    grid-row: 14/21;
+    grid-row: 11/18;
     display:flex;
     flex-direction: column;
     align-items: center;
