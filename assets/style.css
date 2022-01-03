@@ -35,6 +35,10 @@ input{
     border:none;
 }
 
+input:focus{
+    outline:none;
+}
+
 .wrapper{
     overflow-y: auto;
     height:90vh;
