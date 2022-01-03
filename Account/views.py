@@ -12,4 +12,4 @@ def signup_view(request):
 
 def login_view(request):
     login_as = request.GET['as']
-    return HttpResponse(login_as)
+    return render(request,"Account/login.html",{'login_as':login_as})
