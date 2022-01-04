@@ -42,15 +42,6 @@ $(document).ready(function () {
     // $("body").css("position", "fixed");
   });
 
-  //To reverse the snap
-  $(document).bind('keydown', function(event) 
-  {
-    if (event.keyCode == 27) 
-    {
-      event.preventDefault();
-      $(".lower-nav-ul").css({'display': 'grid'});
-    }
-  });
 
   // Scrolling to hash
   // $('.scroll-link').click(function() {
