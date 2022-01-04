@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+
+  let init_vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--init_vh', `${init_vh}px`);
+
+
   // For changing the nav bar design of homepage
   $(".wrapper").scroll(function () {
       var $nav = $(".lower-nav-ul, .lowernav-home-svg, .lowernav-ul-p, .lowernav-ul-p__hide");
@@ -23,7 +28,7 @@ $(document).ready(function () {
   });
 
   $( "input[type=text]" ).focus(function() {
-    $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':'600px'});
+    $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':init_vh*90+'px'});
   });
 
   $( "input[type=text]" ).blur(function() {
