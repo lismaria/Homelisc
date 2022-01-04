@@ -22,6 +22,14 @@ $(document).ready(function () {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
 
+  $( "input[type=text]" ).focus(function() {
+    $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':'600px'});
+  });
+
+  $( "input[type=text]" ).blur(function() {
+    $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':'auto'});
+  });
+
 
   // Scrolling to hash
   // $('.scroll-link').click(function() {
