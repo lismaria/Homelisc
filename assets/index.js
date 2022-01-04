@@ -1,8 +1,7 @@
 $(document).ready(function () {
 
-
+  //Storing the initial height of the inner window
   let init_vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--init_vh', `${init_vh}px`);
 
 
   // For changing the nav bar design of homepage
@@ -29,10 +28,12 @@ $(document).ready(function () {
 
   $( "input[type=text]" ).focus(function() {
     $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':init_vh*90+'px'});
+    $(".lower-nav-ul").css({'position': 'absolute'})
   });
 
   $( "input[type=text]" ).blur(function() {
     $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':'auto'});
+    $(".lower-nav-ul").css({'position': 'fixed'})
   });
 
 
