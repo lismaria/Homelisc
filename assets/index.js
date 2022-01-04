@@ -28,14 +28,15 @@ $(document).ready(function () {
 
   $( "input[type=text]" ).focus(function() {
     $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':init_vh*90+'px'});
+    $("body").css({'min-height':init_vh*100+'px'});
     $(".lower-nav-ul").css({'position': 'absolute'});
-    $("body").css("position", "fixed");
+    // $("body").css("position", "fixed");
   });
 
   $( "input[type=text]" ).blur(function() {
-    $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':'auto'});
+    $(".homepage-one, .signup-wrapper, .login-wrapper,body").css({'min-height':'auto'});
     $(".lower-nav-ul").css({'position': 'fixed'});
-    $("body").css("position", "fixed");
+    // $("body").css("position", "fixed");
   });
 
   // Scrolling to hash
