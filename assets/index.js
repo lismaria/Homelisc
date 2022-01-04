@@ -28,15 +28,17 @@ $(document).ready(function () {
 
   $( "input[type=text]" ).focus(function() {
     $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':init_vh*90+'px'});
-    $("body").css({'min-height':init_vh*100+'px'});
-    $(".lower-nav-ul").css({'position': 'absolute'});
+    // $("body").css({'min-height':init_vh*100+'px'});
+    $(".lower-nav-ul").css({'display': 'none'});
+    $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 100)'});
     // $("body").css("position", "fixed");
   });
 
   $( "input[type=text]" ).blur(function() {
     $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':'auto'});
-    $("body").css({'min-height':'auto'});
-    $(".lower-nav-ul").css({'position': 'fixed'});
+    // $("body").css({'min-height':'auto'});
+    $(".lower-nav-ul").css({'display': 'grid'});
+    $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 90)'});
     // $("body").css("position", "fixed");
   });
 
