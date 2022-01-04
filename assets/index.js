@@ -34,7 +34,8 @@ $(document).ready(function () {
   });
 
   $( "input[type=text]" ).blur(function() {
-    $(".homepage-one, .signup-wrapper, .login-wrapper,body").css({'min-height':'auto'});
+    $(".homepage-one, .signup-wrapper, .login-wrapper").css({'min-height':'auto'});
+    $("body").css({'min-height':'auto'});
     $(".lower-nav-ul").css({'position': 'fixed'});
     // $("body").css("position", "fixed");
   });
