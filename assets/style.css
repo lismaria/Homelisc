@@ -80,7 +80,7 @@ input:focus{
     list-style: none;
     justify-items: center;
     position: fixed;
-    bottom: 0;
+    bottom: 0;  
     width: 100vw;
     height: 10vh;
     height: calc(var(--vh, 1vh) * 10);
