@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+    <div class="cuisine-wrapper">
+        {% include "search-component.html" %}
+        <div class="cuisine-body">
+            <div class="cuisine-header">
+                <div class="cuisine-title-descr">
+                    <h2>{{cuisine}}</h2>
+                    <p>Alternatively spelt wada pao, is a vegetarian fast food dish native to the state of Maharashtra.</p>
+                </div>
+                <div class="cuisine-img-bg">
+                    <div class="cuisine-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="{% static 'top-cuisine.css' %}">
+{% endblock %}

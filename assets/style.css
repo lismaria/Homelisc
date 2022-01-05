@@ -39,6 +39,14 @@ input:focus{
     outline:none;
 }
 
+a,button:hover{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+}
+
 .wrapper{
     overflow-y: auto;
     height:90vh;
