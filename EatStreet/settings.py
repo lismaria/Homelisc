@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*jdy)s!qh$+ey&kr+g=9)7$ol$upgbwx4-=w_isfb^r80*xn+*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['streetsnax.herokuapp.com']
 
 
 # Application definition
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Account',
-    'Vendor'
+    'Vendor',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'EatStreet.urls'
@@ -76,10 +78,21 @@ WSGI_APPLICATION = 'EatStreet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dfpn8bv9e79ak0',
+        'USER': 'nbdkpnqzxelunu',
+        'PASSWORD': '37faa8636897876a8fbd61340bac2618ef82abe62209712177572a8a5fe84b78',
+        'HOST': 'ec2-44-194-188-65.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -121,9 +134,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')  #location where django collect all static files
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'assets'),)  #static files is to be found in the base directory, then look into assets folder
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
