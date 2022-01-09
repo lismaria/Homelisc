@@ -35,14 +35,14 @@
                     </svg>                        
                 </button>
             </div>
-            <form method="post" class="profile-info__edit">
+            <form method="post" class="profile-info__edit" enctype="multipart/form-data">
                 <div>
                     <img id="dp" src="">
                     <label class="profile-img__change" for="change_pic">Change</label>
                     <input id="change_pic" type="file" style="display:none" onchange="document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])">
                 </div>
-                <div><label for="">Name: </label><input type="text" value="John Doe" ></div>
-                <div><label for="">Email: </label><input type="text" value="johndoe@gmail.com" ></div>
+                <div><label for="">Name: </label><input type="text" value="John Doe" onfocus="input_focus()" onblur="input_blur()"></div>
+                <div><label for="">Email: </label><input type="text" value="johndoe@gmail.com" onfocus="input_focus()" onblur="input_blur()"></div>
                 <button>Save</button>
             </form>
             <button class="logout-wrapper">
@@ -110,6 +110,22 @@
 
     <script>
         document.title = "Account"
+        let init_vh = window.innerHeight * 0.01;
+
+        function input_focus()
+        {
+            $(".profile-wrapper").css({'min-height':init_vh*90+'px'});
+            $(".lower-nav-ul").css({'display': 'none'});
+            $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 100)'});
+        }
+
+        function input_blur()
+        {
+            $(".profile-wrapper").css({'min-height':'auto'});
+            $(".lower-nav-ul").css({'display': 'grid'});
+            $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 90)'});
+        }
+
     </script>
     <link rel="stylesheet" href="{% static 'account.css' %}">
 {% endblock %}
