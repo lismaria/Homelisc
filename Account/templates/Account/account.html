@@ -36,7 +36,11 @@
                 </button>
             </div>
             <form method="post" class="profile-info__edit">
-                <div><input type="file"><label class="profile-img__change">change</label></div>
+                <div>
+                    <img id="dp" src="">
+                    <label class="profile-img__change" for="change_pic">Change</label>
+                    <input id="change_pic" type="file" style="display:none" onchange="document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])">
+                </div>
                 <div><label for="">Name: </label><input type="text" value="John Doe" ></div>
                 <div><label for="">Email: </label><input type="text" value="johndoe@gmail.com" ></div>
                 <button>Save</button>

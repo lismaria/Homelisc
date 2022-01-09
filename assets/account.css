@@ -50,7 +50,7 @@
     overflow: auto;
 }
 
-.profile-info img, .profile-info__edit input[type="file"]{
+.profile-info img, .profile-info__edit img{
     width:9.5rem;
     height:9.5rem;
     border-radius:95px;
