@@ -61,12 +61,17 @@ obj.controller("cont",function($scope)
   $scope.acc = 'login'
   $scope.loginCol = "nav-line__red"
   $scope.signupCol = "nav-line__white"
+  $scope.edit = 'noedit'
 
   $scope.switcher=function ()
   {
     $scope.acc = $scope.acc == 'login' ? 'signup': 'login';
     $scope.loginCol= $scope.acc == 'login' ? 'nav-line__red' : 'nav-line__white';
     $scope.signupCol= $scope.acc == 'signup' ? 'nav-line__red' : 'nav-line__white';
+  }
+
+  $scope.editor=function (){
+    $scope.edit = $scope.edit == 'noedit' ? 'yesedit' : 'noedit';
   }
 
   // $scope.wishlist=function ()
