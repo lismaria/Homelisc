@@ -137,7 +137,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')  #location where django collect all static files
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'assets'),)  #static files is to be found in the base directory, then look into assets folder
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #for herokudb
 
 MEDIA_URL = '/media/'
 
@@ -150,7 +150,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')   # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = False  # Turn it to True while production only
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
