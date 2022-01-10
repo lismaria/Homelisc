@@ -11,6 +11,9 @@ def search(request):
 def wishlist(request):
     return render(request,"wishlist.html")
 
+def category(request):
+    category = request.GET['category']
+    return render(request,"category.html",{'category':category})
+
 def product(request):
-    product = request.GET['product']
-    return render(request,"product.html",{'product':product})
+    return render(request,"product.html")
