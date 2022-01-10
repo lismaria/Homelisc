@@ -109,7 +109,8 @@
     padding-bottom: 2rem;
 }
 
-.fav-place-card{
+/* Old design */
+/* .fav-place-card{
     background-color: var(--white);
     border-radius: .8rem;
     width:100%;
@@ -176,7 +177,7 @@
 .favplace-cardbody-bottom-heart{
     display: flex;
     align-items: center;
-}
+} */
 
 /* Active State Code */
 

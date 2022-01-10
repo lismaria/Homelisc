@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 def home(request):
-    return render(request,'home.html',{'food':'vada-pav'})
+    return render(request,'home.html',{'food':'chocolates'})
 
 def search(request):
     return render(request,"search.html")
@@ -11,6 +11,6 @@ def search(request):
 def wishlist(request):
     return render(request,"wishlist.html")
 
-def cuisine(request):
-    cuisine = request.GET['cuisine']
-    return render(request,"top-cuisine.html",{'cuisine':cuisine})
+def product(request):
+    product = request.GET['product']
+    return render(request,"product.html",{'product':product})
