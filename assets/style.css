@@ -14,9 +14,6 @@
     display: none;
 }
 
-*::selection {
-    background: aqua;
-}
 
 /* Defining ROOT variables */
 :root
@@ -27,6 +24,7 @@
     --black: #000000;
     --icon-grey:#ADADAF;
     --blue: #166EF3;
+    --grey: rgba(0,0,0,0.5);
     --ds_cuisine:.0rem .4rem 1.5rem rgba(0, 0, 0, 0.3);
     --ds3:.0rem 1.0rem 2.0rem rgba(0, 0, 0, 0.06);
 }

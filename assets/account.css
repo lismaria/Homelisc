@@ -78,12 +78,11 @@
     font-weight: normal;
     font-size: 1.5rem;
     line-height: 1.8rem;
-    opacity: 0.5;
+    color: var(--grey);
 }
 
 .profile-info div>p{  
-    opacity: 0.5;
-    border: 0.5px solid #000000;
+    border: 0.5px solid var(--grey);;
 }
 
 .logout-wrapper{
@@ -135,7 +134,7 @@
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--grey);
 }
 
 .profile-info__edit label.profile-img__change{

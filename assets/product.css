@@ -87,7 +87,7 @@
 
 .result-counter{
     font-size: 1.6rem;
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--grey);
 }
 
 .places-result-wrapper{
@@ -157,10 +157,10 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: 300;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
     text-align: center;    
-    color: rgba(0, 0, 0, 0.53);
+    color: var(--grey);
 }
 
 .product-card-footer{
@@ -211,6 +211,12 @@
     .cuisine-wrapper {
         margin: 0 auto;
         max-width: 80%;
+    }
+    .product-card{
+        height: 30rem;
+    }
+    .product-card h3{
+        font-size: 1.4rem;
     }
 }
 
