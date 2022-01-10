@@ -1,12 +1,14 @@
 .product-wrapper{
-    display: grid;
-    grid-template-rows: repeat(12,1fr);
-    padding: 2.4rem;
-    
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    /* grid-template-rows: repeat(12,1fr); */
+    padding: 2.5rem;
+    /* align-items: center; */
 }
 
 .product-img{
-    grid-row: 1/6;
+    /* grid-row: 1/6; */
     position: relative;
 }
 
@@ -26,8 +28,9 @@
 
 .product-img img{
     background: var(--primary);
-    height:100%;
+    height:24rem;
     width: 100%;
+    border-radius: 4px;
 }
 
 .product-price{
@@ -51,6 +54,12 @@
     line-height: 2rem;
 }
 
+.product-name{
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
 .product-name h1{
     font-family: Poppins;
     font-style: normal;
@@ -59,11 +68,65 @@
     line-height: 30px;
 }
 
-.product-wrapper p{
-    grid-row: 7/9;
+.product-name div{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.product-name div p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.product-wrapper>p{
+    /* grid-row: 7/9; */
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
     line-height: 16px;
     color: var(--grey);    
+}
+
+.product-shop{
+    display: flex;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: 8px;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.product-shop img{
+    width: 7.2rem;
+    height:7.2rem;
+    background: var(--black);
+    border-radius: 8px;
+}
+
+.product-shop h2{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.product-review{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 13px;
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+
+.product-review h3{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
 }
