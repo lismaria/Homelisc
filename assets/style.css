@@ -14,6 +14,10 @@
     display: none;
 }
 
+*::selection {
+    background: aqua;
+}
+
 /* Defining ROOT variables */
 :root
 {
@@ -118,3 +122,11 @@ p.lowernav-ul-p{
     stroke:var(--primary);
     filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
 }
+
+/* Laptop */
+/* @media screen and (min-width: 1024px){
+    .wrapper {
+        margin: 0 auto;
+        max-width: 80%;
+    }
+} */

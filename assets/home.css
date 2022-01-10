@@ -189,12 +189,15 @@
 
 
 
-/* Top Cuisines media queries */
+/* Top Cuisines & Top Places media queries */
 
 /* Mobile L */
 @media screen and (min-width: 425px){
     .top-cuisines-frame{
         grid-auto-columns:19%;
+    }
+    .top-places-frame{
+        grid-template-columns: repeat(2,1fr);
     }
 }
 
@@ -203,27 +206,6 @@
     .top-cuisines-frame{
         grid-auto-columns:17%;
     }
-}
-
-/* Laptop */
-@media screen and (min-width: 1024px){
-    .top-cuisines-frame{
-        grid-auto-columns:15%;
-    }
-}
-
-
-/* Top Places media queries */
-
-/* Mobile L */
-@media screen and (min-width: 425px){
-    .top-places-frame{
-        grid-template-columns: repeat(2,1fr);
-    }
-}
-
-/* Tablet */
-@media screen and (min-width: 768px){
     .top-places-frame{
         grid-template-columns: repeat(3,1fr);
     }
@@ -231,10 +213,18 @@
 
 /* Laptop */
 @media screen and (min-width: 1024px){
+    .top-cuisines-frame{
+        grid-auto-columns:15%;
+    }
     .top-places-frame{
         grid-template-columns: repeat(4,1fr);
     }
+    .homepage-two{
+        margin: 0 auto;
+        max-width: 80%
+    }
 }
+
 
 .lower-nav-ul{
     background-color: var(--primary);

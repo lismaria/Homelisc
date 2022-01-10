@@ -113,3 +113,11 @@
 #search svg path{
   fill: var(--primary);  
 }
+
+/* Laptop */
+@media screen and (min-width: 1024px){
+    .search-container{
+        margin: 0 auto;
+        max-width: 80%;
+    }
+}
