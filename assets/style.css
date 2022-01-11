@@ -27,6 +27,8 @@
     --grey: rgba(0,0,0,0.5);
     --ds_cuisine:.0rem .4rem 1.5rem rgba(0, 0, 0, 0.3);
     --ds3:.0rem 1.0rem 2.0rem rgba(0, 0, 0, 0.06);
+    --ds_icon: 0rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
+    --ds_nav__active: .0rem .6rem 2.0rem rgba(215, 56, 0, 0.9);
 }
 
 body{
@@ -48,7 +50,7 @@ a,button:hover{
 
 a{
     text-decoration:none;
-    color:currentColor;
+    color: currentColor;
 }
 
 .wrapper{
@@ -119,7 +121,7 @@ p.lowernav-ul-p{
 .lowernav-home-svg:hover{
     fill:var(--primary);
     stroke:var(--primary);
-    filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
+    filter: drop-shadow(var(--ds_nav__active));
 }
 
 /* Laptop */

@@ -302,7 +302,7 @@
 .lowernav-home-svg.scrolled:hover{
     stroke: var(--primary);
     fill: var(--primary);
-    filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
+    filter: drop-shadow(var(--ds_nav__active));
 }
 
 /* Active State Code */
@@ -327,7 +327,7 @@
 #home svg.lowernav-home-svg.scrolled{
     stroke: var(--primary);
     fill: var(--primary);
-    filter: drop-shadow(.0rem .6rem 2.0rem rgba(215, 56, 0, 0.9));
+    filter: drop-shadow(var(--ds_nav__active));
 }
 
 /* For Vector Fill of Search Icon */
