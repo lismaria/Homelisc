@@ -149,16 +149,19 @@
     height:21.0rem;
     overflow: hidden;
     box-shadow: var(--ds3);
+    padding: 1rem;
 }
 
 .top-places-card-img{
     height:70%;
     width:auto;
-    background-color: var(--black);
+    background-color: var(--primary);
     display: grid;
     grid-template-columns: 100%;
     justify-items: end;
     padding: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
 }
 
 .top-places-card-heart{
@@ -169,6 +172,10 @@
     height:40px;
     border-radius:20px;
     background-color: var(--white);
+    filter: drop-shadow(var(--ds_icon));
+    position: absolute;
+    right: 15px;
+    top: 15px;
 }
 
 .top-places-card-body{
@@ -182,9 +189,10 @@
 
 .top-places-card-body h2{
     font-family: Poppins;
-    font-weight:700;
-    font-size: 16px;
-    color:var(--primary);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
 }
 
 .top-places-card-body-rating{
@@ -197,15 +205,20 @@
 .top-places-card-body h4{
     font-family: Roboto;
     font-weight: normal;
-    font-size: 12px;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    color: var(--grey);
 }
-
+/* 
 .top-places-card-body h4:nth-child(even){
     justify-self: end;
-}
+} */
 
 .top-places-card-body h3{
-    font-size: 14px;
+    font-weight: normal;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
 }
 
 
