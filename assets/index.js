@@ -43,15 +43,15 @@ $(document).ready(function () {
   });
 
 
-  // Scrolling to hash
-  // $('.scroll-link').click(function() {
-  //   var scrollTo = $(this).data('scroll-to');
-  //   var nav = $('.wrapper');
-  //   if (nav.length) {
-  //     $(nav).animate({
-  //       scrollTop: $('#'+scrollTo).offset().top}, 400);
-  //   }
-  // });
+  //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
+  $(".product-review").on("click", function() {
+    $(".review-popup, .review-popup-content").addClass("active");
+  });
+
+  //removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
+  $(".review-close").on("click", function() {
+    $(".review-popup, .review-popup-content").removeClass("active");
+  });
 
 });
 
