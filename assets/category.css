@@ -13,7 +13,6 @@
     grid-row: 2/21;
     width:100%;
     height:auto;
-    overflow-y:scroll;
     display: grid;
     grid-template-columns: repeat(12,1fr);
     grid-template-rows: repeat(18,1fr);
@@ -61,6 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: -5px 11px 11px #e4e4e4
 }
 
 .cuisine-img{
@@ -134,6 +134,7 @@
     height: 21.5rem;
     padding: 1rem;
     align-items: center;
+    box-shadow: var(--ds_prod_card)
 }
 
 .product-card img{

@@ -23,6 +23,7 @@
     height:100%;
     background-color:var(--primary);
     border-radius:.4rem;
+    box-shadow: var(--ds_shop_pic);
 }
 
 .shop-title{
@@ -157,6 +158,7 @@
     height: 21.5rem;
     padding: 1rem;
     align-items: center;
+    box-shadow: var(--ds_prod_card);
 }
 
 .product-card img{

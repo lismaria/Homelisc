@@ -67,7 +67,7 @@
 }
 
 .top-cuisines-frame{
-    margin-top:2.0rem;
+    padding-top: 2rem;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns:25%;
@@ -364,6 +364,7 @@
     height: 21.5rem;
     padding: 1rem;
     align-items: center;
+    box-shadow: var(--ds_prod_card);
 }
 
 .product-card img{

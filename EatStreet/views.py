@@ -16,8 +16,7 @@ def category(request):
     return render(request,"category.html",{'category':category})
 
 def product(request):
-    product = request.GET['product']
-    return render(request,"product.html",{'product':product})
+    return render(request,"product.html")
 
 def shop(request,food):
     return render(request,"shop.html",{'food':food})
