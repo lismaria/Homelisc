@@ -211,15 +211,10 @@
 }
 
 .top-places-card-img{
-    min-height: 12rem;
-    height:70%;
-    width:auto;
+    min-height: 15rem;
+    height: 70%;
+    width: 100%;
     background-color: var(--primary);
-    display: grid;
-    grid-template-columns: 100%;
-    justify-items: end;
-    padding: 0.5rem;
-    padding: 0.5rem;
     border-radius: 0.4rem;
 }
 
