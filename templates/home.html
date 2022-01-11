@@ -112,6 +112,7 @@
 
         <div class="top-places-frame">
             {% for i in '1234' %}
+            <a href="{% url 'shop' food %}">
             <div class="top-places-card">
                 <div class="top-places-card-img">
                     <div class="top-places-card-heart">
@@ -132,6 +133,7 @@
                     <h4>8:00 AM - 10:00 PM</h4>
                 </div>
             </div>
+            </a>
             {% endfor %}
         </div>
     </div>

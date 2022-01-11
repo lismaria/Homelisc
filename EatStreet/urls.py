@@ -28,6 +28,7 @@ urlpatterns = [
     path('wishlist/',views.wishlist,name="wishlist"),
     path('account/', include('Account.urls')),
     path('product/',views.product,name="product"),
+    re_path('shop/'+r'(?P<food>[\w-]+)',views.shop,name="shop")
 ]
 
 
