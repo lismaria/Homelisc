@@ -100,9 +100,16 @@
     grid-column:1/13;
     height:100%;
     display:grid;
-    grid-template-columns: repeat(1,1fr);
     grid-auto-rows: auto;
     gap:2.0rem;
+}
+
+.wishlist-content-food{
+    grid-template-columns: repeat(2,1fr);
+}
+
+.wishlist-content-place{
+    grid-template-columns: repeat(1,1fr);
 }
 
 .wishlist-sec{
@@ -111,142 +118,162 @@
     border-radius: .6rem;
 }
 
-.fav-food-card{
-    background-color: var(--white);
-    border-radius: .8rem;
-    width:100%;
-    height:11rem;
-    overflow: hidden;
-    box-shadow: var(--ds3);
-    display:flex;
-}
 
-.fav-food-card-body{
-    width:60%;
-    height:100%;
-    display:flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding:.8rem;
-}
+/** Fav Products */
 
-.favfood-title{
+.product-card-heart{
     display:flex;
-    gap:1.5rem;
     align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius:2.6rem;
+    background-color: var(--white);
+    position: absolute;
+    right: 6px;
+    top: 6px;
 }
 
-.favfood-title p{
+.product-card{
+    display: grid;
+    grid-template-rows: repeat(8,1fr);
+    background: #FFFFFF;
+    border-radius: 8px;
+    width: 100%;
+    height: 21.5rem;
+    padding: 1rem;
+    align-items: center;
+    box-shadow: var(--ds_prod_card);
+}
+
+.product-card img{
+    grid-row: 1/5;
+    border-radius: 4px;
+    background: var(--primary);
+    height: 95%
+}
+
+.product-card h2{
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
-    font-size: 1.6rem;
-    color: var(--primary);
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    text-align: center;
 }
 
-.favfood-price p{
-    font-size:1.2rem;
+.product-card h3{
+    grid-row: 6/8;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    text-align: center;    
+    color: var(--grey);
 }
 
-.favfood-ingredients p{
-    font-size:1.2rem;
-    color: var(--icon-grey);
-}
-
-.fav-food-card-right{
-    width:40%;
-    height:100%;
-    display:flex;
-    padding:.8rem;
-}
-
-.favfood-img{
-    background-color: var(--icon-grey);
-    border-radius:.4rem;
-    width:100%;
-    height:90%;
-    align-self:flex-end;
-}
-
-.favfood-wishlist-svg{
-    display:flex;
+.product-card-footer{
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-end;
 }
 
-.favfood-wishlist-svg svg{
-    margin-right: -0.5rem;
-    margin-top: -0.5rem;
+.product-card-footer div{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
 }
 
+.product-card-footer p, .product-card-footer h4{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+}
 
-.fav-place-card{
+.product-card-footer h4 {
+    content: "₹";
+}
+
+/* Fav Shops */
+
+.top-places-card{
     background-color: var(--white);
     border-radius: .8rem;
     width:100%;
-    height:10rem;
+    min-height:21.0rem;
+    height: max-content;
     overflow: hidden;
     box-shadow: var(--ds3);
+    padding: 1rem;
+}
+
+.top-places-card-img{
+    min-height: 12rem;
+    height:70%;
+    width:auto;
+    background-color: var(--primary);
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: end;
+    padding: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+}
+
+.top-places-card-heart{
     display:flex;
+    align-items: center;
+    justify-content: center;
+    width:40px;
+    height:40px;
+    border-radius:20px;
+    background-color: var(--white);
+    filter: drop-shadow(var(--ds_icon));
+    position: absolute;
+    right: 15px;
+    top: 15px;
 }
 
-.fav-place-card-img{
-    width:30%;
-    height:100%;
-    background-color: var(--icon-grey);
+.top-places-card-body{
+    display: grid;
+    grid-template-rows: repeat(2,1fr);
+    grid-template-columns: 82% 18%;
+    height: 30%;
+    align-items: center;
+    padding:.5rem 0;
 }
 
-.fav-place-card-body{
-    width:70%;
-    height:100%;
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding:.8rem;
-}
-
-.favplace-cardbody-top{
-    display:flex;
-    width:100%;
-    justify-content: space-between;
-}
-
-.favplace-cardbody-top p{
+.top-places-card-body h2{
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
-    font-size: 1.6rem;
-    color: var(--primary);
+    font-size: 1.4rem;
+    line-height: 2.1rem;
 }
 
-.favplace-cardbody-toprating{
+.top-places-card-body-rating{
     display: flex;
     align-items: center;
     justify-self: end;
     gap:.5rem;
 }
 
-.favplace-cardbody-toprating p{
-    font-family: Poppins;
-    font-style: normal;
+.top-places-card-body h4{
+    font-family: Roboto;
+    font-weight: normal;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    color: var(--grey);
+}
+
+.top-places-card-body h3{
     font-weight: normal;
     font-size: 1.4rem;
-    color: var(--black);
-}
-
-.favplace-cardbody-bottom{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.favplace-cardbody-bottom p{
-    font-size: 1.2rem;
-}
-
-.favplace-cardbody-bottom-heart{
-    display: flex;
-    align-items: center;
+    line-height: 2.1rem;
 }
 
 /* Active State Code */
@@ -263,4 +290,58 @@
     stroke: var(--primary);
     fill: var(--primary);
     filter: drop-shadow(var(--ds_nav__active));
+}
+
+/* Fav Product & Fav Shops media queries */
+
+/* Mobile L */
+@media screen and (min-width: 426px){
+    .wishlist-content-food{
+        grid-auto-columns:19%;
+    }
+    .wishlist-content-place{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+/* Tablet */
+@media screen and (min-width: 768px){
+    .top-cuisines-title, .best-picks-title, .theme-day-title, .top-places-title{
+        text-align: center;
+        font-size:2.2rem;
+    }
+
+    .top-cuisines-descr{
+        font-size: 1.4rem;
+    }
+
+    .wishlist-content-food{
+        grid-template-columns: repeat(4,1fr);;
+    }
+    .wishlist-content-place{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+/* Laptop */
+@media screen and (min-width: 1024px){
+    .top-cuisines-title, .best-picks-title, .theme-day-title, .top-places-title{
+        text-align: center;
+        font-size:2.4rem;
+    }
+
+    .top-cuisines-descr{
+        font-size: 1.4rem;
+    }
+
+    .wishlist-content-food{
+        grid-auto-columns:15%;
+    }
+    .wishlist-content-place{
+        grid-template-columns: repeat(3,1fr);
+    }
+    .yes-wishlists-wrapper{
+        margin: 0 auto;
+        max-width: 80%
+    }
 }
