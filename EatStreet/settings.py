@@ -74,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'EatStreet.wsgi.application'
 
+AUTH_USER_MODEL = 'Account.User'    # override the default behaviour that is built in for User object by telling where the custom user model is
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
