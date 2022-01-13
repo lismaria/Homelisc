@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from Account.forms import RegistrationForm, LoginForm
-
+from Account.models import User
 # Create your views here.
 
 def account_view(request):
@@ -41,13 +41,26 @@ def login_view(request):
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            email = request.POST['email']
-            password = request.POST['password']
-            account = authenticate(email=email, password=password)
-        
-            if user:    
-                login(request, account)
-                return redirect("home")
+            user = User.objects.get(email=form.cleaned_data.get('email'))
+            print(user.is_vendor)
+            print(type(user.is_vendor)) 
+
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            is_vendor = request.POST.get('as')
+            print(is_vendor) 
+            print(type(is_vendor)) 
+            print(bool(is_vendor))
+            # email = request.POST['email']
+            # password = request.POST['password'] 
+            if (user.is_vendor == True and is_vendor == '1') or (user.is_vendor == False and is_vendor == '0'):
+                account = authenticate(email=email, password=password)        
+                if user:    
+                    login(request, account)
+                    return redirect("home")
+            else:
+                return redirect("account:account")
+            
     else:
         login_as = request.GET['as']
         form = LoginForm()
