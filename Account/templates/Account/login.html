@@ -19,15 +19,33 @@
             <h1>Login</h1>
         </div>
         <div class="login-form">
-            <form id="login-form" method="post">
-                <input type="text" name="" id="" placeholder="Email/Mobile Number">
-                <input type="text" name="" id="" placeholder="Password">
-                <input type="hidden" name="as" value="{{login_as}}">
+            <form id="login-form" method="POST" action="{% url 'account:login' %}">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{field}}
+                    
+                    <!-- <input type="text" name="" id="" placeholder="Email/Mobile Number">
+                    <input type="text" name="" id="" placeholder="Password"> -->
+                    <input type="hidden" name="as" value="{{login_as}}">
+
+                {% endfor %}
+
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{error}}</p>
+                    {% endfor %}
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                <div>
+                    <p>{{form.non_field_errors}}</p>
+                </div>
+                {% endif %}
             </form>
             <div class="login-button">
-                <button type="submit" id="login-form">Login</button>
+                <button type="submit" form="login-form">Login</button>
                 <p>or</p>
-                <button type="submit" id="login-form">Log In with Google</button>
+                <button type="submit" form="login-form">Log In with Google</button>
             </div>
             
         </div>
