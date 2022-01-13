@@ -21,10 +21,10 @@
         </div>
 
         <div class="signup-form">
-            <form id="signup-form" method="POST" action="">
+            <form id="signup-form" method="POST" action="{% url 'account:signup' %}">
                 <input type="text" name="" placeholder="Full name">
-                <input type="text" name="" placeholder="Email ID">
-                <input type="text" name="" placeholder="Choose a password">
+                <input type="email" name="" placeholder="Email ID">
+                <input type="password" name="" placeholder="Choose a password">
                 <input type="hidden" name="as" value="{{signup_as}}">
             </form>
 

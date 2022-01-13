@@ -3,7 +3,7 @@
 {% block content%}
 {% load static %}
 
-    <div ng-switch="edit">
+    <!-- <div ng-switch="edit">
         <div ng-switch-when="noedit" class="profile-wrapper">
             <div class="profile-top">
                 <h1>Personal Details</h1>
@@ -42,7 +42,7 @@
                     <input id="change_pic" type="file" style="display:none" onchange="document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])">
                 </div>
                 <div><label for="">Name: </label><input type="text" value="John Doe" onfocus="input_focus()" onblur="input_blur()"></div>
-                <div><label for="">Email: </label><input type="text" value="johndoe@gmail.com" onfocus="input_focus()" onblur="input_blur()"></div>
+                <div><label for="">Email: </label><input type="email" value="johndoe@gmail.com" onfocus="input_focus()" onblur="input_blur()"></div>
                 <button>Save</button>
             </form>
             <button class="logout-wrapper">
@@ -54,9 +54,9 @@
             </button>
         </div>
 
-    </div>
+    </div> -->
 
-    <!-- <div class="login-wrapper" ng-init="acc='login'">
+    <div class="login-wrapper" ng-init="acc='login'">
         <div class="login-header">
             <div class="logo">
                 <img src="{% static 'svg/streetsnax.svg' %}" width="100%" height="100%">
@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <script>
         document.title = "Account"

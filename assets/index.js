@@ -26,7 +26,7 @@ $(document).ready(function () {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
 
-  $( "input[type=text]" ).focus(function() {
+  $( "input[type=text], input[type=email], input[type=password]" ).focus(function() {
     $(".homepage-one, .signup-wrapper, .login-wrapper, .cuisine-wrapper, .profile-wrapper").css({'min-height':init_vh*90+'px'});
     // $("body").css({'min-height':init_vh*100+'px'});
     $(".lower-nav-ul").css({'display': 'none'});
@@ -34,7 +34,7 @@ $(document).ready(function () {
     // $("body").css("position", "fixed");
   });
 
-  $( "input[type=text]" ).blur(function() {
+  $( "input[type=text], input[type=email], input[type=password]" ).blur(function() {
     $(".homepage-one, .signup-wrapper, .login-wrapper, .cuisine-wrapper, .profile-wrapper").css({'min-height':'auto'});
     // $("body").css({'min-height':'auto'});
     $(".lower-nav-ul").css({'display': 'grid'});
