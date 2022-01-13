@@ -28,6 +28,11 @@
                 <input type="email" name="" placeholder="Email ID">
                 <input type="password" name="" placeholder="Choose a password"> -->
                 <input type="hidden" name="as" value="{{signup_as}}">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p style="color:red; font-size: 1.2rem;">{{error}}</p>
+                    {% endfor %}
+                {% endfor %}
             </form>
 
             <div class="signup-buttons">

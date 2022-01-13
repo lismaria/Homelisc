@@ -1,16 +1,26 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-
 from Account.models import User
+from django.contrib.auth import login, authenticate
 
-class RegistrationForm(forms.ModelForm):
-    name = forms.CharField(label='',max_length=32,widget=forms.TextInput(attrs={'placeholder':'Full Name'}))
-    email= forms.EmailField(label='',max_length=60,widget=forms.EmailInput(attrs={'placeholder':'Email ID'}))
-    password= forms.CharField(label='',max_length=50,widget=forms.PasswordInput(attrs={'placeholder':'Choose a password'}))
+class RegistrationForm(forms.ModelForm): # ModelForm is used to directly convert a model into a Django form. 
+
+    # name = forms.CharField(label='',max_length=32,widget=forms.TextInput(attrs={'placeholder':'Full Name'}))
+    # email= forms.EmailField(label='',max_length=60,widget=forms.EmailInput(attrs={'placeholder':'Email ID'}))
+    # password= forms.CharField(label='',max_length=50,widget=forms.PasswordInput(attrs={'placeholder':'Choose a password'}))
 
     class Meta:
         model = User
         fields = ('name','email','password')
+        labels = {
+            'name': '',
+            'email': '',
+            'password': '',
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder':'Full Name'}),
+            'email': forms.EmailInput(attrs={'placeholder':'Email ID'}),
+            'password': forms.PasswordInput(attrs={'placeholder':'Choose a password'})
+        }
 
     def save(self, commit=True):
         # Save the provided password in hashed format
@@ -19,3 +29,24 @@ class RegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email', 'password') 
+        labels = {
+            'email': '',
+            'password': '',
+        }
+        widgets = {
+            'email': forms.EmailInput(attrs={'placeholder':'Email ID'}),
+            'password': forms.PasswordInput(attrs={'placeholder':'Password'})
+        }
+
+    def clean(self):    # available to any form that extends the ModelForm. It runs before the form can do anything
+        if self.is_valid():
+            email = self.cleaned_data['email']
+            password = self.cleaned_data['password']
+            if not authenticate(email=email, password=password):
+                raise forms.ValidationError("Incorrect Email ID or Password")

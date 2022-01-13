@@ -134,3 +134,15 @@ p.lowernav-ul-p{
         max-width: 80%;
     }
 } */
+
+.errorlist{
+    list-style: none;
+    font-size: 1.4rem;
+    color: red;
+    padding-top: 1rem;
+    text-align: end;
+}
+
+.errorlist li{
+    font-family: Poppins;
+}
