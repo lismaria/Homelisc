@@ -2,7 +2,7 @@
 
 
 .homepage-one{
-    background-color: var(--primary);
+    background-color: var(--accent);
     display:grid;
     grid-template-columns:repeat(12,1fr);
     grid-template-rows: repeat(11,1fr);
@@ -220,7 +220,7 @@
 
 
 .lower-nav-ul{
-    background-color: var(--primary);
+    background-color: var(--accent);
     /* z-index: 2; */
 }
 
@@ -229,12 +229,12 @@
 }
 
 .lowernav-home-svg{
-    stroke:var(--white);
+    stroke:var(--primary);
 }
 
 .lowernav-home-svg:hover{
-    fill:var(--white);
-    stroke:var(--white);
+    fill:var(--primary);
+    stroke:var(--primary);
 }
 
 .lower-nav-ul.scrolled{
@@ -264,7 +264,7 @@
   text-align: center;
   font-family: Poppins;
   font-size:1.2rem; 
-  color:var(--white);   
+  color:var(--primary);   
 }
 
 #home p.lowernav-ul-p__hide.scrolled{
@@ -272,8 +272,8 @@
 }
 
 #home svg.lowernav-home-svg{
-    fill:var(--white);
-    stroke:var(--white);
+    fill:var(--primary);
+    stroke:var(--primary);
 }
 
 #home svg.lowernav-home-svg.scrolled{
@@ -285,7 +285,7 @@
 /* For Vector Fill of Search Icon */
 
 #search svg.lowernav-home-svg path{
-    fill:var(--white);
+    fill:var(--primary);
 }
 
 #search svg.lowernav-home-svg.scrolled path{

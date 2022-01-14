@@ -18,7 +18,9 @@
 /* Defining ROOT variables */
 :root
 {
-    --primary:#F54748;
+    --primary:#964B00;
+    --accent: #FFD5AA;
+    --heart: #F54748;
     --neutral:#F5F5F8;
     --white: #FFFFFF;
     --black: #000000;

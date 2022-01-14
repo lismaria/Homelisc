@@ -315,7 +315,7 @@
 }
 
 .login-as-vendor{
-    background-color:var(--primary);
+    background-color:var(--accent);
 }
 
 .login-vendor-user h2{
@@ -325,7 +325,7 @@
 }
 
 .login-as-user{
-    background-color:var(--blue);
+    background-color:var(--primary);
 }
 
 .new-here{
