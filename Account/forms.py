@@ -50,3 +50,22 @@ class LoginForm(forms.ModelForm):
             password = self.cleaned_data['password']
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError("Incorrect Email ID or Password")
+
+
+class AccountUpdationForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('name','email')
+        labels = {
+            'name': 'Name :',
+            'email': 'Email :',
+        }
+
+    # def clean(self):
+    #     if self.is_valid():
+    #         email = self.cleaned_data['email']
+    #         try:
+    #             account = User.objects.exclude(pk=self.instance.pk).get(email=email)    # To get the primary key of the user
+    #         except User.DoesNotExist:
+    #             return email
+    #         raise forms.ValidationError("Email is already in use.")

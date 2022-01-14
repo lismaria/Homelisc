@@ -1,12 +1,29 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
-from Account.forms import RegistrationForm, LoginForm
+from Account.forms import RegistrationForm, LoginForm, AccountUpdationForm
 from Account.models import User
 # Create your views here.
 
 def account_view(request):
-    return render(request,"Account/account.html")
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    context = {}
+    if request.POST:
+        form = AccountUpdationForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+    else:
+        print(request.user)
+        user = User.objects.get(email=request.user.email)
+        print(user.email)
+        print(user.name)
+        print(user.is_vendor)
+        form = AccountUpdationForm(initial={'name':user.name,'email':user.email})
+        
+    context['form'] = form
+    return render(request,"Account/account.html",context)
 
 def signup_view(request):
     signup_as=""    # when form is invalid, control reaches return render() where signup_as is passed which is not initialised
