@@ -157,7 +157,7 @@
     min-height: 15rem;
     height: 70%;
     width: 100%;
-    background-color: var(--primary);
+    background-color: var(--accent);
     border-radius: 0.4rem;
 }
 
@@ -322,7 +322,7 @@
 .product-card img{
     grid-row: 1/5;
     border-radius: 4px;
-    background: var(--primary);
+    background: var(--accent);
     height: 95%
 }
 
