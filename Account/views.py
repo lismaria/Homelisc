@@ -12,7 +12,7 @@ def account_view(request):
     context = {}
     if request.POST:
         email = request.user.email
-        form = AccountUpdationForm(request.POST, instance=request.user)
+        form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect("account:account")

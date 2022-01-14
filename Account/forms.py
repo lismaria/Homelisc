@@ -55,10 +55,16 @@ class LoginForm(forms.ModelForm):
 class AccountUpdationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('name','email')
+        fields = ('profile_pic','name','email')
         labels = {
+            'profile_pic':'',
             'name': 'Name :',
             'email': 'Email :',
+        }
+        widgets = {
+            'profile_pic': forms.FileInput(attrs={"id":"change_pic","style":"display:none","onchange":"document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])"}),
+            'name': forms.TextInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()"}),
+            'email': forms.EmailInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()"}),
         }
 
     def clean_email(self):

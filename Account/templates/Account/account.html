@@ -10,7 +10,7 @@
                 <button ng-click="editor()" >Edit</button>
             </div>
             <div class="profile-info">
-                <img src="" alt="">
+                <img src="{{user.profile_pic.url}}" alt="">
                 <div>
                     <h2>{{user.name}}</h2>
                     <h3>{{user.email}}</h3>
@@ -52,9 +52,12 @@
             </div>
             <form method="post" action="{% url 'account:account' %}" class="profile-info__edit" enctype="multipart/form-data">
                 <div>
-                    <img id="dp" src="">
+                    <img id="dp" src="{{request.user.profile_pic.url}}">
                     <label class="profile-img__change" for="change_pic">Change</label>
-                    <input id="change_pic" type="file" style="display:none" onchange="document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])">
+                    {% for field in form.profile_pic %}
+                        {{field}}
+                        <!-- <input id="change_pic" type="file" style="display:none" onchange="document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])"> -->
+                    {% endfor %}
                 </div>
                 {% csrf_token %}
                 {% for field in form %}
