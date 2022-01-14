@@ -12,21 +12,21 @@
             <div class="profile-info">
                 <img src="" alt="">
                 <div>
-                    <h2>{{request.user.name}}</h2>
-                    <h3>{{request.user.email}}</h3>
+                    <h2>{{user.name}}</h2>
+                    <h3>{{user.email}}</h3>
                     <p></p>
                 </div>
             </div>
             {% for field in form %}
                 {% for error in field.errors %}
-                    <div style="grid-column:1/13;">
+                    <div style="grid-column:1/13;" class="errorlist">
                         <p>{{error}}</p>
                     </div>
                 {% endfor %}
             {% endfor %}
 
             {% if form.non_field_errors %}
-                <div style="grid-column:1/13;">
+                <div style="grid-column:1/13;" class="errorlist">
                     <p>{{form.non_field_errors}}</p>
                 </div>
             {% endif %}

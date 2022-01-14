@@ -11,17 +11,19 @@ def account_view(request):
         
     context = {}
     if request.POST:
+        email = request.user.email
         form = AccountUpdationForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            return redirect("account:account")
+        else:
+            user = User.objects.get(email=email)
+            print(user)
     else:
-        print(request.user)
         user = User.objects.get(email=request.user.email)
-        print(user.email)
-        print(user.name)
-        print(user.is_vendor)
-        form = AccountUpdationForm(initial={'name':user.name,'email':user.email})
+        form = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
         
+    context['user'] = user
     context['form'] = form
     return render(request,"Account/account.html",context)
 

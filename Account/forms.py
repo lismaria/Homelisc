@@ -61,11 +61,11 @@ class AccountUpdationForm(forms.ModelForm):
             'email': 'Email :',
         }
 
-    # def clean(self):
-    #     if self.is_valid():
-    #         email = self.cleaned_data['email']
-    #         try:
-    #             account = User.objects.exclude(pk=self.instance.pk).get(email=email)    # To get the primary key of the user
-    #         except User.DoesNotExist:
-    #             return email
-    #         raise forms.ValidationError("Email is already in use.")
+    def clean_email(self):
+        if self.is_valid():
+            email = self.cleaned_data['email']
+            try:
+                account = User.objects.exclude(pk=self.instance.pk).get(email=email)    # To get the primary key of the user
+            except User.DoesNotExist:
+                return email
+            raise forms.ValidationError("Email is already in use.")

@@ -137,12 +137,12 @@ p.lowernav-ul-p{
 
 .errorlist{
     list-style: none;
-    font-size: 1.4rem;
     color: red;
     padding-top: 1rem;
     text-align: end;
 }
 
-.errorlist li{
+.errorlist li, .errorlist p{
     font-family: Poppins;
+    font-size: 1.4rem;
 }
