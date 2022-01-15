@@ -10,7 +10,7 @@
                 <button ng-click="editor()" >Edit</button>
             </div>
             <div class="profile-info">
-                <img src="{{user.profile_pic.url}}" alt="">
+                <img src="{{user.profile_pic.url}}" alt="" class="object-fit">
                 <div>
                     <h2>{{user.name}}</h2>
                     <h3>{{user.email}}</h3>
@@ -52,7 +52,7 @@
             </div>
             <form method="post" action="{% url 'account:account' %}" class="profile-info__edit" enctype="multipart/form-data">
                 <div>
-                    <img id="dp" src="{{request.user.profile_pic.url}}">
+                    <img id="dp" src="{{request.user.profile_pic.url}}" class="object-fit">
                     <label class="profile-img__change" for="change_pic">Change</label>
                     {% for field in form.profile_pic %}
                         {{field}}

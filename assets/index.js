@@ -47,7 +47,10 @@ $(document).ready(function () {
 
   //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
   $(".product-review").on("click", function() {
-    $(".review-popup, .review-popup-content").addClass("active");
+    $(".review-popup, .review-popup-content, .login-required-wrapper").addClass("active");
+    setTimeout(function() {
+      $(".login-required-wrapper").removeClass("active");
+    }, 5000);
   });
 
   //removes the "active" class to .popup and .popup-content when the "Close" button is clicked 

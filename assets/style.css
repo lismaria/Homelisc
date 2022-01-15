@@ -58,6 +58,10 @@ a{
     color: currentColor;
 }
 
+img.object-fit{
+    object-fit:cover;
+}
+
 .wrapper{
     overflow-y: auto;
     height:90vh;
@@ -147,4 +151,52 @@ p.lowernav-ul-p{
 .errorlist li, .errorlist p{
     font-family: Poppins;
     font-size: 1.4rem;
+}
+
+.login-required-wrapper{
+    visibility:hidden;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    width:100%;
+    height:auto;
+    position: absolute;
+    z-index:5;
+    bottom:10vh;
+}
+
+.login-required-wrapper.active{
+    visibility: visible;
+    animation: login-animate 3s ease-out forwards;
+}
+
+@keyframes login-animate {
+    0% {
+        opacity:1;
+    }
+    75%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+    }
+}
+
+.login-required{
+    margin-right:5rem;
+    display:flex;
+    align-items:center;
+    justify-content: space-around;
+    width:28rem;
+    height:5rem;
+    border-radius: .8rem;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.login-required>*{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.4rem;
+    color:var(--white);
 }
