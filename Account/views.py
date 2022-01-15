@@ -61,15 +61,10 @@ def login_view(request):
 
         if form.is_valid():
             user = User.objects.get(email=form.cleaned_data.get('email'))
-            print(user.is_vendor)
-            print(type(user.is_vendor)) 
 
             email = request.POST.get('email')
             password = request.POST.get('password')
             is_vendor = request.POST.get('as')
-            print(is_vendor) 
-            print(type(is_vendor)) 
-            print(bool(is_vendor))
             # email = request.POST['email']
             # password = request.POST['password'] 
             if (user.is_vendor == True and is_vendor == '1') or (user.is_vendor == False and is_vendor == '0'):

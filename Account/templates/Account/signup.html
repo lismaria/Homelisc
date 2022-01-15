@@ -23,7 +23,9 @@
         <div class="signup-form">
             <form id="signup-form" method="POST" action="{% url 'account:signup' %}">
                 {% csrf_token %}
-                {{form}}
+                {% for field in form %}
+                    {{field}}
+                {% endfor %}
                 <!-- <input type="text" name="" placeholder="Full name">
                 <input type="email" name="" placeholder="Email ID">
                 <input type="password" name="" placeholder="Choose a password"> -->
@@ -38,7 +40,7 @@
             <div class="signup-buttons">
                 <button type="submit" form="signup-form">Sign Up</button>
                 <p>or</p>
-                <button type="submit" form="signup-form" style="background-color: var(--black);">Sign Up with Google</button>
+                <button type="submit" form="signup-form" style="background-color: var(--accent);color:var(--black)">Sign Up with Google</button>
             </div>
         </div>
     </div>

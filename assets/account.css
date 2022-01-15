@@ -173,10 +173,10 @@
     grid-row: 9/11;
     width: 50%;
     min-height: 4.5rem;
-    background-color: var(--primary);
+    background-color: var(--accent);
     border-radius: 23px;
     border: none;
-    color: var(--white);
+    color: var(--black);
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
@@ -326,6 +326,7 @@
 
 .login-as-user{
     background-color:var(--accent);
+    color: var(--black);
 }
 
 .new-here{

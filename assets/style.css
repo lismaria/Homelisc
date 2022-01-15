@@ -31,7 +31,7 @@
     --ds_cuisine: .0rem .4rem 1.5rem rgb(198 198 198);
     --ds3:.0rem 1.0rem 2.0rem rgba(0, 0, 0, 0.06);
     --ds_icon: 0rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
-    --ds_nav__active: .0rem .6rem 2.0rem rgba(215, 56, 0, 0.9);
+    --ds_nav__active: .0rem .6rem 2.0rem rgba(255, 213, 170, 1);
     --ds_prod_card: 0px 10px 20px #e4e4e4;
     --ds_shop_pic: 7px 7px 14px #e4e4e4;
 }

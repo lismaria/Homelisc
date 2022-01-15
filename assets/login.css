@@ -92,7 +92,7 @@
 .login-button button{
     width: 70%;
     height: 4.8rem;
-    background: var(--accent);
+    background: var(--black);
     border: none;
     border-radius: 2.6rem;  
     color: var(--white);

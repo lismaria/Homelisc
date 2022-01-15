@@ -376,9 +376,9 @@ textarea{
     display: flex;
     align-items: center;
     justify-content:center;
-    background-color:var(--primary);
+    background-color:var(--accent);
     border-radius: 2rem;
-    color:var(--white);
+    color:var(--black);
     font-family: Roboto;
     font-weight: bold;
     font-size: 1.4rem;
