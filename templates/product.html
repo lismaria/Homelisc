@@ -86,6 +86,7 @@
         </div>
 
         <!--Creates the popup -->
+        {% if request.user.is_authenticated %}
         <div class="review-popup">
             <div class="review-popup-content">
                 <div class="popreview-header">
@@ -106,8 +107,8 @@
                     </div>
 
                     <div class="popreview-profile">
-                        <img src="" alt="" srcset="">
-                        <h2>John Doe</h2>
+                        <img src="{{user.profile_pic.url}}" alt="" srcset="">
+                        <h2>{{user.name}}</h2>
                     </div>
 
                     <textarea placeholder="Share your experience..."></textarea>
@@ -134,6 +135,7 @@
 
             </div>
         </div>
+        {% endif %}
     </div>
     <link rel="stylesheet" href="{% static 'product.css' %}">
 {% endblock %}

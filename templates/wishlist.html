@@ -16,6 +16,7 @@
         </a>
     </div> -->
 
+    {% if request.user.is_authenticated %}
     <div class="yes-wishlists-wrapper" ng-init="wishlist='food'">
         <div class="wishlist-header">
             <div class="wishlist-food wishlist-sec">
@@ -86,6 +87,11 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <p>Login Karo</p>
+    
+    {% endif %}
+    
 
 
     <script>
