@@ -227,6 +227,7 @@
     display: flex;
     align-items: center;
     justify-content:space-between;
+    border-radius: 0.8rem;
 }
 
 .shop-reviews p{

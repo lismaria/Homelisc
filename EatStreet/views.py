@@ -20,3 +20,6 @@ def product(request):
 
 def shop(request,food):
     return render(request,"shop.html",{'food':food})
+
+def reviews(request):
+    return render(request,"reviews.html")

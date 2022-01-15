@@ -161,11 +161,11 @@
     padding-top: 1rem;
 }
 
-.profile-info__edit div:nth-child(3){
+.profile-info__edit div:nth-child(4){
     grid-row: 6/7;
 }
 
-.profile-info__edit div:nth-child(4){
+.profile-info__edit div:nth-child(5){
     grid-row: 7/8;
 }
 
