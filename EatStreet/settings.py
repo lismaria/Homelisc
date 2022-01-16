@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Account',
     'Vendor',
     'whitenoise.runserver_nostatic',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +131,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'IN'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

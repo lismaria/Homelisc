@@ -3,7 +3,12 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 def home(request):
-    return render(request,'home.html',{'food':'chocolates'})
+    if not request.user.is_authenticated:
+        return render(request,'home.html',{'food':'chocolates'})
+    elif (request.user.is_authenticated and request.user.is_vendor == True):
+        return render(request,'Vendor/vendor.html',{'food':'chocolates'})
+    else:
+        return render(request,'home.html',{'food':'chocolates'})
 
 def search(request):
     return render(request,"search.html")
