@@ -24,3 +24,27 @@ class Shop(models.Model):
     def __str__(self):
         return self.shop_name
 
+class Item(models.Model):
+    item_name = models.CharField(verbose_name="Item Name", max_length=50)
+    item_descr = models.TextField(verbose_name="Item Description")    
+    item_rating = models.FloatField(verbose_name="Item Rating")
+    item_price = models.FloatField(verbose_name="Item Price")
+    item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count")
+    item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count")
+    item_category = ArrayField(models.CharField(verbose_name="Item Category",max_length=50), blank=False)
+    shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.item_name
+
+class ShopReview(models.Model):
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE, default=None)
+    comment = models.TextField(verbose_name="Comment")
+    stars = models.IntegerField(verbose_name="Stars")
+    date = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(verbose_name="Likes")
+    heart_by_owner = models.BooleanField(default=False)
+    shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.user_id.email
