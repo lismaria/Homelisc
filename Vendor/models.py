@@ -48,3 +48,11 @@ class ShopReview(models.Model):
 
     def __str__(self):
         return self.user_id.email
+
+class ItemImage(models.Model):
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
+    shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
+    item_img = models.ImageField(verbose_name="Item Image", blank=True)
+
+    def __str__(self):
+        return self.item_id.name
