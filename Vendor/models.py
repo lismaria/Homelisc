@@ -37,6 +37,14 @@ class Item(models.Model):
     def __str__(self):
         return self.item_name
 
+class ItemImage(models.Model):
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
+    shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
+    item_img = models.ImageField(verbose_name="Item Image", blank=True)
+
+    def __str__(self):
+        return self.item_id.item_name
+
 class ShopReview(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE, default=None)
     comment = models.TextField(verbose_name="Comment")
@@ -44,15 +52,39 @@ class ShopReview(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(verbose_name="Likes")
     heart_by_owner = models.BooleanField(default=False)
+    shop_review_img = models.ImageField(verbose_name="Shop Review Image", default=None)
     shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.user_id.email
 
-class ItemImage(models.Model):
+
+class ItemReview(models.Model):
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE, default=None)
+    comment = models.TextField(verbose_name="Comment")
+    stars = models.IntegerField(verbose_name="Stars")
+    date = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(verbose_name="Likes")
+    heart_by_owner = models.BooleanField(default=False)
+    item_review_img = models.ImageField(verbose_name="Item Review Image", default=None)
+    shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
-    shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
-    item_img = models.ImageField(verbose_name="Item Image", blank=True)
 
     def __str__(self):
-        return self.item_id.name
+        return self.user_id.email
+
+
+class ShopWishlist(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.shop_id.shop_name +" "+ self.user_id.email
+
+class ItemWishlist(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.item_id.item_name +" "+ self.user_id.email
