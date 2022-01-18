@@ -65,7 +65,7 @@
     align-items: center;
     justify-content: space-between; */
     border-radius:.8rem;
-    height: 30vh;
+    height: 25vh;
     width: 45vw;
     display:grid;
     grid-template-columns: repeat(12,1fr);
