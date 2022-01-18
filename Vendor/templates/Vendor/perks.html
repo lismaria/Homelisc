@@ -1,1 +1,48 @@
-<h1>PERKS!</h1>
+{% extends "Vendor/base-vendor.html" %}
+
+{% block content %}
+{% load static %}
+
+    <div class="perks-wrapper">
+        <div class="title"><p>Why partner with us?</p></div>
+        <div class="perks-frame">
+            <div class="perk-inner-frame-1">
+                <div class="perk-card">
+                    <p class="perk-title">Showcase your <br>Menu</p>
+                    <div class="perk-img">
+                        <img src="{% static 'svg/perks1.svg' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="perk-inner-frame-2">
+                <div class="perk-card">
+                    <p class="perk-title">Expand your <br>Horizons</p>
+                    <div class="perk-img">
+                        <img src="{% static 'svg/perks2.svg' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="perk-inner-frame-3">
+                <div class="perk-card">
+                    <p class="perk-title">Get Insights</p>
+                    <div class="perk-img">
+                        <img src="{% static 'svg/perks3.svg' %}">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="perk-inner-frame-4">
+                <div class="perk-card">
+                    <p class="perk-title">Add multiple <br>Business</p>
+                    <div class="perk-img">
+                        <img src="{% static 'svg/perks4.svg' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="{% static 'vendor/perks.css' %}">
+{% endblock %}

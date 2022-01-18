@@ -5,7 +5,7 @@ from Vendor.models import Shop
 
 def vendor_view(request):
     if not request.user.is_authenticated:
-        return redirect("home")
+        return render(request,'home.html',{'food':'chocolates'})
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         shopCount = Shop.objects.filter(shop_owner_id=request.user.id).count()
         print(shopCount)
