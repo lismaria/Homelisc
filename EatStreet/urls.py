@@ -23,10 +23,13 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    path('', include('Vendor.urls',namespace='vendor')),
     path('',views.home,name="home"),
+    path('account/', include('Account.urls')),
+
     path('search/',views.search,name="search"),
     path('wishlist/',views.wishlist,name="wishlist"),
-    path('account/', include('Account.urls')),
     path('category/',views.category,name="category"),
     path('product/',views.product,name="product"),
     path('shop/reviews',views.reviews,name="reviews"),

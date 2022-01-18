@@ -4,17 +4,7 @@ from django.contrib.auth.decorators import login_required
 from Vendor.models import Shop
 
 def home(request):
-    if not request.user.is_authenticated:
-        return render(request,'home.html',{'food':'chocolates'})
-    elif (request.user.is_authenticated and request.user.is_vendor == True):
-        shopCount = Shop.objects.filter(shop_owner_id=request.user.id).count()
-        print(shopCount)
-        if shopCount == 0:
-            return render(request,'Vendor/perks.html')
-        else:
-            return render(request,'Vendor/vendor.html')
-    else:
-        return render(request,'home.html',{'food':'chocolates'})
+    return render(request,'home.html',{'food':'chocolates'})
 
 def search(request):
     return render(request,"search.html")
