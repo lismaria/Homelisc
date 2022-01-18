@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    font-size:62.5%; /* 10 px */
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+:root
+{
+    --primary:#964B00;
+    --accent: #FFD5AA;
+    --heart: #F54748;
+    --neutral:#F5F5F8;
+    --white: #FFFFFF;
+    --black: #000000;
+    --icon-grey:#ADADAF;
+    --blue: #166EF3;
+    --grey: rgba(0,0,0,0.5);
+    /* --ds_cuisine:.0rem .4rem 1.5rem rgba(0, 0, 0, 0.3); */
+    --ds_cuisine: .0rem .4rem 1.5rem rgb(198 198 198);
+    --ds3:.0rem 1.0rem 2.0rem rgba(0, 0, 0, 0.06);
+    --ds_icon: 0rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
+    --ds_nav__active: .0rem .6rem 2.0rem rgba(255, 213, 170, 1);
+    --ds_prod_card: 0px 10px 20px #e4e4e4;
+    --ds_shop_pic: 7px 7px 14px #e4e4e4;
+}
+
+body{
+    background-color: var(--neutral);
+    overflow: hidden;
+}
+
+input{
+    border:none;
+}
+
+input:focus{
+    outline:none;
+}
+
+a,button:hover{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color: currentColor;
+}
+
+img.object-fit{
+    object-fit:cover;
+}
+
+.wrapper{
+    overflow-y: auto;
+    height:100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}

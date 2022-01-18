@@ -8,7 +8,6 @@ def home(request):
         return render(request,'home.html',{'food':'chocolates'})
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         shopCount = Shop.objects.filter(shop_owner_id=request.user.id).count()
-        print(shopCount)
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
