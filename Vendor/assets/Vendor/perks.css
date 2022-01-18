@@ -31,6 +31,7 @@
     position:absolute;
     top:20%;
     left:0;
+    z-index: 150;
     transform: rotate(-11.95deg);
 }
 
@@ -38,6 +39,7 @@
     position:absolute;
     top:5%;
     right:0;
+    z-index: 200;
     transform: rotate(7.98deg);
 }
 
@@ -45,6 +47,7 @@
     position:absolute;
     bottom:5%;
     left:0;
+    z-index: 50;
     transform: rotate(-7.56deg);
 }
 
@@ -52,6 +55,7 @@
     position:absolute;
     bottom:20%;
     right:0;
+    z-index: 100;
     transform: rotate(3.86deg);
 }
 
