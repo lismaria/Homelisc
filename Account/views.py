@@ -18,7 +18,7 @@ def account_view(request):
             return redirect("account:account")
         else:
             user = User.objects.get(email=email)
-            print(user)
+            # print(user)
     else:
         user = User.objects.get(email=request.user.email)
         form = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})

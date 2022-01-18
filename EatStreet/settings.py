@@ -139,7 +139,7 @@ PHONENUMBER_DEFAULT_REGION = 'IN'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')  #location where django collect all static files
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'assets'),)  #static files is to be found in the base directory, then look into assets folder
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'assets'),os.path.join(BASE_DIR,'Vendor/assets'))  #static files is to be found in the base directory, then look into assets folder
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #for herokudb
 
