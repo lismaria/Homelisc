@@ -3,7 +3,7 @@ from Vendor.models import Shop
 
 # Create your views here.
 
-def vendor_view(request):
+def shop_view(request):
     if not request.user.is_authenticated:
         return render(request,'home.html',{'food':'chocolates'})
     elif (request.user.is_authenticated and request.user.is_vendor == True):
@@ -11,11 +11,11 @@ def vendor_view(request):
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
-            return render(request,'Vendor/vendor.html')
+            return render(request,'Vendor/shop.html')
     else:
         return redirect("home")
 
-def review_view(request):
+def menu_view(request):
     if not request.user.is_authenticated:
         return redirect("home")
     elif (request.user.is_authenticated and request.user.is_vendor == True):
@@ -24,7 +24,19 @@ def review_view(request):
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
-            return render(request,"Vendor/review.html") #*
+            return render(request,"Vendor/menu.html") #*
     else:
         return redirect("home")
- 
+
+def reviews_view(request):
+    if not request.user.is_authenticated:
+        return redirect("home")
+    elif (request.user.is_authenticated and request.user.is_vendor == True):
+        shopCount = Shop.objects.filter(shop_owner_id=request.user.id).count()
+        print(shopCount)
+        if shopCount == 0:
+            return render(request,'Vendor/perks.html')
+        else:
+            return render(request,"Vendor/reviews.html") #*
+    else:
+        return redirect("home")
