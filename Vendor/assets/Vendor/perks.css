@@ -29,26 +29,30 @@
 
 .perk-inner-frame-1{
     position:absolute;
-    top:0;
+    top:20%;
     left:0;
+    transform: rotate(-11.95deg);
 }
 
 .perk-inner-frame-2{
     position:absolute;
-    top:0;
+    top:5%;
     right:0;
+    transform: rotate(7.98deg);
 }
 
 .perk-inner-frame-3{
     position:absolute;
-    bottom:0;
+    bottom:5%;
     left:0;
+    transform: rotate(-7.56deg);
 }
 
 .perk-inner-frame-4{
     position:absolute;
-    bottom:0;
+    bottom:20%;
     right:0;
+    transform: rotate(3.86deg);
 }
 
 .perk-card{
@@ -61,11 +65,17 @@
     align-items: center;
     justify-content: space-between; */
     border-radius:.8rem;
-    height: 30vh;
+    height: 25vh;
     width: 40vw;
     display:grid;
     grid-template-columns: repeat(12,1fr);
     grid-template-rows: repeat(9,1fr);
+}
+
+.perk-pin{
+    position:absolute;
+    top:-2rem;
+    left:50%;
 }
 
 .perk-title{
@@ -87,4 +97,17 @@
 .perk-img img{
     height:100%;
     width:100%;
+}
+
+.lets-begin{
+    grid-column:7/13;
+    grid-row:18/20;
+    background-color: var(--accent);
+    border-radius:24rem;
+    margin:0.8rem;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
 }
