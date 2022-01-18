@@ -62,8 +62,8 @@ img.object-fit{
 
 .wrapper{
     overflow-y: auto;
-    height:90vh;
-    height: calc(var(--vh, 1vh) * 90);
+    height:100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }
 
 .vendor-nav-ul{
@@ -74,12 +74,12 @@ img.object-fit{
     grid-template-columns: repeat(3,1fr);
     align-items: center;
     justify-items: center;
+    position: relative;
     position: fixed;
     bottom: 0;  
     width: 100vw;
     height: 10vh;
-    height: calc(var(--vh, 1vh) * 10.1);
-    position: relative;
+    height: calc(var(--vh, 1vh) * 10.1);    
 }
 
 .vendor-nav-ul>li{
