@@ -65,8 +65,8 @@
     align-items: center;
     justify-content: space-between; */
     border-radius:.8rem;
-    height: 25vh;
-    width: 40vw;
+    height: 30vh;
+    width: 45vw;
     display:grid;
     grid-template-columns: repeat(12,1fr);
     grid-template-rows: repeat(9,1fr);
@@ -105,9 +105,12 @@
     background-color: var(--accent);
     border-radius:24rem;
     margin:0.8rem;
-
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
     font-size: 1.4rem;
+}
+
+.vendor-nav {
+    display: none;
 }

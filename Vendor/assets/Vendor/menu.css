@@ -1,0 +1,20 @@
+/* Active State Code */
+
+#menu .vendor-nav-p__hide{
+    display: block;
+}
+
+#menu{
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+    background-color: var(--white);
+    border: 3px solid var(--primary);
+    bottom: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+

@@ -62,6 +62,38 @@ img.object-fit{
 
 .wrapper{
     overflow-y: auto;
-    height:100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    height:90vh;
+    height: calc(var(--vh, 1vh) * 90);
+}
+
+.vendor-nav-ul{
+    background: var(--accent);
+    border: 3px solid #FFD5AA;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    align-items: center;
+    justify-items: center;
+    position: fixed;
+    bottom: 0;  
+    width: 100vw;
+    height: 10vh;
+    height: calc(var(--vh, 1vh) * 10.1);
+    position: relative;
+}
+
+.vendor-nav-ul>li{
+    display: grid;
+    justify-items: center;
+}
+
+.vendor-nav-p__hide{
+    display: none;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    text-align: center;
+    color: var(--primary);
 }
