@@ -1,0 +1,231 @@
+.register-shop-wrapper{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows: repeat(20,1fr);
+    height:100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+.register-header{
+    grid-column: 1/13;
+    grid-row :1/7;
+    background-color: var(--white);
+    border-radius: 0 0 2.6rem 2.6rem;
+    box-shadow: 0px 3.48417px 26.1313px rgb(0 0 0 / 6%);
+}
+
+.register-header{
+    display: grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows: repeat(9,1fr);
+}
+
+.header-title{
+    grid-column: 1/13;
+    grid-row:2/6;
+}
+
+.header-title p,.header-title p span{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.4rem;
+    text-align: center;
+}
+
+.header-title span{
+    color: var(--primary);
+}
+
+.three-steps{
+    grid-column: 1/13;
+    grid-row:7/9;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+.three-steps div{
+    background-color: var(--neutral);
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:50%;
+}
+
+.three-steps div h2{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.three-steps p{
+    height: 0.3rem;
+    width: 4.4rem;
+    background-color: var(--black);
+    margin: 0 0.5rem;
+    border-radius: 2rem;
+}
+
+.register-body{
+    grid-column: 2/12;
+    grid-row: 8/20;
+}
+
+.dynamic-wrap{
+    width: 100%;
+    height: 100%;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows: repeat(12,1fr);
+}
+
+.body-title{
+    grid-column: 1/13;
+    grid-row: 1/2;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.register-form{
+    grid-column:1/13;
+    grid-row: 2/11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.register-form input{
+    width: 100%;
+    height: 20%;
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    padding-left: 2rem;
+}
+
+.register-form textarea{
+    width: 100%;
+    height: 40%;
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    padding: 2rem 0 0 2rem;
+}
+
+.back-next{
+    grid-column:1/13;
+    grid-row:12/13;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.back-next div{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    color: var(--primary);
+}
+
+.select-state-city{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    width: 100%;
+    height:20%;
+}
+
+.select-state-city select{
+    width: 46%;
+    height: 100%;
+    border-radius: 0.8rem;
+}
+
+select{
+    font-size: 1.2rem;
+    padding-left: 2rem;
+    color: var(--grey);
+}
+
+optgroup{
+    font-size: 2rem;
+}
+
+.addmap-url{
+    width: 100%;
+    height: 20%;
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    background-color: var(--white);
+    display:flex;
+    align-items:center;
+}
+
+.open-maps{
+    width: 40%;
+    height: 60%;
+    border-radius: 0.8rem;
+    background-color: var(--accent);
+    margin:1.8rem;
+}
+
+.open-maps{
+    display: flex;
+    align-items:center;
+    justify-content:space-around;
+}
+
+.open-maps p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.add-logo-frame{
+    height:50%;
+    width:80%;
+    position: relative;
+}
+
+#logo_pic{
+    background-color: var(--white);
+    width: 100%;
+    height: 100%;
+}
+
+.add-logolabel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    font-weight: normal;
+    font-size: 1.5rem;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+}
+
+.add-logolabel p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.vendor-nav {
+    display: none;
+}
+
+pwa-container-wrapper{
+    display: none;
+}

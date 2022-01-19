@@ -39,7 +39,7 @@ body{
     overflow: hidden;
 }
 
-input, button{
+input, button, textarea, select{
     border:none;
 }
 

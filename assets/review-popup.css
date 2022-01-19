@@ -102,9 +102,9 @@ textarea{
     justify-content: space-evenly;
     font-weight: normal;
     font-size: 1.5rem;
-    height:80%;
-    left: 20%;
-    top: 10%;
+    height:100%;
+    width:100%;
+    top:0;
     position: absolute;
 }
 
