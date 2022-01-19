@@ -97,3 +97,33 @@ img.object-fit{
     text-align: center;
     color: var(--primary);
 }
+
+.vendor-uppernav-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem 2.5rem 0 2.5rem;
+    position: fixed;
+    top: 0;  
+    width: 100vw;
+    height: 10vh;
+    height: calc(var(--vh, 1vh) * 10); 
+}
+
+.vendor-uppernav-div>h1{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;   
+    text-align: center;
+    color: #964B00;
+    
+}
+
+.vendor-uppernav-div>img{
+    height: 5.4rem;
+    width: 5.4rem;
+    border-radius: 50%;
+    background-color: var(--primary);
+}

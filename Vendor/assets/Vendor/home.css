@@ -1,0 +1,95 @@
+.home-wrapper{
+    height: 90vh;
+    width: 100vw;
+    top: 10vh;
+    position: fixed;
+    padding: 2rem 2.5rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-between;
+}
+
+
+.vendor-nav {
+    display: none;
+}
+
+.shop-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.shop-card{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--white);
+    /* width: 31.0rem;
+    height: 14.0rem; */
+    box-shadow: var(--ds3);
+    border-radius: .8rem;
+    padding: 1.8rem;
+    gap: 1.6rem;
+}
+
+.shop-card img{
+    width: 7.4rem;
+    height: 7.2rem;
+    
+    background-color: var(--primary);
+    border-radius: .8rem;
+    
+}
+
+.shop-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.shop-content>h2{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: var(--primary);
+}
+
+.shop-content>p{
+    border: 0.05rem solid var(--grey);
+    width: 100%;
+}
+
+.shop-content>div{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    color: var(--black);
+}
+
+.add-shop-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.2rem;
+    width: max-content;
+    border-radius: 2rem;
+    background-color: var(--primary);
+    gap: 0.5rem;
+    box-shadow: var(--ds_cuisine); 
+}
+
+.add-shop-btn h3{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--white);  
+}

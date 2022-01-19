@@ -11,7 +11,7 @@ def shop_view(request):
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
-            return render(request,'Vendor/shop.html')
+            return render(request,'Vendor/home.html')
     else:
         return redirect("home")
 
