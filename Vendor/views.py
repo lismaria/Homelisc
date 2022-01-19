@@ -27,7 +27,7 @@ def menu_view(request):
     else:
         return redirect("home")
 
-def reviews_view(request):
+def review_view(request):
     if not request.user.is_authenticated:
         return redirect("home")
     elif (request.user.is_authenticated and request.user.is_vendor == True):
@@ -35,6 +35,6 @@ def reviews_view(request):
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
-            return render(request,"Vendor/reviews.html") #*
+            return render(request,"Vendor/review.html") #*
     else:
         return redirect("home")
