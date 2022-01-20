@@ -48,8 +48,8 @@ def signup_view(request):
 
     return render(request,"Account/signup.html",{'form': form, 'signup_as': signup_as})
 
-def login_view(request):
-    login_as = ""
+def login_view(request,login_as):
+    # login_as = ""
     context = {}
     user = request.user
 
@@ -64,10 +64,9 @@ def login_view(request):
 
             email = request.POST.get('email')
             password = request.POST.get('password')
-            is_vendor = request.POST.get('as')
             # email = request.POST['email']
             # password = request.POST['password'] 
-            if (user.is_vendor == True and is_vendor == '1') or (user.is_vendor == False and is_vendor == '0'):
+            if (user.is_vendor == True and login_as == '1') or (user.is_vendor == False and login_as == '0'):
                 account = authenticate(email=email, password=password)        
                 if user:    
                     login(request, account)
@@ -76,7 +75,6 @@ def login_view(request):
                 return redirect("account:account")
             
     else:
-        login_as = request.GET['as']
         form = LoginForm()
     context['form'] = form
     context['login_as'] = login_as
