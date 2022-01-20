@@ -39,4 +39,9 @@ $(document).ready(function () {
         $("#reg-2").show();
         $("#reg-3").hide();
     });
+
+    $('input[type="file"]').change(function() {
+        // alert("A file has been selected.");
+        $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
+    });
 });
