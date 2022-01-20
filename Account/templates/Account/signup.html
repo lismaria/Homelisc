@@ -21,7 +21,7 @@
         </div>
 
         <div class="signup-form">
-            <form id="signup-form" method="POST" action="{% url 'account:signup' %}">
+            <form id="signup-form" method="POST" action="{% url 'account:signup' signup_as %}">
                 {% csrf_token %}
                 {% for field in form %}
                     {{field}}
@@ -29,7 +29,7 @@
                 <!-- <input type="text" name="" placeholder="Full name">
                 <input type="email" name="" placeholder="Email ID">
                 <input type="password" name="" placeholder="Choose a password"> -->
-                <input type="hidden" name="as" value="{{signup_as}}">
+                <!-- <input type="hidden" name="as" value="{{signup_as}}"> -->
                 {% for field in form %}
                     {% for error in field.errors %}
                         <p style="color:red; font-size: 1.2rem;">{{error}}</p>

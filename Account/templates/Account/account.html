@@ -123,9 +123,9 @@
                 </div>
 
                 <div class="login-vendor-user">
-                    <a href="{% url 'account:signup' %}?as=vendor"><div class="login-as-vendor"><p>Vendor</p></div></a>
+                    <a href="{% url 'account:signup' 1 %}"><div class="login-as-vendor"><p>Vendor</p></div></a>
                     <h2>or</h2>
-                    <a href="{% url 'account:signup' %}?as=user"><div class="login-as-user"><p>User</p></div></a>
+                    <a href="{% url 'account:signup' 0 %}"><div class="login-as-user"><p>User</p></div></a>
                 </div>
 
                 <div class="new-here">

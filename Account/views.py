@@ -27,13 +27,14 @@ def account_view(request):
     context['form'] = form
     return render(request,"Account/account.html",context)
 
-def signup_view(request):
-    signup_as=""    # when form is invalid, control reaches return render() where signup_as is passed which is not initialised
+def signup_view(request,signup_as):
+    # signup_as=""    # when form is invalid, control reaches return render() where signup_as is passed which is not initialised
     if request.POST:
         form = RegistrationForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)   # dont save it right away, just returns the instance that is gonna get saved
-            if request.POST['as'] == 'vendor':
+            # if request.POST['as'] == 'vendor':
+            if signup_as == '1':
                 instance.is_vendor = True
             instance.save()
             
@@ -43,7 +44,7 @@ def signup_view(request):
             login(request,account)
             return redirect("home")
     else:
-        signup_as = request.GET['as']
+        signup_as = signup_as
         form = RegistrationForm()
 
     return render(request,"Account/signup.html",{'form': form, 'signup_as': signup_as})
