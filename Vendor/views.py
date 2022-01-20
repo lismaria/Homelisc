@@ -32,7 +32,7 @@ def menu_view(request):
     return menu_view
 
 def review_view(request):
-    reviews_view = check_vendor_details(request,"reviews")
+    reviews_view = check_vendor_details(request,"review")
     return reviews_view
 
 def register_shop(request):

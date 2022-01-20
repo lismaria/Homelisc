@@ -1,5 +1,6 @@
 .home-wrapper{
     height: 90vh;
+    height: calc(var(--vh, 1vh) * 90);
     width: 100%;
     padding: 2rem 2.5rem;
     overflow: auto;

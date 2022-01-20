@@ -61,9 +61,8 @@ img.object-fit{
 }
 
 .wrapper{
-    overflow-y: auto;
-    height:100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    height:90vh;
+    height: calc(var(--vh, 1vh) * 90);
 }
 
 .vendor-nav-ul{
