@@ -226,6 +226,10 @@ optgroup{
     display: none;
 }
 
+.vendor-uppernav{
+    display: none;
+}
+
 pwa-container-wrapper{
     display: none;
 }

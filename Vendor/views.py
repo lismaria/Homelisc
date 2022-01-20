@@ -23,7 +23,7 @@ def shop_view(request):
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
-            return render(request,'Vendor/shop.html')
+            return render(request,'Vendor/home.html')
     else:
         return render(request,'home.html',{'food':'chocolates'})
 
@@ -31,7 +31,7 @@ def menu_view(request):
     menu_view = check_vendor_details(request,"menu")
     return menu_view
 
-def reviews_view(request):
+def review_view(request):
     reviews_view = check_vendor_details(request,"reviews")
     return reviews_view
 

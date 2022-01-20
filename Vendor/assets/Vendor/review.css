@@ -1,10 +1,10 @@
 /* Active State Code */
 
-#reviews .vendor-nav-p__hide{
+#review .vendor-nav-p__hide{
     display: block;
 }
 
-#reviews{
+#review{
     width: 70px;
     height: 70px;
     border-radius: 70px;
