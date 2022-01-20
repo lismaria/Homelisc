@@ -98,6 +98,11 @@ img.object-fit{
     color: var(--primary);
 }
 
+.vendor-uppernav{
+    height:10vh;
+    height: calc(var(--vh, 1vh) * 10);
+}
+
 .vendor-uppernav-div{
     display: flex;
     justify-content: space-between;
@@ -106,8 +111,6 @@ img.object-fit{
     position: fixed;
     top: 0;  
     width: 100vw;
-    height: 10vh;
-    height: calc(var(--vh, 1vh) * 10); 
 }
 
 .vendor-uppernav-div>h1{
@@ -139,6 +142,7 @@ img.object-fit{
     flex-direction: column;
     align-items: center;
     justify-content: space-between; */ 
+    display: none;
     z-index: 100;
 }
 
@@ -177,11 +181,11 @@ img.object-fit{
 }
 
 .vendor-acc-form div:nth-child(2){
-    grid-row: 6/7;
+    grid-row: 7/8;
 }
 
 .vendor-acc-form div:nth-child(3){
-    grid-row: 7/8;
+    grid-row: 8/9;
 }
 
 .vendor-acc-form>div>label{

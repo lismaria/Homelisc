@@ -1,8 +1,6 @@
 .home-wrapper{
     height: 90vh;
-    width: 100vw;
-    top: 10vh;
-    position: fixed;
+    width: 100%;
     padding: 2rem 2.5rem;
     overflow: auto;
     display: flex;

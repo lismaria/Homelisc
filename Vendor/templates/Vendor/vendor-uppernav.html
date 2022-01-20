@@ -3,13 +3,13 @@
 <nav>
     <div class="vendor-uppernav-div">
         <h1>Shop</h1>
-        <img src="" alt="" srcset="" ng-click="profile()">
+        <img id="vendor_profile" src="" alt="" srcset="">
     </div>
 </nav>
 
-<div class="vendor-acc-profile" ng-if=vprofile>
+<div class="vendor-acc-profile">
     <div>
-        <form class="vendor-acc-form" action="/account" method="post" enctype="multipart/form-data">
+        <form class="vendor-acc-form" action="{% url 'account:account' %}" method="post" enctype="multipart/form-data">
             <div class="vendor-acc-imgdiv">
                 <img src="" alt="" id="vdp" class="object-fit">
                 <label for="change_vdp">Change</label>
@@ -19,7 +19,7 @@
             <div><label for="">Email: </label><input type="email" value="{{user.email}}"></div>
             <button type="submit">Save</button>
         </form>
-        <a href="/account/logout" class="vendor-acc-logout">
+        <a href="{% url 'account:logout' %}" class="vendor-acc-logout">
             <h2>Logout</h2>
             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2.08341 2.5H15.4167V10.6667H17.0834V2.5C17.0834 2.05798 16.9078 1.63405 16.5953 1.32149C16.2827 1.00893 15.8588 0.833336 15.4167 0.833336H2.08341C1.64139 0.833336 1.21746 1.00893 0.904903 1.32149C0.592343 1.63405 0.416748 2.05798 0.416748 2.5V22.5C0.416748 22.942 0.592343 23.366 0.904903 23.6785C1.21746 23.9911 1.64139 24.1667 2.08341 24.1667H15.4167C15.8588 24.1667 16.2827 23.9911 16.5953 23.6785C16.9078 23.366 17.0834 22.942 17.0834 22.5H2.08341V2.5Z" fill="black"></path>

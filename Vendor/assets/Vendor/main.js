@@ -10,12 +10,16 @@ $(document).ready(function () {
         // Then we set the value in the --vh custom property to the root of the document
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
+
+    $("#vendor_profile").click(() => {
+        $(".vendor-acc-profile").slideToggle("slow");
+    })
 });
 
-var obj=angular.module("mod",[]);
-obj.controller("cont",function($scope){
-    $scope.vprofile = false;
-    $scope.profile=function (){
-        $scope.vprofile = $scope.vprofile == false ? true : false;
-    }
-});
+// var obj=angular.module("mod",[]);
+// obj.controller("cont",function($scope){
+//     $scope.vprofile = false;
+//     $scope.profile=function (){
+//         $scope.vprofile = $scope.vprofile == false ? true : false;
+//     }
+// });
