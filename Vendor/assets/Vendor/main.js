@@ -14,17 +14,24 @@ $(document).ready(function () {
     $("#vendor_profile").click(() => {
         $(".vendor-acc-profile").slideToggle("slow");
     })
+
     // register-shop NEXT>
     $("#reg-n-1").click(function(){
         $("#reg-1").hide();
         $("#reg-2").show();
         $("#reg-3").hide();
+        $(".step-two").css({"background-color":"var(--accent)"});
+        $(".step-one h2").hide();
+        $(".step-one img").show();
     });
 
     $("#reg-n-2").click(function(){
         $("#reg-1").hide();
         $("#reg-2").hide();
         $("#reg-3").show();
+        $(".step-three").css({"background-color":"var(--accent)"});
+        $(".step-two h2").hide();
+        $(".step-two img").show();
     });
       
     // register-shop <BACK
@@ -32,12 +39,18 @@ $(document).ready(function () {
         $("#reg-1").show();
         $("#reg-2").hide();
         $("#reg-3").hide();
+        $(".step-two").css({"background-color":"var(--neutral)"});
+        $(".step-one h2").show();
+        $(".step-one img").hide();
     });
 
     $("#reg-b-3").click(function(){
         $("#reg-1").hide();
         $("#reg-2").show();
         $("#reg-3").hide();
+        $(".step-three").css({"background-color":"var(--neutral)"});
+        $(".step-two h2").show();
+        $(".step-two img").hide();
     });
 
     $('input[type="file"]').change(function() {

@@ -46,13 +46,24 @@
 }
 
 .three-steps div{
-    background-color: var(--neutral);
     width: 4rem;
     height: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius:50%;
+}
+
+.step-one{
+    background-color: var(--accent);
+}
+
+.step-two{
+    background-color: var(--neutral);
+}
+
+.step-three{
+    background-color: var(--neutral);
 }
 
 .three-steps div h2{
@@ -68,6 +79,10 @@
     background-color: var(--black);
     margin: 0 0.5rem;
     border-radius: 2rem;
+}
+
+.three-steps div img{
+    display: none;
 }
 
 .register-body{
@@ -221,6 +236,23 @@ optgroup{
     font-style: normal;
     font-weight: normal;
     font-size: 2rem;
+}
+
+#reg-1, #reg-2, #reg-3{
+    height: 100%;
+}
+
+.back-next button{
+    width: 50%;
+    height: 130%;
+    background-color: var(--accent);
+    border-radius:2.2rem;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--primary);
 }
 
 .vendor-nav {
