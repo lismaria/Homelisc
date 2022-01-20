@@ -81,6 +81,10 @@
     border-radius: 2rem;
 }
 
+.three-steps div img{
+    display: none;
+}
+
 .register-body{
     grid-column: 2/12;
     grid-row: 8/20;
