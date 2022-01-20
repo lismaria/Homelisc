@@ -14,12 +14,29 @@ $(document).ready(function () {
     $("#vendor_profile").click(() => {
         $(".vendor-acc-profile").slideToggle("slow");
     })
-});
+    // register-shop NEXT>
+    $("#reg-n-1").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").show();
+        $("#reg-3").hide();
+    });
 
-// var obj=angular.module("mod",[]);
-// obj.controller("cont",function($scope){
-//     $scope.vprofile = false;
-//     $scope.profile=function (){
-//         $scope.vprofile = $scope.vprofile == false ? true : false;
-//     }
-// });
+    $("#reg-n-2").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").hide();
+        $("#reg-3").show();
+    });
+      
+    // register-shop <BACK
+    $("#reg-b-2").click(function(){
+        $("#reg-1").show();
+        $("#reg-2").hide();
+        $("#reg-3").hide();
+    });
+
+    $("#reg-b-3").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").show();
+        $("#reg-3").hide();
+    });
+});
