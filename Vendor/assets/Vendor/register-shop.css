@@ -189,9 +189,7 @@ optgroup{
     border-radius: 0.8rem;
     background-color: var(--accent);
     margin:1.8rem;
-}
-
-.open-maps{
+    white-space: nowrap;
     display: flex;
     align-items:center;
     justify-content:space-around;
