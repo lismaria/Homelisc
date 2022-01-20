@@ -10,6 +10,32 @@ $(document).ready(function () {
         // Then we set the value in the --vh custom property to the root of the document
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
+
+    // register-shop NEXT>
+    $("#reg-n-1").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").show();
+        $("#reg-3").hide();
+    });
+
+    $("#reg-n-2").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").hide();
+        $("#reg-3").show();
+    });
+      
+    // register-shop <BACK
+    $("#reg-b-2").click(function(){
+        $("#reg-1").show();
+        $("#reg-2").hide();
+        $("#reg-3").hide();
+    });
+
+    $("#reg-b-3").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").show();
+        $("#reg-3").hide();
+    });
 });
 
 var obj=angular.module("mod",[]);
