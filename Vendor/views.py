@@ -7,12 +7,12 @@ def check_vendor_details(request,render_template,id):
     if not request.user.is_authenticated:
         return redirect("home")
     elif (request.user.is_authenticated and request.user.is_vendor == True):
-        shopInfo = Shop.objects.filter(id=id)
-        shopCount = shopInfo.count()
-        if shopCount == 0:
-            return render(request,'Vendor/perks.html')
+        shop_owner = Shop.objects.values('shop_owner').get(id=id)['shop_owner']
+        if(request.user.id == shop_owner):
+            shopInfo = Shop.objects.filter(id=id)
+            return render(request,"Vendor/"+render_template+".html",{'shopInfo':shopInfo})
         else:
-            return render(request,"Vendor/"+render_template+".html",{'shopInfo':shopInfo}) #*
+            return redirect("home")
     else:
         return redirect("home")
 
@@ -23,7 +23,6 @@ def home(request):
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         shopInfo = Shop.objects.filter(shop_owner_id=request.user.id)
         shopCount = shopInfo.count()
-        print(shopInfo)
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
@@ -44,8 +43,8 @@ def register_shop(request):
         return redirect("home")
 
 def shop_view(request,id,slug):
-    shopInfo = Shop.objects.filter(id=id)
-    return render(request,"Vendor/shop.html",{'shopInfo':shopInfo})
+    shop_view = check_vendor_details(request,"shop",id)
+    return shop_view
 
 def menu_view(request,id,slug):
     menu_view = check_vendor_details(request,"menu",id)
