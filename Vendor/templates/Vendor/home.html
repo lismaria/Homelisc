@@ -4,17 +4,22 @@
 {% load static %}
 <div class="home-wrapper">
     <div class="shop-container">
-        {% for i in '123' %}
+        {% for i in shopInfo %}
+        <a href="{% url 'vendor:shop' 1 %}" id="myshop">
         <div class="shop-card">
             <img src="" alt="">
             <div class="shop-content">
-                <h2>The Chocolate Indulgence</h2>
+                <h2>{{i.shop_name}}</h2>
                 <p></p>
                 <div>
-                    tagname1 | tagname2 | tagname3 
-                </div>
+                    {% for i in i.shop_tags %}
+                        {{i}}
+                    {% endfor %}
+                    <!-- tagname1 | tagname2 | tagname3  -->
+                </div> 
             </div>
         </div>
+        </a>
         {% endfor %}
     </div>
     <button class="add-shop-btn">

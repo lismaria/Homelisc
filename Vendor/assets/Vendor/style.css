@@ -112,7 +112,7 @@ img.object-fit{
     width: 100vw;
 }
 
-.vendor-uppernav-div>h1{
+.vendor-page-header>h1, .vendor-page-a h1{
     font-family: Poppins;
     font-style: normal;
     font-weight: 500;
