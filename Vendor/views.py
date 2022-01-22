@@ -12,6 +12,7 @@ def check_vendor_details(request, render_template, id, slug):
     if not request.user.is_authenticated:
         return redirect("home")
     elif (request.user.is_authenticated and request.user.is_vendor == True):
+        vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
         shop_owner = Shop.objects.values('shop_owner').get(id=id)['shop_owner']
         if(request.user.id == shop_owner):
             shopInfo = Shop.objects.filter(id=id)
@@ -20,7 +21,7 @@ def check_vendor_details(request, render_template, id, slug):
             if obj.shop_slug != slug:
                 print("O: ",obj.shop_slug, "S: ",slug)
                 return redirect('vendor:'+render_template, id=obj.pk, slug=obj.shop_slug)
-            return render(request,"Vendor/"+render_template+".html",{'shopInfo':shopInfo})
+            return render(request,"Vendor/"+render_template+".html",{'shopInfo':shopInfo,'vendorForm':vendorForm})
         else:
             return redirect("home")
     else:

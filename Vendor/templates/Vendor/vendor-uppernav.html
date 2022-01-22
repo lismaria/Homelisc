@@ -16,12 +16,9 @@
                 <!-- <input type="file" name="" id="change_vdp" style="display:none" onchange="document.getElementById('vdp').src = window.URL.createObjectURL(this.files[0])"> -->
                 {{vendorForm.profile_pic}}
             </div>
+            <div><label for="">{{vendorForm.name.label}}</label>{{vendorForm.name}}</div>
+            <div><label for="">{{vendorForm.email.label}}</label>{{vendorForm.email}}</div>
             {% csrf_token %}
-                {% for field in vendorForm %}
-                    <div><label for="">{{field.label}}</label>{{field}}</div>
-                {% endfor %}
-            <!-- <div><label for="">Name: </label><input type="text" value="{{user.name}}"></div>
-            <div><label for="">Email: </label><input type="email" value="{{user.email}}"></div> -->
             <button type="submit">Save</button>
         </form>
         <a href="{% url 'account:logout' %}" class="vendor-acc-logout">
