@@ -27,13 +27,17 @@
         </div>
 
         <form class="register-body" enctype="multipart/form" method="post">
+            {% csrf_token %}
             <section id="reg-1">
             <div class="dynamic-wrap" id="reg-1">
                 <div class="body-title">Basic Details</div>
                 <div class="register-form">
-                    <input type="text" placeholder="Shop Name">
+                    {{form.shop_name}}
+                    {{form.shop_tags}}
+                    {{form.shop_descr}}
+                    <!-- <input type="text" placeholder="Shop Name">
                     <input type="text" placeholder="Tags (eg. Chocolates,Crafts,..)">
-                    <textarea placeholder="Shop Description"></textarea>
+                    <textarea placeholder="Shop Description"></textarea> -->
                 </div>
                 <div class="back-next">
                     <div id="reg-b-1"></div>
@@ -46,7 +50,8 @@
             <div class="dynamic-wrap">
                 <div class="body-title">Almost there</div>
                 <div class="register-form">
-                    <input type="text" placeholder="Shop Contact Number">
+                    {{form.shop_contact}}
+                    <!-- <input type="text" placeholder="Shop Contact Number"> -->
                     <div class="select-state-city">
                         <select><optgroup><option class="disabled-select" value="" disabled selected>State</option>
                         <option>Sussy</option>
@@ -54,7 +59,8 @@
                         <select><optgroup><option class="disabled-select" value="" disabled selected>City</option></optgroup></select>
                     </div>
                     <div class="addmap-url">
-                        <input placeholder="Add Location" style="width:60%;height:100%"></input>
+                        {{form.shop_location}}
+                        <!-- <input placeholder="Add Location" style="width:60%;height:100%"> -->
                         <div class="open-maps">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.99999 17.5C8.94744 16.6022 7.97182 15.6179 7.08332 14.5575C5.74999 12.965 4.16666 10.5933 4.16666 8.33333C4.16608 7.17913 4.50791 6.0507 5.1489 5.09085C5.78989 4.131 6.70122 3.38288 7.76755 2.94116C8.83388 2.49944 10.0073 2.38399 11.1393 2.60941C12.2712 2.83482 13.3109 3.39098 14.1267 4.2075C14.6698 4.74821 15.1003 5.39128 15.3932 6.09947C15.6862 6.80767 15.8358 7.56694 15.8333 8.33333C15.8333 10.5933 14.25 12.965 12.9167 14.5575C12.0282 15.6179 11.0525 16.6022 9.99999 17.5ZM9.99999 5.83333C9.33695 5.83333 8.70106 6.09672 8.23222 6.56556C7.76338 7.0344 7.49999 7.67029 7.49999 8.33333C7.49999 8.99637 7.76338 9.63226 8.23222 10.1011C8.70106 10.5699 9.33695 10.8333 9.99999 10.8333C10.663 10.8333 11.2989 10.5699 11.7678 10.1011C12.2366 9.63226 12.5 8.99637 12.5 8.33333C12.5 7.67029 12.2366 7.0344 11.7678 6.56556C11.2989 6.09672 10.663 5.83333 9.99999 5.83333Z" fill="#964B00"/>
@@ -85,7 +91,8 @@
                                 <path d="M21 6H17.83L16.59 4.65C16.4036 4.44539 16.1767 4.28191 15.9235 4.16999C15.6704 4.05807 15.3968 4.00017 15.12 4H8.72C8.89 4.3 9 4.63 9 5C9 6.1 8.1 7 7 7H6V8C6 9.1 5.1 10 4 10C3.63 10 3.3 9.89 3 9.72V20C3 21.1 3.9 22 5 22H21C22.1 22 23 21.1 23 20V8C23 6.9 22.1 6 21 6ZM13 19C10.24 19 8 16.76 8 14C8 11.24 10.24 9 13 9C15.76 9 18 11.24 18 14C18 16.76 15.76 19 13 19Z" fill="black"/>
                             </svg>
                         </label>
-                        <input id="add_logo" type="file" style="display:none;" onchange="document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])" accept="image/*">
+                        {{form.shop_logo}}
+                        <!-- <input id="add_logo" type="file" style="display:none;" onchange="document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])" accept="image/*"> -->
                     </div>
                 </div>
                 <div class="back-next">

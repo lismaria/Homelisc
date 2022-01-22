@@ -40,15 +40,24 @@ def register_shop(request):
         form = ShopCreationForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-    
-    elif (request.user.is_authenticated and request.user.is_vendor == True):
+            instance.shop_owner_id = request.user.id
+            instance.save()
+            return redirect("home")
+
+    elif(request.user.is_vendor == True):
         shopCount = Shop.objects.filter(shop_owner_id=request.user.id).count()
         if shopCount < 3:
-            return render(request,'Vendor/register-shop.html')
+            form = ShopCreationForm()
+            context['form'] = form
+            return render(request,'Vendor/register-shop.html',context)
         else:
             return redirect("home")
+            
     else:
         return redirect("home")
+
+    context['form'] = form
+    return render(request,'Vendor/register-shop.html',context)
 
 def shop_view(request,id,slug):
     shop_view = check_vendor_details(request,"shop",id)

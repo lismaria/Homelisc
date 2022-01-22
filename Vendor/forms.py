@@ -7,10 +7,22 @@ class ItemCreationForm(forms.ModelForm):
         model = Vendor.Item
         fields = ['item_name', 'item_descr', 'item_price', 'item_category']
 
-class ItemImageUploadForm(ItemCreationForm):
+# class ItemImageUploadForm(ItemCreationForm):
+#     # item_img = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),required=False)
+#     class Meta(ItemCreationForm.Meta):
+#         fields = ItemCreationForm.Meta.fields + ['item_img',]
+#         widgets = {
+#             'item_img': forms.ClearableFileInput(attrs={'multiple': True})
+#         }
+#         # required= {
+#         #     'item_img': False
+#         # }
+
+class ItemImageUploadForm(forms.ModelForm):
     # item_img = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),required=False)
-    class Meta(ItemCreationForm.Meta):
-        fields = ItemCreationForm.Meta.fields + ['item_img',]
+    class Meta:
+        model = Vendor.ItemImage
+        fields = ('item_img',)
         widgets = {
             'item_img': forms.ClearableFileInput(attrs={'multiple': True})
         }
@@ -39,7 +51,7 @@ class ShopCreationForm(forms.ModelForm):
             'shop_contact': forms.TextInput(attrs={'placeholder':'Shop Contact Number'}),
             'shop_state': forms.Select(attrs={'placeholder':'State'}),
             'shop_city': forms.Select(attrs={'placeholder':'City'}),
-            'shop_location': forms.TextInput(attrs={'placeholder':'Add Location'}),
+            'shop_location': forms.TextInput(attrs={'placeholder':'Add Location',"style":"width:60%;height:100%"}),
             'shop_logo': forms.FileInput(attrs={"id":"add_logo", "style":"display:none;", "onchange":"document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])", "accept":"image/*"}),
         }
 
