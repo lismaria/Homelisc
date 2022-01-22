@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.postgres.fields import ArrayField
 from Account.models import User
@@ -16,13 +17,17 @@ class Shop(models.Model):
     shop_location = models.TextField(verbose_name="Shop Location", default=None)
     shop_tags = ArrayField(models.CharField(verbose_name="Shop Tags",max_length=50), blank=False)
     shop_logo = models.ImageField(verbose_name="Shop Logo",default='default.png', blank=True)
-    shop_rating = models.FloatField(verbose_name="Shop Rating")
-    shop_clicks_count = models.IntegerField(verbose_name="Shop Clicks Count")
-    shop_wishlist_count = models.IntegerField(verbose_name="Shop Wishlist Count")
+    shop_rating = models.FloatField(verbose_name="Shop Rating",null=True, default=None)
+    shop_clicks_count = models.IntegerField(verbose_name="Shop Clicks Count",null=True, default=None)
+    shop_wishlist_count = models.IntegerField(verbose_name="Shop Wishlist Count",null=True, default=None)
     shop_owner = models.ForeignKey(User,on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.shop_name
+    
+    def save(self, *args, **kwargs):
+        self.shop_slug = slugify(self.shop_name)
+        super(Shop, self).save(*args, **kwargs)
 
 class Item(models.Model):
     item_name = models.CharField(verbose_name="Item Name", max_length=50)

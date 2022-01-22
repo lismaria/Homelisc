@@ -149,6 +149,10 @@
     color: var(--primary);
 }
 
+.back-next div:hover{
+    cursor: pointer;
+}
+
 .select-state-city{
     display: flex;
     align-items: center;

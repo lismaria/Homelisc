@@ -26,15 +26,18 @@
             </div>
         </div>
 
-        <form class="register-body" enctype="multipart/form" method="post">
+        <form class="register-body" action="{% url 'vendor:register-shop' %}" enctype="multipart/form" method="post">
             {% csrf_token %}
             <section id="reg-1">
             <div class="dynamic-wrap" id="reg-1">
                 <div class="body-title">Basic Details</div>
                 <div class="register-form">
                     {{form.shop_name}}
+                    {{form.shop_name.errors}}
                     {{form.shop_tags}}
+                    {{form.shop_tags.errors}}
                     {{form.shop_descr}}
+                    {{form.shop_descr.errors}}
                     <!-- <input type="text" placeholder="Shop Name">
                     <input type="text" placeholder="Tags (eg. Chocolates,Crafts,..)">
                     <textarea placeholder="Shop Description"></textarea> -->
@@ -51,15 +54,17 @@
                 <div class="body-title">Almost there</div>
                 <div class="register-form">
                     {{form.shop_contact}}
+                    {{form.shop_contact.errors}}
                     <!-- <input type="text" placeholder="Shop Contact Number"> -->
-                    <div class="select-state-city">
+                    <!-- <div class="select-state-city">
                         <select><optgroup><option class="disabled-select" value="" disabled selected>State</option>
                         <option>Sussy</option>
                         </optgroup></select>
                         <select><optgroup><option class="disabled-select" value="" disabled selected>City</option></optgroup></select>
-                    </div>
+                    </div> -->
                     <div class="addmap-url">
                         {{form.shop_location}}
+                        {{form.shop_location.errors}}
                         <!-- <input placeholder="Add Location" style="width:60%;height:100%"> -->
                         <div class="open-maps">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,6 +97,7 @@
                             </svg>
                         </label>
                         {{form.shop_logo}}
+                        {{form.shop_logo.errors}}
                         <!-- <input id="add_logo" type="file" style="display:none;" onchange="document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])" accept="image/*"> -->
                     </div>
                 </div>

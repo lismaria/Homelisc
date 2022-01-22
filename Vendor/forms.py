@@ -33,7 +33,7 @@ class ItemImageUploadForm(forms.ModelForm):
 class ShopCreationForm(forms.ModelForm):
     class Meta:
         model = Vendor.Shop
-        fields = ['shop_name', 'shop_tags', 'shop_descr', 'shop_contact', 'shop_state', 'shop_city', 'shop_location', 'shop_logo']
+        fields = ['shop_name', 'shop_tags', 'shop_descr', 'shop_contact', 'shop_location', 'shop_logo']
         labels = {
             'shop_name': '',
             'shop_tags': '', 
@@ -49,8 +49,8 @@ class ShopCreationForm(forms.ModelForm):
             'shop_tags': forms.TextInput(attrs={'placeholder':'Tags (eg. Chocolates,Crafts,..)'}),
             'shop_descr': forms.Textarea(attrs={'placeholder':'Shop Description'}),
             'shop_contact': forms.TextInput(attrs={'placeholder':'Shop Contact Number'}),
-            'shop_state': forms.Select(attrs={'placeholder':'State'}),
-            'shop_city': forms.Select(attrs={'placeholder':'City'}),
+            # 'shop_state': forms.Select(attrs={'placeholder':'State'}),
+            # 'shop_city': forms.Select(attrs={'placeholder':'City'}),
             'shop_location': forms.TextInput(attrs={'placeholder':'Add Location',"style":"width:60%;height:100%"}),
             'shop_logo': forms.FileInput(attrs={"id":"add_logo", "style":"display:none;", "onchange":"document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])", "accept":"image/*"}),
         }

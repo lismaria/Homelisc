@@ -251,3 +251,16 @@ img.object-fit{
     color: var(--primary);
     text-transform: uppercase;
 }
+
+.errorlist{
+    position: absolute;
+    color: red;
+    text-align: right;
+    padding: 2.5rem;
+    list-style: none;
+}
+
+.errorlist li, .errorlist p{
+    font-family: Poppins;
+    font-size: 1.4rem;
+}
