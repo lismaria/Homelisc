@@ -1,16 +1,21 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from Vendor.models import Shop
 from Vendor.forms import ShopCreationForm
 
 # Create your views here.
 
-def check_vendor_details(request,render_template,id):
+def check_vendor_details(request, render_template, id, slug):
     if not request.user.is_authenticated:
         return redirect("home")
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         shop_owner = Shop.objects.values('shop_owner').get(id=id)['shop_owner']
         if(request.user.id == shop_owner):
             shopInfo = Shop.objects.filter(id=id)
+            obj = get_object_or_404(Shop, pk=id)
+            print(obj)
+            if obj.shop_slug != slug:
+                print("O: ",obj.shop_slug, "S: ",slug)
+                return redirect('vendor:'+render_template, id=obj.pk, slug=obj.shop_slug)
             return render(request,"Vendor/"+render_template+".html",{'shopInfo':shopInfo})
         else:
             return redirect("home")
@@ -60,13 +65,13 @@ def register_shop(request):
     return render(request,'Vendor/register-shop.html',context)
 
 def shop_view(request,id,slug):
-    shop_view = check_vendor_details(request,"shop",id)
+    shop_view = check_vendor_details(request,"shop",id, slug)
     return shop_view
 
 def menu_view(request,id,slug):
-    menu_view = check_vendor_details(request,"menu",id)
+    menu_view = check_vendor_details(request,"menu",id, slug)
     return menu_view
 
 def review_view(request,id,slug):
-    reviews_view = check_vendor_details(request,"review",id)
+    reviews_view = check_vendor_details(request,"review",id, slug)
     return reviews_view
