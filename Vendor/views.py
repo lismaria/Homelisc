@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.core import serializers
 from Vendor.models import Shop
+from Account.models import User
 from Vendor.forms import ShopCreationForm
+from Account.forms import AccountUpdationForm
 
 # Create your views here.
 
@@ -27,12 +31,13 @@ def home(request):
     if not request.user.is_authenticated:
         return render(request,'home.html',{'food':'chocolates'})
     elif (request.user.is_authenticated and request.user.is_vendor == True):
+        vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
         shopInfo = Shop.objects.filter(shop_owner_id=request.user.id)
         shopCount = shopInfo.count()
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
-            return render(request,'Vendor/home.html',{'shopInfo':shopInfo})
+            return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'vendorForm':vendorForm})
     else:
         return render(request,'home.html',{'food':'chocolates'})
 
@@ -75,3 +80,53 @@ def menu_view(request,id,slug):
 def review_view(request,id,slug):
     reviews_view = check_vendor_details(request,"review",id, slug)
     return reviews_view
+
+def vendor_update(request):
+    print("In verdor_update")
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    # context = {}
+    if request.POST:
+        print("In req.ajax")
+        # email = request.user.email
+        form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            print("Valid form")
+            instance = form.save()
+            # serialize in new friend object in json
+            ser_instance = serializers.serialize('json', [ instance, ])
+            return JsonResponse({"instance": ser_instance}, status=200)
+            # return redirect("account:account")
+        else:
+            print("Invalid form")
+            # user = User.objects.get(email=email)
+            return JsonResponse({"error": form.errors}, status=400)
+            # print(user)
+    # else:
+    #     user = User.objects.get(email=request.user.email)
+    #     form = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
+        
+    # context['user'] = user
+    # context['form'] = form
+    # return render(request,"Account/account.html",context)
+    print("Direct last")
+    return JsonResponse({"error": ""}, status=400)
+
+"""    # request should be ajax and method should be POST.
+    if request.is_ajax and request.method == "POST":
+        # get the form data
+        form = FriendForm(request.POST)  # AccountUpdationForm(request.POST, request.FILES, instance=request.user)
+        # save the data and after fetch the object in instance
+        if form.is_valid():
+            instance = form.save()
+            # serialize in new friend object in json
+            ser_instance = serializers.serialize('json', [ instance, ])
+            # send to client side.
+            return JsonResponse({"instance": ser_instance}, status=200)
+        else:
+            # some form errors occured.
+            return JsonResponse({"error": form.errors}, status=400)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400) """
