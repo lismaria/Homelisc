@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from Vendor.models import Shop
+from Vendor.forms import ShopCreationForm
 
 # Create your views here.
 
@@ -33,6 +34,13 @@ def home(request):
 def register_shop(request):
     if not request.user.is_authenticated:
         return redirect("home")
+    
+    context={}
+    if request.method == 'POST':
+        form = ShopCreationForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+    
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         shopCount = Shop.objects.filter(shop_owner_id=request.user.id).count()
         if shopCount < 3:

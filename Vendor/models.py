@@ -12,7 +12,7 @@ class Shop(models.Model):
     shop_descr = models.TextField(verbose_name="Shop Description")    
     shop_contact = PhoneNumberField(null=False, blank=False)
     shop_city = models.CharField(verbose_name="Shop City", max_length=50)
-    shop_area = models.CharField(verbose_name="Shop Area", max_length=50)
+    shop_state = models.CharField(verbose_name="Shop State", max_length=50)
     shop_location = models.TextField(verbose_name="Shop Location", default=None)
     shop_tags = ArrayField(models.CharField(verbose_name="Shop Tags",max_length=50), blank=False)
     shop_logo = models.ImageField(verbose_name="Shop Logo",default='default.png', blank=True)
