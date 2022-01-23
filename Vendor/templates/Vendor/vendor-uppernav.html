@@ -34,6 +34,15 @@
 
 <script>
     $(document).ready(function () {
+        let init_vuvh = window.innerHeight * 0.01;
+        $("input[type=text], input[type=email]").focus(function(){
+            $(".vendor-acc-profile>div").css({'min-height':init_vuvh*100+'px'});
+        })
+
+        $("input[type=text], input[type=email]").blur(function(){
+            $(".vendor-acc-profile>div").css({'min-height':'auto'});
+        })
+
         /*
             On submiting the form, send the POST ajax
             request to server and after successfull submission

@@ -77,8 +77,8 @@ img.object-fit{
     position: fixed;
     bottom: 0;  
     width: 100vw;
-    height: 10vh;
-    height: calc(var(--vh, 1vh) * 10.1);    
+    height: 9vh;
+    height: calc(var(--vh, 1vh) * 9);    
 }
 
 .vendor-nav-ul>li{

@@ -1,6 +1,6 @@
 .menu-wrapper{
-    height: 90vh;
-    height: calc(var(--vh, 1vh) * 80);
+    height: 81vh;
+    height: calc(var(--vh, 1vh) * 81);
     display:grid;
     grid-template-columns: repeat(12,1fr);
     grid-template-rows: repeat(20,1fr);
@@ -15,8 +15,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height:100%;
+    height:90%;
     width: 100%;
+    background-color: var(--white);
+    border-radius: .4rem;
+    padding: .5rem;
 }
 
 .menu-filter-frame h1{
@@ -26,27 +29,22 @@
     font-size: 1.4rem;
 }
 
-.menu-filter-frame p{
-    width: 100%;
-    height: 3%;
-    background-color: var(--grey);
-}
-
 .menu-filters{
     display: flex;
     align-items: center;
     justify-content: center;
     gap:10%;
     width: 100%;
-    height: 94%;
+    height: 100%;
 }
 
 .menu-filters button{
     display:flex;
     align-items: center;
     justify-content:space-around;
+    border:0.1rem solid var(--primary);
     background-color: var(--white);
-    padding:1rem;
+    padding:0.5rem;
     height:70%;
     border-radius: .4rem;
 }
@@ -64,12 +62,12 @@
     font-family: Poppins;
     font-style: normal;
     font-weight: normal;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .add-item{
     background-color: var(--primary);
-    width: 40%;
+    width: 25%;
     height: 70%;
     display:flex;
     align-items: center;
@@ -95,26 +93,29 @@
     gap: 2rem;
     overflow: auto;
     padding-bottom: 4rem;
+    padding-top: 1rem;
 }
 
 .item-card{
     background: #FFFFFF;
     border-radius: 8px;
     width: 100%;
-    height: 22rem;
+    height: auto;
+    max-height: 25rem;
     padding: 1rem;
     align-items: center;
     box-shadow: var(--ds_prod_card);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 0.5rem;
 }
 
 .item-pic{
     width: 100%;
-    height: 50%;
+    height: 10rem;
     position: relative;
-    background-color: var(--primary);
+    background-color: var(--accent);
 }
 
 .item-pic p{
@@ -124,24 +125,24 @@
     font-size: 1rem;
 }
 
-.item-rating, .item-price{
+.remove-item, .edit-item{
     position: absolute;
     display: flex;
     align-items: center;
     justify-content:space-around;
-    height: 1.8rem;
-    width: 3.5rem;
+    height: 3rem;
+    width: 3rem;
     background-color: var(--white);
     filter: drop-shadow(var(--ds_icon));
     border-radius:.4rem;
 }
 
-.item-rating{
+.remove-item{
     left:.5rem;
     bottom:.5rem;
 }
 
-.item-price{
+.edit-item{
     right: .5rem;
     bottom: .5rem;
 }
@@ -151,6 +152,7 @@
     font-style: normal;
     font-weight: 600;
     font-size: 1.4rem;
+    text-align: center;
 }
 
 .item-descr p{
@@ -162,22 +164,20 @@
     color: var(--grey);
 }
 
-.remove-edit-item{
+.item-rating-price{
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content:space-around;
     width: 100%;
-    gap:10%;
 }
 
-.remove-item, .edit-item{
+.item-rating, .item-price{
     display: flex;
     align-items: center;
     gap:5%;
 }
 
-.remove-item p, .edit-item p{
-    font-family: Poppins;
+.item-rating p, .item-price p{
     font-style: normal;
     font-weight: normal;
     font-size: 1.2rem;
@@ -195,7 +195,7 @@
     border-radius: 70px;
     background-color: var(--white);
     border: 3px solid var(--primary);
-    bottom: 4vh;
+    bottom: 3vh;
     display: flex;
     flex-direction: column;
     align-items: center;
