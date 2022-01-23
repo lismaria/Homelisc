@@ -147,6 +147,7 @@ img.object-fit{
     display: grid;
     grid-template-rows: repeat(13,1fr);
     height: 75vh;
+    height: calc(var(--vh, 1vh) * 75);
 }
 
 .vendor-acc-form{
