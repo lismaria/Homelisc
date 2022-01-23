@@ -3,7 +3,7 @@
 <nav>
     <div class="vendor-uppernav-div">
         <div class="vendor-page-header"><h1 id="page-heading">Shop</h1></div>
-        <img id="vendor_profile" src="" alt="" srcset="">
+        <img id="vendor_profile" src="{{request.user.profile_pic.url}}" alt="" srcset="">
     </div>
 </nav>
 
@@ -11,7 +11,7 @@
     <div>
         <form id="vendor-update" class="vendor-acc-form" method="post" enctype="multipart/form-data">
             <div class="vendor-acc-imgdiv">
-                <img src="{{request.user.profile_pic.url}}" alt="" id="dp" class="object-fit">
+                <img src="{{request.user.profile_pic.url}}" id="dp" class="object-fit">
                 <label for="change_pic">Change</label>
                 <!-- <input type="file" name="" id="change_vdp" style="display:none" onchange="document.getElementById('vdp').src = window.URL.createObjectURL(this.files[0])"> -->
                 {{vendorForm.profile_pic}}
@@ -43,13 +43,18 @@
             // preventing from page reload and default actions
             e.preventDefault();
             // serialize the data for sending the form data.
-            var serializedData = $(this).serialize();
+            var serializedData = new FormData($('form')[0]);
             // make POST ajax call
             $.ajax({
                 type: 'POST',
                 url: "{% url 'vendor:vendor-update' %}",
                 data: serializedData,
+                cache: false,
+                contentType: false,
+                processData: false,
                 success: function (response) {
+                    var res = JSON.parse(response.instance)[0].fields.profile_pic
+                    $("#vendor_profile").attr('src','/media/'+res);
                     alert("Updation Success!");
                 },
                 error: function (response) {

@@ -90,6 +90,7 @@ def vendor_update(request):
         form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             instance = form.save()
+            request.user.save()
             # serialize in new friend object in json
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)
