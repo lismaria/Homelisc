@@ -1,3 +1,133 @@
+.shop-wrapper{
+    height: 90vh;
+    height: calc(var(--vh, 1vh) * 90);
+    width: 100%;
+    padding: 2rem 2.5rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.shop-info-card{
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    background-color: var(--white);
+    box-shadow: var(--ds3);
+    border-radius: 0.8rem;
+    padding: 1.8rem;
+    height: max-content;
+    width: 100%;
+    gap: 1.8rem;
+}
+
+
+
+.shop-info__title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shop-info__title>h1{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 3rem;
+    color: var(--primary);
+}
+
+.shop-info__title>button{
+    display: flex;
+    background-color: var(--primary);
+    padding: 0.4rem 0.7rem;
+    border-radius: 0.4rem;
+    gap: 0.8rem;
+}
+
+.shop-info__title>button>h2{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    color: var(--white);
+}
+
+
+
+.shop-info__main{
+    display: flex;
+    gap: 2rem;
+}
+
+.shop-info__main>img{
+    height: 7.2rem;
+    width: 7.2rem;
+    border-radius: 0.8rem;
+    background-color: var(--accent);
+}
+
+.shop-info__main>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.shop-info__main>div>h2{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    color: var(--primary);
+}
+
+.shop-info__main>div>h3, .shop-info__contact div>h3, .shop-info__descr>p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+}
+
+.shop-info__descr{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.shop-info__descr>p{
+    color: var(--grey)
+}
+
+
+.shop-info__descr>h2, .shop-info__contact>h2{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+}
+
+.shop-info__contact{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.shop-info__contact>div{
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    background-color: #F5F5F8;
+    gap: 0.8rem;
+}
+
+
 /* Active State Code */
 
 #shop .vendor-nav-p__hide{
@@ -17,4 +147,3 @@
     justify-content: center;
     position: absolute;
 }
-
