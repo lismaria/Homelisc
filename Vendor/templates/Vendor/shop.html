@@ -9,13 +9,13 @@
 
 {% block content %}
 <div class="vendor-nav">{% include "Vendor/vendor-lowernav.html" %}</div>
+{% endblock content %}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{% block javascript %}
 <script>
     // document.getElementById("page-heading").innerHTML = "Return to Home";
     $("#page-heading").remove()
     $( ".vendor-page-header" ).append("<a class='vendor-page-a' href={% url 'vendor:home' %}><a>");
     $('.vendor-page-a').append("<h1>< Return to Home</h1>")
 </script>
-
-{% endblock content %}
+{% endblock javascript %}

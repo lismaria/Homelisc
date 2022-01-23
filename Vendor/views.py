@@ -38,7 +38,7 @@ def home(request):
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
-            return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'vendorForm':vendorForm})
+            return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     else:
         return render(request,'home.html',{'food':'chocolates'})
 

@@ -24,4 +24,5 @@ $(document).ready(function () {
         $(".register-shop-wrapper").css({'min-height':'auto'});
         $(".vendor-nav-ul").css({'display': 'grid'});
     });
+
 });
