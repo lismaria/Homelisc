@@ -1,7 +1,13 @@
 {% extends "Vendor/base-vendor.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'Vendor/home.css' %}">
+{% endblock style %}
+
+{% block title %}Vendor{% endblock title %}
 
 {% block content %}
-{% load static %}
 <div class="home-wrapper">
     <div class="shop-container">
         {% for i in shopInfo %}
@@ -31,5 +37,4 @@
     </button>
 </div>
 
-<link rel="stylesheet" href="{% static 'Vendor/home.css' %}">
-{% endblock %}
+{% endblock content %}

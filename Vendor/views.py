@@ -83,51 +83,17 @@ def review_view(request,id,slug):
     return reviews_view
 
 def vendor_update(request):
-    print("In verdor_update")
     if not request.user.is_authenticated:
         return render(request,"Account/account.html")
         
-    # context = {}
     if request.POST:
-        print("In req.ajax")
-        # email = request.user.email
         form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            print("Valid form")
             instance = form.save()
             # serialize in new friend object in json
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)
-            # return redirect("account:account")
         else:
-            print("Invalid form")
-            # user = User.objects.get(email=email)
             return JsonResponse({"error": form.errors}, status=400)
-            # print(user)
-    # else:
-    #     user = User.objects.get(email=request.user.email)
-    #     form = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
-        
-    # context['user'] = user
-    # context['form'] = form
-    # return render(request,"Account/account.html",context)
-    print("Direct last")
+
     return JsonResponse({"error": ""}, status=400)
-
-"""    # request should be ajax and method should be POST.
-    if request.is_ajax and request.method == "POST":
-        # get the form data
-        form = FriendForm(request.POST)  # AccountUpdationForm(request.POST, request.FILES, instance=request.user)
-        # save the data and after fetch the object in instance
-        if form.is_valid():
-            instance = form.save()
-            # serialize in new friend object in json
-            ser_instance = serializers.serialize('json', [ instance, ])
-            # send to client side.
-            return JsonResponse({"instance": ser_instance}, status=200)
-        else:
-            # some form errors occured.
-            return JsonResponse({"error": form.errors}, status=400)
-
-    # some error occured
-    return JsonResponse({"error": ""}, status=400) """

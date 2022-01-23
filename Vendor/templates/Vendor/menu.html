@@ -1,7 +1,13 @@
 {% extends "Vendor/base-vendor.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'Vendor/menu.css' %}">
+{% endblock style %}
+
+{% block title %}Menu{% endblock title %}
 
 {% block content %}
-{% load static %}
 
 <h1>menu.html</h1>
 <div class="vendor-nav">{% include "Vendor/vendor-lowernav.html" %}</div>
@@ -10,5 +16,4 @@
     document.getElementById("page-heading").innerHTML = "Menu";
 </script>
 
-<link rel="stylesheet" href="{% static 'Vendor/menu.css' %}">
-{% endblock %}
+{% endblock content %}

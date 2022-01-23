@@ -1,7 +1,13 @@
 {% extends "Vendor/base-vendor.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'Vendor/perks.css' %}">
+{% endblock style %}
+
+{% block title %}Perks{% endblock title %}
 
 {% block content %}
-{% load static %}
 
     <div class="perks-wrapper">
         <div class="title"><p>Why partner with us?</p></div>
@@ -59,5 +65,4 @@
         </a>
     </div>
 
-    <link rel="stylesheet" href="{% static 'Vendor/perks.css' %}">
-{% endblock %}
+{% endblock content %}

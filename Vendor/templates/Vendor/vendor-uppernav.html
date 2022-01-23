@@ -11,8 +11,8 @@
     <div>
         <form id="vendor-update" class="vendor-acc-form" method="post" enctype="multipart/form-data">
             <div class="vendor-acc-imgdiv">
-                <img src="{{request.user.profile_pic.url}}" alt="" id="vdp" class="object-fit">
-                <label for="change_vdp">Change</label>
+                <img src="{{request.user.profile_pic.url}}" alt="" id="dp" class="object-fit">
+                <label for="change_pic">Change</label>
                 <!-- <input type="file" name="" id="change_vdp" style="display:none" onchange="document.getElementById('vdp').src = window.URL.createObjectURL(this.files[0])"> -->
                 {{vendorForm.profile_pic}}
             </div>
@@ -31,8 +31,7 @@
     </div>
 </div>
 
-{% block javascript %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <script>
     $(document).ready(function () {
         /*
@@ -41,7 +40,6 @@
             display the object.
         */
         $("#vendor-update").submit(function (e) {
-            console.log("Submit")
             // preventing from page reload and default actions
             e.preventDefault();
             // serialize the data for sending the form data.
@@ -52,40 +50,13 @@
                 url: "{% url 'vendor:vendor-update' %}",
                 data: serializedData,
                 success: function (response) {
-                    // on successfull creating object
-                    // 1. clear the form.
-                    // $("#friend-form").trigger('reset');
-                    // 2. focus to nickname input 
-                    // $("#id_nick_name").focus();
-
-                    // display the newly friend to table.
-                    // var instance = JSON.parse(response["instance"]);
-                    // var fields = instance[0]["fields"];
-                    // $("#my_friends tbody").prepend(
-                    //     `<tr>
-                    //     <td>${fields["nick_name"]||""}</td>
-                    //     <td>${fields["first_name"]||""}</td>
-                    //     <td>${fields["last_name"]||""}</td>
-                    //     <td>${fields["likes"]||""}</td>
-                    //     <td>${fields["dob"]||""}</td>
-                    //     <td>${fields["lives_in"]||""}</td>
-                    //     </tr>`
-                    // )
-                    // console.log("Hey Success!");
-                    // console.log("Res: ", response)
                     alert("Updation Success!");
                 },
                 error: function (response) {
                     // alert the error if any error occured
-                    
-                    // resTxt = JSON.parse(response.responseText)
-
-                    // console.log("Error: ", resTxt["error"][0])
-                    // console.log("Error: ", response.responseJSON.error.email[0])
                     alert(response.responseJSON.error.email[0]);
                 }
             })
         })
     })
 </script>
-{% endblock javascript %}
