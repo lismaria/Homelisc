@@ -72,12 +72,12 @@
                         {{form.shop_location}}
                         {{form.shop_location.errors}}
                         <!-- <input placeholder="Add Location" style="width:60%;height:100%"> -->
-                        <div class="open-maps">
+                        <a href="https://www.google.com/maps" target="_blank" class="open-maps">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.99999 17.5C8.94744 16.6022 7.97182 15.6179 7.08332 14.5575C5.74999 12.965 4.16666 10.5933 4.16666 8.33333C4.16608 7.17913 4.50791 6.0507 5.1489 5.09085C5.78989 4.131 6.70122 3.38288 7.76755 2.94116C8.83388 2.49944 10.0073 2.38399 11.1393 2.60941C12.2712 2.83482 13.3109 3.39098 14.1267 4.2075C14.6698 4.74821 15.1003 5.39128 15.3932 6.09947C15.6862 6.80767 15.8358 7.56694 15.8333 8.33333C15.8333 10.5933 14.25 12.965 12.9167 14.5575C12.0282 15.6179 11.0525 16.6022 9.99999 17.5ZM9.99999 5.83333C9.33695 5.83333 8.70106 6.09672 8.23222 6.56556C7.76338 7.0344 7.49999 7.67029 7.49999 8.33333C7.49999 8.99637 7.76338 9.63226 8.23222 10.1011C8.70106 10.5699 9.33695 10.8333 9.99999 10.8333C10.663 10.8333 11.2989 10.5699 11.7678 10.1011C12.2366 9.63226 12.5 8.99637 12.5 8.33333C12.5 7.67029 12.2366 7.0344 11.7678 6.56556C11.2989 6.09672 10.663 5.83333 9.99999 5.83333Z" fill="#964B00"/>
                             </svg>
                             <p>Open Maps</p>
-                        </div>
+                        </a>
                     </div>
                     
                 </div>
@@ -119,51 +119,51 @@
 {% endblock content %}
 
 {% block javascript %}
+
 <script>
-    $(document).ready(function(){
-        // register-shop NEXT>
-        $("#reg-n-1").click(function(){
-            $("#reg-1").hide();
-            $("#reg-2").show();
-            $("#reg-3").hide();
-            $(".step-two").css({"background-color":"var(--accent)"});
-            $(".step-one h2").hide();
-            $(".step-one img").show();
-        });
-    
-        $("#reg-n-2").click(function(){
-            $("#reg-1").hide();
-            $("#reg-2").hide();
-            $("#reg-3").show();
-            $(".step-three").css({"background-color":"var(--accent)"});
-            $(".step-two h2").hide();
-            $(".step-two img").show();
-        });
-          
-        // register-shop <BACK
-        $("#reg-b-2").click(function(){
-            $("#reg-1").show();
-            $("#reg-2").hide();
-            $("#reg-3").hide();
-            $(".step-two").css({"background-color":"var(--neutral)"});
-            $(".step-one h2").show();
-            $(".step-one img").hide();
-        });
-    
-        $("#reg-b-3").click(function(){
-            $("#reg-1").hide();
-            $("#reg-2").show();
-            $("#reg-3").hide();
-            $(".step-three").css({"background-color":"var(--neutral)"});
-            $(".step-two h2").show();
-            $(".step-two img").hide();
-        });
-    
-        $('input[type="file"]').change(function() {
-            $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
-            $(".step-three h2").hide();
-            $(".step-three img").show();
-        });
-    })
+    // register-shop NEXT>
+    $("#reg-n-1").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").show();
+        $("#reg-3").hide();
+        $(".step-two").css({"background-color":"var(--accent)"});
+        $(".step-one h2").hide();
+        $(".step-one img").show();
+    });
+
+    $("#reg-n-2").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").hide();
+        $("#reg-3").show();
+        $(".step-three").css({"background-color":"var(--accent)"});
+        $(".step-two h2").hide();
+        $(".step-two img").show();
+    });
+      
+    // register-shop <BACK
+    $("#reg-b-2").click(function(){
+        $("#reg-1").show();
+        $("#reg-2").hide();
+        $("#reg-3").hide();
+        $(".step-two").css({"background-color":"var(--neutral)"});
+        $(".step-one h2").show();
+        $(".step-one img").hide();
+    });
+
+    $("#reg-b-3").click(function(){
+        $("#reg-1").hide();
+        $("#reg-2").show();
+        $("#reg-3").hide();
+        $(".step-three").css({"background-color":"var(--neutral)"});
+        $(".step-two h2").show();
+        $(".step-two img").hide();
+    });
+
+    $('input[type="file"]').change(function() {
+        $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
+        $(".step-three h2").hide();
+        $(".step-three img").show();
+    });
 </script>
-{% endblock javascript%}
+
+{% endblock javascript %}

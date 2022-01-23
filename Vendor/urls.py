@@ -8,7 +8,7 @@ urlpatterns = [
     path('<slug:id>/<slug:slug>/menu', views.menu_view, name='menu'),
     path('<slug:id>/<slug:slug>/review', views.review_view, name="review"),
     path('register-shop',views.register_shop,name="register-shop"),
-    path('<slug:id>/<slug:slug>',views.shop_view,name="shop"),
+    path('<slug:id>/<slug:slug>/shop',views.shop_view,name="shop"),
     path('vendor/update/',views.vendor_update,name="vendor-update")
 ]
 

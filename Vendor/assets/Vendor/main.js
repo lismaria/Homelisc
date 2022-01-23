@@ -13,6 +13,16 @@ $(document).ready(function () {
 
     $("#vendor_profile").click(() => {
         $(".vendor-acc-profile").slideToggle("slow");
-    })
+    });
+
+    $( "input[type=text], input[type=email], input[type=password], input[type=tel], textarea" ).focus(function() {
+        $(".register-shop-wrapper").css({'min-height':init_vh*100+'px'});
+        $(".vendor-nav-ul").css({'display': 'none'});
+    });
+    
+    $( "input[type=text], input[type=email], input[type=password], input[type=tel], textarea" ).blur(function() {
+        $(".register-shop-wrapper").css({'min-height':'auto'});
+        $(".vendor-nav-ul").css({'display': 'grid'});
+    });
 
 });
