@@ -192,6 +192,7 @@
     padding: 2.5rem;
     padding-bottom: 0;
     padding-top:1rem;
+    overflow: auto;
 }
 
 .additem-form{
@@ -246,6 +247,57 @@
     font-weight: normal;
     font-size: 1rem;
     color: var(--black);
+}
+
+.preview-images{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap:2rem;
+    margin-top:1rem;
+}
+
+.preview-images img{
+    width: 8rem;
+    height: 8rem;
+    object-fit: contain;
+}
+
+.additem-buttons{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap:10%;
+    padding-bottom: 5rem;
+}
+
+.additem-buttons p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.cancel-btn, .add-btn{
+    width:40%;
+    height:3.5rem;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    color:var(--primary);
+    border-radius:2.4rem;
+    gap:5%;
+}
+
+.cancel-btn{
+    border: 0.1rem solid var(--primary);
+}
+
+.add-btn{
+    background-color: var(--primary);
+    color: var(--white);
 }
 
 /* Active State Code */
