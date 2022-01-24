@@ -17,9 +17,7 @@ def check_vendor_details(request, render_template, id, slug):
         if(request.user.id == shop_owner):
             shopInfo = Shop.objects.filter(id=id)
             obj = get_object_or_404(Shop, pk=id)
-            print(obj)
             if obj.shop_slug != slug:
-                print("O: ",obj.shop_slug, "S: ",slug)
                 return redirect('vendor:'+render_template, id=obj.pk, slug=obj.shop_slug)
             return render(request,"Vendor/"+render_template+".html",{'shopInfo':shopInfo,'vendorForm':vendorForm})
         else:

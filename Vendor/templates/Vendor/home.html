@@ -13,7 +13,7 @@
         {% for i in shopInfo %}
         <a href="{% url 'vendor:shop' id=i.id slug=i.shop_slug %}" id="myshop">
         <div class="shop-card">
-            <img src="" alt="">
+            <img src="{{i.shop_logo.url}}" alt="">
             <div class="shop-content">
                 <h2>{{i.shop_name}}</h2>
                 <p></p>

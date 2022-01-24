@@ -6,6 +6,7 @@
     grid-template-rows: repeat(20,1fr);
     padding: 2.5rem;
     padding-bottom: 0;
+    padding-top:1rem;
 }
 
 .menu-filter-frame{
@@ -180,6 +181,32 @@
     font-size: 1.2rem;
 }
 
+/* Add Item Code */
+
+.add-item-wrapper{
+    height: 81vh;
+    height: calc(var(--vh, 1vh) * 81);
+    display:grid;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows: repeat(20,1fr);
+    padding: 2.5rem;
+    padding-bottom: 0;
+    padding-top:1rem;
+}
+
+.additem-form{
+    grid-column: 1/13;
+    grid-row: 1/21;
+}
+
+.additem-form label{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    color:var(--primary);
+}
+
 /* Active State Code */
 
 #menu .vendor-nav-p__hide{
@@ -198,4 +225,8 @@
     align-items: center;
     justify-content: center;
     position: absolute;
+}
+
+.hidden{
+    display: none;
 }

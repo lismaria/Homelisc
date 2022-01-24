@@ -78,6 +78,26 @@
 
     </div>
 
+    <div class="add-item-wrapper">
+        <form class="additem-form">
+            <label>NAME</label>
+            <input type="text" placeholder="Item name">
+
+            <label>DESCRIPTION</label>
+            <textarea placeholder="Item Description"></textarea>
+
+            <label>PRICE</label>
+            <input type="text" placeholder="Item price">
+
+            <label>CATEGORY</label>
+            <input type="text" placeholder="Category (eg. Wall Painting, Brownies,..)">
+
+            <label for="shop-logo">IMAGES</label>
+            <input type="file" id="shop-logo" style="display:none" onchange="document.getElementById('img1').src = window.URL.createObjectURL(this.files[0])">
+            <img id="img1" src="">
+        </form>
+    </div>
+
     <div class="vendor-nav">{% include "Vendor/vendor-lowernav.html" %}</div>
 
 {% endblock content %}
@@ -86,5 +106,19 @@
 {% block javascript %}
 <script>
     document.getElementById("page-heading").innerHTML = "Menu";
+    $(".add-item-wrapper").addClass("hidden");
+    $(document).ready(function () {
+        $(".add-item").click(function () {
+            document.getElementById("page-heading").innerHTML = "< Add Item";
+            $(".menu-wrapper").addClass("hidden");
+            $(".add-item-wrapper").removeClass("hidden");
+        })
+
+        $("#page-heading").click(function(){
+            $(".add-item-wrapper").addClass("hidden");
+            $(".menu-wrapper").removeClass("hidden");
+            document.getElementById("page-heading").innerHTML = "Menu";
+        })
+    });
 </script>
 {% endblock javascript %}
