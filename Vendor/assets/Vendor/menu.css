@@ -200,11 +200,52 @@
 }
 
 .additem-form label{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.3rem;
+    color:var(--primary);
+}
+
+.additem-form input, .additem-form textarea{
+    width: 100%;
+    height: 5.2rem;
+    border: none;
+    border-radius: 0.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.6rem;
+}
+
+.additem-form input[placeholder], .additem-form textarea[placeholder]
+{
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
     font-size: 1.2rem;
-    color:var(--primary);
+    line-height: 18px;
+}
+
+.additem-form textarea{
+    height: 10rem;
+}
+
+.add-itemimg{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--white);
+    width: 35%;
+    height: 3rem;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.add-itemimg p{
+    font-weight: normal;
+    font-size: 1rem;
+    color: var(--black);
 }
 
 /* Active State Code */
