@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <form class="register-body" action="{% url 'vendor:register-shop' %}" enctype="multipart/form" method="post">
+        <form class="register-body" action="{% url 'vendor:register-shop' %}" enctype="multipart/form-data" method="post">
             {% csrf_token %}
             <section id="reg-1">
             <div class="dynamic-wrap" id="reg-1">
