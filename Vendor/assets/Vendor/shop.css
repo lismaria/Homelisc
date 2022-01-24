@@ -126,7 +126,7 @@
     gap: 0.8rem;
 }
 
-.shop-info__contact>div{
+.shop-info__contact div{
     display: flex;
     align-items: center;
     padding: 6px 10px;
