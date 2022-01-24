@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 4rem;
 }
 
 .shop-info-card{
@@ -155,7 +156,7 @@
 }
 .shop-yesedit input, .shop-yesedit textarea, .shop-yesedit  select{
     width: 100%;
-    height: 3.5rem;
+    height: 4.5rem;
     background: var(--neutral);
     border-radius: 0.4rem;
     padding-left: 1rem;
@@ -206,7 +207,7 @@ optgroup{
 
 .addmap-url{
     width: 100%;
-    height: 3.5rem;
+    height: 4.5rem;
     border-radius: 0.4rem;
     font-size: 1.2rem;
     background-color: var(--neutral);
@@ -239,7 +240,7 @@ optgroup{
     font-family: Poppins;
     font-style: normal;
     font-weight: normal;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: var(--primary);
 }
 
@@ -289,7 +290,7 @@ label.add-logolabel{
 }
 
 .shop-yesedit button[type="submit"]{
-    width: 30%;
+    width: max-content;
     background-color: var(--accent);
     border-radius: 2rem;
     font-family: Poppins;
@@ -298,6 +299,8 @@ label.add-logolabel{
     font-size: 1.2rem;
     color: var(--primary);
     height: 3.5rem;
+    white-space: nowrap;
+    padding: 0 1rem;
 }
 
 /* Active State Code */
@@ -318,4 +321,12 @@ label.add-logolabel{
     align-items: center;
     justify-content: center;
     position: absolute;
+}
+
+.shop-yesedit, .shop-yesedit-btn {
+    display: none;
+}
+
+pwa-container-wrapper{
+    display: none;
 }

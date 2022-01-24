@@ -106,7 +106,7 @@ img.object-fit{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.8rem 2.5rem 0 2.5rem;
+    padding: 1rem 2.5rem 0 2.5rem;
     position: fixed;
     top: 0;  
     width: 100vw;

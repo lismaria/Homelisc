@@ -12,15 +12,20 @@
     <div class="shop-info-card">
         <div class="shop-info__title">
             <h1>Details</h1>
-            <button>
+            <button class="shop-noedit-btn">
                 <h2>Edit</h2>
                 <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.9826 4.10534L12.3946 5.51667L10.9826 4.10534ZM11.8906 2.86201L8.07259 6.68001C7.87531 6.87701 7.74077 7.128 7.68592 7.40134L7.33325 9.16667L9.09859 8.81334C9.37192 8.75867 9.62259 8.62467 9.81992 8.42734L13.6379 4.60934C13.7527 4.49461 13.8437 4.3584 13.9058 4.2085C13.9678 4.05859 13.9998 3.89793 13.9998 3.73567C13.9998 3.57342 13.9678 3.41275 13.9058 3.26285C13.8437 3.11294 13.7527 2.97674 13.6379 2.86201C13.5232 2.74728 13.387 2.65627 13.2371 2.59417C13.0872 2.53208 12.9265 2.50012 12.7643 2.50012C12.602 2.50012 12.4413 2.53208 12.2914 2.59417C12.1415 2.65627 12.0053 2.74728 11.8906 2.86201V2.86201Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M12.6666 10.5V12.5C12.6666 12.8537 12.5262 13.1928 12.2761 13.4428C12.0261 13.6929 11.6869 13.8334 11.3333 13.8334H3.99996C3.64634 13.8334 3.3072 13.6929 3.05715 13.4428C2.8071 13.1928 2.66663 12.8537 2.66663 12.5V5.16671C2.66663 4.81309 2.8071 4.47395 3.05715 4.2239C3.3072 3.97385 3.64634 3.83337 3.99996 3.83337H5.99996" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>                                      
             </button>
+            <!-- <button> -->
+                <svg class="shop-yesedit-btn" width="21" height="20" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.3334 4.16669L4.66675 20.8334M21.3334 20.8334L4.66675 4.16669L21.3334 20.8334Z" stroke=var(--primary) stroke-width="2" stroke-linecap="round"/>
+                </svg>                                                        
+            <!-- </button> -->
         </div>
-        <!-- <div class="shop-noedit">
+        <div class="shop-noedit">
             <div class="shop-info__main">
                 <img src="" alt="">
                 <div>
@@ -48,9 +53,7 @@
                     <h3>+91 74995 75224</h3>           
                 </div>
             </div>
-        </div> -->
-
-        
+        </div>         
 
         <div class="shop-yesedit">
             <form class="register-body" action="" enctype="multipart/form" method="post">
@@ -63,6 +66,9 @@
             
                 <label>DESCRIPTION</label>
                 <textarea placeholder="Shop Description"></textarea>
+
+                <label>CONTACT NUMBER</label>
+                <input type="tel" placeholder="Shop Contact Number">
             
                 <label>STATE</label>
                 <select>
@@ -75,8 +81,6 @@
                 <label>CITY</label>
                 <select><optgroup><option class="disabled-select" value="" disabled selected>City</option></optgroup></select>
 
-                <label>CONTACT NUMBER</label>
-                <input type="text" placeholder="Shop Contact Number">
 
                 <label>LOCATION</label>
                 <div class="addmap-url">
@@ -120,5 +124,14 @@
     $("#page-heading").remove()
     $( ".vendor-page-header" ).append("<a class='vendor-page-a' href={% url 'vendor:home' %}><a>");
     $('.vendor-page-a').append("<h1>< Return to Home</h1>")
+
+    $(".shop-noedit-btn").click(function () {
+        $(".shop-noedit, .shop-noedit-btn").hide();
+        $(".shop-yesedit, .shop-yesedit-btn").show();
+    })
+    $(".shop-yesedit-btn").click(function () {
+        $(".shop-yesedit, .shop-yesedit-btn").hide();
+        $(".shop-noedit, .shop-noedit-btn").show();
+    })
 </script>
 {% endblock javascript %}
