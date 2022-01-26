@@ -8,22 +8,21 @@ from Account.forms import AccountUpdationForm
 
 # Create your views here.
 
-def check_vendor_details(request, render_template, id, slug):
+def check_vendor_details(request, id):
     if not request.user.is_authenticated:
-        return redirect("home")
+        return None
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
         shop_owner = Shop.objects.values('shop_owner').get(id=id)['shop_owner']
         if(request.user.id == shop_owner):
             shopInfo = Shop.objects.filter(id=id)
-            obj = get_object_or_404(Shop, pk=id)
-            if obj.shop_slug != slug:
-                return redirect('vendor:'+render_template, id=obj.pk, slug=obj.shop_slug)
-            return render(request,"Vendor/"+render_template+".html",{'shopInfo':shopInfo,'vendorForm':vendorForm})
+            return ({'shopInfo':shopInfo,'vendorForm':vendorForm})
         else:
-            return redirect("home")
+            return None
     else:
-        return redirect("home")
+        return None
+
+
 
 def home(request):
     # context=[]
@@ -39,6 +38,8 @@ def home(request):
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     else:
         return render(request,'home.html',{'food':'chocolates'})
+
+
 
 def register_shop(request):
     if not request.user.is_authenticated:
@@ -68,19 +69,61 @@ def register_shop(request):
     context['form'] = form
     return render(request,'Vendor/register-shop.html',context)
 
-def shop_view(request,id,slug):
-    shop_view = check_vendor_details(request,"shop",id, slug)
-    return shop_view
+
+
+def shop_view(request,id, slug):
+    shopobj = check_vendor_details(request,id)
+    if shopobj==None:
+        return redirect("home")
+    obj = get_object_or_404(Shop, pk=id)
+    if obj.shop_slug != slug:
+        return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
+    return render(request,"Vendor/shop.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm']})
+
+
 
 def menu_view(request,id,slug):
-    menu_view = check_vendor_details(request,"menu",id, slug)
-    return menu_view
+    shopobj = check_vendor_details(request,id)
+    if shopobj==None:
+        return redirect("home")
+    obj = get_object_or_404(Shop, pk=id)
+    if obj.shop_slug != slug:
+        return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
+    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm']})
+
+
 
 def review_view(request,id,slug):
-    reviews_view = check_vendor_details(request,"review",id, slug)
-    return reviews_view
+    shopobj = check_vendor_details(request,id)
+    if shopobj==None:
+        return redirect("home")
+    obj = get_object_or_404(Shop, pk=id)
+    if obj.shop_slug != slug:
+        return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
+    return render(request,"Vendor/review.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm']})
+
+
 
 def vendor_update(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    if request.POST:
+        form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            instance = form.save()
+            request.user.save()
+            # serialize in new friend object in json
+            ser_instance = serializers.serialize('json', [ instance, ])
+            return JsonResponse({"instance": ser_instance}, status=200)
+        else:
+            return JsonResponse({"error": form.errors}, status=400)
+
+    return JsonResponse({"error": ""}, status=400)
+
+
+
+def shop_update(request):
     if not request.user.is_authenticated:
         return render(request,"Account/account.html")
         

@@ -82,9 +82,7 @@ def login_view(request,login_as):
     return render(request,"Account/login.html",context)
 
 def logout_view(request):
-    print("ara hai?")
     logout(request)
-    print("logout hogya")
     return redirect("account:account")
 
 # *note 
