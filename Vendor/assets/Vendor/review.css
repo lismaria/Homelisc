@@ -59,6 +59,13 @@
     padding: 1rem 0 4rem 0;
 }
 
+.review-comments{
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    border-radius: 0.4rem;
+}
+
 
 /* From Product.css */
 
@@ -163,6 +170,7 @@
 .vendor-reply{
     background-color: var(--white);
     padding: 0.8rem 1rem;
+    border-radius: 0.4rem;
 }
 
 .vendor-reply>textarea{
@@ -246,7 +254,7 @@
 /* Button CSS */
 
 .additem-buttons{
-    margin-top: 2rem;
+    margin-top: 0.5rem;
     width: 100%;
     display: flex;
     align-items: center;
@@ -281,4 +289,25 @@
 .add-btn{
     background-color: var(--primary);
     color: var(--white);
+}
+
+/* div.reply-btn>svg, div.heart-btn>svg{
+    fill: transparent;
+} */
+
+.review-reply,.review-comment{
+    display: none;
+}
+
+svg{
+    fill: transparent
+}
+.heart-stroke-initial{
+    stroke: var(--primary);
+}
+.heart-fill{
+    fill: var(--heart);
+}
+.heart-stroke{
+    stroke: var(--heart);
 }
