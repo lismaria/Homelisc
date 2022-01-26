@@ -75,10 +75,13 @@ def shop_view(request,id, slug):
     shopobj = check_vendor_details(request,id)
     if shopobj==None:
         return redirect("home")
+    shopInfo = shopobj['shopInfo'].values()
+    vendorForm = shopobj['vendorForm']
+    shopForm = ShopCreationForm(initial={'shop_name':shopInfo[0]['shop_name'],'shop_tags':shopInfo[0]['shop_tags'],'shop_descr':shopInfo[0]['shop_descr'],'shop_contact':shopInfo[0]['shop_contact'],'shop_state':shopInfo[0]['shop_state'],'shop_city':shopInfo[0]['shop_city'],'shop_location':shopInfo[0]['shop_location'],'shop_logo':shopInfo[0]['shop_logo']})
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"Vendor/shop.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm']})
+    return render(request,"Vendor/shop.html",{'shopInfo':shopInfo,'vendorForm':vendorForm,'shopForm':shopForm})
 
 
 
@@ -109,6 +112,7 @@ def vendor_update(request):
         return render(request,"Account/account.html")
         
     if request.POST:
+        print(request.FILES)
         form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             instance = form.save()
@@ -128,14 +132,20 @@ def shop_update(request):
         return render(request,"Account/account.html")
         
     if request.POST:
-        form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
+        print("post req")
+        shopInfo = Shop.objects.get(id=12)
+        print(shopInfo)
+        print(request.POST)
+        print(request.FILES)
+        form = ShopCreationForm(request.POST, request.FILES, instance=shopInfo)
         if form.is_valid():
+            print("valid form")
             instance = form.save()
-            request.user.save()
             # serialize in new friend object in json
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)
         else:
+            print("not valid")
             return JsonResponse({"error": form.errors}, status=400)
 
     return JsonResponse({"error": ""}, status=400)
