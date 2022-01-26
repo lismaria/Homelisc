@@ -68,7 +68,7 @@
     height: max-content;
     background: #f5f5f58c;
     border-radius: 4px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     gap: 1rem;
 }
 
@@ -83,6 +83,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
 }
 
 .review-card-heading>div>h4{
@@ -95,6 +96,7 @@
 .review-card-heading{
     display: flex;
     justify-content:space-between;
+    width: 100%;
 }
 
 .review-card-heading>div{
@@ -187,6 +189,25 @@
 }
  */
 
+
+/* Vendor Reply Code */
+.vendor-reply{
+    background-color: var(--white);
+    padding: 0.8rem 1rem;
+}
+
+.vendor-reply>textarea{
+    width: 100%;
+    background-color: var(--neutral);
+    height: 10rem;
+    padding: 0.8rem 1rem;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+
+
 /* Active State Code */
 
 #review .vendor-nav-p__hide{
@@ -207,3 +228,42 @@
     position: absolute;
 }
 
+/* Button CSS */
+
+.additem-buttons{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:end;
+    gap:2%;
+    /* padding-bottom: 5rem; */
+}
+
+.additem-buttons p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.cancel-btn, .add-btn{
+    width: 6rem;
+    height: 2.4rem;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    color:var(--primary);
+    border-radius:2.4rem;
+    gap:5%;
+}
+
+.cancel-btn{
+    border: 0.1rem solid var(--primary);
+}
+
+.add-btn{
+    background-color: var(--primary);
+    color: var(--white);
+}
