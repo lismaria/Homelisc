@@ -183,7 +183,7 @@
 
 /* Add Item Code */
 
-.add-item-wrapper{
+.add-item-wrapper, .edit-item-wrapper{
     height: 81vh;
     height: calc(var(--vh, 1vh) * 81);
     display:grid;
@@ -192,19 +192,161 @@
     padding: 2.5rem;
     padding-bottom: 0;
     padding-top:1rem;
+    overflow: auto;
 }
 
-.additem-form{
+.additem-form, .edititem-form{
     grid-column: 1/13;
     grid-row: 1/21;
 }
 
-.additem-form label{
+.additem-form label, .edititem-form label{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.3rem;
+    color:var(--primary);
+}
+
+.additem-form input, .additem-form textarea, .edititem-form input, .edititem-form textarea{
+    width: 100%;
+    height: 5.2rem;
+    border: none;
+    border-radius: 0.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.6rem;
+}
+
+.additem-form input[placeholder], .additem-form textarea[placeholder], .edititem-form input[placeholder], .edititem-form textarea[placeholder]{
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
     font-size: 1.2rem;
+    line-height: 18px;
+}
+
+.additem-form textarea, .edititem-form textarea{
+    height: 10rem;
+}
+
+.add-itemimg, .edit-itemimg{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--white);
+    width: 35%;
+    height: 3rem;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.add-itemimg p, .edit-itemimg p{
+    font-weight: normal;
+    font-size: 1rem;
+    color: var(--black);
+}
+
+.preview-images{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap:2rem;
+    margin-top:1rem;
+    justify-content: center;
+}
+
+.preview-images img{
+    width: 8rem;
+    height: 8rem;
+    object-fit: contain;
+    background-color: var(--black);
+}
+
+.edit-preview-images{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap:2rem;
+    margin-top:1rem;
+    justify-content:center;
+}
+
+.edit-item-pic, .edit-preview-images>img{
+    width: 40%;
+    height: 10rem;
+    position: relative;
+    background-color: var(--black);
+}
+
+.edit-preview-images img{
+    object-fit: contain;
+}
+
+.edit-item-pic img{
+    object-fit: contain;
+    background-color: var(--black);
+}
+
+.e-remove-item, .e-edit-item
+{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 3rem;
+    width: 3rem;
+    background-color: var(--white);
+    filter: drop-shadow(var(--ds_icon));
+    border-radius: 0.4rem;
+}
+
+.e-remove-item{
+    left: 0.5rem;
+    bottom: 0.5rem;
+}
+
+.e-edit-item{
+    right: 0.5rem;
+    bottom: 0.5rem;
+}
+
+.additem-buttons{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap:10%;
+    padding-bottom: 5rem;
+}
+
+.additem-buttons p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.cancel-btn, .add-btn{
+    width:40%;
+    height:3.5rem;
+    display:flex;
+    align-items: center;
+    justify-content:center;
     color:var(--primary);
+    border-radius:2.4rem;
+    gap:5%;
+}
+
+.cancel-btn{
+    border: 0.1rem solid var(--primary);
+}
+
+.add-btn{
+    background-color: var(--primary);
+    color: var(--white);
 }
 
 /* Active State Code */
