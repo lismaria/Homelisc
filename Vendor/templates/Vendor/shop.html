@@ -50,7 +50,7 @@
                         <path  fill=var(--primary) fill-rule="evenodd" clip-rule="evenodd" d="M8.5 6H9.456V13.944H8.5V6Z"/>
                         <path  fill=var(--primary) fill-rule="evenodd" clip-rule="evenodd" d="M9.01112 0.0159912C6.54712 0.0159912 4.54712 2.02399 4.54712 4.49999C4.54712 6.97799 6.54712 8.98399 9.01112 8.98399C11.4761 8.98399 13.4751 6.97699 13.4751 4.49999C13.4751 2.02299 11.4771 0.0159912 9.01112 0.0159912ZM9.17012 1.64199C8.37252 1.63933 7.60652 1.95357 7.04056 2.51558C6.4746 3.0776 6.15503 3.84139 6.15212 4.63899C6.15212 5.30099 5.50412 4.98499 5.50412 3.99399C5.50703 3.19639 5.8266 2.4326 6.39256 1.87058C6.95852 1.30857 7.72452 0.994334 8.52212 0.996991C9.51812 0.996991 9.83612 1.64199 9.17012 1.64199Z"/>
                     </svg>   
-                    <h3>{{i.shop_city}},{{i.shop_state}}</h3>                 
+                    <h3>{{i.shop_city}}, {{i.shop_state}}</h3>                 
                 </div>
                 </a>
                 <div>
@@ -65,6 +65,7 @@
 
         <div class="shop-yesedit">
             <form id="shop-edit-form" class="register-body" enctype="multipart/form" method="post">
+                {% csrf_token %}
                 <label>NAME</label>
                 {{shopForm.shop_name}}
                 <!-- <input type="text" placeholder="Shop Name" value="{{i.shop_name}}"> -->
@@ -82,16 +83,17 @@
                 <!-- <input type="tel" placeholder="Shop Contact Number" value="{{i.shop_contact}}"> -->
             
                 <label>STATE</label>
-                <select>
-                    <optgroup>
-                        <option class="disabled-select" value="" disabled selected>State</option>
-                        <option>Sussy</option>
-                    </optgroup>
-                </select>
+                {{shopForm.shop_state}}
+                {{shopForm.shop_state.errors}}
+                <!-- <select id="select-state"></select> -->
+                <!-- <input type="text" value="{{shopForm.shop_state.value}}" id="select-state"> -->
 
                 <label>CITY</label>
-                <select><optgroup><option class="disabled-select" value="" disabled selected>City</option></optgroup></select>
+                {{shopForm.shop_city}}
+                {{shopForm.shop_city.errors}}
+                <!-- <input type="text" value="{{shopForm.shop_city.value}}" id="select-city"> -->
 
+                <!-- <select id="select-city"></select> -->
 
                 <label>LOCATION</label>
                 <div class="addmap-url">
@@ -121,7 +123,9 @@
                     {{shopForm.shop_logo}}
                     <!-- <input id="add_logo" type="file" style="display:none;" onchange="document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])" accept="image/*"> -->
                 </div>
-                {% csrf_token %}
+                {% for i in shopInfo %}
+                <input type="hidden" name="shopid" value="{{i.id}}">
+                {% endfor %}
                 <div class="save-button-div">
                     <button type="submit">Save Changes</button>
                 </div>
@@ -136,59 +140,107 @@
 {% block javascript %}
 <script>
     $(document).ready(function () {
-    $("#page-heading").remove()
-    $( ".vendor-page-header" ).append("<a class='vendor-page-a' href={% url 'vendor:home' %}><a>");
-    $('.vendor-page-a').append("<h1>< Return to Home</h1>")
+        $('#select-state').append('<option class="disabled-select" value="" disabled selected>State</option>')
+        $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')        
 
-    $(".shop-noedit-btn").click(function () {
-        $(".shop-noedit, .shop-noedit-btn").hide();
-        $(".shop-yesedit, .shop-yesedit-btn").show();
-    })
-    $(".shop-yesedit-btn").click(function () {
-        $(".shop-yesedit, .shop-yesedit-btn").hide();
-        $(".shop-noedit, .shop-noedit-btn").show();
-    })
+        $("#page-heading").remove()
+        $( ".vendor-page-header" ).append("<a class='vendor-page-a' href={% url 'vendor:home' %}><a>");
+        $('.vendor-page-a').append("<h1>< Return to Home</h1>")
 
-    $('input[type="file"]').change(function() {
-        $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
-    });
+        $(".shop-noedit-btn").click(function () {
+            $(".shop-noedit, .shop-noedit-btn").hide();
+            $(".shop-yesedit, .shop-yesedit-btn").show();
+        })
+        $(".shop-yesedit-btn").click(function () {
+            $(".shop-yesedit, .shop-yesedit-btn").hide();
+            $(".shop-noedit, .shop-noedit-btn").show();
+        })
 
-    if($('.add-logo-frame img').attr('src')!="")
-        $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
+        $('input[type="file"]').change(function() {
+            $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
+        });
+
+        if($('.add-logo-frame img').attr('src')!="")
+            $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
 
 
-    // console.log(csrftoken);
-    var id = $(".shop-info__main").data('id');
-    $("#shop-edit-form").submit(function (e) {
-        console.log("submit")
-        // preventing from page reload and default actions
-        e.preventDefault();
-        // serialize the data for sending the form data.
-        var serializedData = new FormData($('#shop-edit-form')[0]);
-        // make POST ajax call
+        const API_KEY='dTdYMkMxdjYyaFZzQllqMHp6ZWxud3piSk53bTBiWmdIZU95R1VVWA=='
         $.ajax({
-            type: 'POST',
-            // beforeSend: function (request)
-            // {
-            //     request.setRequestHeader("X-CSRFToken", "${_csrf.token}");
-            // },
-            url: `{% url 'vendor:shop-update' %}`,
-            data: serializedData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                // var res = JSON.parse(response.instance)[0].fields.profile_pic
-                // $("#vendor_profile").attr('src','/media/'+res);
-                alert("Updation Success!");
+            type: 'get',
+            url: 'https://api.countrystatecity.in/v1/countries/IN/states',
+            success: function(data){
+                data.forEach(element => {
+                    $('#select-state').append('<option class="select-state-option" data-iso2="'+element.iso2+'">'+element.name+'</option>')
+                });
             },
-            error: function (response) {
-                console.log(response);
-                // alert the error if any error occured
-                alert("Failed to update");
+            error: function(error){
+                console.log("error",error);
+            },
+            headers: {
+                'X-CSCAPI-KEY': API_KEY
             }
         })
-    })
+        
+        
+        function getCity(state) {
+            console.log("state: " + state)
+            $.ajax({
+            type: 'get',
+            url: 'https://api.countrystatecity.in/v1/countries/IN/states/'+state+'/cities',
+            success: function(data){
+                console.log("ajax",data);
+                data.forEach(element => {
+                    $('#select-city').append('<option>'+element.name+'</option>')
+                });
+            },
+            error: function(error){
+                console.log("error",error);
+            },
+            headers: {
+                'X-CSCAPI-KEY': API_KEY
+            }
+        }) 
+        }
+
+        $('#select-state').change(function(){
+            $('#select-city').empty();
+            getCity($(this).find(':selected').data('iso2'))
+        })
+
+
+
+        // console.log(csrftoken);
+        var id = $(".shop-info__main").data('id');
+        $("#shop-edit-form").submit(function (e) {
+            console.log("submit")
+            // preventing from page reload and default actions
+            e.preventDefault();
+            // serialize the data for sending the form data.
+            var serializedData = new FormData($('#shop-edit-form')[0]);
+            // make POST ajax call
+            $.ajax({
+                type: 'POST',
+                // beforeSend: function (request)
+                // {
+                //     request.setRequestHeader("X-CSRFToken", "${_csrf.token}");
+                // },
+                url: `{% url 'vendor:shop-update' %}`,
+                data: serializedData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // var res = JSON.parse(response.instance)[0].fields.profile_pic
+                    // $("#vendor_profile").attr('src','/media/'+res);
+                    alert("Updation Success!");
+                    location.reload();
+                },
+                error:  function (response) {
+                    console.log(response);
+                    alert("Failed to update");
+                }
+            })
+        })
     })
 </script>
 {% endblock javascript %}

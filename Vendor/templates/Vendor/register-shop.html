@@ -62,12 +62,14 @@
                     {{form.shop_contact}}
                     {{form.shop_contact.errors}}
                     <!-- <input type="text" placeholder="Shop Contact Number"> -->
-                    <!-- <div class="select-state-city">
-                        <select><optgroup><option class="disabled-select" value="" disabled selected>State</option>
-                        <option>Sussy</option>
-                        </optgroup></select>
-                        <select><optgroup><option class="disabled-select" value="" disabled selected>City</option></optgroup></select>
-                    </div> -->
+                    <div class="select-state-city">
+                        <!-- <select id="select-state"></select>
+                        <select id="select-city"></select> -->
+                        {{form.shop_state}}
+                        {{form.shop_state.errors}}
+                        {{form.shop_city}}
+                        {{form.shop_city.errors}}
+                    </div>
                     <div class="addmap-url">
                         {{form.shop_location}}
                         {{form.shop_location.errors}}
@@ -121,49 +123,98 @@
 {% block javascript %}
 
 <script>
-    // register-shop NEXT>
-    $("#reg-n-1").click(function(){
-        $("#reg-1").hide();
-        $("#reg-2").show();
-        $("#reg-3").hide();
-        $(".step-two").css({"background-color":"var(--accent)"});
-        $(".step-one h2").hide();
-        $(".step-one img").show();
-    });
+    $(document).ready(function(){
+        const API_KEY='dTdYMkMxdjYyaFZzQllqMHp6ZWxud3piSk53bTBiWmdIZU95R1VVWA=='
+        $.ajax({
+            type: 'get',
+            url: 'https://api.countrystatecity.in/v1/countries/IN/states',
+            success: function(data){
+                data.forEach(element => {
+                    $('#select-state').append('<option data-iso2="'+element.iso2+'">'+element.name+'</option>')
+                });
+            },
+            error: function(error){
+                console.log("error: ",error);
+            },
+            headers: {
+                'X-CSCAPI-KEY': API_KEY
+            }
+        })
+        
+        
+        function getCity(state) {
+            $.ajax({
+            type: 'get',
+            url: 'https://api.countrystatecity.in/v1/countries/IN/states/'+state+'/cities',
+            success: function(data){
+                console.log("ajax",data);
+                data.forEach(element => {
+                    $('#select-city').append('<option>'+element.name+'</option>')
+                });
+            },
+            error: function(error){
+                console.log("error: ",error);
+            },
+            headers: {
+                'X-CSCAPI-KEY': API_KEY
+            }
+        }) 
+        }
 
-    $("#reg-n-2").click(function(){
-        $("#reg-1").hide();
-        $("#reg-2").hide();
-        $("#reg-3").show();
-        $(".step-three").css({"background-color":"var(--accent)"});
-        $(".step-two h2").hide();
-        $(".step-two img").show();
-    });
-      
-    // register-shop <BACK
-    $("#reg-b-2").click(function(){
-        $("#reg-1").show();
-        $("#reg-2").hide();
-        $("#reg-3").hide();
-        $(".step-two").css({"background-color":"var(--neutral)"});
-        $(".step-one h2").show();
-        $(".step-one img").hide();
-    });
+        $('#select-state').change(function(){
+            console.log($('#select-state').data('iso2'))
+            getCity($('#select-state').data('iso2'))
+        })
 
-    $("#reg-b-3").click(function(){
-        $("#reg-1").hide();
-        $("#reg-2").show();
-        $("#reg-3").hide();
-        $(".step-three").css({"background-color":"var(--neutral)"});
-        $(".step-two h2").show();
-        $(".step-two img").hide();
-    });
+        $('#select-state').append('<option class="disabled-select" value="" disabled selected>State</option>')
+        $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')
 
-    $('input[type="file"]').change(function() {
-        $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
-        $(".step-three h2").hide();
-        $(".step-three img").show();
-    });
+        // register-shop NEXT>
+        $("#reg-n-1").click(function(){
+            $("#reg-1").hide();
+            $("#reg-2").show();
+            $("#reg-3").hide();
+            $(".step-two").css({"background-color":"var(--accent)"});
+            $(".step-one h2").hide();
+            $(".step-one img").show();
+        });
+
+        $("#reg-n-2").click(function(){
+            $("#reg-1").hide();
+            $("#reg-2").hide();
+            $("#reg-3").show();
+            $(".step-three").css({"background-color":"var(--accent)"});
+            $(".step-two h2").hide();
+            $(".step-two img").show();
+        });
+
+        // register-shop <BACK
+        $("#reg-b-2").click(function(){
+            $("#reg-1").show();
+            $("#reg-2").hide();
+            $("#reg-3").hide();
+            $(".step-two").css({"background-color":"var(--neutral)"});
+            $(".step-one h2").show();
+            $(".step-one img").hide();
+        });
+
+        $("#reg-b-3").click(function(){
+            $("#reg-1").hide();
+            $("#reg-2").show();
+            $("#reg-3").hide();
+            $(".step-three").css({"background-color":"var(--neutral)"});
+            $(".step-two h2").show();
+            $(".step-two img").hide();
+        });
+
+        $('input[type="file"]').change(function() {
+            $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
+            $(".step-three h2").hide();
+            $(".step-three img").show();
+        });
+
+
+        })
 </script>
 
 {% endblock javascript %}

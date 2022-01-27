@@ -133,20 +133,15 @@ def shop_update(request):
         return render(request,"Account/account.html")
         
     if request.POST:
-        print("post req")
-        shopInfo = Shop.objects.get(id=13)
-        print(shopInfo)
-        print(request.POST)
-        print(request.FILES)
+        shopid = request.POST['shopid']
+        shopInfo = Shop.objects.get(id=shopid)
         form = ShopCreationForm(request.POST, request.FILES, instance=shopInfo)
         if form.is_valid():
-            print("valid form")
             instance = form.save()
             # serialize in new friend object in json
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)
         else:
-            print("not valid")
             return JsonResponse({"error": form.errors}, status=400)
 
     return JsonResponse({"error": ""}, status=400)
