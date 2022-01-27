@@ -75,9 +75,10 @@ def shop_view(request,id, slug):
     shopobj = check_vendor_details(request,id)
     if shopobj==None:
         return redirect("home")
-    shopInfo = shopobj['shopInfo'].values()
+    shopInfo = shopobj['shopInfo']
     vendorForm = shopobj['vendorForm']
-    shopForm = ShopCreationForm(initial={'shop_name':shopInfo[0]['shop_name'],'shop_tags':shopInfo[0]['shop_tags'],'shop_descr':shopInfo[0]['shop_descr'],'shop_contact':shopInfo[0]['shop_contact'],'shop_state':shopInfo[0]['shop_state'],'shop_city':shopInfo[0]['shop_city'],'shop_location':shopInfo[0]['shop_location'],'shop_logo':shopInfo[0]['shop_logo']})
+    shop_details = shopobj['shopInfo'].values()
+    shopForm = ShopCreationForm(initial={'shop_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
@@ -133,7 +134,7 @@ def shop_update(request):
         
     if request.POST:
         print("post req")
-        shopInfo = Shop.objects.get(id=12)
+        shopInfo = Shop.objects.get(id=13)
         print(shopInfo)
         print(request.POST)
         print(request.FILES)

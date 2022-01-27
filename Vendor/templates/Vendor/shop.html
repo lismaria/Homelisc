@@ -107,7 +107,9 @@
 
                 <label>LOGO</label>
                 <div class="add-logo-frame">
-                    <img src="{{i.shop_logo.url}}" id="logo_pic" class="object-fit">
+                    {% for i in shopInfo %}
+                        <img src="{{i.shop_logo.url}}" id="logo_pic" class="object-fit">
+                    {% endfor %}
                     <label class="add-logolabel" for="add_logo">
                         <p>Add Logo</p>
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -150,6 +152,10 @@
     $('input[type="file"]').change(function() {
         $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
     });
+
+    if($('.add-logo-frame img').attr('src')!="")
+        $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
+
 
     // console.log(csrftoken);
     var id = $(".shop-info__main").data('id');
