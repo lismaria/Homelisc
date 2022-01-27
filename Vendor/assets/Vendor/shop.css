@@ -272,18 +272,40 @@ label.add-logolabel{
     height: 8%;
 }
 
-.shop-yesedit button[type="submit"]{
+/* .shop-yesedit button[type="submit"]{
     width: max-content;
     background-color: var(--accent);
     border-radius: 2rem;
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.2rem;
     color: var(--primary);
     height: 3.5rem;
     white-space: nowrap;
     padding: 0 1rem;
+} */
+
+/* Button Code */
+
+.add-btn{
+    width:40%;
+    height:3.5rem;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    border-radius:2.4rem;
+    gap:5%;
+    white-space: nowrap;
+}
+
+
+.add-btn{
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.add-btn p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2rem;
 }
 
 /* Active State Code */
