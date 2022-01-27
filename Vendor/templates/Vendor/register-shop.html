@@ -124,6 +124,9 @@
 
 <script>
     $(document).ready(function(){
+        $('#select-state').append('<option class="disabled-select" value="" disabled selected>State</option>')
+        $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')
+
         const API_KEY='dTdYMkMxdjYyaFZzQllqMHp6ZWxud3piSk53bTBiWmdIZU95R1VVWA=='
         $.ajax({
             type: 'get',
@@ -162,12 +165,10 @@
         }
 
         $('#select-state').change(function(){
-            console.log($('#select-state').data('iso2'))
-            getCity($('#select-state').data('iso2'))
+            $('#select-city').empty();
+            getCity($(this).find(':selected').data('iso2'))
         })
 
-        $('#select-state').append('<option class="disabled-select" value="" disabled selected>State</option>')
-        $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')
 
         // register-shop NEXT>
         $("#reg-n-1").click(function(){
