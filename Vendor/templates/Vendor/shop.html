@@ -64,7 +64,7 @@
         </div>         
 
         <div class="shop-yesedit">
-            <form id="shop-edit-form" class="register-body" enctype="multipart/form" method="post">
+            <form id="shop-edit-form" class="register-body" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <label>NAME</label>
                 {{shopForm.shop_name}}

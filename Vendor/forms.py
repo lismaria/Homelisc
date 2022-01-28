@@ -6,6 +6,12 @@ class ItemCreationForm(forms.ModelForm):
     class Meta:
         model = Vendor.Item
         fields = ['item_name', 'item_descr', 'item_price', 'item_category']
+        widgets = {
+            'item_name' : forms.TextInput(attrs={'placeholder':'Item Name'}), 
+            'item_descr' : forms.Textarea(attrs={'placeholder':'Item Description'}), 
+            'item_price' : forms.NumberInput(attrs={'placeholder':'Item Price'}), 
+            'item_category' : forms.TextInput(attrs={'placeholder':'Category (eg. Wall Painting, Brownies,..)'})
+        }
 
 # class ItemImageUploadForm(ItemCreationForm):
 #     # item_img = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),required=False)
@@ -24,7 +30,7 @@ class ItemImageUploadForm(forms.ModelForm):
         model = Vendor.ItemImage
         fields = ('item_img',)
         widgets = {
-            'item_img': forms.ClearableFileInput(attrs={'multiple': True})
+            'item_img': forms.ClearableFileInput(attrs={'multiple': True, 'type':'file' ,'id':'add-itemimg','style':'display:none', 'accept':'image/*'})
         }
         # required= {
         #     'item_img': False

@@ -216,6 +216,11 @@
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
     padding: 1.6rem;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 18px;
 }
 
 .additem-form input[placeholder], .additem-form textarea[placeholder], .edititem-form input[placeholder], .edititem-form textarea[placeholder]{

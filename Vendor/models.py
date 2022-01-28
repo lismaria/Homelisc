@@ -32,10 +32,10 @@ class Shop(models.Model):
 class Item(models.Model):
     item_name = models.CharField(verbose_name="Item Name", max_length=50)
     item_descr = models.TextField(verbose_name="Item Description")    
-    item_rating = models.FloatField(verbose_name="Item Rating")
+    item_rating = models.FloatField(verbose_name="Item Rating",null=True, default=None)
     item_price = models.FloatField(verbose_name="Item Price")
-    item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count")
-    item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count")
+    item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count",null=True, default=None)
+    item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count",null=True, default=None)
     item_category = ArrayField(models.CharField(verbose_name="Item Category",max_length=50), blank=False)
     shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
 

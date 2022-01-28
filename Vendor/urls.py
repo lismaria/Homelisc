@@ -10,7 +10,8 @@ urlpatterns = [
     path('register-shop',views.register_shop,name="register-shop"),
     path('<slug:id>/<slug:slug>/shop',views.shop_view,name="shop"),
     path('post/ajax/vendor/update/',views.vendor_update,name="vendor-update"),
-    path('post/ajax/shop/update/',views.shop_update, name="shop-update")
+    path('post/ajax/shop/update/',views.shop_update, name="shop-update"),
+    path('post/ajax/item/add/',views.item_add, name="item-add")
 ]
 
 # path('shop', views.menu_view, name='shop'),

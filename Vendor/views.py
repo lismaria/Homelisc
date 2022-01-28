@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
-from Vendor.models import Shop
+from Vendor.models import Shop, ItemImage
 from Account.models import User
-from Vendor.forms import ShopCreationForm
+from Vendor.forms import ShopCreationForm, ItemCreationForm, ItemImageUploadForm
 from Account.forms import AccountUpdationForm
 
 # Create your views here.
@@ -88,12 +88,17 @@ def shop_view(request,id, slug):
 
 def menu_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
+    # print(shopobj['shopInfo'])
+    # print(shopobj['vendorForm'])
+    itemForm = ItemCreationForm()
+    imageForm = ItemImageUploadForm()
+    # context['form'] = form
     if shopobj==None:
         return redirect("home")
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm']})
+    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'itemForm':itemForm, 'imageForm':imageForm})
 
 
 
@@ -145,3 +150,59 @@ def shop_update(request):
             return JsonResponse({"error": form.errors}, status=400)
 
     return JsonResponse({"error": ""}, status=400)
+
+def item_add(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    if request.POST:
+        print(request.POST)
+        print(request.FILES)
+        
+        shopid = request.POST['shopid']
+        shopInfo = Shop.objects.get(id=shopid)
+        # shopInfo = Shop.objects.get(id=shopid)
+        itemForm = ItemCreationForm(request.POST)
+        if itemForm.is_valid():
+            instance = itemForm.save(commit=False)
+            instance.shop_id = shopInfo
+            instance.save()
+            ser_instance = serializers.serialize('json', [ instance, ])
+            
+        else:
+            return JsonResponse({"error": itemForm.errors}, status=400)
+
+        itemInfo = instance
+        imageForm = ItemImageUploadForm(request.FILES)
+        files = request.FILES.getlist('item_img')
+        print("files:",files)
+
+        if imageForm.is_valid():
+            ser_img=""
+            for f in files:
+                # TRY 1
+                # instance = imageForm.save(commit=False)
+                # instance.shop_id = shopInfo
+                # instance.item_id = itemInfo
+                # print(f)
+                # instance.item_img = f
+                # instance.save()
+            
+                # TRY 2
+                # image = form['image']
+                img = ItemImage(item_id=itemInfo, shop_id=shopInfo, item_img=f)
+                img.save()
+                ser_img = ser_img + serializers.serialize('json', [ img, ])
+                # return JsonResponse({"instance": ser_instance}, status=200)
+        else:
+            return JsonResponse({"error": imageForm.errors}, status=400)
+
+            
+        return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
+            # serialize in new friend object in json
+        #     ser_instance = serializers.serialize('json', [ instance, ])
+        #     return JsonResponse({"instance": ser_instance}, status=200)
+        # else:
+        #     return JsonResponse({"error": itemForm.errors}, status=400)
+
+    return JsonResponse({"error": " "}, status=400)
