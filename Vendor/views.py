@@ -1,7 +1,8 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
-from Vendor.models import Shop, ItemImage
+from Vendor.models import Item, Shop, ItemImage
 from Account.models import User
 from Vendor.forms import ShopCreationForm, ItemCreationForm, ItemImageUploadForm
 from Account.forms import AccountUpdationForm
@@ -90,15 +91,22 @@ def menu_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
     # print(shopobj['shopInfo'])
     # print(shopobj['vendorForm'])
+    # print("sd",shop_details)
+    itemInfo = Item.objects.filter(shop_id=id)
+    imageInfo = ItemImage.objects.filter(shop_id=id)
     itemForm = ItemCreationForm()
     imageForm = ItemImageUploadForm()
+    # print("II: ",itemInfo)
+    
+    # filledItemForm = ItemCreationForm(initial={'item_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
     # context['form'] = form
+    # print('img',imageInfo)
     if shopobj==None:
         return redirect("home")
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'itemForm':itemForm, 'imageForm':imageForm})
+    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'itemForm':itemForm, 'imageForm':imageForm, 'itemInfo':itemInfo, 'imageInfo':imageInfo})
 
 
 
@@ -196,13 +204,27 @@ def item_add(request):
                 # return JsonResponse({"instance": ser_instance}, status=200)
         else:
             return JsonResponse({"error": imageForm.errors}, status=400)
-
             
         return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
-            # serialize in new friend object in json
-        #     ser_instance = serializers.serialize('json', [ instance, ])
-        #     return JsonResponse({"instance": ser_instance}, status=200)
-        # else:
-        #     return JsonResponse({"error": itemForm.errors}, status=400)
+    return JsonResponse({"error": " "}, status=400)
 
+def item_edit(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")  
+    if request.POST:
+        print(request.POST)
+        print(request.FILES)
+        # return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
+    else:
+        print("reqget",request.GET)
+        print("j",request.GET.get('id'))
+        itemid=request.GET.get('id')
+        itemInfo = Item.objects.filter(id=itemid).values()
+        imageInfo = ItemImage.objects.filter(id=itemid).values()
+        print(imageInfo)
+        # print(itemInfo[0])
+        # print("gid",request.GET[id])
+        filledItemForm = ItemCreationForm(initial={'item_name':itemInfo[0]['item_name'],'item_descr':itemInfo[0]['item_descr'],'item_price':itemInfo[0]['item_price'],'item_category':itemInfo[0]['item_category']})
+        # filledImageForm = ItemImageUploadForm(initial={''})
+        return JsonResponse({"msg":filledItemForm}, status=200)
     return JsonResponse({"error": " "}, status=400)
