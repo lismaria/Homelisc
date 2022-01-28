@@ -249,7 +249,7 @@ img.object-fit{
 }
 
 .errorlist{
-    position: absolute;
+    /* position: absolute; */
     color: red;
     text-align: right;
     padding: 2.5rem;
@@ -258,5 +258,13 @@ img.object-fit{
 
 .errorlist li, .errorlist p{
     font-family: Poppins;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+}
+
+.customerror{
+    font-family: Poppins;
+    font-size: 1.2rem;
+    color: red;
+    text-align: right;
+    margin-bottom: 1rem;
 }

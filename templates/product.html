@@ -3,6 +3,7 @@
 {% block content %}
 {% load static %}
     <div class="product-wrapper">
+        {% for i in itemInfo %}
         <div class="product-img">
             <div class="product-heart">
                 <svg width="26" height="26" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,28 +12,30 @@
             </div>
             <img src="" alt="">
             <div class="product-price">
-                <h2>₹ 120</h2>
+                <h2>₹ {{i.item_price}}</h2>
             </div>
         </div>
         <div class="product-name">
-            <h1>Coconut Truffle</h1>
+            <h1>{{i.item_name}}</h1>
             <div>
-                <p>4.0</p>
+                <p>{{i.item_rating}}</p>
                 <svg width="17" height="16" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#01810E"/>
                 </svg>
             </div>
         </div>
-        <p>A truffle is the fruiting body of a subterranean ascomycete fungus, predominantly one of the many species of the genus Tuber.</p>
-        <div class="product-shop">
-            <div>
-                <img src="" alt="">
-                <h2>The Chocolate Indulgence</h2>
-            </div>
-            <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.55632 2.40807C4.34721 2.61725 4.22974 2.90091 4.22974 3.19669C4.22974 3.49246 4.34721 3.77613 4.55632 3.98531L10.0778 9.50675L4.55632 15.0282C4.35314 15.2386 4.24071 15.5203 4.24325 15.8128C4.24579 16.1053 4.3631 16.385 4.56991 16.5918C4.77672 16.7987 5.05649 16.916 5.34896 16.9185C5.64142 16.921 5.92318 16.8086 6.13356 16.6054L12.4436 10.2954C12.6527 10.0862 12.7702 9.80253 12.7702 9.50675C12.7702 9.21097 12.6527 8.92731 12.4436 8.71813L6.13356 2.40807C5.92438 2.19896 5.64072 2.08148 5.34494 2.08148C5.04917 2.08148 4.7655 2.19896 4.55632 2.40807Z" fill="black"/>
-            </svg>
-        </div>
+        <p>{{i.item_descr}}</p>
+        {% for j in shopInfo %}
+            <a href="{% url 'shop' id=j.id slug=j.shop_slug %}" class="product-shop">
+                <div>
+                    <img src="{{j.shop_logo.url}}" alt="">
+                    <h2>{{j.shop_name}}</h2>
+                </div>
+                <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.55632 2.40807C4.34721 2.61725 4.22974 2.90091 4.22974 3.19669C4.22974 3.49246 4.34721 3.77613 4.55632 3.98531L10.0778 9.50675L4.55632 15.0282C4.35314 15.2386 4.24071 15.5203 4.24325 15.8128C4.24579 16.1053 4.3631 16.385 4.56991 16.5918C4.77672 16.7987 5.05649 16.916 5.34896 16.9185C5.64142 16.921 5.92318 16.8086 6.13356 16.6054L12.4436 10.2954C12.6527 10.0862 12.7702 9.80253 12.7702 9.50675C12.7702 9.21097 12.6527 8.92731 12.4436 8.71813L6.13356 2.40807C5.92438 2.19896 5.64072 2.08148 5.34494 2.08148C5.04917 2.08148 4.7655 2.19896 4.55632 2.40807Z" fill="black"/>
+                </svg>
+            </a>
+        {% endfor %}
         <div class="product-review">
             <h3>Leave a Review</h3>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,23 +44,23 @@
             </svg>                
         </div>
         <div class="review-wrapper">
-            {% for i in '0123456789' %}
+            {% for k in itemReviews %}
             <div class="review-card">
-                <img src="" alt="">
+                <img src="{{k.user_id.profile_pic.url}}" alt="">
                 <div>
                     <div class="review-card-heading">
                         <div>
-                            <h4>John Doe</h4>
+                            <h4>{{k.user_id.name}}</h4>
                             <div class="review-rating">
-                                <p>4.0</p>
+                                <p>{{k.stars}}</p>
                                 <svg width="8" height="7" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#FFFFFF"/>
                                 </svg>
                             </div>
                         </div>
-                        <p>Dec 9, 2001</p>
+                        <p>{{k.date}}</p>
                     </div>
-                    <p>A truffle is the fruiting body of a subterranean ascomycete fungus, predominantly one of the many species of the genus Tuber.</p>
+                    <p>{{k.comment}}</p>
                     <div class="review-likes">
                         <div>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,8 +72,8 @@
                                 <rect width="14.9262" height="14.9262" fill="white" transform="translate(0 0.0369263)"/>
                                 </clipPath>
                                 </defs>
-                            </svg>                            
-                            <p>2</p>
+                            </svg>
+                            <p>{{k.likes}}</p>
                         </div>
 
                         <div>
@@ -91,6 +94,8 @@
         {% else %}
             {% include 'login-required.html' %}
         {% endif %}
+
+        {% endfor %}
     </div>
     <link rel="stylesheet" href="{% static 'product.css' %}">
     <link rel="stylesheet" href="{% static 'review-popup.css' %}">

@@ -4,12 +4,15 @@
 {% load static %}
 
     <div class="reviews-wrapper">
+        {% for i in shopInfo %}
         <div class="shop-header">
             <div class="shop-header-right">
                 <img src='' class="shop-pic">
                 <div class="shop-title">
-                    <h2>Craftistic</h2>
-                    <p>Handcrafts, Gifts</p>
+                    <h2>{{i.shop_name}}</h2>
+                    <p>{% for j in i.shop_tags %}
+                        {{j}} |
+                    {% endfor %}</p>
                 </div>
             </div>
             
@@ -21,7 +24,7 @@
                 </div>
 
                 <div class="shop-rating">
-                    <p>4.2</p>
+                    <p>{{i.shop_rating}}</p>
                     <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#fff"/>
                     </svg>
@@ -41,23 +44,23 @@
 
 
             <div class="review-wrapper-2">
-                {% for i in '0123456789' %}
+                {% for j in shopReviews %}
                 <div class="review-card" style="background-color: var(--white);">
                     <img src="" alt="">
                     <div>
                         <div class="review-card-heading">
                             <div>
-                                <h4>John Doe</h4>
+                                <h4>{{j.user_id.name}}</h4>
                                 <div class="review-rating">
-                                    <p>2</p>
+                                    <p>{{j.stars}}</p>
                                     <svg width="8" height="7" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#FFFFFF"/>
                                     </svg>
                                 </div>
                             </div>
-                            <p>Dec 9, 2001</p>
+                            <p>{{j.date}}</p>
                         </div>
-                        <p>A truffle is the fruiting body of a subterranean ascomycete fungus, predominantly one of the many species of the genus Tuber.</p>
+                        <p>{{j.comment}}</p>
                         <div class="review-likes">
                             <div>
                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +73,7 @@
                                     </clipPath>
                                     </defs>
                                 </svg>                            
-                                <p>2</p>
+                                <p>{{j.likes}}</p>
                             </div>
 
                             <div>
@@ -93,6 +96,7 @@
                 {% include 'login-required.html' %}
             {% endif %}
         </div>
+        {% endfor %}
     </div>
 
     <link rel="stylesheet" href="{% static 'reviews.css' %}">

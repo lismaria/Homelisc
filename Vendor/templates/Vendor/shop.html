@@ -33,7 +33,7 @@
                     <h2>{{i.shop_name}}</h2>
                     <h3>
                         {% for i in i.shop_tags %}
-                            {{i}}
+                            {{i}} |
                         {% endfor %}
                     </h3>
                 </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="shop-info__contact">
                 <h2>Contact Details</h2>
-                <a href="{{i.shop_location}}">
+                <a href="{{i.shop_location}}" target="_blank">
                 <div>                    
                     <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path  fill=var(--primary) fill-rule="evenodd" clip-rule="evenodd" d="M8.5 6H9.456V13.944H8.5V6Z"/>
@@ -192,12 +192,10 @@
         
         
         function getCity(state) {
-            console.log("state: " + state)
             $.ajax({
             type: 'get',
             url: 'https://api.countrystatecity.in/v1/countries/IN/states/'+state+'/cities',
             success: function(data){
-                console.log("ajax",data);
                 data.forEach(element => {
                     $('#select-city').append('<option>'+element.name+'</option>')
                 });
@@ -218,10 +216,8 @@
 
 
 
-        // console.log(csrftoken);
         var id = $(".shop-info__main").data('id');
         $("#shop-edit-form").submit(function (e) {
-            console.log("submit")
             // preventing from page reload and default actions
             e.preventDefault();
             // serialize the data for sending the form data.
@@ -229,23 +225,25 @@
             // make POST ajax call
             $.ajax({
                 type: 'POST',
-                // beforeSend: function (request)
-                // {
-                //     request.setRequestHeader("X-CSRFToken", "${_csrf.token}");
-                // },
                 url: `{% url 'vendor:shop-update' %}`,
                 data: serializedData,
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    // var res = JSON.parse(response.instance)[0].fields.profile_pic
-                    // $("#vendor_profile").attr('src','/media/'+res);
                     alert("Updation Success!");
                     location.reload();
                 },
                 error:  function (response) {
-                    console.log(response);
+                    var data = response.responseJSON;
+                    $(".customerror").remove();
+                    for(var name in data) {
+                        for (var i in data[name]) {
+                        var element = $('[name="'+i+'"]');
+                        var err = data[name][i].toString();
+                        $("<p class='customerror'>"+err+"</p>").insertAfter(element);
+                        }
+                    }
                     alert("Failed to update");
                 }
             })
