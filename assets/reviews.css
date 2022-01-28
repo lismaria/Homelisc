@@ -36,7 +36,6 @@
 .shop-title{
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content:center;
 }
 
@@ -44,7 +43,7 @@
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
-    font-size: 2.4rem;
+    font-size: 2rem;
     color: var(--primary);
 }
 
@@ -89,6 +88,7 @@
     grid-column:1/13;
     grid-row:5/21;
     overflow: scroll;
+    width: 100%;
 }
 
 .review-wrapper-2{

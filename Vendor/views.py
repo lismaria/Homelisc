@@ -37,7 +37,8 @@ def home(request):
         else:
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     else:
-        return render(request,'home.html',{'food':'chocolates'})
+        shops = Shop.objects.order_by('-shop_rating','-shop_wishlist_count')[:6]
+        return render(request,'home.html',{'food':'chocolates','shops':shops})
 
 
 

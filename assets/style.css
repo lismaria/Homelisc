@@ -27,6 +27,14 @@
     --icon-grey:#ADADAF;
     --blue: #166EF3;
     --grey: rgba(0,0,0,0.5);
+
+    /* Star rating */
+    --star1: #DA0000;
+    --star2: #F62;
+    --star3: #E9B501;
+    --star4: #00DA16;
+    --star5: #24963F;
+
     /* --ds_cuisine:.0rem .4rem 1.5rem rgba(0, 0, 0, 0.3); */
     --ds_cuisine: .0rem .4rem 1.5rem rgb(198 198 198);
     --ds3:.0rem 1.0rem 2.0rem rgba(0, 0, 0, 0.06);

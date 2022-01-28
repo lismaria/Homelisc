@@ -31,9 +31,9 @@ urlpatterns = [
     path('search/',views.search,name="search"),
     path('wishlist/',views.wishlist,name="wishlist"),
     path('category/',views.category,name="category"),
-    path('product/',views.product,name="product"),
-    path('shop/reviews',views.reviews,name="reviews"),
-    re_path('shop/'+r'(?P<food>[\w-]+)',views.shop,name="shop")
+    path('shop/<slug:id>/<slug:slug>/product/<slug:itemid>',views.product,name="product"),
+    path('shop/<slug:id>/<slug:slug>/reviews',views.reviews,name="reviews"),
+    path('shop/<slug:id>/<slug:slug>',views.shop,name="shop")
 ]
 
 
