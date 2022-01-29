@@ -8,8 +8,8 @@
 }
 
 .product-img{
-    /* grid-row: 1/6; */
     position: relative;
+    width: 100%;
 }
 
 .product-heart{
@@ -27,10 +27,12 @@
 }
 
 .product-img img{
-    background: var(--accent);
-    height:24rem;
+    background: var(--black);
+    height: auto;
+    max-height: 28rem;
     width: 100%;
     border-radius: 0.8rem;
+    object-fit: contain;
 }
 
 .product-price{
