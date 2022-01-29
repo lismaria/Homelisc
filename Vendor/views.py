@@ -223,7 +223,12 @@ def item_edit(request):
         itemInfo = Item.objects.filter(id=itemid).values()
         imageInfo = ItemImage.objects.filter(item_id=itemid).values()
         print(imageInfo)
+        print(imageInfo[0]['item_img'])
+        imgcount = imageInfo.count()
+        filledImageForm = []
+        for i in range(0,imgcount):
+            filledImageForm.append([ItemImageUploadForm(initial={'item_img':imageInfo[i]['item_img']}),imageInfo[i]['item_img'],i])
+        print(filledImageForm)
         filledItemForm = ItemCreationForm(initial={'item_name':itemInfo[0]['item_name'],'item_descr':itemInfo[0]['item_descr'],'item_price':itemInfo[0]['item_price'],'item_category':itemInfo[0]['item_category']})
-        # filledImageForm = ItemImageUploadForm(initial={''})
-        return render(request, 'Vendor/itemedit.html',{'filledItemForm':filledItemForm})
+        return render(request, 'Vendor/itemedit.html',{'filledItemForm':filledItemForm, 'filledImageForm': filledImageForm, 'imageInfo':imageInfo})
     return JsonResponse({"error": " ", }, status=400)
