@@ -217,24 +217,23 @@ def item_edit(request):
         print(request.FILES)
         # return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
     else:
-        print("reqget",request.GET)
-        print("j",request.GET.get('id'))
         itemid=request.GET.get('id')
         itemInfo = Item.objects.filter(id=itemid).values()
         imageQuerySet = ItemImage.objects.filter(item_id=itemid)
         imageInfo = imageQuerySet.values()
-        print(imageInfo)
-        print("imageQuerySet", imageQuerySet)
-        # print(imageInfo[0]['item_img'])
-        
         imgcount = imageInfo.count()
+
+        print("imageQuerySet", imageQuerySet)
         filledImageForm = []
+        count = []
+        
+        filledItemForm = ItemCreationForm(initial={'item_name':itemInfo[0]['item_name'],'item_descr':itemInfo[0]['item_descr'],'item_price':itemInfo[0]['item_price'],'item_category':itemInfo[0]['item_category']})
         for i in range(0,imgcount):
+            count.append(i)
             filledImageForm.append(ItemImageUploadForm(initial={'item_img':imageInfo[i]['item_img']}))
         print(filledImageForm)
-        filledItemForm = ItemCreationForm(initial={'item_name':itemInfo[0]['item_name'],'item_descr':itemInfo[0]['item_descr'],'item_price':itemInfo[0]['item_price'],'item_category':itemInfo[0]['item_category']})
-
-        imageCombo = zip(filledImageForm, imageQuerySet)
+        print(count)
+        imageCombo = zip(filledImageForm, imageQuerySet, count)
         
 
         return render(request, 'Vendor/itemedit.html',{'filledItemForm':filledItemForm, 'imageCombo':imageCombo})

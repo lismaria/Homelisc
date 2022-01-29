@@ -30,7 +30,7 @@ class ItemImageUploadForm(forms.ModelForm):
         model = Vendor.ItemImage
         fields = ('item_img',)
         widgets = {
-            'item_img': forms.ClearableFileInput(attrs={'multiple': True, 'type':'file' ,'id':'add-itemimg','style':'display:none', 'accept':'image/*', 'class':"change-pic{{img.2}}", 'onchange':"document.getElementById('item-pic{{i}}').src = window.URL.createObjectURL(this.files[0])"})
+            'item_img': forms.ClearableFileInput(attrs={'type':'file' ,'id':'add-itemimg','style':'display:none', 'accept':'image/*'})
         }
         # required= {
         #     'item_img': False

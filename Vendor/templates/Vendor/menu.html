@@ -168,6 +168,11 @@
                 if($(".edit-preview-images").children().length == 3)
                     $(".edit-itemimg").hide();
 
+                $("#remove-0").click(function() {
+                    $("#imgframe-0").remove();
+                    editimages();
+                })
+            
                 $("#remove-1").click(function() {
                     $("#imgframe-1").remove();
                     editimages();
@@ -177,13 +182,25 @@
                     $("#imgframe-2").remove();
                     editimages();
                 })
-            
-                $("#remove-3").click(function() {
-                    $("#imgframe-3").remove();
-                    editimages();
-                })
 
                 $('#edit-itemimg').on("change", editimages);
+
+                $(".cancel-btn").click(function() {
+                    $('.edititem-form').trigger("reset");
+                    $(".menu-wrapper").removeClass("hidden");
+                    $(".edit-preview-images").empty();
+                    document.getElementById("page-heading").innerHTML = "Menu";
+                });
+
+                var ct=-1;
+                $('.edit-item-pic').children('input').each(function () {
+                    ct=ct+1;
+                    $(this).attr({'id':'change-pic'+ct+''});                // "this" is the current element in the loop
+                    $(this).attr({'onchange':"document.getElementById('item-pic"+ct+"').src = window.URL.createObjectURL(this.files[0])"});
+                });
+                // var ct = $(".edit-item-pic img").data('ct');
+                // $(".edit-item-pic input[type=file]").addClass("change-pic"+ct+"");
+                // $(".edit-item-pic input[type=file]").attr({'onchange':"document.getElementById('item-pic"+ct+"').src = window.URL.createObjectURL(this.files[0])"});
 
             },
             error: function(error){
@@ -224,6 +241,7 @@
                 reader.readAsDataURL(file);
             }     
         }
+        $('#add-itemimg').attr({'multiple':true});
         $('#add-itemimg').on("change", previewImages);
         
         $(".cancel-btn").click(function() {
