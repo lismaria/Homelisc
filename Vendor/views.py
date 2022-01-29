@@ -28,7 +28,8 @@ def check_vendor_details(request, id):
 def home(request):
     # context=[]
     if not request.user.is_authenticated:
-        return render(request,'home.html',{'food':'chocolates'})
+        shops = Shop.objects.order_by('-shop_rating','-shop_wishlist_count')[:6]
+        return render(request,'home.html',{'shops':shops})
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
         shopInfo = Shop.objects.filter(shop_owner_id=request.user.id)
@@ -39,7 +40,7 @@ def home(request):
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     else:
         shops = Shop.objects.order_by('-shop_rating','-shop_wishlist_count')[:6]
-        return render(request,'home.html',{'food':'chocolates','shops':shops})
+        return render(request,'home.html',{'shops':shops})
 
 
 
@@ -93,7 +94,7 @@ def menu_view(request,id,slug):
     # print(shopobj['shopInfo'])
     # print(shopobj['vendorForm'])
     # print("sd",shop_details)
-    itemInfo = Item.objects.filter(shop_id=id)
+    itemInfo = Item.objects.filter(shop_id=id).order_by('-id')
     imageInfo = ItemImage.objects.filter(shop_id=id)
     itemForm = ItemCreationForm()
     imageForm = ItemImageUploadForm()

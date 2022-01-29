@@ -171,8 +171,11 @@
 .product-card img{
     grid-row: 1/5;
     border-radius: 4px;
-    background: var(--accent);
-    height: 95%
+    background: var(--black);
+    height: 95%;
+    max-height: -webkit-fill-available;
+    object-fit: cover;
+    width: 100%;
 }
 
 .product-card h2{
