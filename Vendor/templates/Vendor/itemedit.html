@@ -28,10 +28,13 @@
             <p>Add Image</p>
         </label>
         <div class="edit-preview-images">
-            {% for i in '123' %}
+            {% for img in filledImageForm %}
+            
+            <h1>IMG: {{img}}</h1>
             <div class="edit-item-pic" id="imgframe-{{i}}">
-                <img src="../../media/logo.png" id="item-pic{{i}}" alt="" srcset="" width="100%" height="100%">
-                <input type="file" name="" id="change-pic{{i}}" style="display:none" onchange="document.getElementById('item-pic{{i}}').src = window.URL.createObjectURL(this.files[0])" accept="image/*">
+                <img src="{{imgurl.item_img.url}}" id="item-pic{{i}}" alt="" srcset="" width="100%" height="100%">
+                {{img.item_img}}
+                <!-- <input type="file" name="" class="change-pic{{i}}" style="display:none" onchange="document.getElementById('item-pic{{i}}').src = window.URL.createObjectURL(this.files[0])" accept="image/*"> -->
                 <div class="e-remove-item" id="remove-{{i}}">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.80497 9L12.235 6.57C12.3169 6.47435 12.3597 6.35131 12.3548 6.22547C12.35 6.09964 12.2978 5.98027 12.2087 5.89122C12.1197 5.80217 12.0003 5.75001 11.8745 5.74515C11.7487 5.74029 11.6256 5.78309 11.53 5.865L9.09997 8.27L6.65497 5.825C6.55932 5.74309 6.43628 5.70029 6.31044 5.70515C6.1846 5.71001 6.06523 5.76217 5.97619 5.85122C5.88714 5.94027 5.83497 6.05964 5.83011 6.18547C5.82525 6.31131 5.86805 6.43435 5.94997 6.53L8.38997 9L5.99997 11.36C5.94763 11.4048 5.90512 11.46 5.8751 11.522C5.84509 11.584 5.82823 11.6516 5.82557 11.7205C5.82291 11.7893 5.83451 11.858 5.85965 11.9222C5.88479 11.9863 5.92291 12.0446 5.97164 12.0933C6.02037 12.1421 6.07864 12.1802 6.14281 12.2053C6.20697 12.2305 6.27563 12.2421 6.34449 12.2394C6.41335 12.2367 6.48092 12.2199 6.54295 12.1899C6.60498 12.1599 6.66014 12.1173 6.70497 12.065L9.08997 9.68L11.46 12.05C11.5556 12.1319 11.6787 12.1747 11.8045 12.1699C11.9303 12.165 12.0497 12.1128 12.1387 12.0238C12.2278 11.9347 12.28 11.8154 12.2848 11.6895C12.2897 11.5637 12.2469 11.4407 12.165 11.345L9.80497 9Z" fill="#964B00" stroke="var(--primary)"/>
@@ -45,6 +48,7 @@
                     </svg>                            
                 </label>
             </div>
+            
             {% endfor %}
         </div>
 
