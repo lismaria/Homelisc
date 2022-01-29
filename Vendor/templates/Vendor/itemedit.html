@@ -28,11 +28,10 @@
             <p>Add Image</p>
         </label>
         <div class="edit-preview-images">
-            {% for img in filledImageForm %}
             
-            <h1>IMG: {{img}}</h1>
+            {% for img, i in imageCombo %}
             <div class="edit-item-pic" id="imgframe-{{i}}">
-                <img src="{{imgurl.item_img.url}}" id="item-pic{{i}}" alt="" srcset="" width="100%" height="100%">
+                <img src="{{i.item_img.url}}" id="item-pic{{i}}" alt="" srcset="" width="100%" height="100%">
                 {{img.item_img}}
                 <!-- <input type="file" name="" class="change-pic{{i}}" style="display:none" onchange="document.getElementById('item-pic{{i}}').src = window.URL.createObjectURL(this.files[0])" accept="image/*"> -->
                 <div class="e-remove-item" id="remove-{{i}}">
