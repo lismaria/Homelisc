@@ -165,6 +165,26 @@
             dataType: "html",
             success: function(data){
                 editFormDiv.html(data);
+                if($(".edit-preview-images").children().length == 3)
+                    $(".edit-itemimg").hide();
+
+                $("#remove-1").click(function() {
+                    $("#imgframe-1").remove();
+                    editimages();
+                })
+            
+                $("#remove-2").click(function() {
+                    $("#imgframe-2").remove();
+                    editimages();
+                })
+            
+                $("#remove-3").click(function() {
+                    $("#imgframe-3").remove();
+                    editimages();
+                })
+
+                $('#edit-itemimg').on("change", editimages);
+
             },
             error: function(error){
                 console.log("error",error);
@@ -175,6 +195,7 @@
 
         $("#page-heading").click(function(){
             $(".add-item-wrapper, .edit-item-wrapper").addClass("hidden");
+            $(".edit-item-wrapper").empty();
             $(".menu-wrapper").removeClass("hidden");
             document.getElementById("page-heading").innerHTML = "Menu";
         })
@@ -253,28 +274,7 @@
             }
 
         }
-
-        $("#remove-1").on('click',function() {
-            console.log("Removing 1")
-            $("#imgframe-1").remove();
-            editimages();
-        })
-
-        $("#remove-2").click(function() {
-            console.log("Removing 2")
-            $("#imgframe-2").remove();
-            editimages();
-        })
-
-        $("#remove-3").click(function() {
-            console.log("Removing 3")
-            $("#imgframe-3").remove();
-            editimages();
-        })
-
-        $('#edit-itemimg').on("change", editimages);
-        if($(".edit-preview-images").children().length == 3)
-            $(".edit-itemimg").hide();
+        
 
 
         
