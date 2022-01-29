@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from Vendor.models import Item, Shop, ItemImage
 from Account.models import User
@@ -98,7 +98,6 @@ def menu_view(request,id,slug):
     itemForm = ItemCreationForm()
     imageForm = ItemImageUploadForm()
     # print("II: ",itemInfo)
-    
     # filledItemForm = ItemCreationForm(initial={'item_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
     # context['form'] = form
     # print('img',imageInfo)
@@ -221,11 +220,9 @@ def item_edit(request):
         print("j",request.GET.get('id'))
         itemid=request.GET.get('id')
         itemInfo = Item.objects.filter(id=itemid).values()
-        imageInfo = ItemImage.objects.filter(id=itemid).values()
+        imageInfo = ItemImage.objects.filter(item_id=itemid).values()
         print(imageInfo)
-        # print(itemInfo[0])
-        # print("gid",request.GET[id])
         filledItemForm = ItemCreationForm(initial={'item_name':itemInfo[0]['item_name'],'item_descr':itemInfo[0]['item_descr'],'item_price':itemInfo[0]['item_price'],'item_category':itemInfo[0]['item_category']})
         # filledImageForm = ItemImageUploadForm(initial={''})
-        return JsonResponse({"msg":filledItemForm}, status=200)
-    return JsonResponse({"error": " "}, status=400)
+        return render(request, 'Vendor/itemedit.html',{'filledItemForm':filledItemForm})
+    return JsonResponse({"error": " ", }, status=400)
