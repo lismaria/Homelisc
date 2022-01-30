@@ -36,6 +36,15 @@ class ItemImageUploadForm(forms.ModelForm):
         #     'item_img': False
         # }
 
+class ItemImageEditForm(forms.ModelForm):
+    # item_img = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),required=False)
+    class Meta:
+        model = Vendor.ItemImage
+        fields = ('item_img',)
+        widgets = {
+            'item_img': forms.ClearableFileInput(attrs={'type':'file' ,'id':'edit-itemimg','style':'display:none', 'accept':'image/*'})
+        }
+
 class ShopCreationForm(forms.ModelForm):
     class Meta:
         model = Vendor.Shop

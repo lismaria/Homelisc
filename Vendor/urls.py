@@ -12,7 +12,8 @@ urlpatterns = [
     path('post/ajax/vendor/update/',views.vendor_update,name="vendor-update"),
     path('post/ajax/shop/update/',views.shop_update, name="shop-update"),
     path('post/ajax/item/add/',views.item_add, name="item-add"),
-    path('post/ajax/item/edit/',views.item_edit, name="item-edit")
+    path('post/ajax/item/edit/',views.item_edit, name="item-edit"),
+    path('post/ajax/item/delete/',views.item_delete, name="item-delete")
 ]
 
 # path('shop', views.menu_view, name='shop'),

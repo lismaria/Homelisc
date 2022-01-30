@@ -1,6 +1,8 @@
 
     <form class="edititem-form" id="item-edit-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <input type="hidden" name="itemid" value="{{itemid}}">
+
         <label>NAME</label>
         <!-- <input type="text" placeholder="Item name"> -->
         {{filledItemForm.item_name}}
@@ -18,7 +20,8 @@
         {{filledItemForm.item_category}}
 
         <label>IMAGES</label>
-        <input type="file" id="edit-itemimg" style="display:none" accept="image/*">
+        <!-- <input type="file" id="edit-itemimg" accept="image/*"> -->
+        {{imageForm.item_img}}
         <label class="edit-itemimg" for="edit-itemimg">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 8C3 8.55 3.45 9 4 9C4.55 9 5 8.55 5 8V6H7C7.55 6 8 5.55 8 5C8 4.45 7.55 4 7 4H5V2C5 1.45 4.55 1 4 1C3.45 1 3 1.45 3 2V4H1C0.45 4 0 4.45 0 5C0 5.55 0.45 6 1 6H3V8Z" fill="black"/>
@@ -30,7 +33,7 @@
         <div class="edit-preview-images">
             
             {% for img, i, ct in imageCombo %}
-            <div class="edit-item-pic" id="imgframe-{{ct}}">
+            <div class="edit-item-pic" id="imgframe-{{ct}}" data-itemimgid="{{i.id}}">
                 <img src="{{i.item_img.url}}" id="item-pic{{ct}}" alt="" srcset="" width="100%" height="100%">
                 {{img.item_img}}
                 <!-- <input type="file" name="" class="change-pic{{i}}" style="display:none" onchange="document.getElementById('item-pic{{i}}').src = window.URL.createObjectURL(this.files[0])" accept="image/*"> -->
