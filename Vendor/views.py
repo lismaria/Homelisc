@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from Vendor.models import Item, Shop, ItemImage
@@ -91,23 +92,18 @@ def shop_view(request,id, slug):
 
 def menu_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
-    # print(shopobj['shopInfo'])
-    # print(shopobj['vendorForm'])
-    # print("sd",shop_details)
     itemInfo = Item.objects.filter(shop_id=id).order_by('-id')
     imageInfo = ItemImage.objects.filter(shop_id=id)
     itemForm = ItemCreationForm()
     imageForm = ItemImageUploadForm()
-    # print("II: ",itemInfo)
-    # filledItemForm = ItemCreationForm(initial={'item_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
-    # context['form'] = form
-    # print('img',imageInfo)
+    itemcount = itemInfo.count()
+
     if shopobj==None:
         return redirect("home")
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'itemForm':itemForm, 'imageForm':imageForm, 'itemInfo':itemInfo, 'imageInfo':imageInfo})
+    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'itemForm':itemForm, 'imageForm':imageForm, 'itemInfo':itemInfo, 'imageInfo':imageInfo,'itemcount':itemcount})
 
 
 
@@ -246,3 +242,24 @@ def item_edit(request):
         
         return render(request, 'Vendor/itemedit.html',{'itemid':itemid,'imageForm':imageForm,'filledItemForm':filledItemForm, 'imageCombo':imageCombo})
     return JsonResponse({"error": " ", }, status=400)
+
+
+@csrf_exempt
+def item_delete(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+    
+    if request.POST:
+        remid = request.POST.get('remid')
+        try:
+            itemInfo = Item.objects.filter(id=remid)
+            if itemInfo:
+                itemInfo.delete()
+            else:
+                raise Exception
+        except:
+            return JsonResponse({"error": "Failed to delete"}, status=400)
+        else:
+            return JsonResponse({"msg": "Item Deleted :("}, status=200)
+
+    return JsonResponse({"error": " "}, status=400)
