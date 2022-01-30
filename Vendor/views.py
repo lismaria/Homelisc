@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from Vendor.models import Item, Shop, ItemImage
 from Account.models import User
-from Vendor.forms import ShopCreationForm, ItemCreationForm, ItemImageUploadForm
+from Vendor.forms import ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
 
 # Create your views here.
@@ -160,6 +160,8 @@ def shop_update(request):
 
     return JsonResponse({"error": ""}, status=400)
 
+
+
 def item_add(request):
     if not request.user.is_authenticated:
         return render(request,"Account/account.html")
@@ -170,7 +172,6 @@ def item_add(request):
         
         shopid = request.POST['shopid']
         shopInfo = Shop.objects.get(id=shopid)
-        # shopInfo = Shop.objects.get(id=shopid)
         itemForm = ItemCreationForm(request.POST)
         if itemForm.is_valid():
             instance = itemForm.save(commit=False)
@@ -184,7 +185,6 @@ def item_add(request):
         itemInfo = instance
         imageForm = ItemImageUploadForm(request.FILES)
         files = request.FILES.getlist('item_img')
-        print("files:",files)
 
         if imageForm.is_valid():
             ser_img=""
@@ -209,32 +209,40 @@ def item_add(request):
         return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
     return JsonResponse({"error": " "}, status=400)
 
+
+
 def item_edit(request):
     if not request.user.is_authenticated:
         return render(request,"Account/account.html")  
+
     if request.POST:
         print(request.POST)
         print(request.FILES)
-        # return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
+        itemid = request.POST['itemid']
+        itemInfo = Item.objects.get(id=itemid)
+        itemForm = ItemCreationForm(request.POST, instance=itemInfo)
+        if itemForm.is_valid():
+            instance = itemForm.save()
+            ser_instance = serializers.serialize('json', [ instance, ])
+        else:
+            return JsonResponse({"error": itemForm.errors}, status=400)
+        return JsonResponse({"instance": ser_instance}, status=200)
+        
     else:
         itemid=request.GET.get('id')
         itemInfo = Item.objects.filter(id=itemid).values()
         imageQuerySet = ItemImage.objects.filter(item_id=itemid)
         imageInfo = imageQuerySet.values()
         imgcount = imageInfo.count()
-
-        print("imageQuerySet", imageQuerySet)
         filledImageForm = []
         count = []
         
         filledItemForm = ItemCreationForm(initial={'item_name':itemInfo[0]['item_name'],'item_descr':itemInfo[0]['item_descr'],'item_price':itemInfo[0]['item_price'],'item_category':itemInfo[0]['item_category']})
+        imageForm = ItemImageEditForm()
         for i in range(0,imgcount):
             count.append(i)
-            filledImageForm.append(ItemImageUploadForm(initial={'item_img':imageInfo[i]['item_img']}))
-        print(filledImageForm)
-        print(count)
+            filledImageForm.append(ItemImageEditForm(initial={'item_img':imageInfo[i]['item_img']}))
         imageCombo = zip(filledImageForm, imageQuerySet, count)
         
-
-        return render(request, 'Vendor/itemedit.html',{'filledItemForm':filledItemForm, 'imageCombo':imageCombo})
+        return render(request, 'Vendor/itemedit.html',{'itemid':itemid,'imageForm':imageForm,'filledItemForm':filledItemForm, 'imageCombo':imageCombo})
     return JsonResponse({"error": " ", }, status=400)

@@ -186,9 +186,9 @@
                 $('#edit-itemimg').on("change", editimages);
 
                 $(".cancel-btn").click(function() {
-                    $('.edititem-form').trigger("reset");
+                    $(".edit-item-wrapper").addClass("hidden");
                     $(".menu-wrapper").removeClass("hidden");
-                    $(".edit-preview-images").empty();
+                    $(".edit-item-wrapper").empty();
                     document.getElementById("page-heading").innerHTML = "Menu";
                 });
 
@@ -198,10 +198,35 @@
                     $(this).attr({'id':'change-pic'+ct+''});                // "this" is the current element in the loop
                     $(this).attr({'onchange':"document.getElementById('item-pic"+ct+"').src = window.URL.createObjectURL(this.files[0])"});
                 });
-                // var ct = $(".edit-item-pic img").data('ct');
-                // $(".edit-item-pic input[type=file]").addClass("change-pic"+ct+"");
-                // $(".edit-item-pic input[type=file]").attr({'onchange':"document.getElementById('item-pic"+ct+"').src = window.URL.createObjectURL(this.files[0])"});
-
+                
+                // Edit item code
+                $('#item-edit-form').submit(function(e){
+                    e.preventDefault();
+                    console.log("submit edit item")
+                    var serializedData = new FormData($('#item-edit-form')[0]);
+                    console.log($('#item-edit-form')[0])
+                    console.log($('#item-edit-form'))
+                    console.log(serializedData);
+                
+                    $.ajax({
+                        type: 'POST',
+                        url:"{% url 'vendor:item-edit' %}",
+                        data: serializedData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            console.log(response);
+                            // var res = JSON.parse(response.instance)[0].fields.profile_pic
+                            // $("#vendor_profile").attr('src','/media/'+res);
+                            alert("Item Updated Successfully!");
+                        },
+                        error:  function (response) {
+                            console.log(response);
+                            alert("Failed to update");
+                        }
+                    })
+                })
             },
             error: function(error){
                 console.log("error",error);
@@ -248,7 +273,10 @@
             $('.additem-form').trigger("reset");
             $(".add-item-wrapper").addClass("hidden");
             $(".menu-wrapper").removeClass("hidden");
-            $(".preview-images").empty();
+
+            $(".edit-item-wrapper").addClass("hidden");
+            $(".edit-item-wrapper").empty();
+            $(".menu-wrapper").removeClass("hidden");
             document.getElementById("page-heading").innerHTML = "Menu";
         })
 
@@ -321,10 +349,12 @@
                 },
                 error:  function (response) {
                     console.log(response);
-                    alert("Failed to update");
+                    alert("Failed to add");
                 }
             })
         })
+
+        
     });
 </script>
 {% endblock javascript %}
