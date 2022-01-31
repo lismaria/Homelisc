@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from Vendor.models import Shop, ShopReview, Item, ItemReview
+from Vendor.models import Shop, Item, Review
 
 def home(request):
     print("in home")
@@ -22,7 +22,7 @@ def category(request):
 def product(request,id,slug,itemid):
     shopInfo = Shop.objects.filter(id=id)
     itemInfo = Item.objects.filter(id=itemid).order_by('-id')
-    itemReviews = ItemReview.objects.filter(item_id = itemid).order_by('-date')
+    itemReviews = Review.objects.filter(item_id = itemid).order_by('-date')
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('shop', id=obj.pk, slug=obj.shop_slug, itemid=itemid)
@@ -38,7 +38,7 @@ def shop(request,id,slug):
 
 def reviews(request,id,slug):
     shopInfo = Shop.objects.filter(id=id)
-    shopReviews = ShopReview.objects.filter(shop_id=id).order_by('-date')
+    shopReviews = Review.objects.filter(shop_id=id, item_id__isnull = True).order_by('-date')
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('reviews', id=obj.pk, slug=obj.shop_slug)
