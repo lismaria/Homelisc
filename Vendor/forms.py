@@ -70,3 +70,13 @@ class ShopCreationForm(forms.ModelForm):
             'shop_logo': forms.FileInput(attrs={"id":"add_logo", "style":"display:none;", "onchange":"document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])", "accept":"image/*"}),
         }
 
+class ReplyPostForm(forms.ModelForm):
+    class Meta:
+        model = Vendor.VendorReply
+        fields = ['reply']
+        labels = {
+            'reply': '',
+        }
+        widgets = {
+            'reply': forms.Textarea(attrs={'placeholder':'Your Reply...'})
+        }
