@@ -53,7 +53,8 @@
     grid-column: 1/13;
     grid-row: 4/21;
     padding-top: 1rem;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
     overflow: auto;
     padding: 1rem 0 4rem 0;
@@ -61,7 +62,7 @@
 
 .review-comments{
     width: 100%;
-    height: 100%;
+    height: max-content;
     background-color: var(--white);
     border-radius: 0.4rem;
 }
