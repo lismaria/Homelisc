@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
@@ -40,7 +41,7 @@ def home(request):
         else:
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     else:
-        shops = Shop.objects.order_by('-shop_rating','-shop_wishlist_count')[:6]
+        shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
         return render(request,'home.html',{'shops':shops})
 
 

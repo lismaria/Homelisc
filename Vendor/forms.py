@@ -70,3 +70,17 @@ class ShopCreationForm(forms.ModelForm):
             'shop_logo': forms.FileInput(attrs={"id":"add_logo", "style":"display:none;", "onchange":"document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])", "accept":"image/*"}),
         }
 
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Vendor.Review
+        fields = ['comment','stars','review_img']
+        labels = {
+            'comment':'',
+            'stars':'',
+            'review_img':'',
+        }
+        widgets = {
+            'comment': forms.Textarea(attrs={'placeholder':'Share your experience...'}),
+            'stars': forms.RadioSelect(attrs={'name':'star'}),
+            'review_img': forms.ClearableFileInput(attrs={'type':'file','id':'add-pic','style':'display:none','onchange':'document.getElementById("review_pic").src = window.URL.createObjectURL(this.files[0])','accept':'image/*'}),
+        }
