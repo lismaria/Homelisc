@@ -71,7 +71,9 @@
                             </div>
                             <p>{{j.comment}}</p>
                             <div class="review-itemimg">
-                                <img src="../../../../media/360_F_360701965_GJQHPlWtxdXPu6FyPlcpLeKgTwwn6RkD_BFeugTF.jpg" alt="" srcset="">
+                                {% if j.review_img %}
+                                <img src="{{j.review_img.url}}" alt="" srcset="">
+                                {% endif %}
                             </div>
                             <div class="review-likes">
                                 <div>

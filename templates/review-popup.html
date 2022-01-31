@@ -8,7 +8,7 @@
         </div>
 
         <form class="review-form" method="post" enctype="multipart/form-data">
-            
+            {% csrf_token %}
             <div class="review-form-rating">
                 <div>{% for i in reviewForm.stars%}{{i.tag}}{% endfor %}</div>
                     
@@ -36,8 +36,10 @@
             </div>
 
             {{reviewForm.comment}}
+            {{reviewForm.comment.errors}}
             <!-- <textarea placeholder="Share your experience..."></textarea> -->
-
+            {% for i in shopInfo %}<input type="hidden" name="shopid" value={{i.id}}>{% endfor %}
+            {% for j in itemInfo %}<input type="hidden" name="itemid" value={{j.id}}>{% endfor %}
             <div class="popreview-footer">
                 <div class="popreview-addpic">
                     <img id="review_pic">
@@ -50,12 +52,13 @@
                         </svg>
                     </label>
                     {{reviewForm.review_img}}
+                    {{reviewForm.review_img.errors}}
                     <!-- <input id="add-pic" type="file" style="display:none" onchange="document.getElementById('review_pic').src = window.URL.createObjectURL(this.files[0])"> -->
                 </div>
 
-                <div class="save-review">
+                <button class="save-review" type="submit">
                     Save Review
-                </div>
+                </button>
             </div>
         </form>
 
@@ -84,6 +87,34 @@
             $(this).attr({'class':'star star-'+ct});
             $(this).prop('checked', false);
         });
+
+        $(".save-review").click(function (e) {
+            e.preventDefault();
+            console.log("clicked")
+
+            // serialize the data for sending the form data.
+            var serializedData = new FormData($('.review-form')[0]);
+            console.log(serializedData);
+
+            // make POST ajax call
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'review-post' %}",
+                data: serializedData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // alert("Updation Success!");
+                    console.log(response);
+                    // location.reload();
+                },
+                error:  function (response) {
+                    console.log(response);
+                    // alert("Failed to update");
+                }
+            })
+        })
 
     });
 </script>
