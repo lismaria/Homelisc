@@ -71,17 +71,17 @@ class ShopCreationForm(forms.ModelForm):
         }
 
 class ReviewForm(forms.ModelForm):
+    CHOICES = [(1,1), (2,2), (3,3), (4,4), (5,5)]
+    stars = forms.CharField(label='What is your favorite fruit?', widget=forms.RadioSelect(choices=CHOICES, attrs={'class':'star','name':'star'}))
     class Meta:
         model = Vendor.Review
         fields = ['comment','stars','review_img']
         labels = {
             'comment':'',
-            'stars':'',
             'review_img':'',
         }
         widgets = {
             'comment': forms.Textarea(attrs={'placeholder':'Share your experience...'}),
-            'stars': forms.RadioSelect(attrs={'type':'radio','class':'star','name':'star'}),
             'review_img': forms.ClearableFileInput(attrs={'type':'file','id':'add-pic','style':'display:none','onchange':'document.getElementById("review_pic").src = window.URL.createObjectURL(this.files[0])','accept':'image/*'}),
         }
 
