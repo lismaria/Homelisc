@@ -81,6 +81,6 @@ class ReviewForm(forms.ModelForm):
         }
         widgets = {
             'comment': forms.Textarea(attrs={'placeholder':'Share your experience...'}),
-            'stars': forms.RadioSelect(attrs={'name':'star'}),
+            'stars': forms.RadioSelect(attrs={'type':'radio','class':'star','name':'star'}),
             'review_img': forms.ClearableFileInput(attrs={'type':'file','id':'add-pic','style':'display:none','onchange':'document.getElementById("review_pic").src = window.URL.createObjectURL(this.files[0])','accept':'image/*'}),
         }

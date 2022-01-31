@@ -14,19 +14,15 @@
                 <!-- <input class="star star-5" id="star-5" type="radio" name="star" />  -->
                 <label class="star star-5 star-box" for="star-5"><h4 class="star">5</h4></label> 
 
-                {{reviewForm.stars}}
                 <!-- <input class="star star-4" id="star-4" type="radio" name="star" />  -->
                 <label class="star star-4 star-box" for="star-4"><h4 class="star">4</h4></label> 
 
-                {{reviewForm.stars}}
                 <!-- <input class="star star-3" id="star-3" type="radio" name="star" />  -->
                 <label class="star star-3 star-box" for="star-3"><h4 class="star">3</h4></label> 
 
-                {{reviewForm.stars}}
                 <!-- <input class="star star-2" id="star-2" type="radio" name="star" />  -->
                 <label class="star star-2 star-box" for="star-2"><h4 class="star">2</h4></label> 
 
-                {{reviewForm.stars}}
                 <!-- <input class="star star-1" id="star-1" type="radio" name="star" />  -->
                 <label class="star star-1 star-box" for="star-1"><h4 class="star">1</h4></label> 
             </div>
@@ -62,3 +58,28 @@
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        let init_rpvh = window.innerHeight * 0.01;
+        $("textarea").focus(function(){
+            $(".review-popup").css({'min-height':init_rpvh*81+'px'});
+        })
+
+        $("textarea").blur(function(){
+            $(".review-popup").css({'min-height':'auto'});
+        })
+
+        $('input[type="file"]').change(function() {
+            $('.review-imglabel>p, .review-imglabel>svg').css({'z-index':-1})
+        });
+
+        var ct=6;
+        $('.review-form-rating').children('input').each(function () {
+            ct=ct-1;
+            $(this).attr({'id':'star-'+ct});
+            $(this).attr({'class':'star-'+ct});
+        });
+
+    });
+</script>

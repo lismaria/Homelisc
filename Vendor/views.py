@@ -30,7 +30,7 @@ def check_vendor_details(request, id):
 def home(request):
     # context=[]
     if not request.user.is_authenticated:
-        shops = Shop.objects.order_by('-shop_rating','-shop_wishlist_count')[:6]
+        shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
         return render(request,'home.html',{'shops':shops})
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})

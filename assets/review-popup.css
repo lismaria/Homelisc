@@ -33,6 +33,7 @@
 .popreview-header{
     display: flex;
     width: 100%;
+    height: 6%;
 }
 
 .popreview-header h2{
@@ -48,12 +49,11 @@
 }
 
 .review-form{
-    height: 92%;
+    height: 94%;
     display: flex;
     flex-direction: column;
     justify-content:space-evenly;
     overflow: scroll;
-    gap: 2rem
 }
 
 .popreview-profile{
