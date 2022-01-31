@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from Vendor.models import Shop, Item, Review
+from Vendor.models import Shop, Item, Review, VendorReply
 from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
 
@@ -25,11 +25,13 @@ def product(request,id,slug,itemid):
     shopInfo = Shop.objects.filter(id=id)
     itemInfo = Item.objects.filter(id=itemid).order_by('-id')
     itemReviews = Review.objects.filter(item_id = itemid).order_by('-date')
+    reviewForm = ReviewForm()
+    vendorReplies = VendorReply.objects.filter(shop_id=id)
 
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('shop', id=obj.pk, slug=obj.shop_slug, itemid=itemid)
-    return render(request,"product.html",{'shopInfo':shopInfo,'itemInfo':itemInfo,'itemReviews':itemReviews})
+    return render(request,"product.html",{'shopInfo':shopInfo,'itemInfo':itemInfo,'itemReviews':itemReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies})
 
 def shop(request,id,slug):
     itemInfo = Item.objects.filter(shop_id=id).order_by('-id')
@@ -43,10 +45,14 @@ def reviews(request,id,slug):
     shopInfo = Shop.objects.filter(id=id)
     shopReviews = Review.objects.filter(shop_id=id, item_id__isnull = True).order_by('-date')
     reviewForm = ReviewForm()
+    vendorReplies = VendorReply.objects.filter(shop_id=id)
+    for i in shopReviews:
+        print(i.heart_by_owner)
+
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('reviews', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"reviews.html",{'shopInfo':shopInfo,'shopReviews':shopReviews,'reviewForm':reviewForm})
+    return render(request,"reviews.html",{'shopInfo':shopInfo,'shopReviews':shopReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies})
 
 def review_post(request):
     if not request.user.is_authenticated:
