@@ -164,7 +164,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 0.3rem;
+    gap: 1rem;
 }
 
 /* Vendor Reply Code */
@@ -296,7 +296,7 @@
     fill: transparent;
 } */
 
-.review-reply,.review-comment{
+.review-reply{
     display: none;
 }
 
