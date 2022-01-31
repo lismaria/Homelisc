@@ -1,7 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'shop.css' %}">
+{% endblock style %}
+
+{% block title %}
+    {% for i in shopInfo %}
+        {{i.shop_name}}
+    {% endfor %}
+{% endblock title %}
 
 {% block content %}
-{% load static %}
 
     <div class="shop-wrapper">
         {% for i in shopInfo %}
@@ -96,5 +106,4 @@
         {% endfor %}
     </div>
 
-    <link rel="stylesheet" href="{% static 'shop.css' %}">
-{% endblock %}
+{% endblock content %}

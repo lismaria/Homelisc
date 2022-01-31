@@ -1,7 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'product.css' %}">
+    <link rel="stylesheet" href="{% static 'review-popup.css' %}">
+{% endblock style %}
+    
+{% block title %}
+    {% for i in itemInfo %}
+        {{i.item_name}}
+    {% endfor %}
+{% endblock title %}
 
 {% block content %}
-{% load static %}
     <div class="product-wrapper">
         {% for i in itemInfo %}
         <div class="product-img">
@@ -111,6 +122,5 @@
 
         {% endfor %}
     </div>
-    <link rel="stylesheet" href="{% static 'product.css' %}">
-    <link rel="stylesheet" href="{% static 'review-popup.css' %}">
-{% endblock %}
+
+{% endblock content %}

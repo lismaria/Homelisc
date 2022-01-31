@@ -1,7 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock style %}
+
+{% block title %}Homelisc{% endblock title %}
 
 {% block content %}
-{% load static %}
     <div class="homepage-one">
         {% include "search-component.html" %}
 
@@ -204,5 +210,4 @@
         </ul>
     </nav> -->
 
-    <link rel="stylesheet" href="{% static 'home.css' %}">
-{% endblock %}
+{% endblock content %}

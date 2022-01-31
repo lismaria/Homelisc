@@ -12,15 +12,17 @@
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     </script>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% block style %}
+    {% endblock style %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'svg/streetsnax-logo.svg' %}" type="image/icon type">
-    <title>Eat Street</title>
+    <title>{% block title %}{% endblock title %}</title>
 </head>
 <body ng-app="mod" ng-controller="cont">
     <div>
-        <main class="wrapper">{% block content %}{% endblock %}</main>
+        <main class="wrapper">{% block content %}{% endblock content %}</main>
     </div>
     <div class="lower-nav">{% include "lower-nav.html" %}</div>
 
@@ -38,5 +40,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js" integrity="sha512-7oYXeK0OxTFxndh0erL8FsjGvrl2VMDor6fVqzlLGfwOQQqTbYsGPv4ZZ15QHfSk80doyaM0ZJdvkyDcVO7KFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="{% static 'index.js' %}"></script>
+    {% block javascript %}
+    {% endblock javascript %}
 </body>
 </html>

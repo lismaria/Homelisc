@@ -1,7 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'reviews.css' %}">
+    <link rel="stylesheet" href="{% static 'product.css' %}">
+    <link rel="stylesheet" href="{% static 'review-popup.css' %}">
+{% endblock style %}
+
+{% block title %}Reviews{% endblock title %}
 
 {% block content %}
-{% load static %}
 
     <div class="reviews-wrapper">
         {% for i in shopInfo %}
@@ -113,8 +121,5 @@
         {% endfor %}
     </div>
 
-    <link rel="stylesheet" href="{% static 'reviews.css' %}">
-    <link rel="stylesheet" href="{% static 'product.css' %}">
-    <link rel="stylesheet" href="{% static 'review-popup.css' %}">
 
-{% endblock %}
+{% endblock content %}

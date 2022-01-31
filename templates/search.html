@@ -1,7 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'search.css' %}">
+{% endblock style %}
+
+{% block title %}Search{% endblock title %}
 
 {% block content %}
-{% load static %}
     <div class="search-container">
         {% include "search-component.html" %}
 
@@ -112,5 +118,4 @@
         </div>
 
     </div>
-    <link rel="stylesheet" href="{% static 'search.css' %}"></p>
-{% endblock %}
+{% endblock content %}

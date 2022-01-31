@@ -1,7 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'category.css' %}">
+{% endblock style %}
+
+{% block title %}Category{% endblock title %}
 
 {% block content %}
-{% load static %}
 
     <div class="cuisine-wrapper">
         {% include "search-component.html" %}
@@ -78,5 +84,4 @@
         </div>
     </div>
 
-    <link rel="stylesheet" href="{% static 'category.css' %}">
-{% endblock %}
+{% endblock content %}
