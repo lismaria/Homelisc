@@ -4,9 +4,9 @@ from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
-from Vendor.models import Item, Shop, ItemImage
+from Vendor.models import Item, Review, Shop, ItemImage
 from Account.models import User
-from Vendor.forms import ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
+from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
 
 # Create your views here.
@@ -112,10 +112,12 @@ def review_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
     if shopobj==None:
         return redirect("home")
+    reviews = Review.objects.filter(shop_id=id)
+    replyForm = ReplyPostForm()
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"Vendor/review.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm']})
+    return render(request,"Vendor/review.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'reviews':reviews,'replyForm':replyForm})
 
 
 
@@ -263,4 +265,15 @@ def item_delete(request):
         else:
             return JsonResponse({"msg": "Item Deleted :("}, status=200)
 
+    return JsonResponse({"error": " "}, status=400)
+
+
+def vendor_reply(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    if request.POST:
+        print(request.POST)
+        replyForm = ReplyPostForm(request.POST)
+        return JsonResponse({"msg": " "}, status=200)
     return JsonResponse({"error": " "}, status=400)

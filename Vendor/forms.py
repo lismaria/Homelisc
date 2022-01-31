@@ -84,3 +84,14 @@ class ReviewForm(forms.ModelForm):
             'stars': forms.RadioSelect(attrs={'type':'radio','class':'star','name':'star'}),
             'review_img': forms.ClearableFileInput(attrs={'type':'file','id':'add-pic','style':'display:none','onchange':'document.getElementById("review_pic").src = window.URL.createObjectURL(this.files[0])','accept':'image/*'}),
         }
+
+class ReplyPostForm(forms.ModelForm):
+    class Meta:
+        model = Vendor.VendorReply
+        fields = ['reply']
+        labels = {
+            'reply': '',
+        }
+        widgets = {
+            'reply': forms.Textarea(attrs={'placeholder':'Your Reply...'})
+        }
