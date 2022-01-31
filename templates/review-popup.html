@@ -8,21 +8,24 @@
         </div>
 
         <form class="review-form" method="post" enctype="multipart/form-data">
-
+            {% csrf_token %}
             <div class="review-form-rating">
-                {{reviewForm.stars}}
+                <div>{% for i in reviewForm.stars%}{{i.tag}}{% endfor %}</div>
+                    
+                {{reviewForm.stars.0.tag}}  
+                <!-- <input type="radio" name="stars" class="star-5" id="star-5" required="">  -->
                 <!-- <input class="star star-5" id="star-5" type="radio" name="star" />  -->
                 <label class="star star-5 star-box" for="star-5"><h4 class="star">5</h4></label> 
-
+                {{reviewForm.stars.1.tag}}   
                 <!-- <input class="star star-4" id="star-4" type="radio" name="star" />  -->
                 <label class="star star-4 star-box" for="star-4"><h4 class="star">4</h4></label> 
-
+                {{reviewForm.stars.2.tag}}   
                 <!-- <input class="star star-3" id="star-3" type="radio" name="star" />  -->
                 <label class="star star-3 star-box" for="star-3"><h4 class="star">3</h4></label> 
-
+                {{reviewForm.stars.3.tag}}   
                 <!-- <input class="star star-2" id="star-2" type="radio" name="star" />  -->
                 <label class="star star-2 star-box" for="star-2"><h4 class="star">2</h4></label> 
-
+                {{reviewForm.stars.4.tag}}   
                 <!-- <input class="star star-1" id="star-1" type="radio" name="star" />  -->
                 <label class="star star-1 star-box" for="star-1"><h4 class="star">1</h4></label> 
             </div>
@@ -33,8 +36,10 @@
             </div>
 
             {{reviewForm.comment}}
+            {{reviewForm.comment.errors}}
             <!-- <textarea placeholder="Share your experience..."></textarea> -->
-
+            {% for i in shopInfo %}<input type="hidden" name="shopid" value={{i.id}}>{% endfor %}
+            {% for j in itemInfo %}<input type="hidden" name="itemid" value={{j.id}}>{% endfor %}
             <div class="popreview-footer">
                 <div class="popreview-addpic">
                     <img id="review_pic">
@@ -47,12 +52,13 @@
                         </svg>
                     </label>
                     {{reviewForm.review_img}}
+                    {{reviewForm.review_img.errors}}
                     <!-- <input id="add-pic" type="file" style="display:none" onchange="document.getElementById('review_pic').src = window.URL.createObjectURL(this.files[0])"> -->
                 </div>
 
-                <div class="save-review">
+                <button class="save-review" type="submit">
                     Save Review
-                </div>
+                </button>
             </div>
         </form>
 
@@ -78,8 +84,37 @@
         $('.review-form-rating').children('input').each(function () {
             ct=ct-1;
             $(this).attr({'id':'star-'+ct});
-            $(this).attr({'class':'star-'+ct});
+            $(this).attr({'class':'star star-'+ct});
+            $(this).prop('checked', false);
         });
+
+        $(".save-review").click(function (e) {
+            e.preventDefault();
+            console.log("clicked")
+
+            // serialize the data for sending the form data.
+            var serializedData = new FormData($('.review-form')[0]);
+            console.log(serializedData);
+
+            // make POST ajax call
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'review-post' %}",
+                data: serializedData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // alert("Updation Success!");
+                    console.log(response);
+                    // location.reload();
+                },
+                error:  function (response) {
+                    console.log(response);
+                    // alert("Failed to update");
+                }
+            })
+        })
 
     });
 </script>

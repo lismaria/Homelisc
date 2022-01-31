@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from Vendor.models import Shop, Item, Review
-from Vendor.forms import ReviewForm
+from Vendor.forms import ReplyPostForm, ReviewForm
+from django.core import serializers
 
 def home(request):
     print("in home")
@@ -46,3 +47,32 @@ def reviews(request,id,slug):
     if obj.shop_slug != slug:
         return redirect('reviews', id=obj.pk, slug=obj.shop_slug)
     return render(request,"reviews.html",{'shopInfo':shopInfo,'shopReviews':shopReviews,'reviewForm':reviewForm})
+
+def review_post(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    if request.POST:
+        print(request.POST)
+        print(request.FILES)
+        shopid = request.POST['shopid']
+        print("s: ",shopid)
+        shopInfo = Shop.objects.get(id=shopid)
+        if request.POST.get('itemid'):
+            itemid = request.POST.get('itemid')
+            print("i: ",itemid)
+            itemInfo = Item.objects.get(id=itemid)
+        
+        reviewForm = ReviewForm(request.POST,request.FILES)
+        if reviewForm.is_valid():
+            instance = reviewForm.save(commit=False)
+            instance.user_id = request.user
+            instance.shop_id = shopInfo
+            if request.POST.get('itemid'):
+                instance.item_id = itemInfo
+            instance.save()
+            ser_instance = serializers.serialize('json', [ instance, ])
+            return JsonResponse({"instance": ser_instance}, status=200)
+        else:
+            return JsonResponse({"error": reviewForm.errors}, status=400)
+    return JsonResponse({"error": " "}, status=400)
