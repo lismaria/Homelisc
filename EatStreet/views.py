@@ -12,6 +12,16 @@ def home(request):
     return render(request,'home.html',{'food':'chocolates'})
 
 def search(request):
+    print("search")
+    if 'term' in request.GET:
+        print('term')
+        shopqs = Shop.objects.filter(shop_name__icontains=request.GET.get('term'))
+        result = list()
+        for shop in shopqs:
+            result.append(shop.shop_name)
+        # titles = [product.title for product in qs]
+        print(result)
+        return JsonResponse(result, safe=False)
     return render(request,"search.html")
 
 def wishlist(request):
