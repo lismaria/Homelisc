@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from Vendor.models import Shop, Item, Review, VendorReply
 from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     print("in home")
@@ -11,7 +12,29 @@ def home(request):
     print(shops.count())
     return render(request,'home.html',{'food':'chocolates'})
 
+@csrf_exempt
 def search(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    if request.POST:
+        print("Post")
+        print(request.POST)
+    else:
+        print("search")
+        shopNames = Shop.objects.all()
+        itemNames = Item.objects.all()
+        # if 'term' in request.GET:
+        #     print('term')
+        #     shopqs = Shop.objects.filter(shop_name__icontains=request.GET.get('term'))
+
+        #     result = list()
+        #     for shop in shopqs:
+        #         result.append(shop.shop_name)
+        #     # titles = [product.title for product in qs]
+        #     print(result)
+        #     return JsonResponse(result, safe=False)
+        return render(request,"search.html",{'shopNames':shopNames, 'itemNames': itemNames})
     return render(request,"search.html")
 
 def wishlist(request):
