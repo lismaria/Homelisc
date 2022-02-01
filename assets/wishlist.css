@@ -147,11 +147,20 @@
     box-shadow: var(--ds_prod_card);
 }
 
+.product-card>a{
+    grid-row: 1/5;
+    height: 95%;
+    width: 100%;
+}
+
 .product-card img{
     grid-row: 1/5;
     border-radius: 4px;
-    background: var(--accent);
-    height: 95%
+    background: var(--black);
+    height: 100%;
+    max-height: -webkit-fill-available;
+    object-fit: cover;
+    width: 100%;
 }
 
 .product-card h2{
@@ -340,4 +349,8 @@
         margin: 0 auto;
         max-width: 80%
     }
+}
+
+.non-active{
+    display:none;
 }

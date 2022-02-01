@@ -16,7 +16,10 @@ def search(request):
     return render(request,"search.html")
 
 def wishlist(request):
-    return render(request,"wishlist.html")
+    shopWishlists = Wishlist.objects.filter(user_id_id=request.user.id,item_id_id__isnull=True)
+    itemWishlists = Wishlist.objects.filter(user_id_id=request.user.id,item_id_id__isnull=False)
+    wishlist_count = shopWishlists.count()+itemWishlists.count()
+    return render(request,"wishlist.html",{"shopWishlists":shopWishlists,'itemWishlists':itemWishlists,'wishlist_count':wishlist_count})
 
 def category(request):
     category = request.GET['category']
