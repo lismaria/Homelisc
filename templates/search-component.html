@@ -4,14 +4,14 @@
     <ul>
         <!-- <li><img src="{% static 'search.svg' %}" alt="Search"></li> -->
         <li>
-            <button id="search-btn" onclick="hi()">
+            <button id="search-btn" type="submit">
                 <svg width="25" height="25" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill=var(--primary) d="M14.062 4.34861C15.9273 4.34691 17.7512 4.89847 19.3029 5.93353C20.8547 6.96858 22.0646 8.44062 22.7796 10.1634C23.4945 11.8862 23.6825 13.7824 23.3197 15.612C22.9568 17.4417 22.0594 19.1226 20.7411 20.4422C19.4227 21.7617 17.7426 22.6606 15.9133 23.0251C14.084 23.3897 12.1877 23.2034 10.4642 22.49C8.74076 21.7766 7.26762 20.568 6.23115 19.0172C5.19468 17.4664 4.64145 15.6431 4.64145 13.7778C4.65276 11.282 5.64863 8.8915 7.41264 7.12588C9.17665 5.36026 11.5662 4.3622 14.062 4.34861ZM14.062 2.58334C11.848 2.58334 9.68362 3.23988 7.8427 4.46994C6.00179 5.7 4.56697 7.44833 3.71969 9.49385C2.8724 11.5394 2.65072 13.7902 3.08266 15.9617C3.5146 18.1332 4.58076 20.1279 6.14634 21.6934C7.71191 23.259 9.70657 24.3252 11.8781 24.7571C14.0496 25.1891 16.3004 24.9674 18.3459 24.1201C20.3914 23.2728 22.1398 21.838 23.3698 19.9971C24.5999 18.1562 25.2564 15.9918 25.2564 13.7778C25.2564 10.8088 24.077 7.96148 21.9777 5.86211C19.8783 3.76275 17.031 2.58334 14.062 2.58334Z" fill="#ADADAF"/>
                     <path fill=var(--primary) d="M30.1389 28.6664L23.7925 22.2769L22.5697 23.4911L28.9161 29.8806C28.9958 29.9608 29.0906 30.0246 29.195 30.0683C29.2993 30.112 29.4113 30.1347 29.5244 30.1351C29.6376 30.1355 29.7497 30.1136 29.8544 30.0706C29.9591 30.0277 30.0543 29.9646 30.1346 29.8849C30.2149 29.8051 30.2787 29.7104 30.3223 29.606C30.366 29.5016 30.3887 29.3897 30.3891 29.2765C30.3895 29.1634 30.3676 29.0513 30.3247 28.9466C30.2817 28.8419 30.2186 28.7467 30.1389 28.6664Z" fill="#ADADAF"/>
                 </svg>
             </button>
         </li>
-        <li><input type="text" id="search-field" name="search-field"placeholder="Search" ></li>
+        <li><input type="text" id="search-field" name="search-field" placeholder="Search" ></li>
         <li><img src="{% static 'svg/filter.svg' %}" alt="Filter"></li>
     </ul>
     <!-- <ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none; position: relative; top: -626px; left: 43px; width: 376px;"><li class="ui-menu-item"><div id="ui-id-10" tabindex="-1" class="ui-menu-item-wrapper">Test Shop</div></li><li class="ui-menu-item"><div id="ui-id-11" tabindex="-1" class="ui-menu-item-wrapper">Teesra shop</div></li><li class="ui-menu-item"><div id="ui-id-12" tabindex="-1" class="ui-menu-item-wrapper">Hope</div></li></ul> -->
@@ -19,16 +19,87 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script  type="">
+
+    $(function() {
+        console.log("Here too")
+        var availableTags = [
+          {% for i in shopNames %}
+              '{{i.shop_name}}',
+          {% endfor %}
+          {% for i in itemNames %}
+              '{{i.item_name}}',
+          {% endfor %}
+      ];
+      $( "#search-field" ).autocomplete({
+        source: availableTags
+      });
+
+    });
+</script>
 <script>
         
-function hi() {
-            console.log("hi")
-        }
+
     $(document).ready(function () {
         console.log("HERE")
-        $("#search-field").autocomplete({            
-            source: "{% url 'search' %}",
+        function findIt() {
+            console.log("hi")
+            searchVal = $("#search-field").val();
+            $.ajax({
+                type: 'post',
+                url: "{% url 'search' %}",
+                data: searchVal,
+                success: function (response) {
+                    console.log(response)
+                    // alert("Updation Success!");
+                    // location.reload();
+                },
+                error:  function (response) {
+                    console.log(response)
+                    // var data = response.responseJSON;
+                    // $(".customerror").remove();
+                    // for(var name in data) {
+                    //     for (var i in data[name]) {
+                    //     var element = $('[name="'+i+'"]');
+                    //     var err = data[name][i].toString();
+                    //     $("<p class='customerror'>"+err+"</p>").insertAfter(element);
+                    //     }
+                    // }
+                    // alert("Failed to update");
+                }
+            })
+        }
+        document.getElementById('search-btn').addEventListener('click', findIt, true);
+        // $("#search-field").autocomplete({            
+        //     source: "{% url 'search' %}",
+        // });
+
+             
+        $('#search-field').keydown(function(event){
+            if(event.keyCode == 13)
+            {
+                document.getElementById("search-btn").click();
+            }
         });
+
+        $("ul.ui-menu").on('click','li.ui-menu-item',function(){
+            findIt()
+        })
+        $("#search-btn").click(function(){
+            
+            console.log(searchVal)
+            
+        })
+    })
+</script>
+
+<!-- $(document).ready(function () {
+        console.log("HERE")
+        
+        function searchInDb(item){
+
+        }
 
              
         $('#search-field').keydown(function(event){
@@ -41,5 +112,4 @@ function hi() {
         $("ul.ui-menu").on('click','li.ui-menu-item',function(){
             console.log("click")
         })
-    })
-</script>
+    }) -->
