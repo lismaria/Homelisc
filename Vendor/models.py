@@ -18,8 +18,8 @@ class Shop(models.Model):
     shop_tags = ArrayField(models.CharField(verbose_name="Shop Tags",max_length=50), blank=False)
     shop_logo = models.ImageField(verbose_name="Shop Logo",default='default.png', blank=True)
     shop_rating = models.FloatField(verbose_name="Shop Rating",null=True, blank=True, default=None)
-    shop_clicks_count = models.IntegerField(verbose_name="Shop Clicks Count",null=True, blank=True, default=None)
-    shop_wishlist_count = models.IntegerField(verbose_name="Shop Wishlist Count",null=True, blank=True, default=None)
+    shop_clicks_count = models.IntegerField(verbose_name="Shop Clicks Count",null=True, blank=True, default=0)
+    shop_wishlist_count = models.IntegerField(verbose_name="Shop Wishlist Count",null=True, blank=True, default=0)
     shop_owner = models.ForeignKey(User,on_delete=models.CASCADE, default=None)
 
     def __str__(self):
@@ -34,8 +34,8 @@ class Item(models.Model):
     item_descr = models.TextField(verbose_name="Item Description")    
     item_rating = models.FloatField(verbose_name="Item Rating",null=True, default=None)
     item_price = models.FloatField(verbose_name="Item Price")
-    item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count",null=True, blank=True, default=None)
-    item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count",null=True, blank=True, default=None)
+    item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count",null=True, blank=True, default=0)
+    item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count",null=True, blank=True, default=0)
     item_category = ArrayField(models.CharField(verbose_name="Item Category",max_length=50), blank=False)
     shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
 
@@ -56,7 +56,7 @@ class Review(models.Model):
     comment = models.TextField(verbose_name="Comment")
     stars = models.IntegerField(verbose_name="Stars")
     date = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(verbose_name="Likes", null=True, blank=True, default=None)
+    likes = models.IntegerField(verbose_name="Likes", null=True, blank=True, default=0)
     heart_by_owner = models.BooleanField(default=False)
     review_img = models.ImageField(verbose_name="Review Image", null=True, blank=True, default=None)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
@@ -65,21 +65,13 @@ class Review(models.Model):
     def __str__(self):
         return self.user_id.email
 
-
-class ShopWishlist(models.Model):
+class Wishlist(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
     def __str__(self):
-        return self.shop_id.shop_name +" "+ self.user_id.email
-
-class ItemWishlist(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
-    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
-
-    def __str__(self):
-        return self.item_id.item_name +" "+ self.user_id.email
+        return self.user_id.email +" "+ self.shop_id.shop_name
 
 class VendorReply(models.Model):
     reply = models.TextField(verbose_name="Reply")

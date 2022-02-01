@@ -8,6 +8,8 @@
 {% block title %}Wishlist{% endblock title %}
 
 {% block content %}
+
+    {% if request.user.is_authenticated %}
     <!-- <div class="no-wishlists-wrapper">
         <div class="wishlist-svg">
             <img src="{% static 'svg/no-wishlist.svg' %}" width="100%" height="100%">
@@ -22,7 +24,7 @@
         </a>
     </div> -->
 
-    {% if request.user.is_authenticated %}
+
     <div class="yes-wishlists-wrapper" ng-init="wishlist='food'">
         <div class="wishlist-header">
             <div class="wishlist-food wishlist-sec">
@@ -94,7 +96,19 @@
         </div>
     </div>
     {% else %}
-    <p>Login Karo</p>
+        <div class="no-wishlists-wrapper">
+        <div class="wishlist-svg">
+            <img src="{% static 'svg/login-required.svg' %}" width="100%" height="100%">
+        </div>
+
+        <div class="no-wishlist-msg">
+            <p>Guess this page requires a login :D</p>
+        </div>
+
+        <a href="{% url 'account:account' %}" style="text-decoration: none;"  class="add-favorites scroll-link" data-scroll-to="homepage-2">
+            <p>Login Now</p>
+        </a>
+    </div>
     
     {% endif %}
     

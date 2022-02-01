@@ -34,7 +34,8 @@ urlpatterns = [
     path('shop/<slug:id>/<slug:slug>/product/<slug:itemid>',views.product,name="product"),
     path('shop/<slug:id>/<slug:slug>/reviews',views.reviews,name="reviews"),
     path('shop/<slug:id>/<slug:slug>',views.shop,name="shop"),
-    path('post/ajax/review/post/',views.review_post,name="review-post")
+    path('post/ajax/review/post/',views.review_post,name="review-post"),
+    path('post/ajax/add-wishlist/',views.add_wishlist,name="add-wishlist")
 ]
 
 

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from Vendor.models import Shop, Item, Review, VendorReply
+from Vendor.models import Shop, Item, Review, VendorReply, Wishlist
 from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
 
@@ -62,11 +63,9 @@ def review_post(request):
         print(request.POST)
         print(request.FILES)
         shopid = request.POST['shopid']
-        print("s: ",shopid)
         shopInfo = Shop.objects.get(id=shopid)
         if request.POST.get('itemid'):
             itemid = request.POST.get('itemid')
-            print("i: ",itemid)
             itemInfo = Item.objects.get(id=itemid)
         
         reviewForm = ReviewForm(request.POST,request.FILES)
@@ -82,3 +81,29 @@ def review_post(request):
         else:
             return JsonResponse({"error": reviewForm.errors}, status=400)
     return JsonResponse({"error": " "}, status=400)
+
+@csrf_exempt
+def add_wishlist(request):
+    if not request.user.is_authenticated:
+        return redirect(request,"Account/account.html")
+
+    if request.POST:
+        shopid = request.POST['shop_heartid']
+        if request.POST.get('item_heartid'):
+            itemid = request.POST.get('item_heartid')
+            data = Wishlist.objects.filter(user_id_id = request.user.id,shop_id_id = shopid, item_id_id = itemid)
+        else:
+            data = Wishlist.objects.filter(user_id_id = request.user.id,shop_id_id = shopid)
+        
+        if data.exists():
+            data.delete()
+            return JsonResponse({"msg": "Removed from wishlist"}, status=200)
+        else:
+            if request.POST.get('item_heartid'):
+                Wishlist.objects.create(user_id_id = request.user.id,shop_id_id = shopid, item_id_id = itemid)
+            else:
+                Wishlist.objects.create(user_id_id = request.user.id,shop_id_id = shopid)
+            return JsonResponse({"msg": "Added to wishlist"}, status=200)
+
+    else:
+        return JsonResponse({"error": " "}, status=400)

@@ -191,7 +191,6 @@ p.lowernav-ul-p{
 }
 
 .login-required{
-    margin-right:5rem;
     display:flex;
     align-items:center;
     justify-content: space-around;
@@ -207,4 +206,12 @@ p.lowernav-ul-p{
     font-weight: normal;
     font-size: 1.4rem;
     color:var(--white);
+}
+
+.non-heart{
+    fill:none;
+}
+
+.heart{
+    fill: var(--heart);
 }
