@@ -119,7 +119,7 @@ def review_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
     if shopobj==None:
         return redirect("home")
-    reviews = Review.objects.filter(shop_id=id)
+    reviews = Review.objects.filter(shop_id=id).order_by('-date')
     vendorReplies = VendorReply.objects.filter(shop_id=id)
     replyForm = ReplyPostForm()
     obj = get_object_or_404(Shop, pk=id)

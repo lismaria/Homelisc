@@ -24,7 +24,6 @@
 <script type="">
 
     $(function() {
-        console.log("Here too")
         var availableTags = [
           {% for i in shopNames %}
               '{{i.shop_name}}',
@@ -43,7 +42,6 @@
         
 
     $(document).ready(function () {
-        console.log("HERE")
         function findIt() {
             console.log("hi")
             searchVal = $("#search-field").val();
