@@ -312,3 +312,15 @@ svg{
 .heart-stroke{
     stroke: var(--heart);
 }
+
+.filter-btn-active{
+    background-color: var(--accent)
+}
+
+.asc-svg{
+    transform: rotate(0deg);
+}
+
+.desc-svg{
+    transform: rotate(180deg);
+}
