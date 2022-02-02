@@ -14,7 +14,7 @@ def home(request):
 def search(request):        
     if request.POST:
         print("Post")
-        print(request.POST)
+        print(request.POST['searchVal'])
     else:
         print("search")
         shopNames = Shop.objects.all()

@@ -92,7 +92,7 @@ img.object-fit{
 
 .search-bar ul{
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    /* grid-template-columns: 1fr 4fr 1fr; */
     align-items: center;    
     list-style: none;
     height: 100%;
@@ -105,7 +105,9 @@ img.object-fit{
 .search-bar li input[type=text]{
     font-family: Poppins;
     font-size:1.6rem;
-    width:100%
+    width:100%;
+    padding-left: 5rem;
+    border-radius: 100px;
 }
 
 .lower-nav-ul{
@@ -239,9 +241,9 @@ p.lowernav-ul-p{
     width:100%
 }
 
-.ui-menu .ui-menu-item:hover{
+/* .ui-menu .ui-menu-item:hover{
     background-color: var(--accent);
-}
+} */
 /* 
 .ui-tooltip {
     background: #4a4a4a;
@@ -263,3 +265,47 @@ p.lowernav-ul-p{
     border-radius: 0px;
     border: 1px solid #454545;
 } */
+
+ul.ui-widget.ui-widget-content{
+    border: none;
+    border-radius: 0.8rem;
+    box-shadow: var(--ds3);
+    padding: 1rem;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+    position: relative;
+    padding: 10px 1em 10px 0.4em;
+}
+
+.searchdd-ele{
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    align-items: center;
+}
+
+.searchdd-img{
+    height: 5rem;
+    width: 5rem;
+    border-radius:0.8rem;
+    background-color: var(--accent);
+}
+
+.searchdd-name{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    /* color: var(--black); */
+}
+
+.searchdd-addr{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    color: var(--grey);
+}
