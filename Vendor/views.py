@@ -29,20 +29,27 @@ def check_vendor_details(request, id):
 
 def home(request):
     # context=[]
+    itemNames = Item.objects.all()
+    shopNames = Shop.objects.all()
+    shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
+
+    # return render(request,'home.html',{'shopNames':shopNames, 'itemNames': itemNames, 'food':'chocolates'})
+
     if not request.user.is_authenticated:
-        shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
-        return render(request,'home.html',{'shops':shops})
+        return render(request,'home.html',{'shops':shops,'shopNames':shopNames, 'itemNames': itemNames})
+
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
         shopInfo = Shop.objects.filter(shop_owner_id=request.user.id)
         shopCount = shopInfo.count()
+        
         if shopCount == 0:
             return render(request,'Vendor/perks.html')
         else:
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
+    
     else:
-        shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
-        return render(request,'home.html',{'shops':shops})
+        return render(request,'home.html',{'shops':shops,'shopNames':shopNames, 'itemNames': itemNames})
 
 
 

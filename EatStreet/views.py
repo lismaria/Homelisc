@@ -7,17 +7,8 @@ from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
-def home(request):
-    print("in home")
-    shops = Shop.objects.all()
-    print(shops.count())
-    return render(request,'home.html',{'food':'chocolates'})
-
 @csrf_exempt
-def search(request):
-    if not request.user.is_authenticated:
-        return render(request,"Account/account.html")
-        
+def search(request):        
     if request.POST:
         print("Post")
         print(request.POST)
@@ -34,7 +25,7 @@ def search(request):
         #         result.append(shop.shop_name)
         #     # titles = [product.title for product in qs]
         #     print(result)
-        #     return JsonResponse(result, safe=False)
+        # return JsonResponse(res, safe=False)
         return render(request,"search.html",{'shopNames':shopNames, 'itemNames': itemNames})
     return render(request,"search.html")
 
