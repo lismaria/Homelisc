@@ -7,11 +7,14 @@ from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
+def home(request):
+    pass
+
 @csrf_exempt
 def search(request):        
     if request.POST:
         print("Post")
-        print(request.POST)
+        print(request.POST['searchVal'])
     else:
         print("search")
         shopNames = Shop.objects.all()
