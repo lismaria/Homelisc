@@ -14,11 +14,12 @@
         <div class="cuisine-body">
             <div class="cuisine-header">
                 <div class="cuisine-title-descr">
-                    <h2>{{category}}</h2>
-                    <p>Its a perfect remedy to increase your diabetes.</p>
+                    <h2>{{categoryInfo.category_name}}</h2>
+                    <p>{{categoryInfo.category_descr}}</p>
                 </div>
                 <div class="cuisine-img-bg">
                     <div class="cuisine-img">
+                        <img src={{categoryInfo.category_img.url}} width="100%" height="100%" alt="Category Image" />
                     </div>
                 </div>
             </div>

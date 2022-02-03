@@ -39,8 +39,10 @@ def wishlist(request):
     return render(request,"wishlist.html",{"shopWishlists":shopWishlists,'itemWishlists':itemWishlists,'wishlist_count':wishlist_count})
 
 def category(request):
-    category = request.GET['category']
-    return render(request,"category.html",{'category':category})
+    category = request.GET['c']
+    categories = Category.objects.all()
+    categoryInfo = Category.objects.get(category_name=category)
+    return render(request,"category.html",{'categoryInfo':categoryInfo,'categories':categories})
 
 def product(request,id,slug,itemid):
     shopInfo = Shop.objects.filter(id=id)

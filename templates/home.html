@@ -35,16 +35,16 @@
         </div>
 
         <div class="top-cuisines-frame">
-            {% for i in '012345678912' %}
+            {% for i in topcats %}
             <div class="top-cuisines">
 
-                <a href="{% url 'category' %}?category=Chocolates">
+                <a href="{% url 'category' %}?c={{i.category_name}}">
                     <div class="top-cuisines-image">
-                        <img src="" width=100% height=auto>
+                        <img src="{{i.category_img.url}}" width=100% height=auto>
                     </div>
                 </a>
                 <div class="top-cuisines-descr">
-                    Lorem Ipsum
+                    {{i.category_name}}
                 </div>
 
             </div>

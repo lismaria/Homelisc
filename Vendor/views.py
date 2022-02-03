@@ -32,11 +32,11 @@ def home(request):
     # context=[]
     categories = Category.objects.all()
     shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
-
+    topcats = Category.objects.order_by('-category_count')[:10]
     # return render(request,'home.html',{'shopNames':shopNames, 'itemNames': itemNames, 'food':'chocolates'})
 
     if not request.user.is_authenticated:
-        return render(request,'home.html',{'shops':shops,'categories':categories})
+        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats})
 
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
@@ -49,7 +49,7 @@ def home(request):
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     
     else:
-        return render(request,'home.html',{'shops':shops,'categories':categories})
+        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats})
 
 
 
