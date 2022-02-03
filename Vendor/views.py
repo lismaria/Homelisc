@@ -30,14 +30,13 @@ def check_vendor_details(request, id):
 
 def home(request):
     # context=[]
-    itemNames = Item.objects.all()
-    shopNames = Shop.objects.all()
+    categories = Category.objects.all()
     shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
 
     # return render(request,'home.html',{'shopNames':shopNames, 'itemNames': itemNames, 'food':'chocolates'})
 
     if not request.user.is_authenticated:
-        return render(request,'home.html',{'shops':shops,'shopNames':shopNames, 'itemNames': itemNames})
+        return render(request,'home.html',{'shops':shops,'categories':categories})
 
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
@@ -50,7 +49,7 @@ def home(request):
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     
     else:
-        return render(request,'home.html',{'shops':shops,'shopNames':shopNames, 'itemNames': itemNames})
+        return render(request,'home.html',{'shops':shops,'categories':categories})
 
 
 
@@ -67,8 +66,15 @@ def register_shop(request):
             instance = form.save(commit=False)
             instance.shop_owner_id = request.user.id
             instance.save()
+
             for i in shopcatarr:
-                Category.objects.create(category_name = i.strip(), shop_id_id = instance.id)
+                cat = Category.objects.filter(category_name=i.lower().strip())
+                if(cat):
+                    count = cat.values()[0]['category_count']
+                    count += 1
+                    Category.objects.filter(category_name=i.lower().strip()).update(category_count = count )
+                else:
+                    Category.objects.create(category_name = i.lower().strip())
             return redirect("home")
 
     elif(request.user.is_vendor == True):
@@ -163,14 +169,23 @@ def shop_update(request):
         shopcat = request.POST.get('shop_tags')
         shopcatarr = shopcat.split(',')
         shopInfo = Shop.objects.get(id=shopid)
+        old_tags = shopInfo.shop_tags
+
         form = ShopCreationForm(request.POST, request.FILES, instance=shopInfo)
         if form.is_valid():
             instance = form.save()
-            delcat = Category.objects.filter(shop_id=shopid)
-            if delcat.exists():
-                delcat.delete()
-                for i in shopcatarr:
-                    Category.objects.create(category_name = i.strip(), shop_id_id = shopid)
+
+            for i in shopcatarr:
+                if i not in old_tags:
+                    cat = Category.objects.filter(category_name=i.lower().strip())
+                    print(cat)
+                    if(cat):
+                        count = cat.values()[0]['category_count']
+                        count += 1
+                        print(count)
+                        Category.objects.filter(category_name=i.lower().strip()).update(category_count = count )
+                    else:
+                        Category.objects.create(category_name = i.lower().strip())
             # serialize in new friend object in json
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)
@@ -199,8 +214,15 @@ def item_add(request):
             instance.shop_id = shopInfo
             instance.save()
             ser_instance = serializers.serialize('json', [ instance, ])
+
             for i in itemcatarr:
-                Category.objects.create(category_name = i.strip(), shop_id_id = shopid, item_id_id = instance.id)
+                cat = Category.objects.filter(category_name=i.lower().strip())
+                if(cat):
+                    count = cat.values()[0]['category_count']
+                    count += 1
+                    Category.objects.filter(category_name=i.lower().strip()).update(category_count = count )
+                else:
+                    Category.objects.create(category_name = i.lower().strip())
             
         else:
             return JsonResponse({"error": itemForm.errors}, status=400)
@@ -239,21 +261,25 @@ def item_edit(request):
         return render(request,"Account/account.html")  
 
     if request.POST:
-        print(request.POST)
-        print(request.FILES)
         itemid = request.POST['itemid']
         itemcat = request.POST.get('item_category')
         itemcatarr = itemcat.split(',')
         itemInfo = Item.objects.get(id=itemid)
+        old_tags = itemInfo.item_category
+
         itemForm = ItemCreationForm(request.POST, instance=itemInfo)
         if itemForm.is_valid():
             instance = itemForm.save()
-            delcat = Category.objects.filter(item_id_id=itemid)
-            if delcat.exists():
-                delcat.delete()
-                print(instance.shop_id.id)
-                for i in itemcatarr:
-                    Category.objects.create(category_name = i.strip(), shop_id_id = instance.shop_id.id, item_id_id = instance.id)
+
+            for i in itemcatarr:
+                if i not in old_tags:
+                    cat = Category.objects.filter(category_name=i.lower().strip())
+                    if(cat):
+                        count = cat.values()[0]['category_count']
+                        count += 1
+                        Category.objects.filter(category_name=i.lower().strip()).update(category_count = count )
+                    else:
+                        Category.objects.create(category_name = i.lower().strip())
 
             ser_instance = serializers.serialize('json', [ instance, ])
         else:

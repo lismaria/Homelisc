@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from Vendor.models import Shop, Item, Review, VendorReply, Wishlist
+from Vendor.models import Category, Shop, Item, Review, VendorReply, Wishlist
 from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
@@ -18,8 +18,7 @@ def search(request):
         print(request.POST['searchVal'])
     else:
         print("search")
-        shopNames = Shop.objects.all()
-        itemNames = Item.objects.all()
+        categories = Category.objects.all()
         # if 'term' in request.GET:
         #     print('term')
         #     shopqs = Shop.objects.filter(shop_name__icontains=request.GET.get('term'))
@@ -30,7 +29,7 @@ def search(request):
         #     # titles = [product.title for product in qs]
         #     print(result)
         # return JsonResponse(res, safe=False)
-        return render(request,"search.html",{'shopNames':shopNames, 'itemNames': itemNames})
+        return render(request,"search.html",{'categories':categories})
     return render(request,"search.html")
 
 def wishlist(request):

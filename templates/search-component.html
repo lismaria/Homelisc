@@ -31,17 +31,12 @@
 
     $(function() {
         var availableTags = [
-          {% for i in shopNames %}
+          {% for i in categories %}
               {
                   id: '{{ i.id }}',
-                  shop_logo: '{{i.shop_logo.url}}',
-                  value: '{{i.shop_name}}',
-                  shop_city: '{{i.shop_city}}',
-                  shop_state: '{{i.shop_state}}'
+                  category_img: '{{i.category_img.url}}',
+                  value: '{{i.category_name}}',
               },
-          {% endfor %}
-          {% for i in itemNames %}
-              '{{i.item_name}}',
           {% endfor %}
       ];
       $( "#search-field" ).autocomplete({
@@ -49,10 +44,11 @@
       })
       .autocomplete( "instance" )._renderItem = function( ul, item ) {
         return $( "<li>" )
-            .append("<div class='searchdd-ele' style='padding: 10px 1em 10px 0.4em;'><img class='searchdd-img' src='" + item.shop_logo + "' ><div><h2 class='searchdd-name'>" + item.value + "</h2><p class='searchdd-addr'>" + item.shop_city+", "+item.shop_state + "</p></div></div>" )
+            .append("<div class='searchdd-ele' style='padding: 10px 1em 10px 0.4em;'><img class='searchdd-img' src='" + item.category_img + "' ><div><h2 class='searchdd-name'>" + item.value + "</h2></div></div>" )
             .appendTo( ul );
     };
     });
+    // <p class='searchdd-addr'>" + item.shop_city+", "+item.shop_state + "</p>
 </script>
 <script>
         
