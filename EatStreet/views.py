@@ -7,6 +7,7 @@ from Vendor.models import Category, Shop, Item, Review, VendorReply, Wishlist
 from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
 def home(request):
     pass
@@ -41,8 +42,19 @@ def wishlist(request):
 def category(request):
     category = request.GET['c']
     categories = Category.objects.all()
-    categoryInfo = Category.objects.get(category_name=category)
-    return render(request,"category.html",{'categoryInfo':categoryInfo,'categories':categories})
+    categoryInfo = {}
+    try:
+        categoryInfo = Category.objects.get(category_name=category)
+    except Category.DoesNotExist:
+        pass
+    
+    # shopqs = Shop.objects.filter(shop_name__icontains=category).filter(shop_tags__icontains=category)
+    shopqs = Shop.objects.annotate(search=SearchVector('shop_name', 'shop_tags', 'shop_descr'),).filter(search=category)
+    itemqs = Item.objects.annotate(search=SearchVector('item_name', 'item_category', 'item_descr',),).filter(search=category)
+    # vector = SearchVector('shop_name','shop_tags','shop_descr')
+    # query = SearchQuery(category)
+    # shopqs = Shop.objects.annotate(rank=SearchRank(vector, query)).order_by('-rank')
+    return render(request,"category.html",{'categoryInfo':categoryInfo,'categories':categories,'shopqs':shopqs,'itemqs':itemqs})
 
 def product(request,id,slug,itemid):
     shopInfo = Shop.objects.filter(id=id)
