@@ -1,10 +1,11 @@
 import json
+from unicodedata import category
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
-from Vendor.models import Item, Review, Shop, ItemImage, VendorReply
+from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply
 from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
@@ -59,11 +60,15 @@ def register_shop(request):
     
     context={}
     if request.method == 'POST':
+        shopcat = request.POST.get('shop_tags')
+        shopcatarr = shopcat.split(',')
         form = ShopCreationForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.shop_owner_id = request.user.id
             instance.save()
+            for i in shopcatarr:
+                Category.objects.create(category_name = i.strip(), shop_id_id = instance.id)
             return redirect("home")
 
     elif(request.user.is_vendor == True):
@@ -155,10 +160,17 @@ def shop_update(request):
         
     if request.POST:
         shopid = request.POST['shopid']
+        shopcat = request.POST.get('shop_tags')
+        shopcatarr = shopcat.split(',')
         shopInfo = Shop.objects.get(id=shopid)
         form = ShopCreationForm(request.POST, request.FILES, instance=shopInfo)
         if form.is_valid():
             instance = form.save()
+            delcat = Category.objects.filter(shop_id=shopid)
+            if delcat.exists():
+                delcat.delete()
+                for i in shopcatarr:
+                    Category.objects.create(category_name = i.strip(), shop_id_id = shopid)
             # serialize in new friend object in json
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)
@@ -178,6 +190,8 @@ def item_add(request):
         print(request.FILES)
         
         shopid = request.POST['shopid']
+        itemcat = request.POST.get('item_category')
+        itemcatarr = itemcat.split(',')
         shopInfo = Shop.objects.get(id=shopid)
         itemForm = ItemCreationForm(request.POST)
         if itemForm.is_valid():
@@ -185,6 +199,8 @@ def item_add(request):
             instance.shop_id = shopInfo
             instance.save()
             ser_instance = serializers.serialize('json', [ instance, ])
+            for i in itemcatarr:
+                Category.objects.create(category_name = i.strip(), shop_id_id = shopid, item_id_id = instance.id)
             
         else:
             return JsonResponse({"error": itemForm.errors}, status=400)
@@ -226,10 +242,19 @@ def item_edit(request):
         print(request.POST)
         print(request.FILES)
         itemid = request.POST['itemid']
+        itemcat = request.POST.get('item_category')
+        itemcatarr = itemcat.split(',')
         itemInfo = Item.objects.get(id=itemid)
         itemForm = ItemCreationForm(request.POST, instance=itemInfo)
         if itemForm.is_valid():
             instance = itemForm.save()
+            delcat = Category.objects.filter(item_id_id=itemid)
+            if delcat.exists():
+                delcat.delete()
+                print(instance.shop_id.id)
+                for i in itemcatarr:
+                    Category.objects.create(category_name = i.strip(), shop_id_id = instance.shop_id.id, item_id_id = instance.id)
+
             ser_instance = serializers.serialize('json', [ instance, ])
         else:
             return JsonResponse({"error": itemForm.errors}, status=400)
