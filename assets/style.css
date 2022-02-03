@@ -88,6 +88,7 @@ img.object-fit{
     background-color:var(--white);
     border-radius: 3.0rem;
     padding:0 1.8rem 0 1.8rem;
+    position: relative;
 }
 
 .search-bar ul{
@@ -244,33 +245,14 @@ p.lowernav-ul-p{
 /* .ui-menu .ui-menu-item:hover{
     background-color: var(--accent);
 } */
-/* 
-.ui-tooltip {
-    background: #4a4a4a;
-    color: #96f226;
-    border: 2px solid #454545;
-    border-radius: 0px;
-    box-shadow: 0 0 
-}
-.ui-autocomplete {
-    background: #4a4a4a;
-    border-radius: 0px;
-}
-.ui-autocomplete.source:hover {
-    background: #454545;
-}
-
-.ui-menu .ui-menu-item a{
-    color: #96f226;
-    border-radius: 0px;
-    border: 1px solid #454545;
-} */
 
 ul.ui-widget.ui-widget-content{
     border: none;
     border-radius: 0.8rem;
     box-shadow: var(--ds3);
     padding: 1rem;
+    height: 80vh;
+    overflow: auto;
 }
 
 .ui-menu .ui-menu-item-wrapper {

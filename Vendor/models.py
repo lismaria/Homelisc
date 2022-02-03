@@ -81,3 +81,11 @@ class VendorReply(models.Model):
     
     def __str__(self):
         return self.shop_id.shop_name
+
+class Category(models.Model):
+    category_name = models.CharField(verbose_name="Category Name",max_length=50, blank=False)
+    shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, null=True, blank=True,default=None)
+
+    def __str__(self):
+        return self.category_name

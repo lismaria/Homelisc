@@ -1,3 +1,4 @@
+from http.client import GATEWAY_TIMEOUT
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
@@ -117,12 +118,31 @@ def add_wishlist(request):
         
         if data.exists():
             data.delete()
+            if request.POST.get('item_heartid'):
+                itemInfo = Item.objects.filter(id=itemid).values()
+                count = itemInfo[0]['item_wishlist_count']
+                count-=1
+                Item.objects.filter(id=itemid).update(item_wishlist_count = count)
+            else:
+                shopInfo = Shop.objects.filter(id=shopid).values()
+                count = shopInfo[0]['shop_wishlist_count']
+                count-=1
+                Shop.objects.filter(id=shopid).update(shop_wishlist_count = count)
+
             return JsonResponse({"msg": "Removed from wishlist"}, status=200)
         else:
             if request.POST.get('item_heartid'):
                 Wishlist.objects.create(user_id_id = request.user.id,shop_id_id = shopid, item_id_id = itemid)
+                itemInfo = Item.objects.filter(id=itemid).values()
+                count = itemInfo[0]['item_wishlist_count']
+                count+=1
+                Item.objects.filter(id=itemid).update(item_wishlist_count = count)
             else:
                 Wishlist.objects.create(user_id_id = request.user.id,shop_id_id = shopid)
+                shopInfo = Shop.objects.filter(id=shopid).values()
+                count = shopInfo[0]['shop_wishlist_count']
+                count+=1
+                Shop.objects.filter(id=shopid).update(shop_wishlist_count = count)
             return JsonResponse({"msg": "Added to wishlist"}, status=200)
 
     else:
