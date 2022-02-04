@@ -56,7 +56,8 @@ class Review(models.Model):
     comment = models.TextField(verbose_name="Comment")
     stars = models.IntegerField(verbose_name="Stars")
     date = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(verbose_name="Likes", null=True, blank=True, default=0)
+    # likes = models.IntegerField(verbose_name="Likes", null=True, blank=True, default=0)
+    likes = models.ManyToManyField(User,related_name='review_like',verbose_name="Likes")
     heart_by_owner = models.BooleanField(default=False)
     review_img = models.ImageField(verbose_name="Review Image", null=True, blank=True, default=None)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
@@ -65,6 +66,9 @@ class Review(models.Model):
 
     def __str__(self):
         return self.user_id.email
+
+    def likes_count(self):
+        return self.likes.count()
 
 class Wishlist(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)

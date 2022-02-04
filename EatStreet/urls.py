@@ -36,6 +36,7 @@ urlpatterns = [
     path('shop/<slug:id>/<slug:slug>',views.shop,name="shop"),
     path('post/ajax/review/post/',views.review_post,name="review-post"),
     path('post/ajax/add-wishlist/',views.add_wishlist,name="add-wishlist"),
+    path('post/ajax/review/like/',views.review_like,name="review-like"),
 ]
 
 

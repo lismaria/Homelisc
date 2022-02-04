@@ -107,7 +107,7 @@
                         </div>
                         <div class="top-places-card">
                             <a href="{% url 'shop' id=i.id slug=i.shop_slug %}">
-                                <img src="{{i.shop_img.url}}" alt="" srcset="" class="top-places-card-img">
+                                <img src="{{i.shop_logo.url}}" alt="" srcset="" class="top-places-card-img">
                             </a>
                             <div class="top-places-card-body">
                                 <h2>{{i.shop_name}}</h2>
@@ -157,6 +157,9 @@
             </div>
         </div>
     </div> -->
+    {% if not request.user.is_authenticated %}
+        {% include 'login-required.html' %}
+    {% endif %}
                 
 
 {% endblock content %}
@@ -186,27 +189,35 @@
         })
 
         $(".top-places-card-heart, .product-card-heart").click(function () {
-            
-            var shop_heartid = $(this).data('shop_heartid');
-            var item_heartid = $(this).data('item_heartid');
-            var that = $(this).children("svg");
-            $.ajax({
-                type: 'post',
-                url: "{% url 'add-wishlist' %}",
-                data: {
-                    shop_heartid : shop_heartid,
-                    item_heartid : item_heartid
-                },
-                success: function (response){
-                    that.toggleClass("heart");
-                    alert(response.msg);
-                    // location.reload();
-                },
-                error:  function (response){
-                    alert(response.responseJSON.error);
-                }
-            });
-            
+            if($(".login-required-wrapper").length)
+            {
+                $(".login-required-wrapper").addClass("active");
+                    setTimeout(function() {
+                $(".login-required-wrapper").removeClass("active");
+                }, 5000);
+            }
+            else
+            {
+                var shop_heartid = $(this).data('shop_heartid');
+                var item_heartid = $(this).data('item_heartid');
+                var that = $(this).children("svg");
+                $.ajax({
+                    type: 'post',
+                    url: "{% url 'add-wishlist' %}",
+                    data: {
+                        shop_heartid : shop_heartid,
+                        item_heartid : item_heartid
+                    },
+                    success: function (response){
+                        that.toggleClass("heart");
+                        alert(response.msg);
+                        // location.reload();
+                    },
+                    error:  function (response){
+                        alert(response.responseJSON.error);
+                    }
+                });
+            }
         });
     });
 </script>

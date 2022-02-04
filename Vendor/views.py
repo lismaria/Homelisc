@@ -358,7 +358,6 @@ def vendor_heart(request):
         
     if request.POST:
         reviewid = request.POST.get('reviewid')
-        print(reviewid)
         data = Review.objects.get(id=reviewid)
         val = data.heart_by_owner
         if val:

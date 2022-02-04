@@ -12,20 +12,20 @@
             <div class="review-form-rating">
                 <div>{% for i in reviewForm.stars%}{{i.tag}}{% endfor %}</div>
                     
-                {{reviewForm.stars.0.tag}}  
+                {{reviewForm.stars.4.tag}}  
                 <!-- <input type="radio" name="stars" class="star-5" id="star-5" required="">  -->
                 <!-- <input class="star star-5" id="star-5" type="radio" name="star" />  -->
                 <label class="star star-5 star-box" for="star-5"><h4 class="star">5</h4></label> 
-                {{reviewForm.stars.1.tag}}   
+                {{reviewForm.stars.3.tag}}   
                 <!-- <input class="star star-4" id="star-4" type="radio" name="star" />  -->
                 <label class="star star-4 star-box" for="star-4"><h4 class="star">4</h4></label> 
                 {{reviewForm.stars.2.tag}}   
                 <!-- <input class="star star-3" id="star-3" type="radio" name="star" />  -->
                 <label class="star star-3 star-box" for="star-3"><h4 class="star">3</h4></label> 
-                {{reviewForm.stars.3.tag}}   
+                {{reviewForm.stars.1.tag}}   
                 <!-- <input class="star star-2" id="star-2" type="radio" name="star" />  -->
                 <label class="star star-2 star-box" for="star-2"><h4 class="star">2</h4></label> 
-                {{reviewForm.stars.4.tag}}   
+                {{reviewForm.stars.0.tag}}   
                 <!-- <input class="star star-1" id="star-1" type="radio" name="star" />  -->
                 <label class="star star-1 star-box" for="star-1"><h4 class="star">1</h4></label> 
             </div>
@@ -104,13 +104,11 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    // alert("Updation Success!");
                     console.log(response);
-                    // location.reload();
+                    location.reload();
                 },
                 error:  function (response) {
                     console.log(response);
-                    // alert("Failed to update");
                 }
             })
         })

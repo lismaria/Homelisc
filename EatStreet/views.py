@@ -15,10 +15,8 @@ def home(request):
 @csrf_exempt
 def search(request):        
     if request.POST:
-        print("Post")
         print(request.POST['searchVal'])
     else:
-        print("search")
         categories = Category.objects.all()
         # if 'term' in request.GET:
         #     print('term')
@@ -81,8 +79,6 @@ def reviews(request,id,slug):
     shopReviews = Review.objects.filter(shop_id=id, item_id__isnull = True).order_by('-date')
     reviewForm = ReviewForm()
     vendorReplies = VendorReply.objects.filter(shop_id=id)
-    for i in shopReviews:
-        print(i.heart_by_owner)
 
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
@@ -94,8 +90,6 @@ def review_post(request):
         return render(request,"Account/account.html")
         
     if request.POST:
-        print(request.POST)
-        print(request.FILES)
         shopid = request.POST['shopid']
         shopInfo = Shop.objects.get(id=shopid)
         if request.POST.get('itemid'):
@@ -162,6 +156,27 @@ def add_wishlist(request):
                 count+=1
                 Shop.objects.filter(id=shopid).update(shop_wishlist_count = count)
             return JsonResponse({"msg": "Added to wishlist"}, status=200)
+
+    else:
+        return JsonResponse({"error": " "}, status=400)
+
+
+
+@csrf_exempt
+def review_like(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    if request.POST:
+        reviewid = request.POST.get('reviewid')
+        review = get_object_or_404(Review, id=reviewid)
+        
+        if review.likes.filter(id=request.user.id).exists():
+            review.likes.remove(request.user)
+        else:
+            review.likes.add(request.user)
+        likes = review.likes_count()
+        return JsonResponse({"likes": likes}, status=200)
 
     else:
         return JsonResponse({"error": " "}, status=400)

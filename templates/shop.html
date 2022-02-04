@@ -17,7 +17,7 @@
         {% for i in shopInfo %}
         <div class="shop-header">
             <div class="shop-header-right">
-                <img src='' class="shop-pic">
+                <img src="{{i.shop_logo.url}}" class="shop-pic">
                 <div class="shop-title">
                     <h2>{{i.shop_name}}</h2>
                     <p>
@@ -84,7 +84,11 @@
                                 <img src="" alt="" srcset="">
                             </a>
                             <h2>{{k.item_name}}</h2>
-                            <h3>{{k.item_descr}}</h3>
+                            {% if k.item_descr|length > 60 %}
+                                <h3>{{k.item_descr | slice:"60" }}...</h3>
+                            {% else %}
+                                <h3>{{k.item_descr}}</h3>
+                            {% endif %}
                             <div class="product-card-footer">
                                 <div>
                                     <p>{{k.item_rating}}</p>
@@ -117,9 +121,11 @@
 {% block javascript %}
 <script>
     $(document).ready(function () {
+        var not_login = $(".login-required-wrapper").length
+
         // Wishlist a Shop - ajax call
         $(".shop-heart, .product-card-heart").click(function () {
-            if($(".login-required-wrapper").length)
+            if(not_login)
             {
                 $(".login-required-wrapper").addClass("active");
                     setTimeout(function() {
