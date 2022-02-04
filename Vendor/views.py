@@ -349,3 +349,22 @@ def vendor_reply(request):
         else:
             return JsonResponse({"error":replyForm.errors}, status=400)
     return JsonResponse({"error": " "}, status=400)
+
+@csrf_exempt
+def vendor_heart(request):
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+        
+    if request.POST:
+        reviewid = request.POST.get('reviewid')
+        print(reviewid)
+        data = Review.objects.get(id=reviewid)
+        val = data.heart_by_owner
+        if val:
+            Review.objects.filter(id=reviewid).update(heart_by_owner = False)
+        else:
+            Review.objects.filter(id=reviewid).update(heart_by_owner = True)
+        return JsonResponse({"msg": "Added to wishlist"}, status=200)
+
+    else:
+        return JsonResponse({"error": " "}, status=400)
