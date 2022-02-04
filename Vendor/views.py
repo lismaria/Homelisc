@@ -344,6 +344,7 @@ def vendor_reply(request):
             instance.shop_id = shopInfo
             instance.review_id = reviewInfo
             instance.save()
+            Review.objects.filter(id=reviewid).update(reply_by_vendor = True)
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)
         else:
@@ -364,7 +365,7 @@ def vendor_heart(request):
             Review.objects.filter(id=reviewid).update(heart_by_owner = False)
         else:
             Review.objects.filter(id=reviewid).update(heart_by_owner = True)
-        return JsonResponse({"msg": "Added to wishlist"}, status=200)
+        return JsonResponse({"msg": "Review liked"}, status=200)
 
     else:
         return JsonResponse({"error": " "}, status=400)

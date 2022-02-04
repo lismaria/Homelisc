@@ -313,6 +313,10 @@ svg{
     stroke: var(--heart);
 }
 
+.svg-prim-fill{
+    fill: var(--primary);
+}
+
 .filter-btn-active{
     background-color: var(--accent)
 }

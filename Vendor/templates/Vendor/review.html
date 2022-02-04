@@ -63,13 +63,22 @@
                     </div>
                     <p>{{k.comment}}</p>
                     <div class="review-react">
-                        <div class="reply-btn">
-                            <svg class="reply-btn-svg" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.40127 14.875L1.69127 10.775C1.55678 10.6955 1.44532 10.5824 1.3679 10.4467C1.29048 10.311 1.24976 10.1575 1.24976 10.0013C1.24976 9.84505 1.29048 9.69152 1.3679 9.55584C1.44532 9.42015 1.55678 9.30699 1.69127 9.22752L7.40127 5.12502C7.53739 5.04496 7.69226 5.00233 7.85017 5.00148C8.00808 5.00062 8.16341 5.04156 8.30039 5.12014C8.43736 5.19872 8.55111 5.31214 8.63008 5.44889C8.70905 5.58564 8.75043 5.74085 8.75002 5.89877V7.50002C10.625 7.50002 16.25 7.50002 17.5 17.5C14.375 11.875 8.75002 12.5 8.75002 12.5V14.1013C8.75002 14.8013 7.99252 15.2238 7.40127 14.8763V14.875Z" stroke= "var(--primary)" stroke-width="1.5"/>
-                            </svg>
-                        </div>
+                        {% if k.reply_by_vendor is False %}
+                            <div class="reply-btn">
+                                <svg class="reply-btn-svg" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.40127 14.875L1.69127 10.775C1.55678 10.6955 1.44532 10.5824 1.3679 10.4467C1.29048 10.311 1.24976 10.1575 1.24976 10.0013C1.24976 9.84505 1.29048 9.69152 1.3679 9.55584C1.44532 9.42015 1.55678 9.30699 1.69127 9.22752L7.40127 5.12502C7.53739 5.04496 7.69226 5.00233 7.85017 5.00148C8.00808 5.00062 8.16341 5.04156 8.30039 5.12014C8.43736 5.19872 8.55111 5.31214 8.63008 5.44889C8.70905 5.58564 8.75043 5.74085 8.75002 5.89877V7.50002C10.625 7.50002 16.25 7.50002 17.5 17.5C14.375 11.875 8.75002 12.5 8.75002 12.5V14.1013C8.75002 14.8013 7.99252 15.2238 7.40127 14.8763V14.875Z" stroke= "var(--primary)" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                        {% else %}
+                            <div class="reply-btn" style="pointer-events: none;">
+                                <svg class="reply-btn-svg svg-prim-fill" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.40127 14.875L1.69127 10.775C1.55678 10.6955 1.44532 10.5824 1.3679 10.4467C1.29048 10.311 1.24976 10.1575 1.24976 10.0013C1.24976 9.84505 1.29048 9.69152 1.3679 9.55584C1.44532 9.42015 1.55678 9.30699 1.69127 9.22752L7.40127 5.12502C7.53739 5.04496 7.69226 5.00233 7.85017 5.00148C8.00808 5.00062 8.16341 5.04156 8.30039 5.12014C8.43736 5.19872 8.55111 5.31214 8.63008 5.44889C8.70905 5.58564 8.75043 5.74085 8.75002 5.89877V7.50002C10.625 7.50002 16.25 7.50002 17.5 17.5C14.375 11.875 8.75002 12.5 8.75002 12.5V14.1013C8.75002 14.8013 7.99252 15.2238 7.40127 14.8763V14.875Z" stroke= "var(--primary)" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                        {% endif %}
+
                         <div class="heart-btn" data-heart={{k.heart_by_owner}} data-heartid={{k.id}}>
-                            {% if k.heart_by_owner is False%}
+                            {% if k.heart_by_owner is False %}
                             <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                 <path class="heart-stroke-initial" d="M13.8933 3.07333C13.5528 2.73267 13.1485 2.46243 12.7036 2.27805C12.2586 2.09368 11.7817 1.99878 11.3 1.99878C10.8183 1.99878 10.3414 2.09368 9.89643 2.27805C9.45145 2.46243 9.04717 2.73267 8.70666 3.07333L8 3.78L7.29333 3.07333C6.60554 2.38554 5.67269 1.99914 4.7 1.99914C3.72731 1.99914 2.79446 2.38554 2.10666 3.07333C1.41887 3.76112 1.03247 4.69397 1.03247 5.66666C1.03247 6.63935 1.41887 7.5722 2.10666 8.26L2.81333 8.96666L8 14.1533L13.1867 8.96666L13.8933 8.26C14.234 7.91949 14.5042 7.51521 14.6886 7.07023C14.873 6.62526 14.9679 6.14832 14.9679 5.66666C14.9679 5.18501 14.873 4.70807 14.6886 4.26309C14.5042 3.81812 14.234 3.41383 13.8933 3.07333V3.07333Z" stroke= "" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>   
@@ -141,11 +150,6 @@
 <script>
     $(document).ready(function () {
         document.getElementById("page-heading").innerHTML = "Reviews";
-
-        // if($(".review-comments").find(".vendor-reply").length){
-        //     // $(this).parents(".review-comments").find(".reply-btn").hide();
-        //     $(this).find(".reply-btn").hide()
-        // }
         
         reviewsDiv = $(".review-comments")
         $("#rating-btn").click(function () {
@@ -180,8 +184,6 @@
             $(this).find('path').toggleClass('heart-stroke');
 
             var reviewid = $(this).data('heartid');
-            var thatheart = $(this).find('svg');
-            var thatstroke = $(this).find('path');
 
             $.ajax({
                 type: "POST",
@@ -190,14 +192,9 @@
                     reviewid : reviewid
                 },
                 success: function (response) {
-                    // location.reload();
                     console.log(response);
-                    // location.reload();
-                    thatheart.toggleClass('heart-fill');
-                    thatstroke.toggleClass('heart-stroke');
                 },
                 error:  function (response) {
-                    // var data = response.responseJSON;
                     console.log(response);
                 }
             })            
@@ -227,10 +224,8 @@
                 success: function (response) {
                     location.reload();
                     console.log(response);
-                    // location.reload();
                 },
                 error:  function (response) {
-                    // var data = response.responseJSON;
                     console.log(response);
                 }
             })

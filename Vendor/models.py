@@ -61,6 +61,7 @@ class Review(models.Model):
     review_img = models.ImageField(verbose_name="Review Image", null=True, blank=True, default=None)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    reply_by_vendor = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user_id.email
