@@ -102,3 +102,7 @@
     flex-direction: column;
     border-radius: 0.4rem;
 }
+
+.like-fill{
+    fill: var(--black);
+}

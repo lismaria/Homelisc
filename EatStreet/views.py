@@ -79,11 +79,15 @@ def reviews(request,id,slug):
     shopReviews = Review.objects.filter(shop_id=id, item_id__isnull = True).order_by('-date')
     reviewForm = ReviewForm()
     vendorReplies = VendorReply.objects.filter(shop_id=id)
+    userlikes = Review.likes.through.objects.filter(user_id=request.user.id)
+    userlikesarr=[]
+    for i in userlikes:
+        userlikesarr.append(i.review_id)
 
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('reviews', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"reviews.html",{'shopInfo':shopInfo,'shopReviews':shopReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies})
+    return render(request,"reviews.html",{'shopInfo':shopInfo,'shopReviews':shopReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies,'userlikesarr':userlikesarr})
 
 def review_post(request):
     if not request.user.is_authenticated:
