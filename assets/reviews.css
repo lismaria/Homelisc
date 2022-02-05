@@ -106,3 +106,7 @@
 .like-fill{
     fill: var(--black);
 }
+
+.like-stroke{
+    stroke: var(--black);
+}
