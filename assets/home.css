@@ -93,6 +93,10 @@
     box-shadow: var(--ds_cuisine);
 }
 
+.top-cuisines-image>img{
+    border-radius: 50%;
+}
+
 .top-cuisines-descr{
     font-family: Roboto;
     font-weight: 300;

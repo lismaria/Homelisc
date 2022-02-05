@@ -30,7 +30,7 @@ class ItemImageUploadForm(forms.ModelForm):
         model = Vendor.ItemImage
         fields = ('item_img',)
         widgets = {
-            'item_img': forms.ClearableFileInput(attrs={'type':'file' ,'id':'add-itemimg','style':'display:none', 'accept':'image/*'})
+            'item_img': forms.ClearableFileInput(attrs={'type':'file' ,'id':'add-itemimg','style':'display:none', 'accept':'image/png, image/jpeg'})
         }
         # required= {
         #     'item_img': False
@@ -42,7 +42,7 @@ class ItemImageEditForm(forms.ModelForm):
         model = Vendor.ItemImage
         fields = ('item_img',)
         widgets = {
-            'item_img': forms.ClearableFileInput(attrs={'type':'file' ,'id':'edit-itemimg','style':'display:none', 'accept':'image/*'})
+            'item_img': forms.ClearableFileInput(attrs={'type':'file' ,'id':'edit-itemimg','style':'display:none', 'accept':'image/png, image/jpeg'})
         }
 
 class ShopCreationForm(forms.ModelForm):
@@ -67,7 +67,7 @@ class ShopCreationForm(forms.ModelForm):
             'shop_state': forms.Select(attrs={'id':'select-state'}),
             'shop_city': forms.Select(attrs={'id':'select-city'}),
             'shop_location': forms.TextInput(attrs={'placeholder':'Add Location',"style":"width:60%;height:100%"}),
-            'shop_logo': forms.FileInput(attrs={"id":"add_logo", "style":"display:none;", "onchange":"document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])", "accept":"image/*"}),
+            'shop_logo': forms.FileInput(attrs={"id":"add_logo", "style":"display:none;", "onchange":"document.getElementById('logo_pic').src = window.URL.createObjectURL(this.files[0])", "accept":"image/png, image/jpeg"}),
         }
 
 class ReviewForm(forms.ModelForm):
@@ -82,7 +82,7 @@ class ReviewForm(forms.ModelForm):
         }
         widgets = {
             'comment': forms.Textarea(attrs={'placeholder':'Share your experience...'}),
-            'review_img': forms.ClearableFileInput(attrs={'type':'file','id':'add-pic','style':'display:none','onchange':'document.getElementById("review_pic").src = window.URL.createObjectURL(this.files[0])','accept':'image/*'}),
+            'review_img': forms.ClearableFileInput(attrs={'type':'file','id':'add-pic','style':'display:none','onchange':'document.getElementById("review_pic").src = window.URL.createObjectURL(this.files[0])','accept':'image/png, image/jpeg'}),
         }
 
 class ReplyPostForm(forms.ModelForm):
