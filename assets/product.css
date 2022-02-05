@@ -185,12 +185,12 @@
 .review-card-heading{
     display: flex;
     justify-content:space-between;
+    gap: 1rem;
 }
 
 .review-card-heading>div{
     display: flex;
     gap: 0.5rem;
-    max-width: 45%
 }
 
 .review-card-heading>h2{
@@ -200,6 +200,7 @@
     line-height: 14px;
     color: var(--grey);
     text-align: end;
+    white-space: nowrap;
 }
 
 .review-rating{

@@ -1,5 +1,7 @@
 from http.client import GATEWAY_TIMEOUT
+import math
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Sum
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -128,8 +130,30 @@ def review_post(request):
             instance = reviewForm.save(commit=False)
             instance.user_id = request.user
             instance.shop_id = shopInfo
+            stars = int(request.POST.get('stars'))
+            print(stars)
+
             if request.POST.get('itemid'):
+                item_oldreviews = Review.objects.filter(item_id = itemid)
+                item_total_stars = item_oldreviews.aggregate(Sum('stars'))['stars__sum']
+                item_reviewcount = item_oldreviews.count()
+                if(itemInfo.item_rating == None):
+                    itemInfo.item_rating = instance.stars/1
+                else:
+                    itemInfo.item_rating = round((item_total_stars + stars) / (item_reviewcount+1), 1) 
+                itemInfo.save()
                 instance.item_id = itemInfo
+
+            else:
+                shop_oldreviews = Review.objects.filter(shop_id=shopid, item_id__isnull=True)
+                shop_total_stars = shop_oldreviews.aggregate(Sum('stars'))['stars__sum']
+                shop_reviewcount = shop_oldreviews.count()
+                if(shopInfo.shop_rating == None):
+                    shopInfo.shop_rating = instance.stars/1
+                else:
+                    shopInfo.shop_rating = round((shop_total_stars + stars) / (shop_reviewcount+1), 1)
+                shopInfo.save()
+
             instance.save()
             ser_instance = serializers.serialize('json', [ instance, ])
             return JsonResponse({"instance": ser_instance}, status=200)

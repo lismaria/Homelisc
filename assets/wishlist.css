@@ -13,8 +13,8 @@
 }
 
 .no-wishlist-msg{
-    grid-column:3/11;
-    grid-row:12/14;
+    grid-column: 2/12;
+    grid-row: 12/15;
 }
 
 .no-wishlist-msg p{
