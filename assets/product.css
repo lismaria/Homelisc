@@ -340,3 +340,6 @@
 .item-review-container{
     background-color: var(--neutral);
 }
+.like-fill{
+    fill: var(--black);
+}

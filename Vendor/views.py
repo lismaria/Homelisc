@@ -5,7 +5,7 @@ from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
-from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply
+from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, Wishlist
 from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
@@ -25,7 +25,6 @@ def check_vendor_details(request, id):
             return None
     else:
         return None
-
 
 
 def home(request):
@@ -49,7 +48,15 @@ def home(request):
             return render(request,'Vendor/home.html',{'shopInfo':shopInfo,'shopCount':shopCount,'vendorForm':vendorForm})
     
     else:
-        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats})
+        userwish = Wishlist.objects.filter(user_id=request.user.id)
+        useritemwish = []
+        usershopwish = []
+        for i in userwish:
+            if i.item_id == None:
+                usershopwish.append(i.shop_id.id)
+            else:
+                useritemwish.append(i.item_id.id)
+        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats, 'usershopwish':usershopwish})
 
 
 

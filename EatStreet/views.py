@@ -12,6 +12,17 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 def home(request):
     pass
 
+def wishlist_arrs(id):
+    userwish = Wishlist.objects.filter(user_id=id)
+    useritemwish = []
+    usershopwish = []
+    for i in userwish:
+        if i.item_id == None:
+            usershopwish.append(i.shop_id.id)
+        else:
+            useritemwish.append(i.item_id.id)
+    return (usershopwish, useritemwish)
+
 @csrf_exempt
 def search(request):        
     if request.POST:
@@ -45,14 +56,13 @@ def category(request):
         categoryInfo = Category.objects.get(category_name=category)
     except Category.DoesNotExist:
         pass
-    
-    # shopqs = Shop.objects.filter(shop_name__icontains=category).filter(shop_tags__icontains=category)
+
     shopqs = Shop.objects.annotate(search=SearchVector('shop_name', 'shop_tags', 'shop_descr'),).filter(search=category)
     itemqs = Item.objects.annotate(search=SearchVector('item_name', 'item_category', 'item_descr',),).filter(search=category)
-    # vector = SearchVector('shop_name','shop_tags','shop_descr')
-    # query = SearchQuery(category)
-    # shopqs = Shop.objects.annotate(rank=SearchRank(vector, query)).order_by('-rank')
-    return render(request,"category.html",{'categoryInfo':categoryInfo,'categories':categories,'shopqs':shopqs,'itemqs':itemqs})
+
+    usershopwish, useritemwish = wishlist_arrs(request.user.id)
+
+    return render(request,"category.html",{'categoryInfo':categoryInfo,'categories':categories,'shopqs':shopqs,'itemqs':itemqs, 'usershopwish':usershopwish, 'useritemwish':useritemwish})
 
 def product(request,id,slug,itemid):
     shopInfo = Shop.objects.filter(id=id)
@@ -61,24 +71,37 @@ def product(request,id,slug,itemid):
     reviewForm = ReviewForm()
     vendorReplies = VendorReply.objects.filter(shop_id=id)
 
+    usershopwish, useritemwish = wishlist_arrs(request.user.id)
+
+    userlikes = Review.likes.through.objects.filter(user_id=request.user.id)
+    userlikesarr=[]
+    for i in userlikes:
+        userlikesarr.append(i.review_id)
+
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('shop', id=obj.pk, slug=obj.shop_slug, itemid=itemid)
-    return render(request,"product.html",{'shopInfo':shopInfo,'itemInfo':itemInfo,'itemReviews':itemReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies})
+    return render(request,"product.html",{'shopInfo':shopInfo,'itemInfo':itemInfo,'itemReviews':itemReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies,'useritemwish':useritemwish,'userlikesarr':userlikesarr})
 
 def shop(request,id,slug):
     itemInfo = Item.objects.filter(shop_id=id).order_by('-id')
     shopInfo = Shop.objects.filter(id=id)
     obj = get_object_or_404(Shop, pk=id)
+
+    usershopwish, useritemwish = wishlist_arrs(request.user.id)
+
     if obj.shop_slug != slug:
         return redirect('shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"shop.html",{'shopInfo':shopInfo,'itemInfo':itemInfo})
+    return render(request,"shop.html",{'shopInfo':shopInfo,'itemInfo':itemInfo,'usershopwish':usershopwish, 'useritemwish':useritemwish})
 
 def reviews(request,id,slug):
     shopInfo = Shop.objects.filter(id=id)
     shopReviews = Review.objects.filter(shop_id=id, item_id__isnull = True).order_by('-date')
     reviewForm = ReviewForm()
     vendorReplies = VendorReply.objects.filter(shop_id=id)
+
+    usershopwish, useritemwish = wishlist_arrs(request.user.id)
+
     userlikes = Review.likes.through.objects.filter(user_id=request.user.id)
     userlikesarr=[]
     for i in userlikes:
@@ -87,7 +110,7 @@ def reviews(request,id,slug):
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('reviews', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"reviews.html",{'shopInfo':shopInfo,'shopReviews':shopReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies,'userlikesarr':userlikesarr})
+    return render(request,"reviews.html",{'shopInfo':shopInfo,'shopReviews':shopReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies,'userlikesarr':userlikesarr, 'usershopwish':usershopwish})
 
 def review_post(request):
     if not request.user.is_authenticated:
