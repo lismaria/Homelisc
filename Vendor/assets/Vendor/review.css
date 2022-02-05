@@ -167,6 +167,20 @@
     gap: 1rem;
 }
 
+.review-itemimg{
+    position: relative;
+    width: 100%;
+}
+
+.review-itemimg>img{
+    background: var(--black);
+    height: auto;
+    max-height: 20rem;
+    width: 100%;
+    border-radius: 0.8rem;
+    object-fit: contain;
+}
+
 /* Vendor Reply Code */
 .vendor-reply{
     background-color: var(--white);

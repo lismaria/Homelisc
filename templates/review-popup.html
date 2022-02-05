@@ -10,8 +10,6 @@
         <form class="review-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="review-form-rating">
-                <div>{% for i in reviewForm.stars%}{{i.tag}}{% endfor %}</div>
-                    
                 {{reviewForm.stars.4.tag}}  
                 <!-- <input type="radio" name="stars" class="star-5" id="star-5" required="">  -->
                 <!-- <input class="star star-5" id="star-5" type="radio" name="star" />  -->

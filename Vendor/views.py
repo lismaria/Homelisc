@@ -152,7 +152,6 @@ def vendor_update(request):
         return render(request,"Account/account.html")
         
     if request.POST:
-        print(request.FILES)
         form = AccountUpdationForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             instance = form.save()
@@ -185,11 +184,9 @@ def shop_update(request):
             for i in shopcatarr:
                 if i not in old_tags:
                     cat = Category.objects.filter(category_name=i.lower().strip())
-                    print(cat)
                     if(cat):
                         count = cat.values()[0]['category_count']
                         count += 1
-                        print(count)
                         Category.objects.filter(category_name=i.lower().strip()).update(category_count = count )
                     else:
                         Category.objects.create(category_name = i.lower().strip())
@@ -207,10 +204,7 @@ def item_add(request):
     if not request.user.is_authenticated:
         return render(request,"Account/account.html")
         
-    if request.POST:
-        print(request.POST)
-        print(request.FILES)
-        
+    if request.POST:        
         shopid = request.POST['shopid']
         itemcat = request.POST.get('item_category')
         itemcatarr = itemcat.split(',')
