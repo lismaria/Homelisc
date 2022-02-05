@@ -109,11 +109,7 @@
                                         {% endif %}
                                         </svg>
                                     </div>
-                                    <h4>
-                                        {% for j in i.shop_id.shop_tags %}
-                                            {{j}} |
-                                        {% endfor %}
-                                    </h4>
+                                    <h4>{{i.shop_id.shop_tags|join:" | "}}</h4>
                                 </div>
                             </div>            
                         </div>

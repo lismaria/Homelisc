@@ -17,12 +17,7 @@
             <div class="shop-content">
                 <h2>{{i.shop_name}}</h2>
                 <p></p>
-                <div>
-                    {% for i in i.shop_tags %}
-                        {{i}} |
-                    {% endfor %}
-                    <!-- tagname1 | tagname2 | tagname3  -->
-                </div> 
+                <div>{{i.shop_tags|join:" | "}}</div> 
             </div>
         </div>
         </a>

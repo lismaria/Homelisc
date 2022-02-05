@@ -20,11 +20,7 @@
                 <img src="{{i.shop_logo.url}}" class="shop-pic">
                 <div class="shop-title">
                     <h2>{{i.shop_name}}</h2>
-                    <p>
-                        {% for j in i.shop_tags %}
-                            {{j}} |
-                        {% endfor %}
-                    </p>
+                    <p>{{i.shop_tags|join:" | "}}</p>
                 </div>
             </div>
             
