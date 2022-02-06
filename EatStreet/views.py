@@ -131,7 +131,6 @@ def review_post(request):
             instance.user_id = request.user
             instance.shop_id = shopInfo
             stars = int(request.POST.get('stars'))
-            print(stars)
 
             if request.POST.get('itemid'):
                 item_oldreviews = Review.objects.filter(item_id = itemid)

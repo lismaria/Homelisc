@@ -155,7 +155,52 @@
                 </div>
 
             </div>
+            <div class="filter-popup non-active">
+                <form class="filter-form">
+                    <div class="upper-filter-body">
+                        <div class="rating-and-close">
+                            <div class="rating-filter">
+                                <h1>Rating</h1>
+                                <label class="rating-label" for="4plusrating">
+                                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="var(--black)"/>
+                                    </svg>
+                                    <p>4+ rating</p>
+                                </label>
+                                <input type="checkbox" class="non-active" name="rating" id="4plusrating">
+                            </div>
+
+                            <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.3334 4.16669L4.66675 20.8334M21.3334 20.8334L4.66675 4.16669L21.3334 20.8334Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="price-filter">
+                            <h1>Product Price</h1>
+                            <div class="price-label">
+                                <div>
+                                    <input type="radio" name="price" value="low"> <p>Low to high</p>
+                                </div>
+                                <div>
+                                    <input type="radio" name="price" value="high"> <p>High to low</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="location-filter">
+                            <h1>Location</h1>
+                            <div class="location-label">
+                                <select id="select-state"></select>
+                                <select id="select-city"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="apply-filter" type="submit"><h1>Apply Filter</h1></button>
+                </form>
+            </div>
         </div>
+
     </div>
 
     <!-- <div class="fav-place-card">
@@ -194,6 +239,52 @@
 
 <script>
     $(document).ready(function () {
+        $('#select-state').append('<option class="disabled-select" value="" disabled selected>State</option>')
+        $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')
+
+        const API_KEY='dTdYMkMxdjYyaFZzQllqMHp6ZWxud3piSk53bTBiWmdIZU95R1VVWA=='
+        $.ajax({
+            type: 'get',
+            url: 'https://api.countrystatecity.in/v1/countries/IN/states',
+            success: function(data){
+                data.forEach(element => {
+                    $('#select-state').append('<option data-iso2="'+element.iso2+'">'+element.name+'</option>')
+                });
+            },
+            error: function(error){
+                console.log("error: ",error);
+            },
+            headers: {
+                'X-CSCAPI-KEY': API_KEY
+            }
+        })
+        
+        
+        function getCity(state) {
+            $.ajax({
+            type: 'get',
+            url: 'https://api.countrystatecity.in/v1/countries/IN/states/'+state+'/cities',
+            success: function(data){
+                console.log("ajax",data);
+                data.forEach(element => {
+                    $('#select-city').append('<option>'+element.name+'</option>')
+                });
+            },
+            error: function(error){
+                console.log("error: ",error);
+            },
+            headers: {
+                'X-CSCAPI-KEY': API_KEY
+            }
+        }) 
+        }
+
+        $('#select-state').change(function(){
+            $('#select-city').empty();
+            getCity($(this).find(':selected').data('iso2'))
+        })
+
+
         var stickyOffset = $('.wishlist-header').offset().top;
 
         $(".wrapper").scroll(function(){
@@ -246,6 +337,41 @@
                 });
             }
         });
+
+        $("#filter-btn, .rating-and-close svg").click(function(){
+            $(".filter-popup").slideToggle("slow");
+            $(".wrapper").toggleClass("wrapper-overflow")
+            // $(".filter-popup").toggleClass("non-active");
+        })
+
+        $('#4plusrating').click(function(){
+            $(".rating-label").toggleClass("rating-label-selected");
+        })
+
+        $(".apply-filter").click(function (e) {
+            e.preventDefault();
+
+            // serialize the data for sending the form data.
+            var serializedData = new FormData($('.filter-form')[0]);
+            console.log(serializedData);
+
+            // make POST ajax call
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'home' %}",
+                data: serializedData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    location.reload();
+                },
+                error:  function (response) {
+                    console.log(response);
+                }
+            })
+        })
     });
 </script>
 
