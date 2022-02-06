@@ -430,27 +430,6 @@
     align-items: center;
 } */
 
-/* Active State Code */
-
-#home p.lowernav-ul-p__hide{
-    display:block;
-    text-align: center;
-    font-family: Poppins;
-    font-size:1.2rem; 
-    color:var(--primary);   
-}
-
-#home svg.lowernav-home-svg{
-      fill:var(--primary);
-      stroke:var(--primary);
-}
-  
-#home svg.lowernav-home-svg{
-      stroke: var(--primary);
-      fill: var(--primary);
-      filter: drop-shadow(var(--ds_nav__active));
-}
-
 .non-active{
     display:none;
 }
@@ -460,7 +439,34 @@
     top: 0;
     right:0;
     width: 100%;
-  }
+}
+
+/* Active State Code */
+
+#search p.lowernav-ul-p__hide{
+    display:block;
+    text-align: center;
+    font-family: Poppins;
+    font-size:1.2rem; 
+    color:var(--primary); 
+}
+
+#search svg.lowernav-home-svg{
+    stroke: var(--primary);
+    fill: var(--primary);
+    filter: drop-shadow(var(--ds_nav__active));
+}
+
+#search svg path{
+    fill: var(--primary);  
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    right:0;
+    width: 100%;
+}
 
 .filter-popup{
     position: absolute;

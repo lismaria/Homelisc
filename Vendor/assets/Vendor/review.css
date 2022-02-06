@@ -22,7 +22,7 @@
     height: 100%;
 }
 
-.review-filter-frame>button{
+.review-filter-frame>button,.review-filter-frame>select{
     display:flex;
     align-items: center;
     justify-content:space-around;
@@ -33,7 +33,7 @@
     border-radius: .4rem;
 }
 
-.review-filter-frame>button>h1, .review-filter-clear{
+.review-filter-frame>button>h1,.review-filter-frame>select>option,.review-filter-frame>select, .review-filter-clear{
     font-family: Poppins;
     font-style: normal;
     font-weight: normal;
@@ -43,6 +43,14 @@
     text-align: end;
 }
 
+.review-filter-frame>select{
+    padding: 0rem;
+    max-width: 30%;
+}
+
+.review-filter-frame>select>option{
+    text-align: start;
+}
 .review-filter-clear{
     color:var(--primary);
     text-align:end;
@@ -331,14 +339,15 @@ svg{
     fill: var(--primary);
 }
 
-.filter-btn-active{
+button.filter-btn-active{
     background-color: var(--accent)
 }
 
-.asc-svg{
+
+.normal-svg{
     transform: rotate(0deg);
 }
 
-.desc-svg{
+.rotate-svg{
     transform: rotate(180deg);
 }

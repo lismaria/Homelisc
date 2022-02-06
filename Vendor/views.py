@@ -141,12 +141,13 @@ def review_view(request,id,slug):
     if shopobj==None:
         return redirect("home")
     reviews = Review.objects.filter(shop_id=id).order_by('-date')
+    items = Review.objects.filter(shop_id=id,item_id__isnull=False).distinct('item_id')
     vendorReplies = VendorReply.objects.filter(shop_id=id)
     replyForm = ReplyPostForm()
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"Vendor/review.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'reviews':reviews,'replyForm':replyForm,'vendorReplies':vendorReplies})
+    return render(request,"Vendor/review.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'reviews':reviews,'replyForm':replyForm,'vendorReplies':vendorReplies,'items':items})
 
 
 
