@@ -10,71 +10,80 @@
 {% block content %}
 <div class="review-wrapper">
     <div class="review-filter-frame">
-            <button id="date-btn">
+            <!-- <button id="date-btn" >
                 <h1>Date</h1>
                 <svg class="asc-svg" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.71875 9.44794L12.5 14.2188L17.2812 9.44794L18.75 10.9167L12.5 17.1667L6.25 10.9167L7.71875 9.44794Z" fill="black"/>
                 </svg>
-            </button>
-            <button id="rating-btn">
+            </button> -->
+            {% verbatim %}
+            <select ng-model="selectedDist"  ng-init="selectedDist = itemsarr[0] || selectedDist " ng-options="item.name for item in itemsarr">
+                <!-- <option value=""></option> -->
+                <!-- <select ng-options="item as item.name for item in items"></select -->
+            </select> 
+            {% endverbatim %}
+            <button id="rating-btn" value="+rate" ng-click="sortBy('stars')">
                 <h1 style="white-space: nowrap">Rating</h1>
-                <svg class="asc-svg" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.71875 9.44794L12.5 14.2188L17.2812 9.44794L18.75 10.9167L12.5 17.1667L6.25 10.9167L7.71875 9.44794Z" fill="black"/>
                 </svg>
             </button>
-            <button id="likes-btn">
+            <button id="likes-btn" ng-click="sortBy('likes_count')">
                 <h1 style="white-space: nowrap">Likes</h1>
-                <svg class="asc-svg" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.71875 9.44794L12.5 14.2188L17.2812 9.44794L18.75 10.9167L12.5 17.1667L6.25 10.9167L7.71875 9.44794Z" fill="black"/>
                 </svg>
             </button>
+
     </div>
-    <h1 class="review-filter-clear">Clear all filters</h1>
+    <h1 id="clear-btn" class="review-filter-clear" ng-click="sortBy(null)">Clear all filters</h1>
     <div class="review-content">
-        {% for k in reviews %}
-        <div class="review-comments">
+        <!-- {% verbatim %}<p  ng-repeat=" review in filterr | filter: filterExpression">{{review}}
+        </p>{{selectedDist}}{% endverbatim %} -->
+        {% verbatim %}
+        <div ng-repeat=" k in filterr | filter: filterExpression" class="review-comments">
             <div class="review-card review-only" style="background-color: var(--white);">
-                <img src="{{k.user_id.profile_pic.url}}" alt="">
+                <img src="{{k.user_dp}}" alt="">
                 <div>
                     <div class="review-card-heading">
                         <div>
-                            <h4>{{k.user_id.name}}</h4>
-                            {% if k.stars >= 4.5 %}
-                                <div class="review-rating" style="background-color: var(--star5)">
+                            <h4>{{k.user_name | replaceMe}}</h4>
+
+                                <div ng-if="k.stars >= 4.5" class="review-rating" style="background-color: var(--star5)">
                                     <p>{{k.stars}}</p>
                                     <svg width="8" height="7" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#FFFFFF"/>
                                     </svg>
                                 </div>
-                            {% elif k.stars >= 4 and k.stars < 4.5 %}
-                                <div class="review-rating" style="background-color: var(--star4)">
+
+                                <div ng-if="k.stars >= 4 && k.stars < 4.5" class="review-rating" style="background-color: var(--star4)">
                                     <p>{{k.stars}}</p>
                                     <svg width="8" height="7" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#FFFFFF"/>
                                     </svg>
                                 </div>
-                            {% elif k.stars >= 3 and k.stars < 4 %}
-                                <div class="review-rating" style="background-color: var(--star3)">
+
+                                <div ng-if="k.stars >= 3 && k.stars < 4" class="review-rating" style="background-color: var(--star3)">
                                     <p>{{k.stars}}</p>
                                     <svg width="8" height="7" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#FFFFFF"/>
                                     </svg>
                                 </div>
-                            {% elif k.stars >= 2 and k.stars < 3 %}
-                                <div class="review-rating" style="background-color: var(--star2)">
+
+                                <div ng-if="k.stars >= 2 && k.stars < 3" class="review-rating" style="background-color: var(--star2)">
                                     <p>{{k.stars}}</p>
                                     <svg width="8" height="7" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#FFFFFF"/>
                                     </svg>
                                 </div>
-                            {% else %}
-                                <div class="review-rating" style="background-color: var(--star1)">
+
+                                <div ng-if="k.stars<2" class="review-rating" style="background-color: var(--star1)">
                                     <p>{{k.stars}}</p>
                                     <svg width="8" height="7" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.5798 4.22554L8.68268 3.67806L6.94055 0.264101C6.89297 0.170629 6.81469 0.0949614 6.71799 0.0489671C6.47547 -0.0667604 6.18077 0.0296792 6.05951 0.264101L4.31738 3.67806L0.420236 4.22554C0.312792 4.24038 0.214557 4.28934 0.139346 4.36352C0.0484205 4.45386 -0.00168366 4.57539 4.32016e-05 4.70142C0.00177006 4.82745 0.0551867 4.94766 0.148556 5.03563L2.96819 7.69291L2.30204 11.4452C2.28642 11.5324 2.29641 11.6222 2.33088 11.7043C2.36536 11.7864 2.42293 11.8575 2.49708 11.9095C2.57123 11.9616 2.65898 11.9925 2.75039 11.9988C2.8418 12.0051 2.9332 11.9865 3.01424 11.9452L6.50003 10.1736L9.98582 11.9452C10.081 11.9941 10.1915 12.0104 10.2974 11.9926C10.5645 11.9481 10.7441 11.7033 10.698 11.4452L10.0319 7.69291L12.8515 5.03563C12.9283 4.96293 12.9789 4.86798 12.9943 4.76412C13.0357 4.50447 12.8484 4.26412 12.5798 4.22554V4.22554Z" fill="#FFFFFF"/>
                                     </svg>
                                 </div>
-                            {% endif %}
+
                             <div class="review-likes">
                                 <svg width="9" height="10" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1084_1084)">
@@ -89,46 +98,44 @@
                                 <p>{{k.likes_count}}</p>
                             </div>
                         </div>
-                        <p>{{k.date|date:"M d, Y"}}</p>
+                        <p>{{k.date}}</p>
                     </div>
-                    <p>{{k.comment}}</p>
+                    <p>{{k.comment | replaceMe}}</p>
                     
-                    {% if k.review_img %}
-                    <div class="review-itemimg">
+                    <div ng-if="k.review_img" class="review-itemimg">
                         <img src="{{k.review_img.url}}" alt="" srcset="">
                     </div>
-                    {% endif %}
 
                     <div class="review-react">
-                        {% if k.reply_by_vendor is False %}
-                            <div class="reply-btn">
+
+                            <div ng-if="k.reply_by_vendor == 'False'" class="reply-btn">
                                 <svg class="reply-btn-svg" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7.40127 14.875L1.69127 10.775C1.55678 10.6955 1.44532 10.5824 1.3679 10.4467C1.29048 10.311 1.24976 10.1575 1.24976 10.0013C1.24976 9.84505 1.29048 9.69152 1.3679 9.55584C1.44532 9.42015 1.55678 9.30699 1.69127 9.22752L7.40127 5.12502C7.53739 5.04496 7.69226 5.00233 7.85017 5.00148C8.00808 5.00062 8.16341 5.04156 8.30039 5.12014C8.43736 5.19872 8.55111 5.31214 8.63008 5.44889C8.70905 5.58564 8.75043 5.74085 8.75002 5.89877V7.50002C10.625 7.50002 16.25 7.50002 17.5 17.5C14.375 11.875 8.75002 12.5 8.75002 12.5V14.1013C8.75002 14.8013 7.99252 15.2238 7.40127 14.8763V14.875Z" stroke= "var(--primary)" stroke-width="1.5"/>
                                 </svg>
                             </div>
-                        {% else %}
-                            <div class="reply-btn" style="pointer-events: none;">
+
+                            <div ng-if="k.reply_by_vendor == 'True'" class="reply-btn" style="pointer-events: none;">
                                 <svg class="reply-btn-svg svg-prim-fill" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7.40127 14.875L1.69127 10.775C1.55678 10.6955 1.44532 10.5824 1.3679 10.4467C1.29048 10.311 1.24976 10.1575 1.24976 10.0013C1.24976 9.84505 1.29048 9.69152 1.3679 9.55584C1.44532 9.42015 1.55678 9.30699 1.69127 9.22752L7.40127 5.12502C7.53739 5.04496 7.69226 5.00233 7.85017 5.00148C8.00808 5.00062 8.16341 5.04156 8.30039 5.12014C8.43736 5.19872 8.55111 5.31214 8.63008 5.44889C8.70905 5.58564 8.75043 5.74085 8.75002 5.89877V7.50002C10.625 7.50002 16.25 7.50002 17.5 17.5C14.375 11.875 8.75002 12.5 8.75002 12.5V14.1013C8.75002 14.8013 7.99252 15.2238 7.40127 14.8763V14.875Z" stroke= "var(--primary)" stroke-width="1.5"/>
                                 </svg>
                             </div>
-                        {% endif %}
+
 
                         <div class="heart-btn" data-heart={{k.heart_by_owner}} data-heartid={{k.id}}>
-                            {% if k.heart_by_owner is False %}
-                            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+
+                            <svg ng-show="k.heart_by_owner == 'False'" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                 <path class="heart-stroke-initial" d="M13.8933 3.07333C13.5528 2.73267 13.1485 2.46243 12.7036 2.27805C12.2586 2.09368 11.7817 1.99878 11.3 1.99878C10.8183 1.99878 10.3414 2.09368 9.89643 2.27805C9.45145 2.46243 9.04717 2.73267 8.70666 3.07333L8 3.78L7.29333 3.07333C6.60554 2.38554 5.67269 1.99914 4.7 1.99914C3.72731 1.99914 2.79446 2.38554 2.10666 3.07333C1.41887 3.76112 1.03247 4.69397 1.03247 5.66666C1.03247 6.63935 1.41887 7.5722 2.10666 8.26L2.81333 8.96666L8 14.1533L13.1867 8.96666L13.8933 8.26C14.234 7.91949 14.5042 7.51521 14.6886 7.07023C14.873 6.62526 14.9679 6.14832 14.9679 5.66666C14.9679 5.18501 14.873 4.70807 14.6886 4.26309C14.5042 3.81812 14.234 3.41383 13.8933 3.07333V3.07333Z" stroke= "" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>   
-                            {% else %}
-                            <svg class="heart-fill" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+
+                            <svg ng-if="k.heart_by_owner == 'True'" class="heart-fill" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                 <path class="heart-stroke-initial heart-stroke" d="M13.8933 3.07333C13.5528 2.73267 13.1485 2.46243 12.7036 2.27805C12.2586 2.09368 11.7817 1.99878 11.3 1.99878C10.8183 1.99878 10.3414 2.09368 9.89643 2.27805C9.45145 2.46243 9.04717 2.73267 8.70666 3.07333L8 3.78L7.29333 3.07333C6.60554 2.38554 5.67269 1.99914 4.7 1.99914C3.72731 1.99914 2.79446 2.38554 2.10666 3.07333C1.41887 3.76112 1.03247 4.69397 1.03247 5.66666C1.03247 6.63935 1.41887 7.5722 2.10666 8.26L2.81333 8.96666L8 14.1533L13.1867 8.96666L13.8933 8.26C14.234 7.91949 14.5042 7.51521 14.6886 7.07023C14.873 6.62526 14.9679 6.14832 14.9679 5.66666C14.9679 5.18501 14.873 4.70807 14.6886 4.26309C14.5042 3.81812 14.234 3.41383 13.8933 3.07333V3.07333Z" stroke= "" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg> 
-                            {% endif %}                                                                                                           
+                                                                                                          
                         </div>
                     </div>
                 </div>
             </div>
-            
+            {% endverbatim %}
             {% for i in replyForm %}
             <form class="vendor-reply review-reply review-reply-form">
                 {% csrf_token %}
@@ -155,26 +162,28 @@
                         <p>Post</p>
                     </button>
                 </div>
-                <input type="hidden" name="shop_id" value="{{k.shop_id.id}}">
+
+                {% verbatim %}
+                <input type="hidden" name="shop_id" value="{{k.shopid}}">
                 <input type="hidden" name="review_id" value="{{k.id}}">
+                {% endverbatim %}
             </form>
             {% endfor %}
 
-            {% for reply in vendorReplies %}
-                {% if reply.review_id.id == k.id %}
-                    <div class="review-comment vendor-reply">
+            {% verbatim %}
+                    <div ng-repeat="reply in replies" ng-if="reply.reviewid == k.id" class="review-comment vendor-reply">
                         <div class="reply-card">
                             <div class="reply-card-heading">
-                                <h4>{{reply.shop_id.shop_name}}</h4>
-                                <p>{{reply.date|date:"M d, Y"}}</p>
+                                <h4>{{reply.shopname | replaceMe}}</h4>
+                                <p>{{reply.replydate}}</p>
                             </div>
-                            <p class="reply-card-reply">{{reply.reply}}</p>
+                            <p class="reply-card-reply">{{reply.reply | replaceMe}}</p>
                         </div> 
                     </div>
-                {% endif %}
-            {% endfor %}
+            {% endverbatim %}
+
         </div>
-        {% endfor %}
+        
     </div>
 </div>
 
@@ -184,39 +193,111 @@
 
 {% block javascript %}
 
+<script type="">
+    var obj=angular.module("vendorApp",[]);
+    obj.controller("vendorCtrl",['$scope', 'orderByFilter',function($scope,orderBy){
+
+    $scope.counter = 0; 
+
+
+    var reviews = [
+          {% for i in reviews %}
+              {
+                  id: "{{ i.id }}",
+                  user_dp: "{{i.user_id.profile_pic.url}}",
+                  user_name: "{{i.user_id.name}}",
+                  stars: "{{i.stars}}",
+                  likes_count: "{{i.likes_count}}",
+                  date: "{{i.date|date:'M d, Y'}}",
+                  comment: "{{i.comment}}",
+                  review_img: "{{i.review_img}}",
+                  reply_by_vendor: "{{i.reply_by_vendor}}",
+                  heart_by_owner: "{{i.heart_by_owner}}",
+                  itemid: "{{i.item_id.id}}",
+                  itemname: "{{i.item_id.item_name}}",
+                  shopid: "{{i.shop_id.id}",
+              },
+          {% endfor %}
+    ];
+
+    $scope.itemsarr = [
+        {
+                id: '',
+                name: 'Shop Reviews'
+        },
+        {% for j in items %}
+            {
+                id: '{{j.item_id.id}}',
+                name: '{{j.item_id.item_name}}',
+            },
+        {% endfor %}
+    ]
+
+    
+    $scope.selectedDist={};
+    $scope.filterExpression = function(review) {
+		return (review.itemid === $scope.selectedDist.id );
+	};
+
+    $scope.propertyName = null;
+    $scope.reverse = false;
+    $scope.filterr = orderBy(reviews, $scope.propertyName, $scope.reverse);
+
+    $scope.sortBy = function(propertyName) {
+        $scope.reverse = (propertyName !== null && $scope.propertyName === propertyName)
+            ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+        $scope.filterr = orderBy(reviews, $scope.propertyName, $scope.reverse);
+    };
+
+    $scope.replies = [
+        {% for r in vendorReplies %}
+            {
+                reviewid: "{{r.review_id.id}}",
+                shopname: "{{r.shop_id.shop_name}}",
+                replydate: "{{r.date|date:'M d, Y'}}",
+                reply: "{{r.reply}}",
+            },
+        {% endfor %}
+    ]
+
+    }])
+    obj.filter('replaceMe', function () {
+      return function (data) {
+        return data.replace(new RegExp('&#x27;', 'g'), "'")
+      }
+    })
+</script>
+
 <script>
     $(document).ready(function () {
         document.getElementById("page-heading").innerHTML = "Reviews";
         
         reviewsDiv = $(".review-comments")
         $("#rating-btn").click(function () {
-            $(this).css({"background-color":"var(--accent)"});
-            var order = $(this).find("svg").hasClass('asc-svg') ? 'desc-svg' : 'asc-svg';
-            $(this).find("svg").removeClass('asc-svg').removeClass('desc-svg');
-            $(this).find("svg").addClass(order);
-            reviewsDiv.sort(sortreview);
-            
-            $(".review-content").append(reviewsDiv)
-            ascending = !ascending;
+            $("#likes-btn").css({"background-color": "transparent"});
+            $("#likes-btn").find("svg").removeClass("rotate-svg").addClass("normal-svg");
+            $(this).css({"background-color": "var(--accent)"});
+            $(this).find("svg").toggleClass('rotate-svg');
+            $(this).removeClass("normal-svg");
         });
 
-        var ascending = false;
-        function sortreview(a, b) {
-            const x = $(a).find(".review-rating p").text();
-            const y = $(b).find(".review-rating p").text();
-            if(ascending){
-                if (x>y) return 1;
-                if (x<y) return -1;
-            }
-            else{
-                if (x>y) return -1;
-                if (x<y) return 1;
-            }
-            return 0;
-        }
+        $("#likes-btn").click(function () {
+            $("#rating-btn").css({"background-color": "transparent"});
+            $("#rating-btn").find("svg").removeClass("rotate-svg").addClass("normal-svg");
+            $(this).css({"background-color": "var(--accent)"});
+            $(this).find("svg").toggleClass('rotate-svg');
+            $(this).removeClass("normal-svg");
+        });
 
+        $("#clear-btn").click(function(){
+            $("#rating-btn, #likes-btn").css({"background-color": "transparent"});
+            $("#rating-btn, #likes-btn").find("svg").removeClass("rotate-svg").addClass("normal-svg");
 
-        $(".heart-btn").click(function () {
+        })
+
+        $(".review-content").on('click', '.heart-btn',function () {
+            console.log('heart')
             $(this).find('svg').toggleClass('heart-fill');
             $(this).find('path').toggleClass('heart-stroke');
 
@@ -236,15 +317,15 @@
                 }
             })            
         })
-        $(".reply-btn").click(function () {
+        $(".review-content").on('click','.reply-btn',function () {
             $(this).find('svg').css("fill","var(--primary)");
             $(this).parents(".review-comments").children(".review-reply").show();
         })
-        $(".reply-cancel-btn").click(function () {
+        $(".review-content").on('click','.reply-cancel-btn',function () {
             $(this).parents(".review-comments").find(".reply-btn-svg").css("fill","transparent");
             $(this).parents(".review-reply").hide();
         })
-        $(".reply-post-btn").click(function(e){
+        $(".review-content").on('click','.reply-post-btn',function(e){
             $(this).parents(".review-reply").hide();
             // $(this).parents(".review-comments").children(".review-comment").show();
 
