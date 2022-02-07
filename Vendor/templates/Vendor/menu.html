@@ -147,8 +147,6 @@
 
         initialItemsDiv =  $(".item-card");
         itemsDiv = $(".item-card");
-        console.log("initialItemsDiv: ",initialItemsDiv)
-        console.log("itemsDiv: ",itemsDiv)
         var ascending = true;
 
         $("#rating-btn").click(function () {
@@ -206,9 +204,7 @@
         $("#clear-btn").click(function(){
             $("#rating-btn, #alpha-btn").css({"background-color": "transparent"});
             $("#rating-btn, #alpha-btn").find("svg").removeClass("rotate-svg").addClass("normal-svg");
-            // $(".item-frame").clear();
             $(".item-frame").append(initialItemsDiv)
-            console.log("reset")
         })
 
         // On load setting the header and hiding additem/edititem divs
@@ -324,20 +320,28 @@
         // Remove an item - ajax call
         $(".remove-item").click(function () {
             var remid = $(this).data('remid');
-            $.ajax({
-                type: 'post',
-                url: "{% url 'vendor:item-delete' %}",
-                data: {
-                    remid : remid
-                },
-                success: function (response){
-                    alert(response.msg);
-                    location.reload();
-                },
-                error:  function (response){
-                    alert(response.responseJSON.error);
-                }
-            });
+            var itemname = $(this).parent().siblings(".item-title").text();
+            console.log(itemname)
+            var proceed = confirm("Are you sure you want to delete "+itemname+"?");
+            if (proceed) {
+                $.ajax({
+                    type: 'post',
+                    url: "{% url 'vendor:item-delete' %}",
+                    data: {
+                        remid : remid
+                    },
+                    success: function (response){
+                        alert(response.msg);
+                        location.reload();
+                    },
+                    error:  function (response){
+                        alert(response.responseJSON.error);
+                    }
+                });
+            } else {
+                //don't proceed
+            }
+
         });
 
 
