@@ -150,7 +150,6 @@
             type: 'get',
             url: 'https://api.countrystatecity.in/v1/countries/IN/states/'+state+'/cities',
             success: function(data){
-                console.log("ajax",data);
                 data.forEach(element => {
                     $('#select-city').append('<option>'+element.name+'</option>')
                 });

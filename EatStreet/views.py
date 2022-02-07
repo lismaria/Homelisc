@@ -10,6 +10,7 @@ from Vendor.forms import ReplyPostForm, ReviewForm
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.db.models import Q
 
 def home(request):
     pass
@@ -51,7 +52,10 @@ def wishlist(request):
     return render(request,"wishlist.html",{"shopWishlists":shopWishlists,'itemWishlists':itemWishlists,'wishlist_count':wishlist_count})
 
 def category(request):
-    category = request.GET['c']
+    if request.method == 'GET':
+        category = request.GET['c']
+    else:
+        category = request.POST.get('c')
     categories = Category.objects.all()
     categoryInfo = {}
     try:
@@ -63,6 +67,34 @@ def category(request):
     itemqs = Item.objects.annotate(search=SearchVector('item_name', 'item_category', 'item_descr',),).filter(search=category)
 
     usershopwish, useritemwish = wishlist_arrs(request.user.id)
+
+    if request.method == 'POST':
+        plus4rating = None
+        if request.POST.get('rating'):
+            plus4rating = 4.0
+        price_sort = request.POST.get('price')
+        select_state = request.POST.get('select-state')
+        select_city = request.POST.get('select-city')
+
+        request_vars = { 'shop_rating__gte' : plus4rating, 'shop_state' : select_state, 'shop_city':select_city}
+        arguements = {}
+        for k,v in request_vars.items():
+            if v:
+                arguements[k] = v
+
+        if arguements:
+            shopqs = shopqs.filter(**arguements)
+
+        if(plus4rating==None and price_sort!=None):
+            itemqs = itemqs.order_by(price_sort)
+        elif(plus4rating!=None and price_sort==None):
+            itemqs = itemqs.filter(item_rating__gte = plus4rating)
+        elif(plus4rating!=None and price_sort!=None):
+            itemqs = itemqs.filter(item_rating__gte = plus4rating).order_by(price_sort)
+        else:
+            pass
+
+        return render(request, 'filter-result.html',{'shopqs':shopqs,'itemqs':itemqs})
 
     return render(request,"category.html",{'categoryInfo':categoryInfo,'categories':categories,'shopqs':shopqs,'itemqs':itemqs, 'usershopwish':usershopwish, 'useritemwish':useritemwish})
 
