@@ -377,3 +377,11 @@
 .hidden{
     display: none;
 }
+
+.normal-svg{
+    transform: rotate(0deg);
+}
+
+.rotate-svg{
+    transform: rotate(180deg);
+}

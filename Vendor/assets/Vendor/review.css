@@ -107,6 +107,7 @@
     display: flex;
     justify-content:space-between;
     width: 100%;
+    gap: 1rem;
 }
 
 .review-card-heading>div{
@@ -127,6 +128,8 @@
     font-size: 12px;
     line-height: 14px;
     color: var(--grey);
+    text-align: end;
+    white-space: nowrap;
 }
 
 .review-rating{
@@ -137,6 +140,7 @@
     background: #DA0000;
     border-radius: 0.4rem;
     color: var(--white);
+    height: 1.6rem;
 }
 
 .review-likes{
@@ -147,6 +151,7 @@
     background: var(--accent);
     border-radius: 0.4rem;
     color: var(--black);
+    height: 1.6rem
 }
 
 .review-rating>p, .review-likes>p{
