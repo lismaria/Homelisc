@@ -51,6 +51,7 @@ def wishlist(request):
     wishlist_count = shopWishlists.count()+itemWishlists.count()
     return render(request,"wishlist.html",{"shopWishlists":shopWishlists,'itemWishlists':itemWishlists,'wishlist_count':wishlist_count})
 
+@csrf_exempt
 def category(request):
     if request.method == 'GET':
         category = request.GET['c']
@@ -76,31 +77,37 @@ def category(request):
         select_state = request.POST.get('select-state')
         select_city = request.POST.get('select-city')
 
-        request_vars = { 'shop_rating__gte' : plus4rating, 'shop_state' : select_state, 'shop_city':select_city}
-        arguements = {}
-        for k,v in request_vars.items():
+        shop_vars = { 'shop_rating__gte' : plus4rating, 'shop_state' : select_state, 'shop_city':select_city}
+        shop_args = {}
+        for k,v in shop_vars.items():
             if v:
-                arguements[k] = v
+                shop_args[k] = v
+        if shop_args:
+            shopqs = shopqs.filter(**shop_args)
 
-        if arguements:
-            shopqs = shopqs.filter(**arguements)
 
-        if(plus4rating==None and price_sort!=None):
-            itemqs = itemqs.order_by(price_sort)
-        elif(plus4rating!=None and price_sort==None):
-            itemqs = itemqs.filter(item_rating__gte = plus4rating)
-        elif(plus4rating!=None and price_sort!=None):
-            itemqs = itemqs.filter(item_rating__gte = plus4rating).order_by(price_sort)
+        item_vars = { 'item_rating__gte' : plus4rating, 'shop_id__shop_state' : select_state, 'shop_id__shop_city':select_city}
+        item_args = {}
+        for k,v in item_vars.items():
+            if v:
+                item_args[k] = v
+        if price_sort:
+            itemqs = itemqs.filter(**item_args).order_by(price_sort)
         else:
-            pass
+            itemqs = itemqs.filter(**item_args)        
 
-        return render(request, 'filter-result.html',{'shopqs':shopqs,'itemqs':itemqs})
+        return render(request, 'filter-result.html',{'shopqs':shopqs, 'itemqs':itemqs, 'usershopwish':usershopwish, 'useritemwish':useritemwish})
 
     return render(request,"category.html",{'categoryInfo':categoryInfo,'categories':categories,'shopqs':shopqs,'itemqs':itemqs, 'usershopwish':usershopwish, 'useritemwish':useritemwish})
 
 def product(request,id,slug,itemid):
     shopInfo = Shop.objects.filter(id=id)
-    itemInfo = Item.objects.filter(id=itemid).order_by('-id')
+    itemInfo = Item.objects.filter(id=itemid)
+
+    item_clicks = itemInfo.values()[0]['item_clicks_count']
+    count = item_clicks + 1
+    itemInfo.update(item_clicks_count=count) 
+
     itemReviews = Review.objects.filter(item_id = itemid).order_by('-date')
     reviewForm = ReviewForm()
     vendorReplies = VendorReply.objects.filter(shop_id=id)
@@ -121,6 +128,8 @@ def shop(request,id,slug):
     itemInfo = Item.objects.filter(shop_id=id).order_by('-id')
     shopInfo = Shop.objects.filter(id=id)
     obj = get_object_or_404(Shop, pk=id)
+    obj.shop_clicks_count += 1
+    obj.save()
 
     usershopwish, useritemwish = wishlist_arrs(request.user.id)
 
@@ -169,7 +178,7 @@ def review_post(request):
                 item_total_stars = item_oldreviews.aggregate(Sum('stars'))['stars__sum']
                 item_reviewcount = item_oldreviews.count()
                 if(itemInfo.item_rating == None):
-                    itemInfo.item_rating = instance.stars/1
+                    itemInfo.item_rating = stars/1
                 else:
                     itemInfo.item_rating = round((item_total_stars + stars) / (item_reviewcount+1), 1) 
                 itemInfo.save()
@@ -180,7 +189,7 @@ def review_post(request):
                 shop_total_stars = shop_oldreviews.aggregate(Sum('stars'))['stars__sum']
                 shop_reviewcount = shop_oldreviews.count()
                 if(shopInfo.shop_rating == None):
-                    shopInfo.shop_rating = instance.stars/1
+                    shopInfo.shop_rating = stars/1
                 else:
                     shopInfo.shop_rating = round((shop_total_stars + stars) / (shop_reviewcount+1), 1)
                 shopInfo.save()

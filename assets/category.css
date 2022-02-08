@@ -74,6 +74,12 @@
     border-radius: 50%;
 }
 
+.apply-filter-result-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+
 .wishlist-header{
     grid-column:1/13;
     grid-row:2/4;
@@ -92,7 +98,7 @@
 }
 
 .wishlist-food{
-    grid-column:4/6;
+    grid-column:3/6;
     grid-row:1/3;
 }
 
