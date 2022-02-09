@@ -184,15 +184,14 @@ def review_post(request):
                 itemInfo.save()
                 instance.item_id = itemInfo
 
+            shop_oldreviews = Review.objects.filter(shop_id=shopid)
+            shop_total_stars = shop_oldreviews.aggregate(Sum('stars'))['stars__sum']
+            shop_reviewcount = shop_oldreviews.count()
+            if(shopInfo.shop_rating == None):
+                shopInfo.shop_rating = stars/1
             else:
-                shop_oldreviews = Review.objects.filter(shop_id=shopid, item_id__isnull=True)
-                shop_total_stars = shop_oldreviews.aggregate(Sum('stars'))['stars__sum']
-                shop_reviewcount = shop_oldreviews.count()
-                if(shopInfo.shop_rating == None):
-                    shopInfo.shop_rating = stars/1
-                else:
-                    shopInfo.shop_rating = round((shop_total_stars + stars) / (shop_reviewcount+1), 1)
-                shopInfo.save()
+                shopInfo.shop_rating = round((shop_total_stars + stars) / (shop_reviewcount+1), 1)
+            shopInfo.save()
 
             instance.save()
             ser_instance = serializers.serialize('json', [ instance, ])
