@@ -25,24 +25,8 @@
                 </div>
             </div>
             {% endif %}
-
-            <div class="line-result">
-                <div class="line"></div>
-                <div class="result-counter result-counter-item">{{itemqs|length}} product(s) found</div>
-                <div class="result-counter result-counter-shop non-active">{{shopqs|length}} shop(s) found</div>
-            </div>
-
-            <div class="wishlist-header" id="wishlist-header">
-                <div class="wishlist-food wishlist-sec">
-                    <p>Items</p>
-                </div>
-            
-                <div class="wishlist-place">
-                    <p>Shops</p>
-                </div>
-            </div>
-
-            <div class="places-result-wrapper">
+        
+            <div class="apply-filter-result-wrapper">
                 {% include 'filter-result.html' %}
             </div>
 
@@ -188,15 +172,21 @@
             else sticky.removeClass('sticky');
         });
 
-        $(".wishlist-place").click(function () {
+        $(".apply-filter-result-wrapper").on('click','.wishlist-place',function () {
             $(".places-result, .result-counter-shop").removeClass("non-active");
             $(".item-result, .result-counter-item").addClass("non-active");
         })
 
-        $(".wishlist-food").click(function () {
+        $(".apply-filter-result-wrapper").on('click','.wishlist-food',function () {
             $(".item-result, .result-counter-item").removeClass("non-active");
             $(".places-result, .result-counter-shop").addClass("non-active");
         })
+
+        // For toggling between Food and Places in Wishlist
+        $(".apply-filter-result-wrapper").on('click','.wishlist-header div', function(){
+            $(".wishlist-sec").removeClass('wishlist-sec');
+            $(this).addClass('wishlist-sec');
+        });
 
         $(".top-places-card-heart, .product-card-heart").click(function () {
             if($(".login-required-wrapper").length)
@@ -256,8 +246,9 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    $(".places-result-wrapper").empty();
-                    $(".places-result-wrapper").append(response);
+                    console.log(response);
+                    $(".apply-filter-result-wrapper").empty();
+                    $(".apply-filter-result-wrapper").append(response);
                     $(".filter-popup").slideToggle("slow");
                     $(".wrapper").toggleClass("wrapper-overflow")
                 },
