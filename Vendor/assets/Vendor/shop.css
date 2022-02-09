@@ -353,13 +353,9 @@ pwa-container-wrapper{
     gap:0.5rem;
 }
 
-.chart-wrap p{
+.chart-title{
     font-family: Poppins;
     font-weight: 600;
     font-size:1.4rem;
-}
-
-.scrollable-chart{
-    width: 290px;
-    overflow-x: scroll;
+    text-align: center;
 }
