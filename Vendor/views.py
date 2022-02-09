@@ -1,7 +1,7 @@
 import json
 from unicodedata import category
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import F
+from django.db.models import F, Avg, Sum
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
@@ -9,6 +9,14 @@ from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, 
 from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
+from django.db.models.functions import TruncDay
+import pandas as pd
+import pytz
+
+# IND = pytz.timezone('Asia/Kolkata')
+# from django.utils import timezone
+# import zoneinfo
+# ind = zoneinfo.ZoneInfo('Asia/Calcutta')
 
 # Create your views here.
 
@@ -104,19 +112,73 @@ def register_shop(request):
 
 
 
-def shop_view(request,id, slug):
+def shop_view(request, id, slug):
     shopobj = check_vendor_details(request,id)
     if shopobj==None:
         return redirect("home")
     shopInfo = shopobj['shopInfo']
     vendorForm = shopobj['vendorForm']
     shop_details = shopobj['shopInfo'].values()
+
+    # reviewGrp = Review.objects.filter(shop_id=id)
+    # reviewVal = reviewGrp.values('date')
+    # reviewAno = reviewVal.annotate(Avg('stars'))
+    # print("reviewGrp: ",reviewGrp)
+    # print("reviewVal: ",reviewVal)
+    # print("reviewAno: ",reviewAno)
+
+    # for i in reviewAno:
+    #     print(i['date'].strftime('%m/%d/%Y'))
+    #     print(i['date'].strftime("%A"))
+
+    # Sales.objects
+    #     .annotate(month=TruncMonth('created'))  # Truncate to month and add to select list
+    #     .values('month')                          # Group By month
+    #     .annotate(c=Count('id'))                  # Select the count of the grouping
+    #     .values('month', 'c')                     # (might be redundant, haven't tested
+
+    # reviewGrp = Review.objects.filter(shop_id=id)
+    # reviewAno1 = reviewGrp.annotate(day=TruncDay('date'))
+    # reviewVal = reviewAno1.values('day')
+    # reviewAno2 = reviewVal.annotate(Avg('stars'))
+
+    # print("\nreviewGrp: ",reviewGrp)
+    # print("\nreviewAno1: ",reviewAno1)
+    # print("\nreviewVal: ",reviewVal)
+    # print("\nreviewAno2: ",reviewAno2)
+    
+    # for i in reviewAno2:
+    #     print(i['day'].strftime('%m/%d/%Y'))
+    #     print(i['day'].strftime("%A"))
+    #     print(i['stars__avg'])
+    #     print("\n")
+    
+
+    # reviewGrp = Review.objects.filter(shop_id=id).values()
+    # print(reviewGrp)
+    # df = pd.DataFrame(reviewGrp)
+    # print(df[['date','stars']])
+
+    # # df.set_index('date', inplace = True)
+    # ind = pytz.timezone('Asia/Kolkata')
+    # # df.index = df.index.tz_convert(ind)
+    # df['date'] = df['date'].dt.tz_convert(ind)
+    # print(df[['date','stars']])
+    # df['date'] = df['date'].dt.strftime('%d-%m-%Y')
+    # # print(df)
+    # print(df[['date','stars']])
+    
+
+
     shopForm = ShopCreationForm(initial={'shop_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
     return render(request,"Vendor/shop.html",{'shopInfo':shopInfo,'vendorForm':vendorForm,'shopForm':shopForm})
 
+
+def shop_insights(request):
+    shopid = request.GET['shopid']
 
 
 def menu_view(request,id,slug):
@@ -126,7 +188,6 @@ def menu_view(request,id,slug):
     itemForm = ItemCreationForm()
     imageForm = ItemImageUploadForm()
     itemcount = itemInfo.count()
-
     if shopobj==None:
         return redirect("home")
     obj = get_object_or_404(Shop, pk=id)

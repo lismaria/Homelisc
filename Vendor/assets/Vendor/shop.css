@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    gap: 1.4rem;
     padding-bottom: 4rem;
 }
 
@@ -26,13 +26,13 @@
 
 
 
-.shop-info__title{
+.shop-info__title,.shop-insight__title{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.shop-info__title>h1{
+.shop-info__title>h1,.shop-insight__title>h1{
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
@@ -41,7 +41,7 @@
     color: var(--primary);
 }
 
-.shop-info__title>button{
+.shop-info__title>button,.shop-insight__title>button{
     display: flex;
     background-color: var(--primary);
     padding: 0.4rem 0.7rem;
@@ -49,7 +49,7 @@
     gap: 0.8rem;
 }
 
-.shop-info__title>button>h2{
+.shop-info__title>button>h2,.shop-insight__title>button>h2{
     font-family: Poppins;
     font-style: normal;
     font-weight: normal;
@@ -334,4 +334,13 @@ label.add-logolabel{
 
 pwa-container-wrapper{
     display: none;
+}
+
+.shop-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+    padding-bottom: 4rem;
 }
