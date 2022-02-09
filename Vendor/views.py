@@ -1,7 +1,7 @@
 import json
 from unicodedata import category
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import F, Avg, Sum
+from django.db.models import F, Avg, Sum, Count
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
@@ -9,7 +9,6 @@ from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, 
 from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
-from django.db.models.functions import TruncDay
 import pandas as pd
 import pytz
 
@@ -178,8 +177,19 @@ def shop_view(request, id, slug):
 
 
 def shop_insights(request):
+    print("aya")
     shopid = request.GET['shopid']
 
+    # Shop rating pie chart 
+    shopRating = Review.objects.filter(shop_id=shopid).values('stars').annotate(Count('stars')).order_by('-stars')
+    print(shopRating)
+    labels = []
+    data = []
+    for i in shopRating:
+        labels.append(i['stars'])
+        data.append(i['stars__count'])
+    return render(request, "Vendor/insights.html", {'labels': labels, 'data': data})
+    return JsonResponse({"msg": "liked"}, status=200)
 
 def menu_view(request,id,slug):
     shopobj = check_vendor_details(request,id)

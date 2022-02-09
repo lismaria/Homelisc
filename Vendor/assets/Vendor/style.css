@@ -27,11 +27,11 @@
     --grey: rgba(0,0,0,0.5);
 
     /* Star rating */
-    --star1: #DA0000;
-    --star2: #F62;
-    --star3: #E9B501;
-    --star4: #00DA16;
-    --star5: #24963F;
+    --star1: rgb(218, 0, 0);
+    --star2: rgb(255, 102, 34);
+    --star3: rgb(233, 181, 1);
+    --star4: rgb(0, 218, 22);
+    --star5: rgb(36, 150, 63);
     
     /* --ds_cuisine:.0rem .4rem 1.5rem rgba(0, 0, 0, 0.3); */
     --ds_cuisine: .0rem .4rem 1.5rem rgb(198 198 198);

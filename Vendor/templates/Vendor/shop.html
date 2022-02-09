@@ -153,7 +153,7 @@
             </button>
         </div>
     </div>
-    <div class="shop-wrapper">
+    <div class="insight-wrapper">
         
     </div>
 
@@ -266,15 +266,21 @@
         })
 
         $(".shop-noinsight-btn").click(function () {
+            console.log("hua")
             var shopid = $(".shop-info__main").data("id");
+            var insights = $(".insight-wrapper")
+            var insightbtn = $(".shop-noinsight-btn")
             $.ajax({
             type: 'get',
-            url: 'vendor:shop-insights',
+            url: '{% url "vendor:shop-insights" %}',
             data: {
                 shopid: shopid,
             },
+            dataType: "html",
             success: function(data){
-                
+                console.log(data);
+                insights.html(data);
+                insightbtn.css({'pointer-events': 'none'});
             },
             error: function(error){
                 console.log("error",error);

@@ -1,3 +1,51 @@
 <div class="shop-info-card">
-    
+    <canvas id="shopR-PieChart" width="400" height="400"></canvas>
+
+    <script type="">
+    const ctx = document.getElementById('shopR-PieChart').getContext('2d');
+    const shopRPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['5 stars', '4 stars', '3 stars', '2 stars', '1 stars'],
+            datasets: [{
+                label: 'Shop Rating PieChart',
+                data: {{data|safe}},
+                backgroundColor: [
+                    'rgba(36, 150, 63, 0.5)',
+                    'rgba(55, 255, 75, 0.5)',
+                    'rgba(244, 233, 16, 0.5)',
+                    'rgba(255, 102, 34, 0.5)',
+                    'rgba(218, 0, 0, 0.5)',
+                ],
+                borderColor: [
+                    'rgba(36, 150, 63, 1)',
+                    'rgba(55, 255, 75, 1)',
+                    'rgba(244, 233, 16, 1)',
+                    'rgba(255, 102, 34, 1)',
+                    'rgba(218, 0, 0, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        hoverOffset: 4,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Shop Rating Doughnut Chart',
+                    color: 'rgba(0,0,0,1)',
+                    font: {
+                        size: 14,
+                        family: 'Poppins'
+                    }
+                }
+            }
+        },
+    });
+</script>
+ 
 </div>
