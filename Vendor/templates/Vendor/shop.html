@@ -266,7 +266,6 @@
         })
 
         $(".shop-noinsight-btn").click(function () {
-            console.log("hua")
             var shopid = $(".shop-info__main").data("id");
             var insights = $(".insight-wrapper")
             var insightbtn = $(".shop-noinsight-btn")
@@ -278,7 +277,6 @@
             },
             dataType: "html",
             success: function(data){
-                console.log(data);
                 insights.html(data);
                 insightbtn.css({'pointer-events': 'none'});
             },
@@ -291,3 +289,5 @@
     })
 </script>
 {% endblock javascript %}
+
+<p>Item Wishlist vs Visit Count</p>

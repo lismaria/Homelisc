@@ -1,5 +1,3 @@
-import json
-from unicodedata import category
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import F, Avg, Sum, Count
 from django.views.decorators.csrf import csrf_exempt
@@ -9,8 +7,6 @@ from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, 
 from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
-import pandas as pd
-import pytz
 
 # IND = pytz.timezone('Asia/Kolkata')
 # from django.utils import timezone
@@ -32,6 +28,7 @@ def check_vendor_details(request, id):
             return None
     else:
         return None
+
 
 
 def home(request):
@@ -176,20 +173,32 @@ def shop_view(request, id, slug):
     return render(request,"Vendor/shop.html",{'shopInfo':shopInfo,'vendorForm':vendorForm,'shopForm':shopForm})
 
 
+
 def shop_insights(request):
-    print("aya")
     shopid = request.GET['shopid']
 
     # Shop rating pie chart 
     shopRating = Review.objects.filter(shop_id=shopid).values('stars').annotate(Count('stars')).order_by('-stars')
-    print(shopRating)
-    labels = []
-    data = []
+    shopRatingPie = []
     for i in shopRating:
-        labels.append(i['stars'])
-        data.append(i['stars__count'])
-    return render(request, "Vendor/insights.html", {'labels': labels, 'data': data})
-    return JsonResponse({"msg": "liked"}, status=200)
+        shopRatingPie.append(i['stars__count'])
+
+    # Item Wihslist/Visit Count
+    itemwishclick = Item.objects.filter(shop_id=shopid).values_list('item_name','item_wishlist_count','item_clicks_count').order_by('item_name')
+    print(itemwishclick)
+    wishclick_item_name = []
+    item_wish_count = []
+    item_click_count = []
+    for i in itemwishclick:
+        # if not (i[1]==0 and i[2]==0):
+        wishclick_item_name.append(i[0])
+        item_wish_count.append(i[1])
+        item_click_count.append(i[2])
+
+    
+    return render(request, "Vendor/insights.html", {'shopRatingPie': shopRatingPie,'wishclick_item_name':wishclick_item_name,'item_wish_count':item_wish_count,'item_click_count':item_click_count})
+
+
 
 def menu_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
@@ -382,6 +391,7 @@ def item_edit(request):
     return JsonResponse({"error": " ", }, status=400)
 
 
+
 @csrf_exempt
 def item_delete(request):
     if not request.user.is_authenticated:
@@ -401,6 +411,7 @@ def item_delete(request):
             return JsonResponse({"msg": "Item Deleted :("}, status=200)
 
     return JsonResponse({"error": " "}, status=400)
+
 
 
 def vendor_reply(request):
@@ -426,6 +437,8 @@ def vendor_reply(request):
         else:
             return JsonResponse({"error":replyForm.errors}, status=400)
     return JsonResponse({"error": " "}, status=400)
+
+
 
 @csrf_exempt
 def vendor_heart(request):

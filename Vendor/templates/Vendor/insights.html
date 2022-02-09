@@ -1,15 +1,28 @@
 <div class="shop-info-card">
-    <canvas id="shopR-PieChart" width="400" height="400"></canvas>
+    <div class="chart-wrap">
+        <p>Shop Rating Doughnut Chart</p>
+        <canvas id="shopR-PieChart"></canvas>
+    </div>
+</div>
 
-    <script type="">
-    const ctx = document.getElementById('shopR-PieChart').getContext('2d');
-    const shopRPieChart = new Chart(ctx, {
+<div class="shop-info-card">
+    <div class="chart-wrap" style="position:relative">
+        <div class="scrollable-chart">
+            <canvas id="item-wish-click" width="1000" style="min-height:200px; max-height:250px; position: absolute; left: 0; top: 0; pointer-events: none;"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<script type="">
+    const shopRPiectx = document.getElementById('shopR-PieChart').getContext('2d');
+    const shopRPieChart = new Chart(shopRPiectx, {
         type: 'doughnut',
         data: {
             labels: ['5 stars', '4 stars', '3 stars', '2 stars', '1 stars'],
             datasets: [{
                 label: 'Shop Rating PieChart',
-                data: {{data|safe}},
+                data: {{shopRatingPie|safe}},
                 backgroundColor: [
                     'rgba(36, 150, 63, 0.5)',
                     'rgba(55, 255, 75, 0.5)',
@@ -34,18 +47,51 @@
                 legend: {
                     position: 'right',
                 },
-                title: {
-                    display: true,
-                    text: 'Shop Rating Doughnut Chart',
-                    color: 'rgba(0,0,0,1)',
-                    font: {
-                        size: 14,
-                        family: 'Poppins'
-                    }
+                // title: {
+                //     display: true,
+                //     text: 'Shop Rating Doughnut Chart',
+                //     color: 'rgba(0,0,0,1)',
+                //     font: {
+                //         size: 14,
+                //         family: 'Poppins'
+                //     }
+                // }
+            }
+        },
+    });
+
+
+    const itemwishctx = document.getElementById('item-wish-click').getContext('2d');
+    const itemwishBarChart = new Chart(itemwishctx, {
+        type: 'bar',
+        data: {
+            labels: {{wishclick_item_name|safe}},
+            datasets: [
+                {
+                    label: 'Wishlist Count',
+                    data: {{item_wish_count|safe}},
+                    backgroundColor: "red",
+                    borderColor: "black",
+                    borderWidth: 1
+                },
+
+                {
+                    label: 'Visit Count',
+                    data: {{item_click_count|safe}},
+                    backgroundColor: "blue",
+                    borderColor: "black",
+                    borderWidth: 1
                 }
+            ]
+        },
+        hoverOffset: 4,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
             }
         },
     });
 </script>
- 
-</div>
