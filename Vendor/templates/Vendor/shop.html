@@ -271,6 +271,7 @@
             var insightbtn = $(".shop-noinsight-btn")
             insightbtn.prop('disabled', true);
             {% for i in shopInfo %}
+                sr = {{i.shop_rating}}
                 wc = {{i.shop_wishlist_count}}
                 vc = {{i.shop_clicks_count}}
             {% endfor %}
@@ -285,8 +286,10 @@
             success: function(data){
                 insights.html(data);
                 
-                $("#wc").text(wc)
-                $("#vc").text(vc)
+                $("#sr").text(sr);
+                $("#wc").text(wc);
+                $("#vc").text(vc);
+
             },
             error: function(error){
                 console.log("error",error);

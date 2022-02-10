@@ -176,6 +176,7 @@
     position: absolute;
     right: 15px;
     top: 15px;
+    cursor: pointer;
 }
 
 .top-places-card-body{
@@ -308,6 +309,7 @@
     position: absolute;
     right: 6px;
     top: 6px;
+    cursor: pointer;
 }
 
 .product-card{

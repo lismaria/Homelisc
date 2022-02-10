@@ -23,7 +23,8 @@
     position: absolute;
     right: 8px;
     top: 8px;
-    filter: drop-shadow(var(--ds_icon))
+    filter: drop-shadow(var(--ds_icon));
+    cursor: pointer;
 }
 
 .product-img img{
