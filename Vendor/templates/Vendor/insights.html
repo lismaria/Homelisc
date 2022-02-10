@@ -16,8 +16,15 @@
 </div>
 
 <div class="shop-info-card">
+    <p class="chart-title">Shop Rating over 1 Week</p>
+    <div class="chart-wrap" style="position: relative; min-height:250px; max-height:250px">
+        <canvas id="shopR-AreaChart"></canvas>
+    </div>
+</div>
+
+<div class="shop-info-card">
     <div class="chart-wrap">
-        <p class="chart-title">Shop Rating Doughnut Chart</p>
+        <p class="chart-title">Shop Rating</p>
         <canvas id="shopR-PieChart" style="max-height:300px"></canvas>
     </div>
 </div>
@@ -41,6 +48,42 @@
 </div>
 
 <script type="">
+
+    const shopRAreactx = document.getElementById('shopR-AreaChart').getContext('2d');
+    const shopRAreaChart = new Chart(shopRAreactx, {
+        type: 'line',
+        data: {
+            labels: {{date_list|safe}},
+            datasets: [{
+                label: 'Shop Rating',
+                data: {{rating_list|safe}},
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1,
+                fill: 'start',
+                tension: 0.1
+            }]
+        },
+        hoverOffset: 4,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                filler: {
+                    propagate: false,
+                },
+                interaction: {
+                    intersect: false,
+                    }
+            },
+            scales: { x: { ticks: { font: { size: 10, } } } } 
+        }
+    });
+
+
     const shopRPiectx = document.getElementById('shopR-PieChart').getContext('2d');
     const shopRPieChart = new Chart(shopRPiectx, {
         type: 'doughnut',
@@ -196,8 +239,6 @@
         var len = {{item_click_count|length}}
         newwidth = len*30
         itemratingwidth = len*15
-        console.log("len",len)
-        console.log("newwidth",newwidth)
         $('#dynwidth').css({'width':newwidth, height: '300px'});
         $('#dynRatingWidth').css({'width':itemratingwidth, height: '300px'})        
     })

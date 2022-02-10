@@ -1,13 +1,11 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import F, Avg, Sum, Count
 from django.db.models.functions import TruncDate
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.core import serializers
 import numpy as np
 from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, Wishlist
-from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
 import pandas as pd
@@ -123,88 +121,6 @@ def shop_view(request, id, slug):
     vendorForm = shopobj['vendorForm']
     shop_details = shopobj['shopInfo'].values()
 
-    # reviewGrp = Review.objects.filter(shop_id=id)
-    # reviewVal = reviewGrp.values('date')
-    # reviewAno = reviewVal.annotate(Avg('stars'))
-    # print("reviewGrp: ",reviewGrp)
-    # print("reviewVal: ",reviewVal)
-    # print("reviewAno: ",reviewAno)
-
-    # for i in reviewAno:
-    #     print(i['date'].strftime('%m/%d/%Y'))
-    #     print(i['date'].strftime("%A"))
-
-    # Sales.objects
-    #     .annotate(month=TruncMonth('created'))  # Truncate to month and add to select list
-    #     .values('month')                          # Group By month
-    #     .annotate(c=Count('id'))                  # Select the count of the grouping
-    #     .values('month', 'c')                     # (might be redundant, haven't tested
-
-    # reviewGrp = Review.objects.filter(shop_id=id)
-    # reviewAno1 = reviewGrp.annotate(day=TruncDay('date'))
-    # reviewVal = reviewAno1.values('day')
-    # reviewAno2 = reviewVal.annotate(Avg('stars'))
-
-    # print("\nreviewGrp: ",reviewGrp)
-    # print("\nreviewAno1: ",reviewAno1)
-    # print("\nreviewVal: ",reviewVal)
-    # print("\nreviewAno2: ",reviewAno2)
-    
-    # for i in reviewAno2:
-    #     print(i['day'].strftime('%m/%d/%Y'))
-    #     print(i['day'].strftime("%A"))
-    #     print(i['stars__avg'])
-    #     print("\n")
-    
-
-    # reviewGrp = Review.objects.filter(shop_id=id).values()
-    # print(reviewGrp)
-    # df = pd.DataFrame(reviewGrp)
-    # print(df[['date','stars']])
-
-    # # df.set_index('date', inplace = True)
-    # ind = pytz.timezone('Asia/Kolkata')
-    # # df.index = df.index.tz_convert(ind)
-    # df['date'] = df['date'].dt.tz_convert(ind)
-    # print(df[['date','stars']])
-    # df['date'] = df['date'].dt.strftime('%d-%m-%Y')
-    # # print(df)
-    # print(df[['date','stars']])
-
-    revpday = Review.objects.filter(shop_id=id).annotate(day=TruncDate('date')).values('day').annotate(Avg('stars'),Count('stars'),Sum('stars')).order_by('day')
-    rdf = pd.DataFrame(revpday)
-    # print(revpday)
-    print(rdf)
-    today = datetime.date.today()
-    print(today)
-    # delta = datetime.timedelta(days = 7)
-    # print(delta)
-    # until_date = today - delta
-    # print(until_date)
-
-    # rdfview= rdf[(rdf['day'] <= until_date)]
-    # print(rdfview)
-    
-    # initialavg = np.sum(rdfview['stars__sum'])/np.sum(rdfview['stars__count'])
-    # print(initialavg)
-
-    # ndf = pd.DataFrame()
-
-    until = 6
-    date_list = []
-    rating_list = []
-    for i in range(until,-1,-1):
-        delta = datetime.timedelta(days=i)
-        until_date = today - delta
-        date_list.append(until_date.strftime('%d-%m-%Y'))      
-        
-        rdfview= rdf[(rdf['day'] <= until_date)]
-        until_avg = np.sum(rdfview['stars__sum'])/np.sum(rdfview['stars__count'])
-        rating_list.append(until_avg)
-
-    print(date_list)
-    print(rating_list)
-
     shopForm = ShopCreationForm(initial={'shop_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
@@ -215,6 +131,24 @@ def shop_view(request, id, slug):
 
 def shop_insights(request):
     shopid = request.GET['shopid']
+
+    # Shop Rating by day (past week) Area Chart
+    revpday = Review.objects.filter(shop_id=shopid).annotate(day=TruncDate('date')).values('day').annotate(Count('stars'),Sum('stars')).order_by('day')
+    rdf = pd.DataFrame(revpday)
+    today = datetime.date.today()
+
+    until = 6
+    date_list = []
+    rating_list = []
+    for i in range(until,-1,-1):
+        delta = datetime.timedelta(days=i)
+        until_date = today - delta
+        date_list.append(until_date.strftime("%d %b, %Y"))      
+        
+        rdfview= rdf[(rdf['day'] <= until_date)]
+        until_avg = np.sum(rdfview['stars__sum'])/np.sum(rdfview['stars__count'])
+        rating_list.append(round(until_avg,1))
+
 
     # Shop rating pie chart 
     shopRating = Review.objects.filter(shop_id=shopid).values('stars').annotate(Count('stars')).order_by('-stars')
@@ -246,7 +180,7 @@ def shop_insights(request):
     item_stars_count_2 = df.iloc[:,2].to_list()
     item_stars_count_1 = df.iloc[:,1].to_list()
     
-    return render(request, "Vendor/insights.html", {'shopRatingPie': shopRatingPie,'wishclick_item_name':wishclick_item_name,'item_wish_count':item_wish_count,'item_click_count':item_click_count,'item_name':item_name,'item_stars_count_5':item_stars_count_5,'item_stars_count_4':item_stars_count_4,'item_stars_count_3':item_stars_count_3,'item_stars_count_2':item_stars_count_2,'item_stars_count_1':item_stars_count_1})
+    return render(request, "Vendor/insights.html", {'shopRatingPie': shopRatingPie,'wishclick_item_name':wishclick_item_name,'item_wish_count':item_wish_count,'item_click_count':item_click_count,'item_name':item_name,'item_stars_count_5':item_stars_count_5,'item_stars_count_4':item_stars_count_4,'item_stars_count_3':item_stars_count_3,'item_stars_count_2':item_stars_count_2,'item_stars_count_1':item_stars_count_1,'date_list':date_list,'rating_list':rating_list})
 
 
 
