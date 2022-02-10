@@ -14,6 +14,14 @@
     </div>
 </div>
 
+<div class="shop-info-card">
+    <p class="chart-title">Item Rating</p>
+    <div style="width: 100%; overflow-x: auto; overflow-y: hidden">
+        <div id="dynRatingWidth">
+            <canvas id="item-rating" height="300" width="0" style="max-height: 300px;"></canvas>
+        </div>
+    </div>
+</div>
 
 <script type="">
     const shopRPiectx = document.getElementById('shopR-PieChart').getContext('2d');
@@ -98,11 +106,82 @@
         }
     });
 
+
+    const itemRatingctx = document.getElementById('item-rating').getContext('2d');
+    const itemRatingBarChart = new Chart(itemRatingctx, {
+        type: 'bar',
+        data: {
+            labels: {{item_name|safe}},
+            datasets: [
+                {
+                    label: '5',
+                    data: {{item_stars_count_5|safe}},
+                    backgroundColor: "rgba(36, 150, 63, 0.3)",
+                    borderColor: "rgba(36, 150, 63, 1)",
+                    borderWidth: 1
+                },
+
+                {
+                    label: '4',
+                    data: {{item_stars_count_4|safe}},
+                    backgroundColor: "rgba(55, 255, 75, 0.3)",
+                    borderColor: "rgba(55, 255, 75, 1)",
+                    borderWidth: 1
+                },
+
+                {
+                    label: '3',
+                    data: {{item_stars_count_3|safe}},
+                    backgroundColor: "rgba(244, 233, 16, 0.3)",
+                    borderColor: "rgba(233, 181, 1, 1)",
+                    borderWidth: 1
+                },
+
+                {
+                    label: '2',
+                    data: {{item_stars_count_2|safe}},
+                    backgroundColor: "rgba(255, 102, 34, 0.3)",
+                    borderColor: "rgba(255, 102, 34, 1)",
+                    borderWidth: 1
+                },
+
+                {
+                    label: '1',
+                    data: {{item_stars_count_1|safe}},
+                    backgroundColor: "rgba(218, 0, 0, 0.3)",
+                    borderColor: "rgba(218, 0, 0, 1)",
+                    borderWidth: 1
+                },
+            ]
+        },
+        hoverOffset: 4,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    align: 'start'
+                },
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+           
+        }
+    });
+
     $(document).ready(function () {
         var len = {{item_click_count|length}}
         newwidth = len*30
+        itemratingwidth = len*15
         console.log("len",len)
         console.log("newwidth",newwidth)
-        $('#dynwidth').css({'width':newwidth,height: '300px'})
+        $('#dynwidth').css({'width':newwidth, height: '300px'});
+        $('#dynRatingWidth').css({'width':itemratingwidth, height: '300px'})        
     })
 </script>

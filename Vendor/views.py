@@ -7,6 +7,7 @@ from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, 
 from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
+import pandas as pd
 
 # IND = pytz.timezone('Asia/Kolkata')
 # from django.utils import timezone
@@ -163,8 +164,6 @@ def shop_view(request, id, slug):
     # df['date'] = df['date'].dt.strftime('%d-%m-%Y')
     # # print(df)
     # print(df[['date','stars']])
-    
-
 
     shopForm = ShopCreationForm(initial={'shop_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
     obj = get_object_or_404(Shop, pk=id)
@@ -185,7 +184,6 @@ def shop_insights(request):
 
     # Item Wihslist/Visit Count
     itemwishclick = Item.objects.filter(shop_id=shopid).values_list('item_name','item_wishlist_count','item_clicks_count').order_by('item_name')
-    print(itemwishclick)
     wishclick_item_name = []
     item_wish_count = []
     item_click_count = []
@@ -195,8 +193,20 @@ def shop_insights(request):
         item_wish_count.append(i[1])
         item_click_count.append(i[2])
 
+    # Item rating bar Chart
+    itemrough = Review.objects.filter(shop_id=shopid, item_id__isnull=False).values("item_id__item_name","stars").annotate(Count('stars')).order_by('item_id__item_name')
+    df = pd.DataFrame(itemrough)
+    df = df.pivot_table('stars__count','item_id__item_name','stars')
+    df.fillna(0,inplace=True)
+    df.reset_index(drop=False,inplace=True)
+    item_name = df['item_id__item_name'].to_list()
+    item_stars_count_5 = df.iloc[:,5].to_list()
+    item_stars_count_4 = df.iloc[:,4].to_list()
+    item_stars_count_3 = df.iloc[:,3].to_list()
+    item_stars_count_2 = df.iloc[:,2].to_list()
+    item_stars_count_1 = df.iloc[:,1].to_list()
     
-    return render(request, "Vendor/insights.html", {'shopRatingPie': shopRatingPie,'wishclick_item_name':wishclick_item_name,'item_wish_count':item_wish_count,'item_click_count':item_click_count})
+    return render(request, "Vendor/insights.html", {'shopRatingPie': shopRatingPie,'wishclick_item_name':wishclick_item_name,'item_wish_count':item_wish_count,'item_click_count':item_click_count,'item_name':item_name,'item_stars_count_5':item_stars_count_5,'item_stars_count_4':item_stars_count_4,'item_stars_count_3':item_stars_count_3,'item_stars_count_2':item_stars_count_2,'item_stars_count_1':item_stars_count_1})
 
 
 
