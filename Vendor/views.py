@@ -1,13 +1,19 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import F, Avg, Sum, Count
+from django.db.models.functions import TruncDate
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
+import numpy as np
 from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, Wishlist
 from Account.models import User
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
 import pandas as pd
+import datetime
+
+
 
 # IND = pytz.timezone('Asia/Kolkata')
 # from django.utils import timezone
@@ -164,6 +170,40 @@ def shop_view(request, id, slug):
     # df['date'] = df['date'].dt.strftime('%d-%m-%Y')
     # # print(df)
     # print(df[['date','stars']])
+
+    revpday = Review.objects.filter(shop_id=id).annotate(day=TruncDate('date')).values('day').annotate(Avg('stars'),Count('stars'),Sum('stars')).order_by('day')
+    rdf = pd.DataFrame(revpday)
+    # print(revpday)
+    print(rdf)
+    today = datetime.date.today()
+    print(today)
+    # delta = datetime.timedelta(days = 7)
+    # print(delta)
+    # until_date = today - delta
+    # print(until_date)
+
+    # rdfview= rdf[(rdf['day'] <= until_date)]
+    # print(rdfview)
+    
+    # initialavg = np.sum(rdfview['stars__sum'])/np.sum(rdfview['stars__count'])
+    # print(initialavg)
+
+    # ndf = pd.DataFrame()
+
+    until = 6
+    date_list = []
+    rating_list = []
+    for i in range(until,-1,-1):
+        delta = datetime.timedelta(days=i)
+        until_date = today - delta
+        date_list.append(until_date.strftime('%d-%m-%Y'))      
+        
+        rdfview= rdf[(rdf['day'] <= until_date)]
+        until_avg = np.sum(rdfview['stars__sum'])/np.sum(rdfview['stars__count'])
+        rating_list.append(until_avg)
+
+    print(date_list)
+    print(rating_list)
 
     shopForm = ShopCreationForm(initial={'shop_name':shop_details[0]['shop_name'],'shop_tags':shop_details[0]['shop_tags'],'shop_descr':shop_details[0]['shop_descr'],'shop_contact':shop_details[0]['shop_contact'],'shop_state':shop_details[0]['shop_state'],'shop_city':shop_details[0]['shop_city'],'shop_location':shop_details[0]['shop_location'],'shop_logo':shop_details[0]['shop_logo']})
     obj = get_object_or_404(Shop, pk=id)
