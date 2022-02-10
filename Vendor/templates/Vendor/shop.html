@@ -163,7 +163,7 @@
 {% endblock content %}
 
 {% block javascript %}
-<script>
+<script type="">
     $(document).ready(function () {
         $('#select-state').append('<option class="disabled-select" value="" disabled selected>State</option>')
         $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')        
@@ -269,6 +269,12 @@
             var shopid = $(".shop-info__main").data("id");
             var insights = $(".insight-wrapper")
             var insightbtn = $(".shop-noinsight-btn")
+
+            {% for i in shopInfo %}
+                wc = {{i.shop_wishlist_count}}
+                vc = {{i.shop_clicks_count}}
+            {% endfor %}
+
             $.ajax({
             type: 'get',
             url: '{% url "vendor:shop-insights" %}',
@@ -278,7 +284,9 @@
             dataType: "html",
             success: function(data){
                 insights.html(data);
-                insightbtn.css({'pointer-events': 'none'});
+                insightbtn.prop('disabled', true);
+                $("#wc").text(wc)
+                $("#vc").text(vc)
             },
             error: function(error){
                 console.log("error",error);

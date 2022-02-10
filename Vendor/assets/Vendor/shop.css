@@ -359,3 +359,45 @@ pwa-container-wrapper{
     font-size:1.4rem;
     text-align: center;
 }
+
+.shop-impression-wrapper{
+    display: grid;
+    grid-template-columns: 48% 4% 48%;
+    justify-items: center;
+}
+
+.shop-impression-wrapper>p{
+    background-color: var(--grey);
+    height: 100%;
+    width: 1px;
+}
+
+.shop-impression{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.shop-impression>h2, .shop-impression>h3, .shop-impression>p{
+    font-style: normal;
+    font-weight: normal;
+}
+
+.shop-impression>h2{
+    font-size: 1.8rem;
+}
+
+.shop-impression>h3{
+    font-family: Poppins;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+}
+
+.shop-impression>p{
+    font-size: 1rem;
+    line-height: 1.2rem;
+    color: var(--grey);
+    text-align: center;
+}
