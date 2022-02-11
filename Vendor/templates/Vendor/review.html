@@ -103,7 +103,7 @@
                     <p>{{k.comment | replaceMe}}</p>
                     
                     <div ng-if="k.review_img" class="review-itemimg">
-                        <img src="{{k.review_img.url}}" alt="" srcset="">
+                        <img src="{{k.review_img}}" alt="" srcset="">
                     </div>
 
                     <div class="review-react">
@@ -210,7 +210,9 @@
                   likes_count: "{{i.likes_count}}",
                   date: "{{i.date|date:'M d, Y'}}",
                   comment: "{{i.comment}}",
-                  review_img: "{{i.review_img}}",
+                  {% if i.review_img %}
+                  review_img: "{{i.review_img.url}}",
+                  {% endif %}
                   reply_by_vendor: "{{i.reply_by_vendor}}",
                   heart_by_owner: "{{i.heart_by_owner}}",
                   itemid: "{{i.item_id.id}}",
