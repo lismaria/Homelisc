@@ -26,11 +26,11 @@
 }
 
 .shop-pic{
-    width:30%;
-    height:100%;
-    background-color:var(--primary);
-    border-radius:.4rem;
-    box-shadow: var(--ds_shop_pic);
+    width: 8rem;
+    height: 100%;
+    background-color: var(--neutral);
+    border-radius: 0.4rem;
+    object-fit: contain;
 }
 
 .shop-title{
