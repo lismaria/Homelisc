@@ -108,7 +108,7 @@ def product(request,id,slug,itemid):
     item_clicks = itemInfo.values()[0]['item_clicks_count']
     count = item_clicks + 1
     itemInfo.update(item_clicks_count=count) 
-
+    imageInfo = ItemImage.objects.filter(shop_id=id)
     itemReviews = Review.objects.filter(item_id = itemid).order_by('-date')
     reviewForm = ReviewForm()
     vendorReplies = VendorReply.objects.filter(shop_id=id)
@@ -123,7 +123,7 @@ def product(request,id,slug,itemid):
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('shop', id=obj.pk, slug=obj.shop_slug, itemid=itemid)
-    return render(request,"product.html",{'shopInfo':shopInfo,'itemInfo':itemInfo,'itemReviews':itemReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies,'useritemwish':useritemwish,'userlikesarr':userlikesarr})
+    return render(request,"product.html",{'shopInfo':shopInfo,'itemInfo':itemInfo,'imageInfo':imageInfo,'itemReviews':itemReviews,'reviewForm':reviewForm,'vendorReplies':vendorReplies,'useritemwish':useritemwish,'userlikesarr':userlikesarr})
 
 def shop(request,id,slug):
     itemInfo = Item.objects.filter(shop_id=id).order_by('-id')

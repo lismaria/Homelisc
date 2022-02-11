@@ -48,7 +48,7 @@ def home(request):
 
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
-        shopInfo = Shop.objects.filter(shop_owner_id=request.user.id)
+        shopInfo = Shop.objects.filter(shop_owner_id=request.user.id).order_by('-id')
         shopCount = shopInfo.count()
         
         if shopCount == 0:
@@ -233,7 +233,7 @@ def shop_insights(request):
 def menu_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
     itemInfo = Item.objects.filter(shop_id=id).order_by('-id')
-    imageInfo = ItemImage.objects.filter(shop_id=id)
+    imageInfo = ItemImage.objects.filter(shop_id=id).distinct('item_id')
     itemForm = ItemCreationForm()
     imageForm = ItemImageUploadForm()
     itemcount = itemInfo.count()
