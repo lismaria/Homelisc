@@ -27,7 +27,8 @@ def wishlist_arrs(id):
     return (usershopwish, useritemwish)
 
 @csrf_exempt
-def search(request):        
+def search(request):  
+    mostcherished = Item.objects.order_by('-item_wishlist_count')[:6]
     if request.POST:
         print(request.POST['searchVal'])
     else:
@@ -42,7 +43,7 @@ def search(request):
         #     # titles = [product.title for product in qs]
         #     print(result)
         # return JsonResponse(res, safe=False)
-        return render(request,"search.html",{'categories':categories})
+        return render(request,"search.html",{'categories':categories,'mostcherished':mostcherished})
     return render(request,"search.html")
 
 def wishlist(request):

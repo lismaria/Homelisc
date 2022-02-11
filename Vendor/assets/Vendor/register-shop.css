@@ -210,7 +210,7 @@ select option{
     color: var(--primary);
 }
 
-.add-logo-frame{
+/* .add-logo-frame{
     height:50%;
     width:80%;
     position: relative;
@@ -220,7 +220,7 @@ select option{
     background-color: var(--white);
     width: 100%;
     height: 100%;
-}
+} */
 
 .add-logolabel{
     display: flex;
@@ -269,4 +269,22 @@ select option{
 
 pwa-container-wrapper{
     display: none;
+}
+
+.add-logo-frame {
+    height: auto;
+    width: 80%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#logo_pic {
+    background-color: var(--white);
+    height: 20rem;
+    max-height: 20rem;
+    width: 20rem;
+    border-radius: 0.8rem;
+    object-fit: contain;
+    max-width: 30rem;
 }
