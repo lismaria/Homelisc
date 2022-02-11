@@ -44,7 +44,7 @@
 <div class="shop-info-card">
     <p class="chart-title">Item Wishlist vs Visit Count</p>
     <div style="width: 100%; overflow-x: auto; overflow-y: hidden">
-        <div id="dynwidth">
+        <div id="dynwidth" style="min-width: 300px;">
             <canvas id="item-wish-click" height="300" width="0" style="max-height: 300px;"></canvas>
         </div>
     </div>
@@ -53,7 +53,7 @@
 <div class="shop-info-card">
     <p class="chart-title">Item Rating</p>
     <div style="width: 100%; overflow-x: auto; overflow-y: hidden">
-        <div id="dynRatingWidth">
+        <div id="dynRatingWidth" style="min-width: 300px;">
             <canvas id="item-rating" height="300" width="0" style="max-height: 300px;"></canvas>
         </div>
     </div>
@@ -69,6 +69,8 @@
 </button>
 
 <script type="">
+
+    {% if shoplinechart %}
 
     const shopRAreactx = document.getElementById('shopR-AreaChart').getContext('2d');
     const shopRAreaChart = new Chart(shopRAreactx, {
@@ -100,10 +102,30 @@
                     intersect: false,
                     }
             },
-            scales: { x: { ticks: { font: { size: 10, } } } } 
+            scales: { 
+                x: { 
+                    ticks: { 
+                        font: { 
+                            size: 10,
+                        }
+                    } 
+                },
+                y:{
+                    max: 5,
+                    min: 0,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+
+            } 
         }
     });
 
+    {% endif %}
+
+
+    {% if shopratingpie %}
 
     const shopRPiectx = document.getElementById('shopR-PieChart').getContext('2d');
     const shopRPieChart = new Chart(shopRPiectx, {
@@ -150,6 +172,9 @@
         },
     });
 
+    {% endif %}
+
+    {% if itemwishclick %}
 
     const itemwishctx = document.getElementById('item-wish-click').getContext('2d');
     const itemwishBarChart = new Chart(itemwishctx, {
@@ -162,7 +187,8 @@
                     data: {{item_wish_count|safe}},
                     backgroundColor: "rgba(255, 119, 35, 0.2)",
                     borderColor: "rgba(255, 119, 35, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barThickness: 10,
                 },
 
                 {
@@ -170,7 +196,8 @@
                     data: {{item_click_count|safe}},
                     backgroundColor: "rgba(2, 99, 255, 0.2)",
                     borderColor: "rgba(2, 99, 255, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barThickness: 10,
                 }
             ]
         },
@@ -183,10 +210,20 @@
                     align: 'start'
                 },
             },
+            scales:{
+                y:{
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
            
         }
     });
 
+    {% endif %}
+
+    {% if itemratingstack %}
 
     const itemRatingctx = document.getElementById('item-rating').getContext('2d');
     const itemRatingBarChart = new Chart(itemRatingctx, {
@@ -199,7 +236,8 @@
                     data: {{item_stars_count_5|safe}},
                     backgroundColor: "rgba(36, 150, 63, 0.3)",
                     borderColor: "rgba(36, 150, 63, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barThickness: 10,
                 },
 
                 {
@@ -207,7 +245,8 @@
                     data: {{item_stars_count_4|safe}},
                     backgroundColor: "rgba(55, 255, 75, 0.3)",
                     borderColor: "rgba(55, 255, 75, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barThickness: 10,
                 },
 
                 {
@@ -215,7 +254,8 @@
                     data: {{item_stars_count_3|safe}},
                     backgroundColor: "rgba(244, 233, 16, 0.3)",
                     borderColor: "rgba(233, 181, 1, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barThickness: 10,
                 },
 
                 {
@@ -223,7 +263,8 @@
                     data: {{item_stars_count_2|safe}},
                     backgroundColor: "rgba(255, 102, 34, 0.3)",
                     borderColor: "rgba(255, 102, 34, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barThickness: 10,
                 },
 
                 {
@@ -231,7 +272,8 @@
                     data: {{item_stars_count_1|safe}},
                     backgroundColor: "rgba(218, 0, 0, 0.3)",
                     borderColor: "rgba(218, 0, 0, 1)",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    barThickness: 10,
                 },
             ]
         },
@@ -249,12 +291,17 @@
                     stacked: true,
                 },
                 y: {
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        stepSize: 1
+                    }
                 }
             }
            
         }
     });
+
+    {% endif %}
 
     $(document).ready(function () {
         var len = {{item_click_count|length}}

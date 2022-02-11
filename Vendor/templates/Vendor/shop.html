@@ -266,12 +266,17 @@
         })
 
         $(".shop-noinsight-btn").click(function () {
+            console.log("button clicked");
             var shopid = $(".shop-info__main").data("id");
             var insights = $(".insight-wrapper")
             var insightbtn = $(".shop-noinsight-btn")
             insightbtn.prop('disabled', true);
             {% for i in shopInfo %}
-                sr = {{i.shop_rating}}
+                {% if i.shop_rating == None %}
+                    sr = 'None'
+                {% else %}
+                    sr = {{i.shop_rating}}
+                {% endif %}
                 wc = {{i.shop_wishlist_count}}
                 vc = {{i.shop_clicks_count}}
             {% endfor %}

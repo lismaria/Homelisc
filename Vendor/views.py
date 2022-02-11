@@ -10,6 +10,7 @@ from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, Item
 from Account.forms import AccountUpdationForm
 import pandas as pd
 import datetime
+import math
 
 
 
@@ -130,57 +131,102 @@ def shop_view(request, id, slug):
 
 
 def shop_insights(request):
+    context = {}
     shopid = request.GET['shopid']
 
     # Shop Rating by day (past week) Area Chart
     revpday = Review.objects.filter(shop_id=shopid).annotate(day=TruncDate('date')).values('day').annotate(Count('stars'),Sum('stars')).order_by('day')
     rdf = pd.DataFrame(revpday)
-    today = datetime.date.today()
 
-    until = 6
-    date_list = []
-    rating_list = []
-    for i in range(until,-1,-1):
-        delta = datetime.timedelta(days=i)
-        until_date = today - delta
-        date_list.append(until_date.strftime("%d %b, %Y"))      
-        
-        rdfview= rdf[(rdf['day'] <= until_date)]
-        until_avg = np.sum(rdfview['stars__sum'])/np.sum(rdfview['stars__count'])
-        rating_list.append(round(until_avg,1))
+    if not rdf.empty:
+        today = datetime.date.today()
+
+        until = 6
+        date_list = []
+        rating_list = []
+        for i in range(until,-1,-1):
+            delta = datetime.timedelta(days=i)
+            until_date = today - delta
+            date_list.append(until_date.strftime("%d %b, %Y"))      
+
+            rdfview= rdf[(rdf['day'] <= until_date)]
+            until_avg = np.sum(rdfview['stars__sum'])/np.sum(rdfview['stars__count'])
+            rating_list.append(round(until_avg,1))
+        rating_list = [0 if math.isnan(x) else x for x in rating_list]
+        context['date_list'] = date_list
+        context['rating_list'] = rating_list
+        context['shoplinechart'] = True
+    else:
+        context['shoplinechart'] = False
 
 
     # Shop rating pie chart 
     shopRating = Review.objects.filter(shop_id=shopid).values('stars').annotate(Count('stars')).order_by('-stars')
-    shopRatingPie = []
-    for i in shopRating:
-        shopRatingPie.append(i['stars__count'])
+    if shopRating:
+        shopRdf = pd.DataFrame(shopRating)
+        
+        init_list = [{'stars':1,'stars__count':0},{'stars':2,'stars__count':0},{'stars':3,'stars__count':0},{'stars':4,'stars__count':0},{'stars':5,'stars__count':0}]
+        init_df = pd.DataFrame(init_list)
+        init_df.set_index('stars',inplace=True)
+        shopRdf.set_index('stars',inplace=True)
+        missing_index = init_df.index.difference(shopRdf.index)
+
+        final_df = pd.concat([shopRdf,init_df.loc[missing_index, :]])
+        final_df.reset_index(drop=False,inplace=True)
+        final_df.sort_values('stars',ascending=False,inplace=True)
+        context['shopRatingPie'] = final_df['stars__count'].to_list()
+        context['shopratingpie'] = True
+    else:
+        context['shopratingpie'] = False
+
 
     # Item Wihslist/Visit Count
     itemwishclick = Item.objects.filter(shop_id=shopid).values_list('item_name','item_wishlist_count','item_clicks_count').order_by('item_name')
-    wishclick_item_name = []
-    item_wish_count = []
-    item_click_count = []
-    for i in itemwishclick:
-        # if not (i[1]==0 and i[2]==0):
-        wishclick_item_name.append(i[0])
-        item_wish_count.append(i[1])
-        item_click_count.append(i[2])
+    if itemwishclick:
+        wishclick_item_name = []
+        item_wish_count = []
+        item_click_count = []
+        for i in itemwishclick:
+            wishclick_item_name.append(i[0])
+            item_wish_count.append(i[1])
+            item_click_count.append(i[2])
+
+        context['wishclick_item_name'] = wishclick_item_name
+        context['item_wish_count'] = item_wish_count
+        context['item_click_count'] = item_click_count
+        context['itemwishclick'] = True
+    else:
+        context['itemwishclick'] = False
 
     # Item rating bar Chart
     itemrough = Review.objects.filter(shop_id=shopid, item_id__isnull=False).values("item_id__item_name","stars").annotate(Count('stars')).order_by('item_id__item_name')
     df = pd.DataFrame(itemrough)
-    df = df.pivot_table('stars__count','item_id__item_name','stars')
-    df.fillna(0,inplace=True)
-    df.reset_index(drop=False,inplace=True)
-    item_name = df['item_id__item_name'].to_list()
-    item_stars_count_5 = df.iloc[:,5].to_list()
-    item_stars_count_4 = df.iloc[:,4].to_list()
-    item_stars_count_3 = df.iloc[:,3].to_list()
-    item_stars_count_2 = df.iloc[:,2].to_list()
-    item_stars_count_1 = df.iloc[:,1].to_list()
-    
-    return render(request, "Vendor/insights.html", {'shopRatingPie': shopRatingPie,'wishclick_item_name':wishclick_item_name,'item_wish_count':item_wish_count,'item_click_count':item_click_count,'item_name':item_name,'item_stars_count_5':item_stars_count_5,'item_stars_count_4':item_stars_count_4,'item_stars_count_3':item_stars_count_3,'item_stars_count_2':item_stars_count_2,'item_stars_count_1':item_stars_count_1,'date_list':date_list,'rating_list':rating_list})
+    if not df.empty:
+        df = df.pivot_table('stars__count','item_id__item_name','stars')
+        cols = [1,2,3,4,5]
+        df2 = df.reindex(df.columns.union(cols, sort=None), axis=1, fill_value=0)
+        df2.fillna(0,inplace=True)
+        df2.reset_index(drop=False,inplace=True)
+
+        item_name = df2['item_id__item_name'].to_list()
+        item_stars_count_5 = df2.iloc[:,5].to_list()
+        item_stars_count_4 = df2.iloc[:,4].to_list()
+        item_stars_count_3 = df2.iloc[:,3].to_list()
+        item_stars_count_2 = df2.iloc[:,2].to_list()
+        item_stars_count_1 = df2.iloc[:,1].to_list()
+
+        context['item_name'] = item_name
+        context['item_stars_count_5'] = item_stars_count_5
+        context['item_stars_count_4'] = item_stars_count_4
+        context['item_stars_count_3'] = item_stars_count_3
+        context['item_stars_count_2'] = item_stars_count_2
+        context['item_stars_count_1'] = item_stars_count_1
+        context['itemratingstack'] = True
+    else:
+        context['itemratingstack'] = False
+
+    return render(request, "Vendor/insights.html", context)
+    # return render(request, "Vendor/insights.html", {'shopRatingPie': shopRatingPie,'wishclick_item_name':wishclick_item_name,'item_wish_count':item_wish_count,'item_click_count':item_click_count,'item_name':item_name,'item_stars_count_5':item_stars_count_5,'item_stars_count_4':item_stars_count_4,'item_stars_count_3':item_stars_count_3,'item_stars_count_2':item_stars_count_2,'item_stars_count_1':item_stars_count_1,'date_list':date_list,'rating_list':rating_list})
 
 
 

@@ -327,6 +327,17 @@
             $(this).parents(".review-comments").find(".reply-btn-svg").css("fill","transparent");
             $(this).parents(".review-reply").hide();
         })
+
+        $(".review-content").on('focus','textarea',function () {
+            $(".review-wrapper").css({'min-height':init_vh*81+'px'});
+            $(".vendor-nav-ul").css({'display': 'none'});
+        })
+
+        $(".review-content").on('blur','textarea',function () {
+            $(".review-wrapper").css({'min-height':'auto'});
+            $(".vendor-nav-ul").css({'display': 'grid'});
+        })
+
         $(".review-content").on('click','.reply-post-btn',function(e){
             $(this).parents(".review-reply").hide();
             // $(this).parents(".review-comments").children(".review-comment").show();
