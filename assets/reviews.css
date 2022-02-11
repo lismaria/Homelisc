@@ -113,3 +113,16 @@
 .like-stroke{
     stroke: var(--black);
 }
+
+.no-review{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    text-align: center;
+}
+
+.no-review__img{
+    margin-top:1rem;
+}
