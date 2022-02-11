@@ -273,6 +273,7 @@
 
 <script>
     $(document).ready(function () {
+        let init_revh = window.innerHeight * 0.01;
         document.getElementById("page-heading").innerHTML = "Reviews";
         
         reviewsDiv = $(".review-comments")
@@ -328,12 +329,12 @@
             $(this).parents(".review-reply").hide();
         })
 
-        $(".review-content").on('focus','textarea',function () {
-            $(".review-wrapper").css({'min-height':init_vh*81+'px'});
+        $(".review-wrapper").on('focus','textarea',function () {
+            $(".review-wrapper").css({'min-height':init_revh*81+'px'});
             $(".vendor-nav-ul").css({'display': 'none'});
         })
 
-        $(".review-content").on('blur','textarea',function () {
+        $(".review-wrapper").on('blur','textarea',function () {
             $(".review-wrapper").css({'min-height':'auto'});
             $(".vendor-nav-ul").css({'display': 'grid'});
         })

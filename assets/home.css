@@ -143,84 +143,8 @@
     grid-template-columns: repeat(1,1fr);
     grid-auto-rows: auto;
     gap:2.0rem;
-    /* padding-bottom: 6.0rem; */
+    padding-bottom: 6.0rem;
     padding-left: 0rem;;
-}
-
-.top-places-card{
-    background-color: var(--white);
-    border-radius: .8rem;
-    width:100%;
-    height: 22rem;
-    overflow: hidden;
-    box-shadow: var(--ds3);
-    padding: 1rem;
-}
-
-.top-places-card-img{
-    height:70%;
-    width: 100%;
-    background-color: var(--neutral);
-    border-radius: 0.4rem;
-    object-fit: contain;
-}
-
-.top-places-card-heart{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    width:40px;
-    height:40px;
-    border-radius:20px;
-    background-color: var(--white);
-    filter: drop-shadow(var(--ds_icon));
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    cursor: pointer;
-}
-
-.top-places-card-body{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
-    grid-template-columns: 82% 18%;
-    height: 30%;
-    align-items: center;
-    padding:.5rem 0;
-}
-
-.top-places-card-body h2{
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.4rem;
-    line-height: 2.1rem;
-}
-
-.top-places-card-body-rating{
-    display: flex;
-    align-items: center;
-    justify-self: end;
-    gap:.5rem;
-}
-
-.top-places-card-body h4{
-    font-family: Roboto;
-    font-weight: normal;
-    font-weight: 300;
-    font-size: 1.2rem;
-    line-height: 1.4rem;
-    color: var(--grey);
-}
-/* 
-.top-places-card-body h4:nth-child(even){
-    justify-self: end;
-} */
-
-.top-places-card-body h3{
-    font-weight: normal;
-    font-size: 1.4rem;
-    line-height: 2.1rem;
 }
 
 
@@ -478,4 +402,91 @@
         margin: 0 auto;
         max-width: 80%
     }
+}
+
+
+/* Old design */
+.fav-place-card{
+    background-color: var(--white);
+    border-radius: 0.8rem;
+    width: 100%;
+    height: 12rem;
+    overflow: hidden;
+    box-shadow: var(--ds3);
+    display: flex;
+    padding: 1rem;
+}
+
+.fav-place-card>a{
+    width: 30%;
+    height:100%;
+}
+
+.fav-place-card-img{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fav-place-card-img img{
+    width: 8rem;
+    height: 8rem;
+    object-fit: contain;
+}
+
+.fav-place-card-body{
+    width:70%;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding:.8rem;
+}
+
+.favplace-cardbody-top{
+    display:flex;
+    width:100%;
+    justify-content: space-between;
+}
+
+.favplace-cardbody-top p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.favplace-cardbody-toprating{
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap:.5rem;
+}
+
+.favplace-cardbody-toprating p{
+    font-weight: normal;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+}
+
+.favplace-cardbody-bottom{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.favplace-cardbody-bottom p{
+    font-family: Roboto;
+    font-weight: normal;
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: var(--grey);
+}
+
+.top-places-card-heart{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
