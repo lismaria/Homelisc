@@ -74,6 +74,11 @@
     border-radius: 50%;
 }
 
+.cuisine-img>img{
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .apply-filter-result-wrapper{
     display: flex;
     flex-direction: column;

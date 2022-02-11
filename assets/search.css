@@ -114,6 +114,12 @@
   fill: var(--primary);  
 }
 
+.mostcherished-img{
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+}
 /* Laptop */
 @media screen and (min-width: 1024px){
     .search-container{
