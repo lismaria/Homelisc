@@ -40,7 +40,7 @@
     color: var(--primary);
 }
 
-.shop-info__title>button,.shop-insight__title>button{
+.shop-info__title>button,.shop-insight__title>button,.print-btn{
     display: flex;
     background-color: var(--primary);
     padding: 0.4rem 0.7rem;
@@ -48,7 +48,7 @@
     gap: 0.8rem;
 }
 
-.shop-info__title>button>h2,.shop-insight__title>button>h2{
+.shop-info__title>button>h2,.shop-insight__title>button>h2,.print-btn>h2{
     font-family: Poppins;
     font-style: normal;
     font-weight: normal;
@@ -400,4 +400,8 @@ pwa-container-wrapper{
     line-height: 1.2rem;
     color: var(--grey);
     text-align: center;
+}
+
+.print-btn{
+    align-self: end;
 }

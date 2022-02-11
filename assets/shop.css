@@ -56,6 +56,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .shop-heart{
@@ -66,6 +67,7 @@
     height: 40px;
     border-radius: 20px;
     background-color: var(--white);
+    cursor: pointer;
 }
 
 .shop-rating{
@@ -154,6 +156,7 @@
     position: absolute;
     right: 6px;
     top: 6px;
+    cursor: pointer;
 }
 
 .product-card{
