@@ -50,7 +50,7 @@
                     </svg>                        
                 </button>
             </div>
-            <form method="post" action="{% url 'account:account' %}" class="profile-info__edit" enctype="multipart/form-data">
+            <form name="accountUpdationForm" method="post" action="{% url 'account:account' %}" class="profile-info__edit" enctype="multipart/form-data">
                 <div>
                     <img id="dp" src="{{request.user.profile_pic.url}}" class="object-fit">
                     <label class="profile-img__change" for="change_pic">Change</label>
@@ -61,7 +61,11 @@
                 </div>
                 {% csrf_token %}
                 {% for field in form %}
-                    <div><label for="">{{field.label}}</label>{{field}}</div>
+                <div>
+                    <label for="">{{field.label}}</label>
+                    {{field}}
+                    <span>{{field.errors}}</span>
+                </div>
                 {% endfor %}
 
                 <!-- <div><label for="">Name: </label><input type="text" value="{{user.name}}" onfocus="input_focus()" onblur="input_blur()"></div>

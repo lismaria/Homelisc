@@ -297,4 +297,7 @@ ul.ui-widget.ui-widget-content{
     color:red;
     font-size:1.2rem;
     text-align: end;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
 }
