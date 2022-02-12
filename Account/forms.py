@@ -63,8 +63,8 @@ class AccountUpdationForm(forms.ModelForm):
         }
         widgets = {
             'profile_pic': forms.FileInput(attrs={"id":"change_pic","style":"display:none","onchange":"document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])","accept":"image/png, image/jpeg"}),
-            'name': forms.TextInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()", 'ng-required':'true',}),
-            'email': forms.EmailInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()",'ng-model':'email', 'ng-required':'true',}),
+            'name': forms.TextInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()",}),
+            'email': forms.EmailInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()",}),
         }
 
     def clean_email(self):

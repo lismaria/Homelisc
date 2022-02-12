@@ -60,19 +60,13 @@
                     {% endfor %}
                 </div>
                 {% csrf_token %}
-
+                {% for field in form %}
                 <div>
-                    <label for="">{{form.name.label}}</label>
-                    {{form.name}}
-                    <span ng-show="accountUpdationForm.name.$touched && accountUpdationForm.name.$error.required">This field is required</span>
+                    <label for="">{{field.label}}</label>
+                    {{field}}
+                    <span>{{field.errors}}</span>
                 </div>
-                <div>
-                    <label for="">{{form.email.label}}</label>
-                    {{form.email}}
-                    <span ng-show="accountUpdationForm.email.$touched && accountUpdationForm.email.$error.required">This field is required</span>
-                    <span ng-show="accountUpdationForm.email.$touched && accountUpdationForm.email.$error.email">Enter valid email address: abc@domain.com</span>
-                </div>
-
+                {% endfor %}
 
                 <!-- <div><label for="">Name: </label><input type="text" value="{{user.name}}" onfocus="input_focus()" onblur="input_blur()"></div>
                 <div><label for="">Email: </label><input type="email" value="{{user.email}}" onfocus="input_focus()" onblur="input_blur()"></div> -->
