@@ -50,7 +50,7 @@
                     </svg>                        
                 </button>
             </div>
-            <form method="post" action="{% url 'account:account' %}" class="profile-info__edit" enctype="multipart/form-data">
+            <form name="accountUpdationForm" method="post" action="{% url 'account:account' %}" class="profile-info__edit" enctype="multipart/form-data">
                 <div>
                     <img id="dp" src="{{request.user.profile_pic.url}}" class="object-fit">
                     <label class="profile-img__change" for="change_pic">Change</label>
@@ -60,9 +60,19 @@
                     {% endfor %}
                 </div>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div><label for="">{{field.label}}</label>{{field}}</div>
-                {% endfor %}
+
+                <div>
+                    <label for="">{{form.name.label}}</label>
+                    {{form.name}}
+                    <span ng-show="accountUpdationForm.name.$touched && accountUpdationForm.name.$error.required">This field is required</span>
+                </div>
+                <div>
+                    <label for="">{{form.email.label}}</label>
+                    {{form.email}}
+                    <span ng-show="accountUpdationForm.email.$touched && accountUpdationForm.email.$error.required">This field is required</span>
+                    <span ng-show="accountUpdationForm.email.$touched && accountUpdationForm.email.$error.email">Enter valid email address: abc@domain.com</span>
+                </div>
+
 
                 <!-- <div><label for="">Name: </label><input type="text" value="{{user.name}}" onfocus="input_focus()" onblur="input_blur()"></div>
                 <div><label for="">Email: </label><input type="email" value="{{user.email}}" onfocus="input_focus()" onblur="input_blur()"></div> -->

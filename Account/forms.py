@@ -40,8 +40,8 @@ class LoginForm(forms.ModelForm):
             'password': '',
         }
         widgets = {
-            'email': forms.EmailInput(attrs={'placeholder':'Email ID'}),
-            'password': forms.PasswordInput(attrs={'placeholder':'Password'})
+            'email': forms.EmailInput(attrs={'placeholder':'Email ID', 'ng-model':'email', 'ng-required':'true',}),
+            'password': forms.PasswordInput(attrs={'placeholder':'Password','ng-model':'password', 'ng-required':'true', 'ng-minlength':'8'})
         }
 
     def clean(self):    # available to any form that extends the ModelForm. It runs before the form can do anything
@@ -63,8 +63,8 @@ class AccountUpdationForm(forms.ModelForm):
         }
         widgets = {
             'profile_pic': forms.FileInput(attrs={"id":"change_pic","style":"display:none","onchange":"document.getElementById('dp').src = window.URL.createObjectURL(this.files[0])","accept":"image/png, image/jpeg"}),
-            'name': forms.TextInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()"}),
-            'email': forms.EmailInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()"}),
+            'name': forms.TextInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()", 'ng-required':'true',}),
+            'email': forms.EmailInput(attrs={"onfocus":"input_focus()","onblur":"input_blur()",'ng-model':'email', 'ng-required':'true',}),
         }
 
     def clean_email(self):
