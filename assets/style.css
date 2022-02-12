@@ -292,3 +292,9 @@ ul.ui-widget.ui-widget-content{
     line-height: 1.8rem;
     color: var(--grey);
 }
+
+.client-validation span{
+    color:red;
+    font-size:1.2rem;
+    text-align: end;
+}

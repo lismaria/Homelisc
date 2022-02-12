@@ -21,15 +21,21 @@
         </div>
 
         <div class="signup-form">
-            <form id="signup-form" method="POST" action="{% url 'account:signup' signup_as %}">
+            <form name="regform" class="client-validation" id="signup-form" method="POST" action="{% url 'account:signup' signup_as %}">
                 {% csrf_token %}
-                {% for field in form %}
-                    {{field}}
-                {% endfor %}
+                    {{form.name}}
+                    <span ng-show="regform.$submitted || regform.name.$touched && regform.name.$error.required">This field is required</span>
+                    {{form.email}}
+                    <span ng-show="regform.$submitted || regform.email.$error.pattern">Enter a valid email address</span>
+                    <span ng-show="regform.$submitted || regform.email.$touched && regform.email.$error.required">This field is required</span>
+                    {{form.password}}
+                    <span ng-show="regform.$submitted || regform.password.$error.minlength">Password must be atleast 8 characters</span>
+                    <span ng-show="regform.$submitted || regform.password.$touched && regform.password.$error.required">This field is required</span>
                 <!-- <input type="text" name="" placeholder="Full name">
                 <input type="email" name="" placeholder="Email ID">
                 <input type="password" name="" placeholder="Choose a password"> -->
                 <!-- <input type="hidden" name="as" value="{{signup_as}}"> -->
+                
                 {% for field in form %}
                     {% for error in field.errors %}
                         <p style="color:red; font-size: 1.2rem;">{{error}}</p>
@@ -38,7 +44,7 @@
             </form>
 
             <div class="signup-buttons">
-                <button type="submit" form="signup-form">Sign Up</button>
+                <button type="submit" ng-disabled="regform.$invalid" form="signup-form">Sign Up</button>
                 <p>or</p>
                 <button type="submit" form="signup-form" style="background-color: var(--accent);color:var(--black)">Sign Up with Google</button>
             </div>

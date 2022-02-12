@@ -320,6 +320,15 @@
                             location.reload();
                         },
                         error:  function (response) {
+                            var data = response.responseJSON;
+                            $(".customerror").remove();
+                            for(var name in data) {
+                                for (var i in data[name]) {
+                                var element = $('[name="'+i+'"]');
+                                var err = data[name][i].toString();
+                                $("<p class='customerror'>"+err+"</p>").insertAfter(element);
+                                }
+                            }
                             console.log(response);
                             alert("Failed to update");
                         }

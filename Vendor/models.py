@@ -15,7 +15,7 @@ class Shop(models.Model):
     shop_city = models.CharField(verbose_name="Shop City", max_length=50)
     shop_state = models.CharField(verbose_name="Shop State", max_length=50)
     shop_location = models.TextField(verbose_name="Shop Location", default=None)
-    shop_tags = ArrayField(models.CharField(verbose_name="Shop Tags",max_length=50), blank=False)
+    shop_tags = ArrayField(models.CharField(verbose_name="Shop Tags",max_length=50),size=3, blank=False)
     shop_logo = models.ImageField(verbose_name="Shop Logo",default='default.png', blank=True)
     shop_rating = models.DecimalField(verbose_name="Shop Rating",null=True, blank=True, default=None, max_digits=2, decimal_places=1)
     shop_clicks_count = models.IntegerField(verbose_name="Shop Clicks Count",null=True, blank=True, default=0)

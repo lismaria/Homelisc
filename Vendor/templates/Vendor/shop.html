@@ -64,10 +64,11 @@
         </div>         
 
         <div class="shop-yesedit">
-            <form id="shop-edit-form" class="register-body" enctype="multipart/form-data" method="post">
+            <form id="shop-edit-form" name="shopedit" class="register-body" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <label>NAME</label>
                 {{shopForm.shop_name}}
+                <span ng-show="shopedit.shop_name.$touched && shopedit.shop_name.$error.required">This field is required</span>
                 <!-- <input type="text" placeholder="Shop Name" value="{{i.shop_name}}"> -->
                         
                 <label>TAGS</label>
@@ -164,6 +165,7 @@
 
 {% block javascript %}
 <script type="">
+
     $(document).ready(function () {
         $('#select-state').append('<option class="disabled-select" value="" disabled selected>State</option>')
         $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')        

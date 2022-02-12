@@ -1,4 +1,4 @@
-<div class="review-popup">
+<div class="review-popup" ng-app="">
     <div class="review-popup-content">
         <div class="popreview-header">
             <h2>Add Review</h2>
@@ -7,7 +7,7 @@
             </svg>
         </div>
 
-        <form class="review-form" method="post" enctype="multipart/form-data">
+        <form name="reviewform" class="review-form client-validation" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="review-form-rating">
                 {{reviewForm.stars.4.tag}}  
@@ -27,6 +27,7 @@
                 <!-- <input class="star star-1" id="star-1" type="radio" name="star" />  -->
                 <label class="star star-1 star-box" for="star-1"><h4 class="star">1</h4></label> 
             </div>
+            <span class="star-err"></span>
 
             <div class="popreview-profile">
                 <img src="{{user.profile_pic.url}}" alt="" srcset="" class="object-fit">
@@ -34,6 +35,8 @@
             </div>
 
             {{reviewForm.comment}}
+            <span ng-show="reviewform.comment.$touched && reviewform.comment.$error.required">This field is required</span>
+            <span class="comment-err"></span>
             {{reviewForm.comment.errors}}
             <!-- <textarea placeholder="Share your experience..."></textarea> -->
             {% for i in shopInfo %}<input type="hidden" name="shopid" value={{i.id}}>{% endfor %}
@@ -106,7 +109,10 @@
                     location.reload();
                 },
                 error:  function (response) {
-                    console.log(response);
+                    if(response.responseJSON.error.comment)
+                        $('.comment-err').text(response.responseJSON.error.comment);
+                    if(response.responseJSON.error.stars)
+                        $('.star-err').text('Oops! Looks like you forgot to rate');
                 }
             })
         })

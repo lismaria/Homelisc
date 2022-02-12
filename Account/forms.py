@@ -17,9 +17,9 @@ class RegistrationForm(forms.ModelForm): # ModelForm is used to directly convert
             'password': '',
         }
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder':'Full Name'}),
-            'email': forms.EmailInput(attrs={'placeholder':'Email ID'}),
-            'password': forms.PasswordInput(attrs={'placeholder':'Choose a password'})
+            'name': forms.TextInput(attrs={'placeholder':'Full Name','ng-model':"name",'ng-required':'true'}),
+            'email': forms.EmailInput(attrs={'placeholder':'Email ID','ng-pattern':'/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/','ng-model':'email','ng-required':'true'}),
+            'password': forms.PasswordInput(attrs={'placeholder':'Choose a password','ng-minlength':8, 'ng-model':"password",'ng-required':'true'})
         }
 
     def save(self, commit=True):
