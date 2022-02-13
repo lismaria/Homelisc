@@ -17,19 +17,12 @@
                     <p></p>
                 </div>
             </div>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div style="grid-column:1/13;" class="errorlist">
-                        <p>{{error}}</p>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-
-            {% if form.non_field_errors %}
+            {% if form.name.errors or form.email.errors %}
                 <div style="grid-column:1/13;" class="errorlist">
-                    <p>{{form.non_field_errors}}</p>
+                    <p>Failed to update personal details</p>
                 </div>
             {% endif %}
+
             
             <a href="{% url 'account:logout' %}" class="logout-wrapper">
                 <h2>Logout</h2>
@@ -60,13 +53,21 @@
                     {% endfor %}
                 </div>
                 {% csrf_token %}
-                {% for field in form %}
                 <div>
-                    <label for="">{{field.label}}</label>
-                    {{field}}
-                    <span>{{field.errors}}</span>
+                    <label for="">{{form.name.label}}</label>
+                    {{form.name}}<br>
                 </div>
-                {% endfor %}
+                {% if form.name.errors %}
+                    <span style="justify-self:end;padding-right:1.5rem;">{{form.name.errors}}</span>
+                {% endif %}
+
+                <div>
+                    <label for="">{{form.email.label}}</label>
+                    {{form.email}}<br>
+                </div>
+                {% if form.email.errors %}
+                    <span style="justify-self:end;padding-right:1.5rem;">{{form.email.errors}}</span>
+                {% endif %}
 
                 <!-- <div><label for="">Name: </label><input type="text" value="{{user.name}}" onfocus="input_focus()" onblur="input_blur()"></div>
                 <div><label for="">Email: </label><input type="email" value="{{user.email}}" onfocus="input_focus()" onblur="input_blur()"></div> -->

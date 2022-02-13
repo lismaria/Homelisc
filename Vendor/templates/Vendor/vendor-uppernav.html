@@ -16,8 +16,11 @@
                 <!-- <input type="file" name="" id="change_vdp" style="display:none" onchange="document.getElementById('vdp').src = window.URL.createObjectURL(this.files[0])"> -->
                 {{vendorForm.profile_pic}}
             </div>
+
             <div><label for="">{{vendorForm.name.label}}</label>{{vendorForm.name}}</div>
             <div><label for="">{{vendorForm.email.label}}</label>{{vendorForm.email}}</div>
+            <div style="grid-row:9/11;" id="vendor-profile-errors"></div>
+
             {% csrf_token %}
             <button type="submit">Save</button>
         </form>
@@ -65,10 +68,21 @@
                     var res = JSON.parse(response.instance)[0].fields.profile_pic
                     $("#vendor_profile").attr('src','/media/'+res);
                     alert("Updation Success!");
+                    $(".vendor-acc-profile").slideToggle("slow");
                 },
                 error: function (response) {
                     // alert the error if any error occured
-                    alert(response.responseJSON.error.email[0]);
+                    // alert(response.responseJSON.error.email[0]);
+                    var data = response.responseJSON;
+                    $(".customerror").remove();
+                    for(var name in data) {
+                        console.log(data[name].email);
+                        for (var i in data[name]) {
+                            var err = data[name][i].toString();
+                            console.log(err)
+                            document.getElementById("vendor-profile-errors").innerHTML += "<p class='customerror'>"+err+"</p>";
+                        }
+                    }
                 }
             })
         })
