@@ -288,3 +288,16 @@ pwa-container-wrapper{
     object-fit: contain;
     max-width: 30rem;
 }
+
+.errorlist{
+    width:100%;
+    padding: 0;
+}
+
+.register-body label.error{
+    color:red;
+    width: 100%;
+    text-align: right;
+    font-family: Poppins;
+    font-size: 1.2rem;
+}

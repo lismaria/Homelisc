@@ -39,13 +39,10 @@
                 <div class="body-title">Basic Details</div>
                 <div class="register-form">
                     {{form.shop_name}}
-                    <span ng-show="registershop.shop_name.$touched && registershop.shop_name.$error.required">This field is required</span>
                     {{form.shop_name.errors}}
                     {{form.shop_tags}}
-                    <span ng-show="registershop.shop_tags.$touched && registershop.shop_tags.$error.required">This field is required</span>
                     {{form.shop_tags.errors}}
                     {{form.shop_descr}}
-                    <span ng-show="registershop.shop_descr.$touched && registershop.shop_descr.$error.required">This field is required</span>
                     {{form.shop_descr.errors}}
                     <!-- <input type="text" placeholder="Shop Name">
                     <input type="text" placeholder="Tags (eg. Chocolates,Crafts,..)">
@@ -63,23 +60,17 @@
                 <div class="body-title">Almost there</div>
                 <div class="register-form">
                     {{form.shop_contact}}
-                    <span ng-show="registershop.shop_contact.$touched && registershop.shop_contact.$error.required">This field is required</span>
                     {{form.shop_contact.errors}}
                     <!-- <input type="text" placeholder="Shop Contact Number"> -->
                     <div class="select-state-city">
                         <!-- <select id="select-state"></select>
                         <select id="select-city"></select> -->
                         {{form.shop_state}}
-                        <span ng-show="registershop.shop_state.$touched && registershop.shop_state.$error.required">This field is required</span>
-                        {{form.shop_state.errors}}
                         {{form.shop_city}}
-                        <span ng-show="registershop.shop_city.$touched && registershop.shop_city.$error.required">This field is required</span>
-                        {{form.shop_city.errors}}
                     </div>
+                        {{form.shop_city.errors}}
                     <div class="addmap-url">
                         {{form.shop_location}}
-                        <span ng-show="registershop.shop_location.$touched && registershop.shop_location.$error.required">This field is required</span>
-                        {{form.shop_location.errors}}
                         <!-- <input placeholder="Add Location" style="width:60%;height:100%"> -->
                         <a href="https://www.google.com/maps" target="_blank" class="open-maps">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,6 +79,7 @@
                             <p>Open Maps</p>
                         </a>
                     </div>
+                    {{form.shop_location.errors}}
                     
                 </div>
                 <div class="back-next">
@@ -128,9 +120,38 @@
 {% endblock content %}
 
 {% block javascript %}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function(){
+        $(function() {
+            $("form[name='registershop']").validate({
+
+                // Specify validation rules
+                rules: {
+                    shop_city:{
+                        valueNotEquals : "City"
+                    }
+                },
+                // Specify validation error messages
+                messages: {
+                    shop_name: "Please enter your shop name",
+                    shop_tags: "Provide tags for relevancy and reach",
+                    shop_descr: "Please provide a description",
+                    shop_contact:
+                    {
+                        required:"Please add a contact number.",
+                        pattern: "Enter a valid number. eg-9876543210"
+                    },
+                    shop_city:{
+                        valueNotEquals : "Location fetches relevant results for users."
+                    }
+                },
+
+                submitHandler: function(form) {
+                form.submit();
+                }
+            });
+        });
 
         $("input[name=shop_name]").attr('ng-model','shop_name');
 
@@ -160,6 +181,7 @@
             type: 'get',
             url: 'https://api.countrystatecity.in/v1/countries/IN/states/'+state+'/cities',
             success: function(data){
+                $('#select-city').append('<option class="disabled-select" value="" disabled selected>City</option>')
                 data.forEach(element => {
                     $('#select-city').append('<option>'+element.name+'</option>')
                 });

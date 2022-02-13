@@ -99,21 +99,21 @@
     </div>
 
     <div class="add-item-wrapper">
-        <form id="item-add-form" class="additem-form" enctype="multipart/form-data" method="post">
+        <form name="additemform" id="item-add-form" class="additem-form" enctype="multipart/form-data" method="post">
             {% csrf_token %}
             <label>NAME</label>{{itemForm.item_name}}
             <!-- <input type="text" placeholder="Item name"> -->
 
-            <label>DESCRIPTION</label>{{itemForm.item_descr}}
+            <br><label>DESCRIPTION</label>{{itemForm.item_descr}}
             <!-- <textarea placeholder="Item Description"></textarea> -->
 
-            <label>PRICE</label>{{itemForm.item_price}}
+            <br><label>PRICE</label>{{itemForm.item_price}}
             <!-- <input type="text" placeholder="Item price"> -->
 
-            <label>CATEGORY</label>{{itemForm.item_category}}
+            <br><label>CATEGORY<span style="color:var(--black);font-size:1rem">  (enter comma separated tags - max:3)</span></label>{{itemForm.item_category}}
             <!-- <input type="text" placeholder="Category (eg. Wall Painting, Brownies,..)"> -->
 
-            <label>IMAGES</label>{{imageForm.item_img}}
+            <br><label>IMAGES</label>{{imageForm.item_img}}
             <!-- <input type="file" id="add-itemimg" multiple style="display:none" accept="image/*"> -->
             <label class="add-itemimg" for="add-itemimg">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -158,8 +158,26 @@
 
 
 {% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $(function() {
+            $("form[name='additemform']").validate({
+
+                // Specify validation error messages
+                messages: {
+                    item_name: "Please enter a name for this item",
+                    item_category: "Provide tags for relevancy and reach",
+                    item_price:"Please give a price to this item.",
+                    item_descr: "Please provide a description",
+                },
+
+                submitHandler: function(form) {
+                form.submit();
+                }
+            });
+        });
 
         initialItemsDiv =  $(".item-card");
         itemsDiv = $(".item-card");
@@ -439,6 +457,7 @@
         // Add item code
         $('#item-add-form').submit(function(e){
             e.preventDefault();
+            $("label.error").remove();
             console.log("submit add item")
             var serializedData = new FormData($('#item-add-form')[0]);
             console.log($('#item-add-form')[0])
@@ -460,8 +479,12 @@
                     location.reload();
                 },
                 error:  function (response) {
-                    console.log(response);
-                    alert("Failed to add");
+                    var data = response.responseJSON;
+                    $(".customerror").remove();
+                    var element = $('[name=item_category]');
+                    var err = response.responseJSON.error.item_category
+                    if(err)       
+                        $("<p class='customerror'>"+err[0]+"</p>").insertAfter(element);
                 }
             })
         })

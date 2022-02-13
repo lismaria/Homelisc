@@ -35,7 +35,7 @@
             </div>
 
             {{reviewForm.comment}}
-            <span ng-show="reviewform.comment.$touched && reviewform.comment.$error.required">This field is required</span>
+            <span ng-show="reviewform.comment.$touched && reviewform.comment.$error.required" ng-cloak>This field is required</span>
             <span class="comment-err"></span>
             {{reviewForm.comment.errors}}
             <!-- <textarea placeholder="Share your experience..."></textarea> -->
