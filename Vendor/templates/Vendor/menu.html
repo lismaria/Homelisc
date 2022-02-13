@@ -173,9 +173,9 @@
                     item_descr: "Please provide a description",
                 },
 
-                submitHandler: function(form) {
-                form.submit();
-                }
+                // submitHandler: function(form) {
+                // form.submit();
+                // }
             });
         });
 
@@ -460,9 +460,6 @@
             $("label.error").remove();
             console.log("submit add item")
             var serializedData = new FormData($('#item-add-form')[0]);
-            console.log($('#item-add-form')[0])
-            console.log($('#item-add-form'))
-            console.log(serializedData);
 
             $.ajax({
                 type: 'POST',
@@ -479,12 +476,25 @@
                     location.reload();
                 },
                 error:  function (response) {
+                    console.log(response);
                     var data = response.responseJSON;
                     $(".customerror").remove();
                     var element = $('[name=item_category]');
+                    var noimgele = $('.add-itemimg')
+                       
+                    if(response.responseJSON.noImgError){
+                        var noimgerr = response.responseJSON.noImgError
+                        console.log("noimg",noimgerr);
+                        $("<p class='customerror'>"+noimgerr+"</p>").insertAfter(noimgele);
+                    } 
+                    
+                    if(response.responseJSON.error){
+                        var err = response.responseJSON.error.item_category   
                     var err = response.responseJSON.error.item_category
-                    if(err)       
+                        var err = response.responseJSON.error.item_category   
+                        console.log("itemcaterr"+err)
                         $("<p class='customerror'>"+err[0]+"</p>").insertAfter(element);
+                    } 
                 }
             })
         })
