@@ -404,6 +404,23 @@ pwa-container-wrapper{
     text-align: center;
 }
 
+.no-insights-fetched{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-insights-fetched span{
+    font-size: 1.2rem;
+    font-family: Poppins;
+}
+
+.no-insights-fetched img{
+    width: 80%;
+    height: 80%;
+}
+
 .print-btn{
     align-self: end;
 }

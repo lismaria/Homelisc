@@ -213,18 +213,15 @@ def add_wishlist(request):
             data = Wishlist.objects.filter(user_id_id = request.user.id, shop_id_id = shopid, item_id_id = itemid)
         else:
             data = Wishlist.objects.filter(user_id_id = request.user.id, shop_id_id = shopid, item_id_id__isnull = True)
-            print(data)
         
         if data.exists():
             data.delete()
             if request.POST.get('item_heartid'):
-                print("found item")
                 itemInfo = Item.objects.filter(id=itemid).values()
                 count = itemInfo[0]['item_wishlist_count']
                 count-=1
                 Item.objects.filter(id=itemid).update(item_wishlist_count = count)
             else:
-                print("found shop")
                 shopInfo = Shop.objects.filter(id=shopid).values()
                 count = shopInfo[0]['shop_wishlist_count']
                 count-=1
@@ -233,14 +230,12 @@ def add_wishlist(request):
             return JsonResponse({"msg": "Removed from wishlist"}, status=200)
         else:
             if request.POST.get('item_heartid'):
-                print("not found item")
                 Wishlist.objects.create(user_id_id = request.user.id,shop_id_id = shopid, item_id_id = itemid)
                 itemInfo = Item.objects.filter(id=itemid).values()
                 count = itemInfo[0]['item_wishlist_count']
                 count+=1
                 Item.objects.filter(id=itemid).update(item_wishlist_count = count)
             else:
-                print("not found shop")
                 Wishlist.objects.create(user_id_id = request.user.id,shop_id_id = shopid)
                 shopInfo = Shop.objects.filter(id=shopid).values()
                 count = shopInfo[0]['shop_wishlist_count']
