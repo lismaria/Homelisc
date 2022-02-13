@@ -323,48 +323,52 @@ def item_add(request):
         itemcat = request.POST.get('item_category')
         itemcatarr = itemcat.split(',')
         shopInfo = Shop.objects.get(id=shopid)
-        itemForm = ItemCreationForm(request.POST)
-        if itemForm.is_valid():
-            instance = itemForm.save(commit=False)
-            instance.shop_id = shopInfo
-            instance.save()
-            ser_instance = serializers.serialize('json', [ instance, ])
-
-            for i in itemcatarr:
-                cat = Category.objects.filter(category_name=i.lower().strip())
-                if(cat):
-                    count = cat.values()[0]['category_count']
-                    count += 1
-                    Category.objects.filter(category_name=i.lower().strip()).update(category_count = count )
-                else:
-                    Category.objects.create(category_name = i.lower().strip())
-            
-        else:
-            return JsonResponse({"error": itemForm.errors}, status=400)
-
-        itemInfo = instance
-        imageForm = ItemImageUploadForm(request.FILES)
+        
         files = request.FILES.getlist('item_img')
+        if files:
+            itemForm = ItemCreationForm(request.POST)
+            if itemForm.is_valid():
+                instance = itemForm.save(commit=False)
+                instance.shop_id = shopInfo
+                instance.save()
+                ser_instance = serializers.serialize('json', [ instance, ])
 
-        if imageForm.is_valid():
-            ser_img=""
-            for f in files:
-                # TRY 1
-                # instance = imageForm.save(commit=False)
-                # instance.shop_id = shopInfo
-                # instance.item_id = itemInfo
-                # print(f)
-                # instance.item_img = f
-                # instance.save()
-            
-                # TRY 2
-                # image = form['image']
-                img = ItemImage(item_id=itemInfo, shop_id=shopInfo, item_img=f)
-                img.save()
-                ser_img = ser_img + serializers.serialize('json', [ img, ])
-                # return JsonResponse({"instance": ser_instance}, status=200)
+                for i in itemcatarr:
+                    cat = Category.objects.filter(category_name=i.lower().strip())
+                    if(cat):
+                        count = cat.values()[0]['category_count']
+                        count += 1
+                        Category.objects.filter(category_name=i.lower().strip()).update(category_count = count )
+                    else:
+                        Category.objects.create(category_name = i.lower().strip())
+
+            else:
+                return JsonResponse({"error": itemForm.errors}, status=400)
+
+            itemInfo = instance
+            imageForm = ItemImageUploadForm(request.FILES)
+
+            if imageForm.is_valid():
+                ser_img=""
+                for f in files:
+                    # TRY 1
+                    # instance = imageForm.save(commit=False)
+                    # instance.shop_id = shopInfo
+                    # instance.item_id = itemInfo
+                    # print(f)
+                    # instance.item_img = f
+                    # instance.save()
+
+                    # TRY 2
+                    # image = form['image']
+                    img = ItemImage(item_id=itemInfo, shop_id=shopInfo, item_img=f)
+                    img.save()
+                    ser_img = ser_img + serializers.serialize('json', [ img, ])
+                    # return JsonResponse({"instance": ser_instance}, status=200)
+            else:
+                return JsonResponse({"error": imageForm.errors}, status=400)
         else:
-            return JsonResponse({"error": imageForm.errors}, status=400)
+            return JsonResponse({"noImgError": "Please attach atleast 1 image"}, status=400)
             
         return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
     return JsonResponse({"error": " "}, status=400)

@@ -41,7 +41,7 @@
         <!-- {% verbatim %}<p  ng-repeat=" review in filterr | filter: filterExpression">{{review}}
         </p>{{selectedDist}}{% endverbatim %} -->
         {% verbatim %}
-        <div ng-repeat=" k in filterr | filter: filterExpression" class="review-comments">
+        <div ng-repeat=" k in filterr | filter: filterExpression" class="review-comments" ng-cloak>
             <div class="review-card review-only" style="background-color: var(--white);">
                 <img src="{{k.user_dp}}" alt="">
                 <div>
@@ -313,6 +313,7 @@
                     reviewid : reviewid
                 },
                 success: function (response) {
+                    location.reload();
                     console.log(response);
                 },
                 error:  function (response) {
