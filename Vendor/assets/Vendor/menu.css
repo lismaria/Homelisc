@@ -354,6 +354,16 @@
     color: var(--white);
 }
 
+.additem-form label.error{
+    color:red;
+    width: 100%;
+    text-align: right;
+    font-family: Poppins;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* Active State Code */
 
 #menu .vendor-nav-p__hide{

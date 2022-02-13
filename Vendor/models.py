@@ -36,7 +36,7 @@ class Item(models.Model):
     item_price = models.DecimalField(verbose_name="Item Price", max_digits=15, decimal_places=2)
     item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count",null=True, blank=True, default=0)
     item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count",null=True, blank=True, default=0)
-    item_category = ArrayField(models.CharField(verbose_name="Item Category",max_length=50), blank=False)
+    item_category = ArrayField(models.CharField(verbose_name="Item Category",max_length=50), size=3, blank=False)
     shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
 
     def __str__(self):

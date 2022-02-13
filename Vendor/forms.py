@@ -63,7 +63,7 @@ class ShopCreationForm(forms.ModelForm):
             'shop_name': forms.TextInput(attrs={'placeholder':'Shop Name'}),
             'shop_tags': forms.TextInput(attrs={'placeholder':'Tags (eg. Chocolates,Crafts,..)'}),
             'shop_descr': forms.Textarea(attrs={'placeholder':'Shop Description'}),
-            'shop_contact': forms.TextInput(attrs={'placeholder':'Shop Contact Number'}),
+            'shop_contact': forms.TextInput(attrs={'placeholder':'Shop Contact Number','pattern':'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'}),
             'shop_state': forms.Select(attrs={'id':'select-state'}),
             'shop_city': forms.Select(attrs={'id':'select-city'}),
             'shop_location': forms.TextInput(attrs={'placeholder':'Add Location',"style":"width:60%;height:100%"}),

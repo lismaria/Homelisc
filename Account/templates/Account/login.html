@@ -23,12 +23,12 @@
                 {% csrf_token %}
 
                 {{form.email}}
-                <span ng-show="loginForm.email.$touched && loginForm.email.$error.required">This field is required</span>
-                <span ng-show="loginForm.email.$touched && loginForm.email.$error.email">Enter valid email address: abc@domain.com</span>
+                <span ng-show="loginForm.email.$touched && loginForm.email.$error.required" ng-cloak>This field is required</span>
+                <span ng-show="loginForm.email.$touched && loginForm.email.$error.email" ng-cloak>Enter valid email address: abc@domain.com</span>
                 
                 {{form.password}}
-                <span ng-show="loginForm.password.$touched && loginForm.password.$error.required">This field is required</span>
-                <span ng-show="loginForm.password.$touched && loginForm.password.$error.minlength">Password should be at least 8 characters</span>
+                <span ng-show="loginForm.password.$touched && loginForm.password.$error.required" ng-cloak>This field is required</span>
+                <span ng-show="loginForm.password.$touched && loginForm.password.$error.minlength" ng-cloak>Password should be at least 8 characters</span>
                     <!-- <input type="text" name="" id="" placeholder="Email/Mobile Number">
                     <input type="text" name="" id="" placeholder="Password"> -->
                     <!-- <input type="hidden" name="as" value="{{login_as}}"> -->
