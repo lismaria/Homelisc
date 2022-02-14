@@ -162,15 +162,21 @@
 <script>
     $(document).ready(function () {
 
+        /* Add Form Validation */
         $(function() {
-            $("form[name='additemform']").validate({
-
+            $("form[name='additemform']").validate({              
+                rules:{
+                    item_img: "required",
+                },
                 // Specify validation error messages
                 messages: {
                     item_name: "Please enter a name for this item",
                     item_category: "Provide tags for relevancy and reach",
                     item_price:"Please give a price to this item.",
                     item_descr: "Please provide a description",
+                    item_img: {
+                        required: "Attach atleast 1 image",
+                    },
                 },
 
                 // submitHandler: function(form) {
@@ -178,7 +184,10 @@
                 // }
             });
         });
+        /* End Form Validation */
 
+
+        /* Item Sorting */
         initialItemsDiv =  $(".item-card");
         itemsDiv = $(".item-card");
         var ascending = true;
@@ -240,7 +249,10 @@
             $("#rating-btn, #alpha-btn").find("svg").removeClass("rotate-svg").addClass("normal-svg");
             $(".item-frame").append(initialItemsDiv)
         })
-
+        /* End Item Sorting */
+       
+       
+        /* On Loading Sttings */
         // On load setting the header and hiding additem/edititem divs
         document.getElementById("page-heading").innerHTML = "Menu";
         $(".add-item-wrapper, .edit-item-wrapper").addClass("hidden");
@@ -252,7 +264,11 @@
             $(".menu-wrapper").removeClass("hidden");
             document.getElementById("page-heading").innerHTML = "Menu";
         })
+        /* End On Loading Sttings */
 
+
+        
+        /* Adding Item */
         // Loading the additem div and hiding the main one
         $(".add-item").click(function () {
             document.getElementById("page-heading").innerHTML = "< Add Item";
@@ -260,200 +276,7 @@
             $(".add-item-wrapper").removeClass("hidden");
         })
 
-        // Edit item functionality
-        $(".edit-item").click(function () {
-            document.getElementById("page-heading").innerHTML = "< Edit Item";
-            $(".menu-wrapper").addClass("hidden");
-            $(".edit-item-wrapper").removeClass("hidden");
-
-            id = $(this).data('id')
-            editFormDiv = $(".edit-item-wrapper")
-
-            // AJAX get request
-            $.ajax({
-            type: 'get',
-            url: "{% url 'vendor:item-edit' %}",
-            content_type : 'application/json',
-            data: {
-                id : id
-            },
-            dataType: "html",
-            success: function(data){
-                // On success, inserting the form into the div and assigning specific functions
-                editFormDiv.html(data);
-
-                if($(".edit-preview-images").children().length == 3)
-                    $(".edit-itemimg").hide();
-
-                $("#remove-0").click(function() {
-                    $("#imgframe-0").remove();
-                    editimages();
-                })
-            
-                $("#remove-1").click(function() {
-                    $("#imgframe-1").remove();
-                    editimages();
-                })
-            
-                $("#remove-2").click(function() {
-                    $("#imgframe-2").remove();
-                    editimages();
-                })
-
-                $('#edit-itemimg').on("change", editimages);
-
-                $(".cancel-btn").click(function() {
-                    $(".edit-item-wrapper").addClass("hidden");
-                    $(".menu-wrapper").removeClass("hidden");
-                    $(".edit-item-wrapper").empty();
-                    document.getElementById("page-heading").innerHTML = "Menu";
-                });
-
-                var ct=-1;
-                $('.edit-item-pic').children('input').each(function () {
-                    ct=ct+1;
-                    $(this).attr({'id':'change-pic'+ct+''});                // "this" is the current element in the loop
-                    $(this).attr({'onchange':"document.getElementById('item-pic"+ct+"').src = window.URL.createObjectURL(this.files[0])"});
-                });
-                
-                // Edit item code (POST request)
-                $('#item-edit-form').submit(function(e){
-                    e.preventDefault();
-                    console.log("submit edit item")
-                    var serializedData = new FormData($('#item-edit-form')[0]);
-                    console.log($('#item-edit-form')[0])
-                    console.log($('#item-edit-form'))
-                    console.log(serializedData);
-                
-                    $.ajax({
-                        type: 'POST',
-                        url:"{% url 'vendor:item-edit' %}",
-                        data: serializedData,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (response) {
-                            console.log(response);
-                            alert("Item Updated Successfully!");
-                            location.reload();
-                        },
-                        error:  function (response) {
-                            var data = response.responseJSON;
-                            $(".customerror").remove();
-                            for(var name in data) {
-                                for (var i in data[name]) {
-                                var element = $('[name="'+i+'"]');
-                                var err = data[name][i].toString();
-                                $("<p class='customerror'>"+err+"</p>").insertAfter(element);
-                                }
-                            }
-                            console.log(response);
-                            alert("Failed to update");
-                        }
-                    })
-                })
-            },
-            error: function(error){
-                console.log("error",error);
-            }
-            }) 
-
-        })
-
-        // Remove an item - ajax call
-        $(".remove-item").click(function () {
-            var remid = $(this).data('remid');
-            var itemname = $(this).parent().siblings(".item-title").text();
-            console.log(itemname)
-            var proceed = confirm("Are you sure you want to delete "+itemname+"?");
-            if (proceed) {
-                $.ajax({
-                    type: 'post',
-                    url: "{% url 'vendor:item-delete' %}",
-                    data: {
-                        remid : remid
-                    },
-                    success: function (response){
-                        alert(response.msg);
-                        location.reload();
-                    },
-                    error:  function (response){
-                        alert(response.responseJSON.error);
-                    }
-                });
-            } else {
-                //don't proceed
-            }
-
-        });
-
-
-        // Add itemimage preview function
-        function previewImages() 
-        {
-            var $preview = $('.preview-images').empty();
-            if (this.files)
-            {
-                if(this.files.length<=3)
-                    $.each(this.files, readAndPreview);
-                else
-                    alert("Only 3 images can be uploaded.");
-            }
-
-            function readAndPreview(i, file) 
-            {
-                if (!/\.(jpe?g|png|gif)$/i.test(file.name)){
-                    return alert(file.name +" is not an image");
-                } // else...
-                var reader = new FileReader();
-                $(reader).on("load", function() {
-                  $preview.append($("<img/>", {src:this.result}));
-                });
-                reader.readAsDataURL(file);
-            }     
-        }
-        $('#add-itemimg').attr({'multiple':true});
-        $('#add-itemimg').on("change", previewImages);
-        
-
-        // Cancel button click
-        $(".cancel-btn").click(function() {
-            $('.additem-form').trigger("reset");
-            $(".add-item-wrapper").addClass("hidden");
-            $(".menu-wrapper").removeClass("hidden");
-
-            $(".edit-item-wrapper").addClass("hidden");
-            $(".edit-item-wrapper").empty();
-            $(".menu-wrapper").removeClass("hidden");
-            document.getElementById("page-heading").innerHTML = "Menu";
-        })
-
-        // Edit images preview function
-        function editimages() 
-        {
-            if($(".edit-preview-images").children().length < 3)
-            {
-                $(".edit-itemimg").show();
-                if(this.files)
-                {
-                    var reader = new FileReader();
-                    $(reader).on("load", function() {
-                        $(".edit-preview-images").append($("<img/>", {src:this.result}));
-                    });
-                    reader.readAsDataURL(this.files[0]);
-                    if($(".edit-preview-images").children().length == 2)
-                        $(".edit-itemimg").hide();
-                }
-            }
-            else
-            {
-                alert("Only 3 images can be uploaded.");
-                $(".edit-itemimg").hide();
-            }
-
-        }
-        
-
+                /* Adding Item  */
         // Add item code
         $('#item-add-form').submit(function(e){
             e.preventDefault();
@@ -498,6 +321,370 @@
                 }
             })
         })
+        
+        /* End Adding Item */
+
+        /* Adding Item Image */
+        // Add itemimage preview function
+        function previewImages() 
+        {
+            var $preview = $('.preview-images').empty();
+            if (this.files)
+            {
+                if(this.files.length<=3)
+                    $.each(this.files, readAndPreview);
+                else
+                    alert("Only 3 images can be uploaded.");
+            }
+
+            function readAndPreview(i, file) 
+            {
+                if (!/\.(jpe?g|png|gif)$/i.test(file.name)){
+                    return alert(file.name +" is not an image");
+                } // else...
+                var reader = new FileReader();
+                $(reader).on("load", function() {
+                  $preview.append($("<img/>", {src:this.result}));
+                });
+                reader.readAsDataURL(file);
+            }     
+        }
+        $('#add-itemimg').attr({'multiple':true});
+        $('#add-itemimg').on("change", previewImages);
+        /* End Adding Item and Image */
+
+
+        // Edit images preview function
+        function editimages() 
+            {
+                var newimgpreview = $('.new-img-preview')
+                console.log("EDIT IMAGE")
+                // if($(".edit-preview-images").children().length <= 3)
+                var eimglen = $(".edit-preview-images").children().length
+                console.log("eimglen", eimglen)
+                var nimglen = $(".new-img-preview").children().length
+                console.log("nimglen", nimglen)
+
+                // var sumlen = eimglen + nimglen
+                var sumlen2 = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
+
+                console.log("2:",sumlen2)
+                if(sumlen2 <= 3)
+                {
+                    $(".edit-itemimg").show();
+                    newimgpreview.empty();
+                    // if(this.files)
+                    // {
+                    //     var reader = new FileReader();
+                    //     $(reader).on("load", function() {
+                    //         newimgpreview.append($("<img/>", {src:this.result}));
+                    //     });
+                    //     reader.readAsDataURL(this.files[0]);
+                        
+                    //     if(($(".edit-preview-images").children().length + $preview.children().length)== 3)
+                    //         $(".edit-itemimg").hide();
+                    // }
+                    if (this.files)
+                    {
+                        var totalfiles = sumlen2 + this.files.length
+                        console.log("totalfiles: ",totalfiles)
+                        if(totalfiles<=3){
+                            if(totalfiles == 3){
+                                $(".edit-itemimg").hide();                                
+                            }
+                            $.each(this.files, readAndPreview);
+                        }
+                        else{
+                            alert("Its more tha 3..!");
+                            $("#edit-itemimg").val("");
+                        }
+                    }
+
+                    function readAndPreview(i, file) 
+                    {
+                        if (!/\.(jpe?g|png|gif)$/i.test(file.name)){
+                            return alert(file.name +" is not an image");
+                        } // else...
+                        var reader = new FileReader();
+                        $(reader).on("load", function() {
+                            newimgpreview.append($("<img/>", {src:this.result}));
+                        });
+                        reader.readAsDataURL(file);
+                    }    
+                    
+                    // if($(".edit-preview-images").children().length == 3)
+                    // sumlen3 = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
+                    // console.log("3: ",sumlen3)
+                    // console.log("eimglen", eimglen)
+                    // console.log("nimglen", nimglen)
+                    // if(totalfiles == 3)
+                    //     $(".edit-itemimg").hide();
+                }
+                else
+                {
+                    alert("Only 3 images can be allowed.");
+                    console.log("hi")
+                    $("#edit-itemimg").val("");
+                    $(".edit-itemimg").hide();
+                }
+
+            }
+
+            // Remove images preview function
+        function removeimages() 
+            {
+                console.log("REMOVEIMAGE")
+                if($(".edit-preview-images").children().length < 3)
+                {
+                    $(".edit-itemimg").show();
+                }
+                else
+                {
+                    console.log("hi")
+                    $(".edit-itemimg").hide();
+                }
+
+            }
+                
+        // Edit item functionality
+        $(".edit-item").click(function () {
+            document.getElementById("page-heading").innerHTML = "< Edit Item";
+            $(".menu-wrapper").addClass("hidden");
+            $(".edit-item-wrapper").removeClass("hidden");
+
+            id = $(this).data('id')
+            shopid = $('input[name="shopid"]').val()
+            editFormDiv = $(".edit-item-wrapper")
+
+            // AJAX get request
+            $.ajax({
+            type: 'get',
+            url: "{% url 'vendor:item-edit' %}",
+            content_type : 'application/json',
+            data: {
+                id : id,
+                shopid:shopid
+            },
+            dataType: "html",
+            success: function(data){
+                // On success, inserting the form into the div and assigning specific functions
+                editFormDiv.html(data);
+
+                // if($(".edit-preview-images").children().length >= 3)
+                
+                var sumlen1 = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
+                console.log("1:",sumlen1)
+                if(sumlen1>= 3)
+                    $(".edit-itemimg").hide();
+                $('#edit-itemimg').attr({'multiple':true});
+                // $('#edit-itemimg').on("change", previewImages);
+                $('#edit-itemimg').on("change", editimages);
+                // $("#remove-0").click(function() {
+                //     $("#imgframe-0").remove();
+                //     editimages();
+                // })
+            
+                // $("#remove-1").click(function() {
+                //     $("#imgframe-1").remove();
+                //     editimages();
+                // })
+            
+                // $("#remove-2").click(function() {
+                //     $("#imgframe-2").remove();
+                //     editimages();
+                // })
+
+                
+
+                $(".cancel-btn").click(function() {
+                    $(".edit-item-wrapper").addClass("hidden");
+                    $(".menu-wrapper").removeClass("hidden");
+                    $(".edit-item-wrapper").empty();
+                    document.getElementById("page-heading").innerHTML = "Menu";
+                });
+
+                // Cancel button click
+                $(".edit-item-cancel-btn").click(function() {
+                    // var imgsum = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
+                    console.log("Imgsum: ", $(".edit-preview-images").children().length);
+                    if( $(".edit-preview-images").children().length !=0){
+                        console.log("if")
+                        $('.additem-form').trigger("reset");
+                        $(".add-item-wrapper").addClass("hidden");
+                        $(".menu-wrapper").removeClass("hidden");
+
+                        $(".edit-item-wrapper").addClass("hidden");
+                        $(".edit-item-wrapper").empty();
+                        $(".menu-wrapper").removeClass("hidden");
+                        document.getElementById("page-heading").innerHTML = "Menu";
+                    }else{
+                        console.log("else")
+                        alert("Attach Atlest 1 Image")
+                    }
+                })
+
+    // $("#page-heading").click(function(){
+    //     console.log("HERE")
+    //     // alert("Attach HEHE")
+    //     console.log($("#page-heading").text())
+    //     // if($("#page-heading").text()=="< Edit Item")
+
+    //     if($(".edit-preview-images").children().length==0 && $(".edit-item-cancel-btn"))
+    //         alert("Attach Atlest 1 Image")
+    // })
+
+                // var ct=-1;
+                // $('.edit-item-pic').children('input').each(function () {
+                //     ct=ct+1;
+                //     $(this).attr({'id':'change-pic'+ct+''});                // "this" is the current element in the loop
+                //     $(this).attr({'onchange':"document.getElementById('item-pic"+ct+"').src = window.URL.createObjectURL(this.files[0])"});
+                // });
+             
+                
+                // Edit item code (POST request)
+                $('#item-edit-form').submit(function(e){
+                    e.preventDefault();
+                    console.log("submit edit item")
+                    var serializedData = new FormData($('#item-edit-form')[0]);
+                    console.log($('#item-edit-form')[0])
+                    console.log($('#item-edit-form'))
+                    console.log(serializedData);
+                
+                    $.ajax({
+                        type: 'POST',
+                        url:"{% url 'vendor:item-edit' %}",
+                        data: serializedData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            console.log(response);
+                            alert("Item Updated Successfully!");
+                            location.reload();
+                        },
+                        error:  function (response) {
+                            var data = response.responseJSON;
+                            if (response.responseJSON.only3imgerr){
+                                console.log(response);
+                                alert(response.responseJSON.only3imgerr);
+                            }
+                            else{
+                                $(".customerror").remove();
+                                for(var name in data) {
+                                    for (var i in data[name]) {
+                                    var element = $('[name="'+i+'"]');
+                                    var err = data[name][i].toString();
+                                    $("<p class='customerror'>"+err+"</p>").insertAfter(element);
+                                    }
+                                }
+                                console.log(response);
+                                alert("Failed to update");
+                            }
+
+                        }
+                    })
+                })
+
+
+                $(".e-remove-item").click(function(e) {
+                    console.log("del")
+                    var deleteimgid = $(this).data('deleteimgid');
+                    // console.log("EDIT: ",$(".edit-preview-images").children().length)
+                    // console.log("PREV: ",$(".new-img-preview").children().length)
+                    var sum = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
+                    console.log(sum)
+                    if(sum==1){
+                        alert("Atleast 1 image should be uploaded.");
+                    }
+                    else{
+                        var deleteimg = confirm("Are you sure you want to delete ?");
+                        if (deleteimg) {
+                            $(this).parent().remove();
+                            removeimages();
+                            // $("#remove-0").click(function() {
+                            //     $("#imgframe-0").remove();
+                            //     editimages();
+                            // })
+                        
+                            // $("#remove-1").click(function() {
+                            //     $("#imgframe-1").remove();
+                            //     editimages();
+                            // })
+                        
+                            // $("#remove-2").click(function() {
+                            //     $("#imgframe-2").remove();
+                            //     editimages();
+                            // })
+                            $.ajax({
+                                type: 'post',
+                                url: "{% url 'vendor:itemimg-delete' %}",
+                                data: {
+                                    deleteimgid : deleteimgid
+                                },
+                                success: function (response){
+                                    console.log(response.msg);
+                                    // location.reload();
+                                },
+                                error:  function (response){
+                                    alert(response.responseJSON.error);
+                                }
+                            });
+                        } else {
+                            //don't proceed
+                        }
+                    }
+                })
+            },
+            error: function(error){
+                console.log("error",error);
+            }
+            }) 
+
+        })
+
+        // Remove an item - ajax call
+        $(".remove-item").click(function () {
+            var remid = $(this).data('remid');
+            var itemname = $(this).parent().siblings(".item-title").text();
+            console.log(itemname)
+            var proceed = confirm("Are you sure you want to delete "+itemname+"?");
+            if (proceed) {
+                $.ajax({
+                    type: 'post',
+                    url: "{% url 'vendor:item-delete' %}",
+                    data: {
+                        remid : remid
+                    },
+                    success: function (response){
+                        alert(response.msg);
+                        location.reload();
+                    },
+                    error:  function (response){
+                        alert(response.responseJSON.error);
+                    }
+                });
+            } else {
+                //don't proceed
+            }
+
+        });
+
+         // Cancel button click
+         $(".cancel-btn").click(function() {
+             console.log("Neeche wala")
+            $('.additem-form').trigger("reset");
+            $(".add-item-wrapper").addClass("hidden");
+            $(".menu-wrapper").removeClass("hidden");
+
+            $(".edit-item-wrapper").addClass("hidden");
+            $(".edit-item-wrapper").empty();
+            $(".menu-wrapper").removeClass("hidden");
+            document.getElementById("page-heading").innerHTML = "Menu";
+        })
+
+
+
+        
 
         
     });

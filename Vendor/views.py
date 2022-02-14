@@ -319,6 +319,7 @@ def item_add(request):
         return render(request,"Account/account.html")
         
     if request.POST:        
+        print(request.FILES)
         shopid = request.POST['shopid']
         itemcat = request.POST.get('item_category')
         itemcatarr = itemcat.split(',')
@@ -380,6 +381,8 @@ def item_edit(request):
         return render(request,"Account/account.html")  
 
     if request.POST:
+        print(request.FILES)
+        print(request.POST)
         itemid = request.POST['itemid']
         itemcat = request.POST.get('item_category')
         itemcatarr = itemcat.split(',')
@@ -403,10 +406,31 @@ def item_edit(request):
             ser_instance = serializers.serialize('json', [ instance, ])
         else:
             return JsonResponse({"error": itemForm.errors}, status=400)
-        return JsonResponse({"instance": ser_instance}, status=200)
-        
+
+        imageForm = ItemImageUploadForm(request.FILES)
+        files = request.FILES.getlist('item_img')
+        shopid = request.POST['shopid']
+        shopInfo = Shop.objects.get(id=shopid)
+        imageQuerySet = ItemImage.objects.filter(item_id=itemid)
+        imageInfo = imageQuerySet.values()
+        imgcount = imageInfo.count()
+        if imgcount <= 3:
+            if imageForm.is_valid():
+                ser_img=""
+                for f in files:
+                    img = ItemImage(item_id=itemInfo, shop_id=shopInfo, item_img=f)
+                    img.save()
+                    ser_img = ser_img + serializers.serialize('json', [ img, ])
+            else:
+                return JsonResponse({"error": imageForm.errors}, status=400)
+        else:
+            return JsonResponse({"only3imgerr": "Only 3 images allowed to be uploaded."}, status=400)
+        return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
+            
     else:
+        # GET request
         itemid=request.GET.get('id')
+        shopid=request.GET.get('shopid')
         itemInfo = Item.objects.filter(id=itemid).values()
         imageQuerySet = ItemImage.objects.filter(item_id=itemid)
         imageInfo = imageQuerySet.values()
@@ -421,8 +445,29 @@ def item_edit(request):
             filledImageForm.append(ItemImageEditForm(initial={'item_img':imageInfo[i]['item_img']}))
         imageCombo = zip(filledImageForm, imageQuerySet, count)
         
-        return render(request, 'Vendor/itemedit.html',{'itemid':itemid,'imageForm':imageForm,'filledItemForm':filledItemForm, 'imageCombo':imageCombo})
+        return render(request, 'Vendor/itemedit.html',{'itemid':itemid,'shopid':shopid,'imageForm':imageForm,'filledItemForm':filledItemForm, 'imageCombo':imageCombo})
     return JsonResponse({"error": " ", }, status=400)
+
+@csrf_exempt
+def itemimg_delete(request):
+    print(request.FILES)
+    if not request.user.is_authenticated:
+        return render(request,"Account/account.html")
+    
+    if request.POST:
+        deleteimgid = request.POST.get('deleteimgid')
+        try:
+            imageInfo = ItemImage.objects.filter(id=deleteimgid)
+            if imageInfo:
+                imageInfo.delete()
+            else:
+                raise Exception
+        except:
+            return JsonResponse({"error": "Failed to delete"}, status=400)
+        else:
+            return JsonResponse({"msg": "Image Deleted :("}, status=200)
+
+    return JsonResponse({"error": " "}, status=400)
 
 
 
