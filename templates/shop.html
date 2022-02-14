@@ -127,7 +127,7 @@
                         </div>
                         <div class="product-card">
                             <a href="{% url 'product' id=i.id slug=i.shop_slug itemid=k.id %}">
-                                <img src="" alt="" srcset="">
+                                <img src="{{k.item_img_def.url}}" alt="" srcset="">
                             </a>
                             <h2>{{k.item_name}}</h2>
                             {% if k.item_descr|length > 60 %}

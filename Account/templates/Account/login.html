@@ -24,11 +24,9 @@
 
                 {{form.email}}
                 <span ng-show="loginForm.email.$touched && loginForm.email.$error.required" ng-cloak>This field is required</span>
-                <span ng-show="loginForm.email.$touched && loginForm.email.$error.email" ng-cloak>Enter valid email address: abc@domain.com</span>
                 
                 {{form.password}}
                 <span ng-show="loginForm.password.$touched && loginForm.password.$error.required" ng-cloak>This field is required</span>
-                <span ng-show="loginForm.password.$touched && loginForm.password.$error.minlength" ng-cloak>Password should be at least 8 characters</span>
                     <!-- <input type="text" name="" id="" placeholder="Email/Mobile Number">
                     <input type="text" name="" id="" placeholder="Password"> -->
                     <!-- <input type="hidden" name="as" value="{{login_as}}"> -->
@@ -48,7 +46,7 @@
                 {% endif %}
             </form>
             <div class="login-button">
-                <button type="submit" form="login-form">Login</button>
+                <button type="submit" ng-disabled="loginForm.$invalid" form="login-form">Login</button>
                 <p>or</p>
                 <button type="submit" form="login-form" style="background-color: var(--accent);color:var(--black)">Log In with Google</button>
             </div>

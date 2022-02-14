@@ -32,9 +32,7 @@
                 <a class="prev">&#10094;</a>
                 <div class="slider-inner">
                     {% for img in imageInfo %}
-                        {% if img.item_id.id == i.id  %}
-                            <img class=""  src="{{img.item_img.url}}" alt="">
-                        {% endif %}
+                        <img class=""  src="{{img.item_img.url}}" alt="">
                     {% endfor %}
                 </div>
                 <a class="next">&#10095;</a>

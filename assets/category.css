@@ -59,7 +59,7 @@
 .cuisine-img-bg{
     width: 8rem;
     height: 8rem;
-    background-color: #D78828;
+    background-color: var(--accent);
     border-radius: 50%;
     display: flex;
     align-items: center;

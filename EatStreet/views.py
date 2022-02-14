@@ -108,7 +108,7 @@ def product(request,id,slug,itemid):
     item_clicks = itemInfo.values()[0]['item_clicks_count']
     count = item_clicks + 1
     itemInfo.update(item_clicks_count=count) 
-    imageInfo = ItemImage.objects.filter(shop_id=id)
+    imageInfo = ItemImage.objects.filter(item_id=itemid)
     itemReviews = Review.objects.filter(item_id = itemid).order_by('-date')
     reviewForm = ReviewForm()
     vendorReplies = VendorReply.objects.filter(shop_id=id)
