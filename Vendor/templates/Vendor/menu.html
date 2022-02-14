@@ -44,11 +44,7 @@
             {% for i in itemInfo %}
             <div class="item-card">
                 <div class="item-pic">
-                    {% for img in imageInfo  %}
-                        {% if img.item_id.id == i.id %}
-                            <img src="{{img.item_img.url}}" alt="" srcset="" width="100%" height="100%"> 
-                        {% endif %}                   
-                    {% endfor %}
+                        <img src="{{i.item_img_def.url}}" alt="" srcset="" width="100%" height="100%"> 
                     <div class="remove-item" data-remid={{i.id}}>
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.80497 9L12.235 6.57C12.3169 6.47435 12.3597 6.35131 12.3548 6.22547C12.35 6.09964 12.2978 5.98027 12.2087 5.89122C12.1197 5.80217 12.0003 5.75001 11.8745 5.74515C11.7487 5.74029 11.6256 5.78309 11.53 5.865L9.09997 8.27L6.65497 5.825C6.55932 5.74309 6.43628 5.70029 6.31044 5.70515C6.1846 5.71001 6.06523 5.76217 5.97619 5.85122C5.88714 5.94027 5.83497 6.05964 5.83011 6.18547C5.82525 6.31131 5.86805 6.43435 5.94997 6.53L8.38997 9L5.99997 11.36C5.94763 11.4048 5.90512 11.46 5.8751 11.522C5.84509 11.584 5.82823 11.6516 5.82557 11.7205C5.82291 11.7893 5.83451 11.858 5.85965 11.9222C5.88479 11.9863 5.92291 12.0446 5.97164 12.0933C6.02037 12.1421 6.07864 12.1802 6.14281 12.2053C6.20697 12.2305 6.27563 12.2421 6.34449 12.2394C6.41335 12.2367 6.48092 12.2199 6.54295 12.1899C6.60498 12.1599 6.66014 12.1173 6.70497 12.065L9.08997 9.68L11.46 12.05C11.5556 12.1319 11.6787 12.1747 11.8045 12.1699C11.9303 12.165 12.0497 12.1128 12.1387 12.0238C12.2278 11.9347 12.28 11.8154 12.2848 11.6895C12.2897 11.5637 12.2469 11.4407 12.165 11.345L9.80497 9Z" fill="#964B00" stroke="var(--primary)"/>
@@ -181,9 +177,6 @@
                     },
                 },
 
-                // submitHandler: function(form) {
-                // form.submit();
-                // }
             });
         });
         /* End Form Validation */
@@ -287,7 +280,6 @@
         $('#item-add-form').submit(function(e){
             e.preventDefault();
             $("label.error").remove();
-            console.log("submit add item")
             var serializedData = new FormData($('#item-add-form')[0]);
 
             $.ajax({
@@ -298,14 +290,10 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
-                    // var res = JSON.parse(response.instance)[0].fields.profile_pic
-                    // $("#vendor_profile").attr('src','/media/'+res);
                     alert("Item Added Successfully!");
                     location.reload();
                 },
                 error:  function (response) {
-                    console.log(response);
                     var data = response.responseJSON;
                     $(".customerror").remove();
                     var element = $('[name=item_category]');
@@ -313,13 +301,11 @@
                        
                     if(response.responseJSON.noImgError){
                         var noimgerr = response.responseJSON.noImgError
-                        console.log("noimg",noimgerr);
                         $("<p class='customerror'>"+noimgerr+"</p>").insertAfter(noimgele);
                     } 
                     
                     if(response.responseJSON.error){
                         var err = response.responseJSON.error.item_category      
-                        console.log("itemcaterr"+err)
                         $("<p class='customerror'>"+err[0]+"</p>").insertAfter(element);
                     } 
                 }
@@ -362,36 +348,20 @@
         function editimages() 
             {
                 var newimgpreview = $('.new-img-preview')
-                console.log("EDIT IMAGE")
-                // if($(".edit-preview-images").children().length <= 3)
                 var eimglen = $(".edit-preview-images").children().length
-                console.log("eimglen", eimglen)
                 var nimglen = $(".new-img-preview").children().length
-                console.log("nimglen", nimglen)
 
                 // var sumlen = eimglen + nimglen
                 var sumlen2 = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
 
-                console.log("2:",sumlen2)
                 if(sumlen2 <= 3)
                 {
                     $(".edit-itemimg").show();
                     newimgpreview.empty();
-                    // if(this.files)
-                    // {
-                    //     var reader = new FileReader();
-                    //     $(reader).on("load", function() {
-                    //         newimgpreview.append($("<img/>", {src:this.result}));
-                    //     });
-                    //     reader.readAsDataURL(this.files[0]);
-                        
-                    //     if(($(".edit-preview-images").children().length + $preview.children().length)== 3)
-                    //         $(".edit-itemimg").hide();
-                    // }
+
                     if (this.files)
                     {
                         var totalfiles = sumlen2 + this.files.length
-                        console.log("totalfiles: ",totalfiles)
                         if(totalfiles<=3){
                             if(totalfiles == 3){
                                 $(".edit-itemimg").hide();                                
@@ -416,18 +386,10 @@
                         reader.readAsDataURL(file);
                     }    
                     
-                    // if($(".edit-preview-images").children().length == 3)
-                    // sumlen3 = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
-                    // console.log("3: ",sumlen3)
-                    // console.log("eimglen", eimglen)
-                    // console.log("nimglen", nimglen)
-                    // if(totalfiles == 3)
-                    //     $(".edit-itemimg").hide();
                 }
                 else
                 {
                     alert("Only 3 images can be allowed.");
-                    console.log("hi")
                     $("#edit-itemimg").val("");
                     $(".edit-itemimg").hide();
                 }
@@ -437,14 +399,12 @@
             // Remove images preview function
         function removeimages() 
             {
-                console.log("REMOVEIMAGE")
                 if($(".edit-preview-images").children().length < 3)
                 {
                     $(".edit-itemimg").show();
                 }
                 else
                 {
-                    console.log("hi")
                     $(".edit-itemimg").hide();
                 }
 
@@ -474,45 +434,16 @@
             success: function(data){
                 // On success, inserting the form into the div and assigning specific functions
                 editFormDiv.html(data);
-
-                // if($(".edit-preview-images").children().length >= 3)
                 
                 var sumlen1 = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
-                console.log("1:",sumlen1)
                 if(sumlen1>= 3)
                     $(".edit-itemimg").hide();
                 $('#edit-itemimg').attr({'multiple':true});
-                // $('#edit-itemimg').on("change", previewImages);
                 $('#edit-itemimg').on("change", editimages);
-                // $("#remove-0").click(function() {
-                //     $("#imgframe-0").remove();
-                //     editimages();
-                // })
-            
-                // $("#remove-1").click(function() {
-                //     $("#imgframe-1").remove();
-                //     editimages();
-                // })
-            
-                // $("#remove-2").click(function() {
-                //     $("#imgframe-2").remove();
-                //     editimages();
-                // })
-
-                
-
-                // $(".cancel-btn").click(function() {
-                //     $(".edit-item-wrapper").addClass("hidden");
-                //     $(".menu-wrapper").removeClass("hidden");
-                //     $(".edit-item-wrapper").empty();
-                //     document.getElementById("page-heading").innerHTML = "Menu";
-                // });
 
                 // Cancel button click
                 $(".edit-item-cancel-btn").click(function(e) {
                     e.preventDefault();
-                    // var imgsum = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
-                    console.log("Imgsum: ", $(".edit-preview-images").children().length);
                     if( $(".edit-preview-images").children().length !=0){
                         console.log("if")
                         $(".edit-item-wrapper").addClass("hidden");
@@ -521,7 +452,6 @@
 
                         document.getElementById("page-heading").innerHTML = "Menu";
                     }else{
-                        console.log("else")
                         return alert("Attach Atlest 1 Image - cancel")
                     }
                 })
@@ -531,7 +461,6 @@
                     if($("#page-heading").text() == '< Edit Item')
                     {
                         if($(".edit-preview-images").children().length !=0){
-                            console.log("if")
                             $(".edit-item-wrapper").addClass("hidden");
                             $(".edit-item-wrapper").empty();
                             $(".menu-wrapper").removeClass("hidden");
@@ -539,36 +468,17 @@
                             document.getElementById("page-heading").innerHTML = "Menu";
                         }
                         else{
-                            console.log("else")
                             return alert("Attach Atlest 1 Image - heading")
                         }
 
-                        // console.log("HERE")
-                        // alert("Attach HEHE")
-                        // console.log($("#page-heading").text())
-                        // if($("#page-heading").text()=="< Edit Item")
-
-                        // if($(".edit-preview-images").children().length==0 && $(".edit-item-cancel-btn"))
-                        //     alert("Attach Atlest 1 Image")
                     } 
                 })
-
-                // var ct=-1;
-                // $('.edit-item-pic').children('input').each(function () {
-                //     ct=ct+1;
-                //     $(this).attr({'id':'change-pic'+ct+''});                // "this" is the current element in the loop
-                //     $(this).attr({'onchange':"document.getElementById('item-pic"+ct+"').src = window.URL.createObjectURL(this.files[0])"});
-                // });
              
                 
                 // Edit item code (POST request)
                 $('#item-edit-form').submit(function(e){
                     e.preventDefault();
-                    console.log("submit edit item")
                     var serializedData = new FormData($('#item-edit-form')[0]);
-                    console.log($('#item-edit-form')[0])
-                    console.log($('#item-edit-form'))
-                    console.log(serializedData);
                 
                     $.ajax({
                         type: 'POST',
@@ -578,14 +488,12 @@
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                            console.log(response);
                             alert("Item Updated Successfully!");
                             location.reload();
                         },
                         error:  function (response) {
                             var data = response.responseJSON;
                             if (response.responseJSON.only3imgerr){
-                                console.log(response);
                                 alert(response.responseJSON.only3imgerr);
                             }
                             else{
@@ -597,7 +505,6 @@
                                     $("<p class='customerror'>"+err+"</p>").insertAfter(element);
                                     }
                                 }
-                                console.log(response);
                                 alert("Failed to update");
                             }
 
@@ -608,12 +515,9 @@
 
                 $(".e-remove-item").click(function(e) {
                     e.preventDefault();
-                    console.log("del")
                     var deleteimgid = $(this).data('deleteimgid');
-                    // console.log("EDIT: ",$(".edit-preview-images").children().length)
-                    // console.log("PREV: ",$(".new-img-preview").children().length)
                     var sum = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
-                    console.log(sum)
+
                     if(sum==1){
                         return alert("Atleast 1 image should be uploaded.");
                     }
@@ -622,20 +526,7 @@
                         if (deleteimg) {
                             $(this).parent().remove();
                             removeimages();
-                            // $("#remove-0").click(function() {
-                            //     $("#imgframe-0").remove();
-                            //     editimages();
-                            // })
-                        
-                            // $("#remove-1").click(function() {
-                            //     $("#imgframe-1").remove();
-                            //     editimages();
-                            // })
-                        
-                            // $("#remove-2").click(function() {
-                            //     $("#imgframe-2").remove();
-                            //     editimages();
-                            // })
+
                             $.ajax({
                                 type: 'post',
                                 url: "{% url 'vendor:itemimg-delete' %}",
@@ -668,7 +559,6 @@
             e.preventDefault();
             var remid = $(this).data('remid');
             var itemname = $(this).parent().siblings(".item-title").text();
-            console.log(itemname)
             var proceed = confirm("Are you sure you want to delete "+itemname+"?");
             if (proceed) {
                 $.ajax({
@@ -694,7 +584,6 @@
          // Cancel button click
          $(".cancel-btn").click(function(e) {
             e.preventDefault();
-            console.log("Neeche wala")
             $('.additem-form').trigger("reset");
             $(".add-item-wrapper").addClass("hidden");
             $(".menu-wrapper").removeClass("hidden");

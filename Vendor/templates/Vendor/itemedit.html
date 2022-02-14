@@ -29,7 +29,6 @@
             </svg>
             <p>Add Image</p>
         </label>
-        <div class="new-img-preview" width="100" height="100"></div>
         <div class="edit-preview-images">
             
             {% for img, i, ct in imageCombo %}
@@ -47,6 +46,7 @@
             {% endfor %}
            
         </div>
+        <div class="new-img-preview" width="100" height="100"></div>
         <input type="hidden" name="shopid" value={{shopid}}>
         <div class="additem-buttons">
             <button class="edit-item-cancel-btn">

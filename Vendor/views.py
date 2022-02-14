@@ -233,7 +233,7 @@ def shop_insights(request):
 def menu_view(request,id,slug):
     shopobj = check_vendor_details(request,id)
     itemInfo = Item.objects.filter(shop_id=id).order_by('-id')
-    imageInfo = ItemImage.objects.filter(shop_id=id).distinct('item_id')
+    # imageInfo = ItemImage.objects.filter(shop_id=id).distinct('item_id')
     itemForm = ItemCreationForm()
     imageForm = ItemImageUploadForm()
     itemcount = itemInfo.count()
@@ -242,7 +242,7 @@ def menu_view(request,id,slug):
     obj = get_object_or_404(Shop, pk=id)
     if obj.shop_slug != slug:
         return redirect('vendor:shop', id=obj.pk, slug=obj.shop_slug)
-    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'itemForm':itemForm, 'imageForm':imageForm, 'itemInfo':itemInfo, 'imageInfo':imageInfo,'itemcount':itemcount})
+    return render(request,"Vendor/menu.html",{'shopInfo':shopobj['shopInfo'],'vendorForm':shopobj['vendorForm'],'itemForm':itemForm, 'imageForm':imageForm, 'itemInfo':itemInfo,'itemcount':itemcount})
 
 
 
@@ -319,7 +319,6 @@ def item_add(request):
         return render(request,"Account/account.html")
         
     if request.POST:        
-        print(request.FILES)
         shopid = request.POST['shopid']
         itemcat = request.POST.get('item_category')
         itemcatarr = itemcat.split(',')
@@ -331,6 +330,7 @@ def item_add(request):
             if itemForm.is_valid():
                 instance = itemForm.save(commit=False)
                 instance.shop_id = shopInfo
+                instance.item_img_def = files[0]
                 instance.save()
                 ser_instance = serializers.serialize('json', [ instance, ])
 
@@ -381,8 +381,6 @@ def item_edit(request):
         return render(request,"Account/account.html")  
 
     if request.POST:
-        print(request.FILES)
-        print(request.POST)
         itemid = request.POST['itemid']
         itemcat = request.POST.get('item_category')
         itemcatarr = itemcat.split(',')
@@ -421,6 +419,10 @@ def item_edit(request):
                     img = ItemImage(item_id=itemInfo, shop_id=shopInfo, item_img=f)
                     img.save()
                     ser_img = ser_img + serializers.serialize('json', [ img, ])
+                imageQuerySet = ItemImage.objects.filter(item_id=itemid).distinct('item_id')
+                for i in imageQuerySet:
+                    itemInfo.item_img_def = i.item_img
+                itemInfo.save()
             else:
                 return JsonResponse({"error": imageForm.errors}, status=400)
         else:

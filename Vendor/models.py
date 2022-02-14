@@ -37,6 +37,7 @@ class Item(models.Model):
     item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count",null=True, blank=True, default=0)
     item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count",null=True, blank=True, default=0)
     item_category = ArrayField(models.CharField(verbose_name="Item Category",max_length=50), size=3, blank=False)
+    item_img_def = models.ImageField(verbose_name="Item Image Default",default="default.png",blank=True)
     shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
 
     def __str__(self):
