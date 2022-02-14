@@ -299,3 +299,21 @@
       fill: var(--primary);
       filter: drop-shadow(var(--ds_nav__active));
 }
+
+.no-items{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    width:100%;
+    grid-column: 1/3;
+    justify-self: center;
+}
+
+.no-items p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.4rem;
+}

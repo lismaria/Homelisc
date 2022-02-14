@@ -182,8 +182,11 @@
                     </div>
             {% endverbatim %}
 
-        </div>
-        
+        </div>        
+    </div>
+    <div class="no-reviews-div disp-rev">
+        <img src="{% static 'Vendor/svg/no-review.svg' %}">
+        <p>No shop reviews yet, see the dropdown above to check for item reviews.</p>
     </div>
 </div>
 
@@ -275,6 +278,17 @@
     $(document).ready(function () {
         let init_revh = window.innerHeight * 0.01;
         document.getElementById("page-heading").innerHTML = "Reviews";
+
+        if($(".review-content").children().length == 0)
+            $(".no-reviews-div").removeClass("disp-rev")
+
+        $('select').on('change', function() {
+            console.log($(".review-content").children().length)
+            if($(".review-content").children().length == 0)
+                $(".no-reviews-div").removeClass("disp-rev")
+            else
+                $(".no-reviews-div").addClass("disp-rev")
+        });
         
         reviewsDiv = $(".review-comments")
         $("#rating-btn").click(function () {
