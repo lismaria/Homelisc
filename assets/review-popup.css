@@ -173,17 +173,24 @@ label.star:hover {
 }
 
 label.star:after {
-    content: '\f006';
+    /* content: '\f006';
     font-family: FontAwesome;
     font-weight: 900;
-    font-size: 1.2rem;
+    font-size: 1.2rem; */
+    content: "";
+    background-image: url(svg/starstroke.svg);
+    height: 12px;
+    width: 13px;
+    background-repeat: no-repeat;
 }
 
-input.star:checked~label.star {
-    content: '';
+input.star:checked~label.star{
     color: transparent;
-    background-color: #FD4;
-    /* transition: all .5s */
+}
+
+input.star:checked~label.star:after {
+    content: "";
+    background-image: none;
 }
 
 input.star-5:checked~label.star {
@@ -223,7 +230,13 @@ input.star-4:checked~label.star-4:after,
 input.star-3:checked~label.star-3:after,
 input.star-2:checked~label.star-2:after,
 input.star-1:checked~label.star-1:after{
-    content: '\f005';
+    /* content: '\f005';
     font-family: FontAwesome;
-    font-weight: 900;
+    font-weight: 900; */
+
+    content: "";
+    background-image: url(svg/star.svg);
+    height: 12px;
+    width: 13px;
+    background-repeat: no-repeat;
 }
