@@ -261,10 +261,14 @@
 
         // Displaying the main div on page heading click
         $("#page-heading").click(function(){
-            $(".add-item-wrapper, .edit-item-wrapper").addClass("hidden");
-            $(".edit-item-wrapper").empty();
-            $(".menu-wrapper").removeClass("hidden");
-            document.getElementById("page-heading").innerHTML = "Menu";
+            if($("#page-heading").text() == '< Add Item' || $("#page-heading").text() == 'Menu')
+            {
+                $(".add-item-wrapper, .edit-item-wrapper").addClass("hidden");
+                $(".edit-item-wrapper").empty();
+                $(".menu-wrapper").removeClass("hidden");
+
+                document.getElementById("page-heading").innerHTML = "Menu";
+            }  
         })
         /* End On Loading Sttings */
 
@@ -314,9 +318,7 @@
                     } 
                     
                     if(response.responseJSON.error){
-                        var err = response.responseJSON.error.item_category   
-                    var err = response.responseJSON.error.item_category
-                        var err = response.responseJSON.error.item_category   
+                        var err = response.responseJSON.error.item_category      
                         console.log("itemcaterr"+err)
                         $("<p class='customerror'>"+err[0]+"</p>").insertAfter(element);
                     } 
@@ -404,7 +406,7 @@
 
                     function readAndPreview(i, file) 
                     {
-                        if (!/\.(jpe?g|png|gif)$/i.test(file.name)){
+                        if (!/\.(jpe?g|png)$/i.test(file.name)){
                             return alert(file.name +" is not an image");
                         } // else...
                         var reader = new FileReader();
@@ -449,7 +451,8 @@
             }
                 
         // Edit item functionality
-        $(".edit-item").click(function () {
+        $(".edit-item").click(function (e) {
+            e.preventDefault();
             document.getElementById("page-heading").innerHTML = "< Edit Item";
             $(".menu-wrapper").addClass("hidden");
             $(".edit-item-wrapper").removeClass("hidden");
@@ -498,42 +501,57 @@
 
                 
 
-                $(".cancel-btn").click(function() {
-                    $(".edit-item-wrapper").addClass("hidden");
-                    $(".menu-wrapper").removeClass("hidden");
-                    $(".edit-item-wrapper").empty();
-                    document.getElementById("page-heading").innerHTML = "Menu";
-                });
+                // $(".cancel-btn").click(function() {
+                //     $(".edit-item-wrapper").addClass("hidden");
+                //     $(".menu-wrapper").removeClass("hidden");
+                //     $(".edit-item-wrapper").empty();
+                //     document.getElementById("page-heading").innerHTML = "Menu";
+                // });
 
                 // Cancel button click
-                $(".edit-item-cancel-btn").click(function() {
+                $(".edit-item-cancel-btn").click(function(e) {
+                    e.preventDefault();
                     // var imgsum = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
                     console.log("Imgsum: ", $(".edit-preview-images").children().length);
                     if( $(".edit-preview-images").children().length !=0){
                         console.log("if")
-                        $('.additem-form').trigger("reset");
-                        $(".add-item-wrapper").addClass("hidden");
-                        $(".menu-wrapper").removeClass("hidden");
-
                         $(".edit-item-wrapper").addClass("hidden");
                         $(".edit-item-wrapper").empty();
                         $(".menu-wrapper").removeClass("hidden");
+
                         document.getElementById("page-heading").innerHTML = "Menu";
                     }else{
                         console.log("else")
-                        alert("Attach Atlest 1 Image")
+                        return alert("Attach Atlest 1 Image - cancel")
                     }
                 })
 
-    // $("#page-heading").click(function(){
-    //     console.log("HERE")
-    //     // alert("Attach HEHE")
-    //     console.log($("#page-heading").text())
-    //     // if($("#page-heading").text()=="< Edit Item")
+                $("#page-heading").click(function(e){
+                    e.preventDefault();
+                    if($("#page-heading").text() == '< Edit Item')
+                    {
+                        if($(".edit-preview-images").children().length !=0){
+                            console.log("if")
+                            $(".edit-item-wrapper").addClass("hidden");
+                            $(".edit-item-wrapper").empty();
+                            $(".menu-wrapper").removeClass("hidden");
 
-    //     if($(".edit-preview-images").children().length==0 && $(".edit-item-cancel-btn"))
-    //         alert("Attach Atlest 1 Image")
-    // })
+                            document.getElementById("page-heading").innerHTML = "Menu";
+                        }
+                        else{
+                            console.log("else")
+                            return alert("Attach Atlest 1 Image - heading")
+                        }
+
+                        // console.log("HERE")
+                        // alert("Attach HEHE")
+                        // console.log($("#page-heading").text())
+                        // if($("#page-heading").text()=="< Edit Item")
+
+                        // if($(".edit-preview-images").children().length==0 && $(".edit-item-cancel-btn"))
+                        //     alert("Attach Atlest 1 Image")
+                    } 
+                })
 
                 // var ct=-1;
                 // $('.edit-item-pic').children('input').each(function () {
@@ -589,6 +607,7 @@
 
 
                 $(".e-remove-item").click(function(e) {
+                    e.preventDefault();
                     console.log("del")
                     var deleteimgid = $(this).data('deleteimgid');
                     // console.log("EDIT: ",$(".edit-preview-images").children().length)
@@ -596,7 +615,7 @@
                     var sum = $(".edit-preview-images").children().length + $(".new-img-preview").children().length
                     console.log(sum)
                     if(sum==1){
-                        alert("Atleast 1 image should be uploaded.");
+                        return alert("Atleast 1 image should be uploaded.");
                     }
                     else{
                         var deleteimg = confirm("Are you sure you want to delete ?");
@@ -645,7 +664,8 @@
         })
 
         // Remove an item - ajax call
-        $(".remove-item").click(function () {
+        $(".remove-item").click(function (e) {
+            e.preventDefault();
             var remid = $(this).data('remid');
             var itemname = $(this).parent().siblings(".item-title").text();
             console.log(itemname)
@@ -672,22 +692,15 @@
         });
 
          // Cancel button click
-         $(".cancel-btn").click(function() {
-             console.log("Neeche wala")
+         $(".cancel-btn").click(function(e) {
+            e.preventDefault();
+            console.log("Neeche wala")
             $('.additem-form').trigger("reset");
             $(".add-item-wrapper").addClass("hidden");
             $(".menu-wrapper").removeClass("hidden");
 
-            $(".edit-item-wrapper").addClass("hidden");
-            $(".edit-item-wrapper").empty();
-            $(".menu-wrapper").removeClass("hidden");
             document.getElementById("page-heading").innerHTML = "Menu";
         })
-
-
-
-        
-
         
     });
 </script>

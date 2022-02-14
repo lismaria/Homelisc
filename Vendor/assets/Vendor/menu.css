@@ -334,7 +334,7 @@
     font-size: 1.4rem;
 }
 
-.cancel-btn, .add-btn{
+.cancel-btn, .add-btn, .edit-item-cancel-btn{
     width:40%;
     height:3.5rem;
     display:flex;
@@ -345,7 +345,7 @@
     gap:5%;
 }
 
-.cancel-btn{
+.cancel-btn, .edit-item-cancel-btn{
     border: 0.1rem solid var(--primary);
 }
 
