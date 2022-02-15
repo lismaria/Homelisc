@@ -39,3 +39,22 @@
 </div>
 
 {% endblock content %}
+
+{% block javascript %}
+
+<script>
+    $(document).ready(function(){
+        $(".shop-card").each(function() {
+            let shop_src = $(this).find('img').attr('src');
+            if(shop_src == '/media/default-shop.svg')
+            {
+                let shop_name = $(this).find('h2').text()
+                let shop_initial = shop_name.charAt(0).toLowerCase()
+                let that = $(this)
+                defaultColors(that,shop_initial)
+            }
+        })
+    });
+</script>
+
+{% endblock javascript %}

@@ -1,7 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock style %}
+
+{% block title %}Login{% endblock title %}
 
 {% block content%}
-{% load static %}
 
 <div class="login-wrapper" ng-init="acc='login'">
     <div class="login-header">
@@ -55,8 +61,4 @@
         
     </div>
 </div>
-<script>
-    document.title = "Account"
-</script>
-<link rel="stylesheet" href="{% static 'login.css' %}">
-{% endblock %}
+{% endblock content %}

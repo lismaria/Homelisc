@@ -1,13 +1,19 @@
 {% extends "base.html" %}
-
-{% block content%}
 {% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'account.css' %}">
+{% endblock style %}
+
+{% block title %}Account{% endblock title %}
+
+{% block content %}
     {% if request.user.is_authenticated %}
-    <div ng-switch="edit">
-        <div ng-switch-when="noedit" class="profile-wrapper">
+    <div>
+        <div class="profile-wrapper profile-wrapper-noedit">
             <div class="profile-top">
                 <h1>Personal Details</h1>
-                <button ng-click="editor()" >Edit</button>
+                <button id="no-user-edit">Edit</button>
             </div>
             <div class="profile-info">
                 <img src="{{user.profile_pic.url}}" alt="" class="object-fit">
@@ -34,10 +40,10 @@
             
         </div>
         
-        <div ng-switch-when="yesedit"  class="profile-wrapper">
+        <div class="profile-wrapper profile-wrapper-edit hidden">
             <div class="profile-top">
                 <h1>Personal Details</h1>
-                <button ng-click="editor()" >
+                <button id="yes-user-edit">
                     <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21.3334 4.16669L4.66675 20.8334M21.3334 20.8334L4.66675 4.16669L21.3334 20.8334Z" stroke="black" stroke-width="2" stroke-linecap="round"/>
                     </svg>                        
@@ -141,25 +147,48 @@
     </div>
 
     {% endif %}
+{% endblock content %}
 
+{% block javascript %}
     <script>
-        document.title = "Account"
-        let init_vh = window.innerHeight * 0.01;
+        $(document).ready(function() {
+            let init_vh = window.innerHeight * 0.01;
 
-        function input_focus()
-        {
-            $(".profile-wrapper").css({'min-height':init_vh*90+'px'});
-            $(".lower-nav-ul").css({'display': 'none'});
-            $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 100)'});
-        }
+            user_that = $(".profile-info")
+            user_form_that = $(".profile-info__edit")
+            user_src = user_that.find('img').attr('src')
+            if(user_src == '/media/default-user.svg')
+            {
+                user_name = user_that.find('h2').text()
+                user_initial = user_name.charAt(0).toLowerCase()
+                defaultColors(user_that,user_initial)
+                defaultColors(user_form_that,user_initial)
+            }
 
-        function input_blur()
-        {
-            $(".profile-wrapper").css({'min-height':'auto'});
-            $(".lower-nav-ul").css({'display': 'grid'});
-            $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 90)'});
-        }
+            $("#no-user-edit").click(function(){
+                $(".profile-wrapper-noedit").addClass("hidden");
+                $(".profile-wrapper-edit").removeClass("hidden")
+            })
+
+            $("#yes-user-edit").click(function(){
+                $(".profile-wrapper-edit").addClass("hidden");
+                $(".profile-wrapper-noedit").removeClass("hidden")
+            })
+
+            function input_focus()
+            {
+                $(".profile-wrapper").css({'min-height':init_vh*90+'px'});
+                $(".lower-nav-ul").css({'display': 'none'});
+                $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 100)'});
+            }
+
+            function input_blur()
+            {
+                $(".profile-wrapper").css({'min-height':'auto'});
+                $(".lower-nav-ul").css({'display': 'grid'});
+                $(".wrapper").css({'height':'calc(var(--vh, 1vh) * 90)'});
+            }
+        });
 
     </script>
-    <link rel="stylesheet" href="{% static 'account.css' %}">
-{% endblock %}
+{% endblock javascript %}

@@ -279,6 +279,17 @@
         let init_revh = window.innerHeight * 0.01;
         document.getElementById("page-heading").innerHTML = "Reviews";
 
+        $(".review-card").each(function() {
+            let user_src = $(this).children('img').attr('src')
+            if(user_src == '/media/default-user.svg')
+            {
+                let user_name = $(this).find('h4').text()
+                let user_initial = user_name.charAt(0).toLowerCase()
+                let that = $(this)
+                defaultColors(that,user_initial)
+            }
+        })
+
         if($(".review-content").children().length == 0)
             $(".no-reviews-div").removeClass("disp-rev")
 

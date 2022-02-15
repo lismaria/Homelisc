@@ -228,6 +228,38 @@
 <script>
     $(document).ready(function () {
         var not_login = $(".login-required-wrapper").length
+
+        shop_page_that = $(".shop-header-right")
+        shop_heart_that = $(".review-likes")
+        shop_page_src = shop_page_that.find('img').attr('src')
+        if(shop_page_src == '/media/default-shop.svg')
+        {
+            shop_page_name = shop_page_that.find('h2').text()
+            shop_page_initial = shop_page_name.charAt(0).toLowerCase()
+            defaultColors(shop_page_that,shop_page_initial)
+            defaultColors(shop_heart_that,shop_page_initial)
+        }
+
+        $(".review-card").each(function() {
+            let user_src = $(this).children('img').attr('src')
+            if(user_src == '/media/default-user.svg')
+            {
+                let user_name = $(this).find('h4').text()
+                let user_initial = user_name.charAt(0).toLowerCase()
+                let that = $(this)
+                defaultColors(that,user_initial)
+            }
+        })
+
+        user_popreview_that = $(".popreview-profile")
+        user_popreview_src = user_popreview_that.find('img').attr('src')
+        if(user_popreview_src == '/media/default-user.svg')
+        {
+            user_popreview_name = user_popreview_that.find('h2').text()
+            user_popreview_initial = user_popreview_name.charAt(0).toLowerCase()
+            defaultColors(user_popreview_that,user_popreview_initial)
+        }
+
         $(".shop-heart").click(function () {
             if($(".login-required-wrapper").length)
             {

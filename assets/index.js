@@ -1,3 +1,58 @@
+function defaultColors(that,init_letter)
+  {
+    switch(init_letter)
+    {
+      case 'a':
+      case 'b':
+      case 'c':
+          that.find('img:first').css({'padding':'1rem','background-color':'#FFBFBF'});
+          break;
+      case 'd':
+      case 'e':
+      case 'f':
+          that.find('img:first').css({'padding':'1rem','background-color':'#FFE2BF'});
+          break;
+      case 'g':
+      case 'h':
+      case 'i':
+          that.find('img:first').css({'padding':'1rem','background-color':'#FEFFBF'});
+          break
+      case 'j':
+      case 'k':
+      case 'l':
+          that.find('img:first').css({'padding':'1rem','background-color':'#BFFFC6'});
+          break;
+      case 'm':
+      case 'n':
+      case 'o':
+          that.find('img:first').css({'padding':'1rem','background-color':'#BFFFF0'});
+          break;
+      case 'p':
+      case 'q':
+      case 'r':
+          that.find('img:first').css({'padding':'1rem','background-color':'#BFD1FF'});
+          break;
+      case 's':
+      case 't':
+      case 'u':
+          that.find('img:first').css({'padding':'1rem','background-color':'#D4BFFF'});
+          break;
+      case 'v':
+      case 'w':
+      case 'x':
+          that.find('img:first').css({'padding':'1rem','background-color':'#FFBFF5'});
+          break;
+      case 'y':
+      case 'z':
+          that.find('img:first').css({'padding':'1rem','background-color':'#BFBFBF'});
+          break;
+      default:
+          that.find('img:first').css({'padding':'1rem','background-color':'var(--accent)'});
+          break;
+    }
+  }
+
+
 $(document).ready(function () {
 
   //Storing the initial height of the inner window
@@ -9,6 +64,22 @@ $(document).ready(function () {
       var $nav = $(".lower-nav-ul, .lowernav-home-svg, .lowernav-ul-p, .lowernav-ul-p__hide");
       $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
   });
+
+
+  $(function() {
+    
+    $(".fav-place-card").each(function() {
+      let shop_src = $(this).find('img').attr('src')
+      if(shop_src == '/media/default-shop.svg')
+      {
+          let shop_name = $(this).find('.favplace-cardbody-top').find('p').text()
+          let shop_initial = shop_name.charAt(0).toLowerCase()
+          let that = $(this)
+          defaultColors(that,shop_initial)
+      }
+    })
+
+  })
 
 
   // For toggling between Food and Places in Wishlist
@@ -66,17 +137,12 @@ obj.controller("cont",function($scope)
   $scope.acc = 'login'
   $scope.loginCol = "nav-line__red"
   $scope.signupCol = "nav-line__white"
-  $scope.edit = 'noedit'
 
   $scope.switcher=function ()
   {
     $scope.acc = $scope.acc == 'login' ? 'signup': 'login';
     $scope.loginCol= $scope.acc == 'login' ? 'nav-line__red' : 'nav-line__white';
     $scope.signupCol= $scope.acc == 'signup' ? 'nav-line__red' : 'nav-line__white';
-  }
-
-  $scope.editor=function (){
-    $scope.edit = $scope.edit == 'noedit' ? 'yesedit' : 'noedit';
   }
 
   // $scope.wishlist=function ()
