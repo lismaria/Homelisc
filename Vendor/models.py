@@ -16,7 +16,7 @@ class Shop(models.Model):
     shop_state = models.CharField(verbose_name="Shop State", max_length=50)
     shop_location = models.TextField(verbose_name="Shop Location", default=None)
     shop_tags = ArrayField(models.CharField(verbose_name="Shop Tags",max_length=50),size=3, blank=False)
-    shop_logo = models.ImageField(verbose_name="Shop Logo",default='default.png', blank=True)
+    shop_logo = models.ImageField(verbose_name="Shop Logo",default='default-shop.svg', blank=True)
     shop_rating = models.DecimalField(verbose_name="Shop Rating",null=True, blank=True, default=None, max_digits=2, decimal_places=1)
     shop_clicks_count = models.IntegerField(verbose_name="Shop Clicks Count",null=True, blank=True, default=0)
     shop_wishlist_count = models.IntegerField(verbose_name="Shop Wishlist Count",null=True, blank=True, default=0)
@@ -37,7 +37,7 @@ class Item(models.Model):
     item_clicks_count = models.IntegerField(verbose_name="Item Clicks Count",null=True, blank=True, default=0)
     item_wishlist_count = models.IntegerField(verbose_name="Item Wishlist Count",null=True, blank=True, default=0)
     item_category = ArrayField(models.CharField(verbose_name="Item Category",max_length=50), size=3, blank=False)
-    item_img_def = models.ImageField(verbose_name="Item Image Default",default="default.png",blank=True)
+    item_img_def = models.ImageField(verbose_name="Item Image Default",default="default-item.svg",blank=True)
     shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE, default=None)
 
     def __str__(self):

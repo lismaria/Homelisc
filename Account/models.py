@@ -42,7 +42,7 @@ class User(AbstractBaseUser):
     name = models.CharField(max_length=32)
     email = models.EmailField(verbose_name="email", max_length=60 ,unique=True)
     is_vendor = models.BooleanField(default=False)
-    profile_pic = models.ImageField(verbose_name="profile pic", default="default.png",blank=True)
+    profile_pic = models.ImageField(verbose_name="profile pic", default="default-user.svg",blank=True)
 
     # mandatory fields to create custom user model
     date_joined = models.DateTimeField(verbose_name="date joined",auto_now_add=True)

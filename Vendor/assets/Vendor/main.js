@@ -26,4 +26,90 @@ $(document).ready(function () {
         $(".vendor-nav-ul").css({'display': 'grid'});
     });
 
+    function defaultColors(that,init_letter)
+    {
+        switch(init_letter)
+        {
+            case 'a':
+            case 'b':
+            case 'c':
+                that.find('img').css({'padding':'1rem','background-color':'#FFBFBF'});
+                break;
+            case 'd':
+            case 'e':
+            case 'f':
+                that.find('img').css({'padding':'1rem','background-color':'#FFE2BF'});
+                break;
+            case 'g':
+            case 'h':
+            case 'i':
+                that.find('img').css({'padding':'1rem','background-color':'#FEFFBF'});
+                break
+            case 'j':
+            case 'k':
+            case 'l':
+                that.find('img').css({'padding':'1rem','background-color':'#BFFFC6'});
+                break;
+            case 'm':
+            case 'n':
+            case 'o':
+                that.find('img').css({'padding':'1rem','background-color':'#BFFFF0'});
+                break;
+            case 'p':
+            case 'q':
+            case 'r':
+                that.find('img').css({'padding':'1rem','background-color':'#BFD1FF'});
+                break;
+            case 's':
+            case 't':
+            case 'u':
+                that.find('img').css({'padding':'1rem','background-color':'#D4BFFF'});
+                break;
+            case 'v':
+            case 'w':
+            case 'x':
+                that.find('img').css({'padding':'1rem','background-color':'#FFBFF5'});
+                break;
+            case 'y':
+            case 'z':
+                that.find('img').css({'padding':'1rem','background-color':'#BFBFBF'});
+                break;
+            default:
+                that.find('img').css({'padding':'1rem','background-color':'var(--accent)'});
+                break;
+        }
+    }
+
+    $(function(){
+        $(".shop-card").each(function() {
+            let shop_src = $(this).find('img').attr('src');
+            if(shop_src == '/media/default-shop.svg')
+            {
+                let shop_name = $(this).find('h2').text()
+                let shop_initial = shop_name.charAt(0).toLowerCase()
+                let that = $(this)
+                defaultColors(that,shop_initial)
+            }
+        })
+
+        that = $(".shop-info__main")
+        shop_src = that.find('img').attr('src')
+        if(shop_src == '/media/default-shop.svg')
+        {
+            shop_name = that.find('h2').text()
+            shop_initial = shop_name.charAt(0).toLowerCase()
+            defaultColors(that,shop_initial)
+        }
+
+        user_upper_that = $(".vendor-uppernav-div")
+        user_that = $(".vendor-acc-imgdiv")
+        user_src = user_that.find('img').attr('src')
+        if(user_src == '/media/default-user.svg')
+        {
+            user_name = user_that.siblings('div').find('input[name=name]').val()
+            user_initial = user_name.charAt(0).toLowerCase()
+            defaultColors(user_that,user_initial)
+            defaultColors(user_upper_that,user_initial)
+        }
+    })
 });

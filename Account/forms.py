@@ -41,7 +41,7 @@ class LoginForm(forms.ModelForm):
         }
         widgets = {
             'email': forms.EmailInput(attrs={'placeholder':'Email ID', 'ng-model':'email', 'ng-required':'true',}),
-            'password': forms.PasswordInput(attrs={'placeholder':'Password','ng-model':'password', 'ng-required':'true', 'ng-minlength':'8'})
+            'password': forms.PasswordInput(attrs={'placeholder':'Password','ng-model':'password', 'ng-required':'true'})
         }
 
     def clean(self):    # available to any form that extends the ModelForm. It runs before the form can do anything
