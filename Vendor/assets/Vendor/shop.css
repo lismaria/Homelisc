@@ -424,3 +424,40 @@ pwa-container-wrapper{
 .print-btn{
     align-self: end;
 }
+
+/* Tablet and Above
+@media screen and (min-width: 768px){
+    .resp-canva{
+        display: none;
+    }
+} */
+
+/* Tablet Below */
+@media screen and (max-width: 425px){
+    .resp-canva{
+        display: none;
+    }
+    .not-resp-canva{
+        display: block;
+    }
+}
+
+/* Tablet Below */
+@media screen and (min-width: 425px){
+    .resp-canva{
+        display: none;
+    }
+    .not-resp-canva{
+        display: block;
+    }
+}
+
+/* Tablet and Above */
+@media screen and (min-width: 768px){
+    .resp-canva{
+        display: block;
+    }
+    .not-resp-canva{
+        display: none;
+    }
+}
