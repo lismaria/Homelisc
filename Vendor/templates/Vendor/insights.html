@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="shop-info-card">
+<div class="shop-info-card" id="print-rating">
     <p class="chart-title">Keep the good work!</p>
     <div class="shop-impression">
         <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="shop-info-card">
+<div class="shop-info-card" id="print-wnvcount">
     <p class="chart-title">Shop impressions</p>
     <div class="shop-impression-wrapper">
         <div class="shop-impression">
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="resp-canva">
-            <canvas id="item-wish-click-img" height="300" width="0" style="max-height: 300px;display:inherit;"></canvas>
+            <canvas id="item-wish-click-img" height="300" width="0" style="max-height: 300px;display:block;"></canvas>
         </div>
 
     {% else %}
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="resp-canva">
-            <canvas id="item-rating-img" height="300" width="0" style="max-height: 300px;"></canvas>
+            <canvas id="item-rating-img" height="300" width="0" style="max-height: 300px;display:block;"></canvas>
         </div>
 
     {% else %}
@@ -97,7 +97,7 @@
     {% endif %}
 </div>
 
-<button class="print-btn" onclick="printCanvas()" >
+<button id="printing" class="print-btn" onclick="ClickHereToPrint()" >
     <h2>Print</h2>
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M14.7656 4.50352V0.5625H3.23438V4.50352C2.514 4.54044 1.83525 4.85239 1.33812 5.37504C0.840978 5.89768 0.563356 6.59118 0.5625 7.3125V14.0625H2.95312V12.9375H1.6875V7.3125C1.688 6.8651 1.86595 6.43617 2.18231 6.11981C2.49867 5.80345 2.9276 5.6255 3.375 5.625H14.625C15.0724 5.6255 15.5013 5.80345 15.8177 6.11981C16.134 6.43617 16.312 6.8651 16.3125 7.3125V12.9375H14.7656V14.0625H17.4375V7.3125C17.4366 6.59118 17.159 5.89768 16.6619 5.37504C16.1647 4.85239 15.486 4.54044 14.7656 4.50352ZM13.6406 4.5H4.35938V1.6875H13.6406V4.5Z" fill="white"/>
@@ -105,6 +105,7 @@
         <path d="M4.07812 9.28125H2.67188V10.4062H4.07812V17.4375H13.6406V10.4062H15.0469V9.28125H4.07812ZM12.5156 16.3125H5.20312V10.4062H12.5156V16.3125Z" fill="white"/>
     </svg>                                              
 </button>
+<iframe id="ifrmPrint" frameborder="0"></iframe>
 
 <script type="">
 
@@ -469,46 +470,51 @@
         newwidth = len*30
         itemratingwidth = len*15
         $('#dynwidth').css({'width':newwidth, height: '300px'});
-        $('#dynRatingWidth').css({'width':itemratingwidth, height: '300px'})        
+        $('#dynRatingWidth').css({'width':itemratingwidth, height: '300px'})            
     })
 
-    
-    // function printDiv() {
-    //     console.log("HERE")
-    //     var divContents = document.getElementById("insightzz").innerHTML;
-    //     var a = window.open('', '', 'height=500, width=500');
-    //     a.document.write('<html>');
-    //     a.document.write('<link rel="stylesheet" href="{% static "Vendor/shop.css" %}">');
-    //     a.document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous">');
-    //     a.document.write(<body > <h1>Div contents are <br></h1>');
-    //     console.log(divContents);
-    //     a.document.write(divContents);
-    //     a.document.write('</body></html>');
-    //     a.document.close();
-    // }
 
-    function printCanvas()  
-{  
-    var dataUrl1 = document.getElementById('shopR-AreaChart').toDataURL(); //attempt to save base64 string to server using this var  
-    var dataUrl2 = document.getElementById('shopR-PieChart').toDataURL(); //attempt to save base64 string to server using this var  
-    var dataUrl3 = document.getElementById('item-wish-click-img').toDataURL(); //attempt to save base64 string to server using this var  
-    var dataUrl4 = document.getElementById('item-rating').toDataURL(); //attempt to save base64 string to server using this var  
-    var windowContent = '<!DOCTYPE html>';
-    windowContent += '<html>'
-    windowContent += '<head><title>Print canvas</title></head>';
-    windowContent += '<body>'
-    windowContent += '<img src="' + dataUrl1 + '">';
-    windowContent += '<img src="' + dataUrl2 + '">';
-    windowContent += '<img src="' + dataUrl3 + '">';
-    windowContent += '<img src="' + dataUrl4 + '">';
-    windowContent += '</body>';
-    windowContent += '</html>';
-    var printWin = window.open('','','width=340,height=260');
-    printWin.document.open();
-    printWin.document.write(windowContent);
-    printWin.document.close();
-    printWin.focus();
-    printWin.print();
-    // printWin.close();
-}
+    var shopname = $(".shop-info__main").find("h2").text()
+    console.log(shopname);
+
+function ClickHereToPrint(){
+    console.log("Here")
+
+    if($('#shopR-AreaChart')) var dataUrl1 = document.getElementById('shopR-AreaChart').toDataURL();
+    if($('#shopR-PieChart')) var dataUrl2 = document.getElementById('shopR-PieChart').toDataURL(); 
+    if(document.getElementById('item-wish-click').toDataURL()!='data:,'){console.log("click"); var dataUrl3 = document.getElementById('item-wish-click').toDataURL(); console.log(dataUrl3); }
+    if(document.getElementById('item-wish-click-img').toDataURL()!='data:,'){console.log("click-img"); var dataUrl3 = document.getElementById('item-wish-click-img').toDataURL(); console.log(dataUrl3);}
+    if(document.getElementById('item-rating').toDataURL()!='data:,'){console.log("rate"); var dataUrl4 = document.getElementById('item-rating').toDataURL(); console.log(dataUrl4); }
+    if(document.getElementById('item-rating-img').toDataURL()!='data:,'){console.log("rate-img"); var dataUrl4 = document.getElementById('item-rating-img').toDataURL(); console.log(dataUrl4); }
+    
+
+    try{
+        var oIframe = document.getElementById('ifrmPrint');
+        var printShopinfo = document.getElementById('print-shopinfo').innerHTML;
+        var printRating = document.getElementById('print-rating').innerHTML;
+        var printWnvcount = document.getElementById('print-wnvcount').innerHTML;
+
+        var oDoc = (oIframe.contentWindow || oIframe.contentDocument);
+        if (oDoc.document) oDoc = oDoc.document;
+        oDoc.write('<html>');
+        oDoc.write('<head><title> '+ shopname +' Insights </title>');
+        oDoc.write('<link rel="stylesheet" href="{% static "Vendor/style.css" %}">');
+        oDoc.write('<link rel="stylesheet" href="{% static "Vendor/shop.css" %}">');
+        oDoc.write('<body onload="this.focus(); this.print();">');
+        oDoc.write(printShopinfo,'<br>');
+        oDoc.write(printRating,'<br>');
+        oDoc.write(printWnvcount,'<br>');
+        var windowContent = '<div class="shop-info-card"><p class="chart-title">Shop Rating over 1 Week</p><img src="' + dataUrl1 + '"style="max-height:600px; max-width:100%"></div>';
+        windowContent += '<div class="shop-info-card"><p class="chart-title">Shop Rating</p><img src="' + dataUrl2 + '" style="max-height:300px; max-width:100%">';
+        windowContent += '<div class="shop-info-card"><p class="chart-title">Item Wishlist vs Visit Count</p><img src="' + dataUrl3 + '" style="max-height:600px; max-width:100%"></div>';
+        windowContent += '<div class="shop-info-card"><p class="chart-title">Item Rating</p><img src="' + dataUrl4 + '" style="max-height:600px; max-width:100%; width:auto"></div>';
+        oDoc.write(windowContent)
+        oDoc.write('</body></html>');
+        oDoc.close();
+      } catch(e){
+        // self.print();
+        console.log(e)
+      }
+    }
+
 </script>
