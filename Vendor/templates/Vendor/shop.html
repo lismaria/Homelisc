@@ -68,7 +68,6 @@
                 {% csrf_token %}
                 <label>NAME</label>
                 {{shopForm.shop_name}}
-                <span ng-show="shopedit.shop_name.$touched && shopedit.shop_name.$error.required">This field is required</span>
                 <!-- <input type="text" placeholder="Shop Name" value="{{i.shop_name}}"> -->
                         
                 <label>TAGS</label>
