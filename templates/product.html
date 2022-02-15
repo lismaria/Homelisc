@@ -213,6 +213,36 @@
     $(document).ready(function () {
         var not_login = $(".login-required-wrapper").length
 
+        product_page_shop_that = $(".product-shop")
+        product_page_shop_heart_that = $(".review-likes")
+        product_page_shop_src = product_page_shop_that.find('img').attr('src')
+        if(product_page_shop_src == '/media/default-shop.svg')
+        {
+            product_page_shop_name = product_page_shop_that.find('h2').text()
+            product_page_shop_initial = product_page_shop_name.charAt(0).toLowerCase()
+            defaultColors(product_page_shop_that,product_page_shop_initial)
+            defaultColors(product_page_shop_heart_that,product_page_shop_initial)
+        }
+
+        $(".review-card").each(function() {
+            let user_src = $(this).children('img').attr('src')
+            if(user_src == '/media/default-user.svg')
+            {
+                let user_name = $(this).find('h4').text()
+                let user_initial = user_name.charAt(0).toLowerCase()
+                let that = $(this)
+                defaultColors(that,user_initial)
+            }
+        })
+
+        user_popreview_that = $(".popreview-profile")
+        user_popreview_src = user_popreview_that.find('img').attr('src')
+        if(user_popreview_src == '/media/default-user.svg')
+        {
+            user_popreview_name = user_popreview_that.find('h2').text()
+            user_popreview_initial = user_popreview_name.charAt(0).toLowerCase()
+            defaultColors(user_popreview_that,user_popreview_initial)
+        }
         // Wishlist a Shop - ajax call
         $(".product-heart").click(function () {
             if(not_login)

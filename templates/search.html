@@ -55,7 +55,7 @@
 
                 <div class="top-cuisines-image">
                     <a href="{% url 'product' id=i.shop_id.id slug=i.shop_id.shop_slug itemid=i.id %}">
-                        <img class="mostcherished-img" src="" >
+                        <img class="mostcherished-img" src="{{i.item_img_def.url}}" >
                     </a>
                 </div>
                 <div class="top-cuisines-descr">

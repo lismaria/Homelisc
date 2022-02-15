@@ -186,6 +186,15 @@
     $(document).ready(function () {
         var not_login = $(".login-required-wrapper").length
 
+        shop_page_that = $(".shop-header-right")
+        shop_page_src = shop_page_that.find('img').attr('src')
+        if(shop_page_src == '/media/default-shop.svg')
+        {
+            shop_page_name = shop_page_that.find('h2').text()
+            shop_page_initial = shop_page_name.charAt(0).toLowerCase()
+            defaultColors(shop_page_that,shop_page_initial)
+        }
+
         // Wishlist a Shop - ajax call
         $(".shop-heart, .product-card-heart").click(function () {
             if(not_login)
