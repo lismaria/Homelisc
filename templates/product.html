@@ -32,7 +32,7 @@
                 <a class="prev">&#10094;</a>
                 <div class="slider-inner">
                     {% for img in imageInfo %}
-                        <img class=""  src="{{img.item_img.url}}" alt="">
+                        <img class="" src="{{img.item_img.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; alt="">
                     {% endfor %}
                 </div>
                 <a class="next">&#10095;</a>
@@ -212,6 +212,15 @@
 <script>
     $(document).ready(function () {
         var not_login = $(".login-required-wrapper").length
+
+        item_that = $(".product-wrapper")
+        item_src = item_that.find('img:first').attr('src')
+        if(item_src == '/static/default-pics/default-item.svg')
+        {
+            item_name = item_that.find('h1:first').text()
+            item_initial = item_name.charAt(0).toLowerCase()
+            defaultColors(item_that,item_initial)
+        }
 
         product_page_shop_that = $(".product-shop")
         product_page_shop_heart_that = $(".review-likes")

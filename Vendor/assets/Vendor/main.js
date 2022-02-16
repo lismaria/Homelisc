@@ -5,49 +5,49 @@ function defaultColors(that,init_letter)
         case 'a':
         case 'b':
         case 'c':
-            that.find('img:first').css({'padding':'1rem','background-color':'#FFBFBF'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#FFBFBF'});
             break;
         case 'd':
         case 'e':
         case 'f':
-            that.find('img:first').css({'padding':'1rem','background-color':'#FFE2BF'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#FFE2BF'});
             break;
         case 'g':
         case 'h':
         case 'i':
-            that.find('img:first').css({'padding':'1rem','background-color':'#FEFFBF'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#FEFFBF'});
             break
         case 'j':
         case 'k':
         case 'l':
-            that.find('img:first').css({'padding':'1rem','background-color':'#BFFFC6'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#BFFFC6'});
             break;
         case 'm':
         case 'n':
         case 'o':
-            that.find('img:first').css({'padding':'1rem','background-color':'#BFFFF0'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#BFFFF0'});
             break;
         case 'p':
         case 'q':
         case 'r':
-            that.find('img:first').css({'padding':'1rem','background-color':'#BFD1FF'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#BFD1FF'});
             break;
         case 's':
         case 't':
         case 'u':
-            that.find('img:first').css({'padding':'1rem','background-color':'#D4BFFF'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#D4BFFF'});
             break;
         case 'v':
         case 'w':
         case 'x':
-            that.find('img:first').css({'padding':'1rem','background-color':'#FFBFF5'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#FFBFF5'});
             break;
         case 'y':
         case 'z':
-            that.find('img:first').css({'padding':'1rem','background-color':'#BFBFBF'});
+            that.find('img:first').css({'object-fit':'none','background-color':'#BFBFBF'});
             break;
         default:
-            that.find('img:first').css({'padding':'1rem','background-color':'var(--accent)'});
+            that.find('img:first').css({'object-fit':'none','background-color':'var(--accent)'});
             break;
     }
 }

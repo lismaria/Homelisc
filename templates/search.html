@@ -51,16 +51,14 @@
         </div>
         <div class="top-cuisines-frame">
             {% for i in mostcherished %}
-            <div class="top-cuisines">
+            <div class="top-cuisines product-card">
 
                 <div class="top-cuisines-image">
                     <a href="{% url 'product' id=i.shop_id.id slug=i.shop_id.shop_slug itemid=i.id %}">
-                        <img class="mostcherished-img" src="{{i.item_img_def.url}}" >
+                        <img class="mostcherished-img" src="{{i.item_img_def.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; alt="" srcset="">
                     </a>
                 </div>
-                <div class="top-cuisines-descr">
-                    {{i.item_name}}
-                </div>
+                <h2 class="top-cuisines-descr">{{i.item_name}}</h2>
 
             </div>
             {% endfor %}       

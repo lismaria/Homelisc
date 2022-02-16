@@ -35,7 +35,7 @@
             </div>
             <div class="product-card">
                 <a href="{% url 'product' id=i.shop_id.id slug=i.shop_id.shop_slug itemid=i.id %}">
-                    <img src="{{i.item_img_def.url}}" alt="" srcset="">
+                    <img src="{{i.item_img_def.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; alt="" srcset="">
                 </a>
                 <h2>{{i.item_name}}</h2>
                 <h3>{{i.shop_id.shop_name}}</h3>
