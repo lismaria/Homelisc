@@ -96,3 +96,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category_name
+
+class Theme(models.Model):
+    theme = models.CharField(verbose_name="Theme",max_length=50)
+    date = models.DateField()
+
+    def __str__(self):
+        return self.theme

@@ -5,13 +5,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core import serializers
 import numpy as np
-from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, Wishlist
+from Vendor.models import Category, Item, Review, Shop, ItemImage, VendorReply, Wishlist, Theme
 from Vendor.forms import ReplyPostForm, ShopCreationForm, ItemCreationForm, ItemImageUploadForm, ItemImageEditForm
 from Account.forms import AccountUpdationForm
 import pandas as pd
 import datetime
 import math
-
+import random
 
 
 # IND = pytz.timezone('Asia/Kolkata')
@@ -37,14 +37,30 @@ def check_vendor_details(request, id):
 
 
 
+def getThemeOfTheDay(categories):
+    theme = Theme.objects.filter(date=datetime.datetime.now().strftime('%Y-%m-%d')).values()
+    if theme:
+        theme_items = Item.objects.filter(item_category__contains=[theme[0]['theme']]).order_by(F('item_rating').desc(nulls_last=True),F('item_wishlist_count').desc(nulls_last=True))[:4]
+        themeotd = theme[0]['theme']
+    else:
+        catlist = [i.category_name for i in categories]
+        created_theme = Theme.objects.create(theme=random.choice(catlist),date=datetime.datetime.now().strftime('%Y-%m-%d'))
+        theme_items = Item.objects.filter(item_category__contains=[created_theme]).order_by(F('item_rating').desc(nulls_last=True),F('item_wishlist_count').desc(nulls_last=True))[:4]
+        themeotd = created_theme
+    return theme_items, themeotd
+
+
+
 def home(request):
 
     if not request.user.is_authenticated:
         categories = Category.objects.all()
+        theme_items, themeotd = getThemeOfTheDay(categories)
+
         shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
         topcats = Category.objects.order_by('-category_count')[:10]
         bestpicks = Item.objects.order_by(F('item_rating').desc(nulls_last=True),F('item_wishlist_count').desc(nulls_last=True))[:4]
-        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats, 'bestpicks':bestpicks})
+        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats, 'bestpicks':bestpicks,'themeotd':themeotd,'theme_items':theme_items})
 
     elif (request.user.is_authenticated and request.user.is_vendor == True):
         vendorForm = AccountUpdationForm(initial={'name':request.user.name,'email':request.user.email})
@@ -58,6 +74,8 @@ def home(request):
     
     else:
         categories = Category.objects.all()
+        theme_items, themeotd = getThemeOfTheDay(categories)
+
         shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
         topcats = Category.objects.order_by('-category_count')[:10]
         userwish = Wishlist.objects.filter(user_id=request.user.id)
@@ -69,7 +87,7 @@ def home(request):
                 usershopwish.append(i.shop_id.id)
             else:
                 useritemwish.append(i.item_id.id)
-        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats, 'usershopwish':usershopwish, 'useritemwish':useritemwish, 'bestpicks':bestpicks})
+        return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats, 'usershopwish':usershopwish, 'useritemwish':useritemwish, 'bestpicks':bestpicks,'themeotd':themeotd,'theme_items':theme_items})
 
 
 
