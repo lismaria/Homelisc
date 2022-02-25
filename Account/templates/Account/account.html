@@ -16,7 +16,7 @@
                 <button id="no-user-edit">Edit</button>
             </div>
             <div class="profile-info">
-                <img src="{{user.profile_pic.url}}" alt="" class="object-fit">
+                <img src="{{user.profile_pic.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-user.svg" %}'; alt="" class="object-fit">
                 <div>
                     <h2>{{user.name}}</h2>
                     <h3>{{user.email}}</h3>
@@ -51,7 +51,7 @@
             </div>
             <form name="accountUpdationForm" method="post" action="{% url 'account:account' %}" class="profile-info__edit" enctype="multipart/form-data">
                 <div>
-                    <img id="dp" src="{{request.user.profile_pic.url}}" class="object-fit">
+                    <img id="dp" src="{{request.user.profile_pic.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-user.svg" %}'; class="object-fit">
                     <label class="profile-img__change" for="change_pic">Change</label>
                     {% for field in form.profile_pic %}
                         {{field}}

@@ -17,7 +17,7 @@
         {% for i in shopInfo %}
         <div class="shop-header">
             <div class="shop-header-right">
-                <img src="{{i.shop_logo.url}}" class="shop-pic">
+                <img src="{{i.shop_logo.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-shop.svg" %}'; class="shop-pic">
                 <div class="shop-title">
                     <h2>{{i.shop_name}}</h2>
                     <p>{{i.shop_tags|join:" | "}}</p>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="product-card">
                             <a href="{% url 'product' id=i.id slug=i.shop_slug itemid=k.id %}">
-                                <img src="{{k.item_img_def.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; alt="" srcset="" style="padding:2rem">
+                                <img src="{{k.item_img_def.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; alt="" srcset="">
                             </a>
                             <h2>{{k.item_name}}</h2>
                             {% if k.item_descr|length > 60 %}

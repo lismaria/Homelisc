@@ -1,4 +1,5 @@
-    <form class="edititem-form" name="edititemform" id="item-edit-form" method="post" enctype="multipart/form-data">
+{% load static %}
+<form class="edititem-form" name="edititemform" id="item-edit-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="hidden" name="itemid" value="{{itemid}}">
 
@@ -33,7 +34,7 @@
             
             {% for img, i, ct in imageCombo %}
             <div class="edit-item-pic" id="imgframe-{{ct}}" data-itemimgid="{{i.id}}">
-                <img src="{{i.item_img.url}}" id="item-pic{{ct}}" alt="" srcset="" width="100%" height="100%">
+                <img src="{{i.item_img.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; id="item-pic{{ct}}" alt="" srcset="" width="100%" height="100%">
                 {{img.item_img}}
                 <!-- <input type="file" name="" class="change-pic{{i}}" style="display:none" onchange="document.getElementById('item-pic{{i}}').src = window.URL.createObjectURL(this.files[0])" accept="image/*"> -->
                 <div class="e-remove-item" id="remove-{{ct}}" data-deleteimgid="{{i.id}}">

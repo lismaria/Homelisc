@@ -72,7 +72,7 @@
         <div class="fav-place-card">
             <a href="{% url 'shop' id=i.id slug=i.shop_slug %}">
                 <div class="fav-place-card-img">
-                    <img src="{{i.shop_logo.url}}" alt="" srcset="">
+                    <img src="{{i.shop_logo.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-shop.svg" %}'; alt="" srcset="">
                 </div>
             </a>
             <div class="fav-place-card-body">

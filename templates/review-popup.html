@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="review-popup" ng-app="">
     <div class="review-popup-content">
         <div class="popreview-header">
@@ -30,7 +32,7 @@
             <span class="star-err"></span>
 
             <div class="popreview-profile">
-                <img src="{{user.profile_pic.url}}" alt="" srcset="" class="object-fit">
+                <img src="{{user.profile_pic.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-user.svg" %}'; alt="" srcset="" class="object-fit">
                 <h2>{{user.name}}</h2>
             </div>
 

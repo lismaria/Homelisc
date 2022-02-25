@@ -81,7 +81,7 @@ $(document).ready(function () {
 
     $(".product-card").each(function() {
       let item_src = $(this).find('img').attr('src')
-      if(item_src == '/static/default-pics/default-item.svg')
+      if(item_src == '/media/default-item.svg')
       {
           let item_name = $(this).find('h2').text()
           let item_initial = item_name.charAt(0).toLowerCase()

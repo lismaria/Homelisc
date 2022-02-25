@@ -3,7 +3,7 @@
 <nav>
     <div class="vendor-uppernav-div">
         <div class="vendor-page-header"><h1 id="page-heading">Shop</h1></div>
-        <img id="vendor_profile" src="{{request.user.profile_pic.url}}"  class="object-fit">
+        <img id="vendor_profile" src="{{request.user.profile_pic.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-user.svg" %}'; class="object-fit">
     </div>
 </nav>
 
@@ -11,7 +11,7 @@
     <div>
         <form id="vendor-update" class="vendor-acc-form" method="post" enctype="multipart/form-data">
             <div class="vendor-acc-imgdiv">
-                <img src="{{request.user.profile_pic.url}}" id="dp" class="object-fit">
+                <img src="{{request.user.profile_pic.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-user.svg" %}'; id="dp" class="object-fit">
                 <label for="change_pic">Change</label>
                 <!-- <input type="file" name="" id="change_vdp" style="display:none" onchange="document.getElementById('vdp').src = window.URL.createObjectURL(this.files[0])"> -->
                 {{vendorForm.profile_pic}}
