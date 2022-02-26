@@ -171,4 +171,4 @@ EMAIL_HOST_USER = 'chiliecp@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('APP_HOST')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Homelisc Family <noreply@homelisc.com>'
+DEFAULT_FROM_EMAIL = 'Homelisc Family <noreply@chiliecp@gmail.com>'
