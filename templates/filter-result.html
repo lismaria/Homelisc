@@ -120,3 +120,16 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+    $(".fav-place-card").each(function() {
+        let shop_src = $(this).find('img').attr('src')
+        if(shop_src == '/media/default-shop.svg')
+        {
+            let shop_name = $(this).find('.favplace-cardbody-top').find('p').text()
+            let shop_initial = shop_name.charAt(0).toLowerCase()
+            let that = $(this)
+            defaultColors(that,shop_initial)
+        }
+    })
+</script>

@@ -221,7 +221,6 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
                     $(".apply-filter-result-wrapper").empty();
                     $(".apply-filter-result-wrapper").append(response);
                     $(".filter-popup").slideToggle("slow");
