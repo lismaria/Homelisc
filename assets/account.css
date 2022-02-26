@@ -54,7 +54,7 @@
     width:9.5rem;
     height:9.5rem;
     border-radius:95px;
-    background: var(--accent);
+    /* background: var(--accent); */
 }
 
 .profile-info div{

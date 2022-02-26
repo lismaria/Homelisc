@@ -309,6 +309,7 @@
     width: 8rem;
     height: 8rem;
     object-fit: contain;
+    border-radius: 0.4rem;
 }
 
 .fav-place-card-body{
