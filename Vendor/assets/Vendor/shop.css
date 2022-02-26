@@ -74,7 +74,7 @@
     height: 7.2rem;
     width: 7.2rem;
     border-radius: 0.8rem;
-    background-color: var(--accent);
+    /* background-color: var(--accent); */
 }
 
 .shop-info__main>div{

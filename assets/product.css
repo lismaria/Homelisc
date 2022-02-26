@@ -113,7 +113,7 @@
 .product-shop img{
     width: 7.2rem;
     height:7.2rem;
-    background: var(--black);
+    /* background: var(--black); */
     border-radius: 8px;
 }
 
