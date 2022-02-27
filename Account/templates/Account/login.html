@@ -53,8 +53,11 @@
             </form>
             <div class="login-button">
                 <button type="submit" ng-disabled="loginForm.$invalid" form="login-form">Login</button>
-                <p>or</p>
-                <button type="submit" form="login-form" style="background-color: var(--accent);color:var(--black)">Log In with Google</button>
+                <!-- <p>or</p>
+                <button type="submit" form="login-form" style="background-color: var(--accent);color:var(--black)">Log In with Google</button> -->
+            </div>
+            <div class="forgot-password">
+                <a href="{% url 'reset_password' %}">Forgot password?</a>
             </div>
             
         </div>
