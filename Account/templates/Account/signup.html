@@ -44,15 +44,15 @@
                 
                 {% for field in form %}
                     {% for error in field.errors %}
-                        <p style="color:red; font-size: 1.2rem;">{{error}}</p>
+                        <p style="color:red; font-size: 1.2rem; text-align: end;">{{error}}</p>
                     {% endfor %}
                 {% endfor %}
             </form>
 
             <div class="signup-buttons">
                 <button type="submit" ng-disabled="regform.$invalid" form="signup-form">Sign Up</button>
-                <p>or</p>
-                <button type="submit" form="signup-form" style="background-color: var(--accent);color:var(--black)">Sign Up with Google</button>
+                <!-- <p>or</p>
+                <button type="submit" form="signup-form" style="background-color: var(--accent);color:var(--black)">Sign Up with Google</button> -->
             </div>
         </div>
     </div>
