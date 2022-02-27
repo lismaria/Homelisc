@@ -382,7 +382,7 @@
                             $.each(this.files, readAndPreview);
                         }
                         else{
-                            alert("Its more tha 3..!");
+                            alert("Only 3 images can be uploaded.");
                             $("#edit-itemimg").val("");
                         }
                     }
@@ -466,7 +466,7 @@
 
                         document.getElementById("page-heading").innerHTML = "Menu";
                     }else{
-                        return alert("Attach Atlest 1 Image - cancel")
+                        return alert("Attach Atlest 1 Image")
                     }
                 })
 
@@ -482,7 +482,7 @@
                             document.getElementById("page-heading").innerHTML = "Menu";
                         }
                         else{
-                            return alert("Attach Atlest 1 Image - heading")
+                            return alert("Attach Atlest 1 Image")
                         }
 
                     } 

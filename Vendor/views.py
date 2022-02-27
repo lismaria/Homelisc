@@ -444,7 +444,7 @@ def item_edit(request):
             else:
                 return JsonResponse({"error": imageForm.errors}, status=400)
         else:
-            return JsonResponse({"only3imgerr": "Only 3 images allowed to be uploaded."}, status=400)
+            return JsonResponse({"only3imgerr": "Only 3 images can be uploaded."}, status=400)
         return JsonResponse({"instance": ser_instance,"img_instance": ser_img }, status=200)
             
     else:
