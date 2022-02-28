@@ -129,7 +129,12 @@
                             <a href="{% url 'product' id=i.id slug=i.shop_slug itemid=k.id %}">
                                 <img src="{{k.item_img_def.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; alt="" srcset="">
                             </a>
-                            <h2>{{k.item_name}}</h2>
+                            {% if k.item_name|length > 12 %}
+                                <h2>{{k.item_name | slice:"12" }}...</h2>
+                            {% else %}
+                                <h2>{{k.item_name}}</h2>
+                            {% endif %}
+                            
                             {% if k.item_descr|length > 60 %}
                                 <h3>{{k.item_descr | slice:"60" }}...</h3>
                             {% else %}

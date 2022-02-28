@@ -358,3 +358,13 @@
 .hidden{
     display: none;
 }
+
+.change-pass-link{
+    grid-row: 8/9;
+    font-size: 1.2rem;
+    font-family: 'POPPINS';
+    color: var(--primary);
+    text-align: end;
+    width: 100%;
+    padding: 0 1.8rem;
+}

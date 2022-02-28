@@ -19,7 +19,8 @@
 
             <div><label for="">{{vendorForm.name.label}}</label>{{vendorForm.name}}</div>
             <div><label for="">{{vendorForm.email.label}}</label>{{vendorForm.email}}</div>
-            <div style="grid-row:9/11;" id="vendor-profile-errors"></div>
+            <div style="grid-row:9/10;" id="vendor-profile-errors"></div>
+            <a class="change-pass-link" href="{% url 'password_change' %}">Change Password</a>
 
             {% csrf_token %}
             <button type="submit">Save</button>

@@ -27,8 +27,17 @@ SECRET_KEY = 'django-insecure-*jdy)s!qh$+ey&kr+g=9)7$ol$upgbwx4-=w_isfb^r80*xn+*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Email Settings 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'chiliecp@gmail.com'
+    EMAIL_HOST_PASSWORD = os.getenv('APP_HOST')
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = 'Homelisc Family <noreply@homelisc.com>'
 
 ALLOWED_HOSTS = ['streetsnax.herokuapp.com']
 
@@ -163,12 +172,3 @@ SECURE_SSL_REDIRECT = False  # Turn it to True while production only
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
-
-# Email Settings 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'chiliecp@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv('APP_HOST')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Homelisc Family <noreply@homelisc.com>'

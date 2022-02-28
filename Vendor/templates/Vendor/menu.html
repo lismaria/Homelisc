@@ -59,7 +59,12 @@
                     </div>
                 </div>
 
-                <div class="item-title"><p>{{i.item_name}}</p></div>
+                {% if i.item_name|length > 12 %}
+                    <div class="item-title"><p>{{i.item_name | slice:"12" }}...</p></div>
+                {% else %}
+                    <div class="item-title"><p>{{i.item_name}}</p></div>
+                {% endif %}
+
                 {% if i.item_descr|length > 60 %}
                     <div class="item-descr"><p>{{i.item_descr | slice:"60" }}...</p></div>
                 {% else %}
@@ -382,7 +387,7 @@
                             $.each(this.files, readAndPreview);
                         }
                         else{
-                            alert("Its more tha 3..!");
+                            alert("Only 3 images can be uploaded.");
                             $("#edit-itemimg").val("");
                         }
                     }
@@ -466,7 +471,7 @@
 
                         document.getElementById("page-heading").innerHTML = "Menu";
                     }else{
-                        return alert("Attach Atlest 1 Image - cancel")
+                        return alert("Attach Atlest 1 Image")
                     }
                 })
 
@@ -482,7 +487,7 @@
                             document.getElementById("page-heading").innerHTML = "Menu";
                         }
                         else{
-                            return alert("Attach Atlest 1 Image - heading")
+                            return alert("Attach Atlest 1 Image")
                         }
 
                     } 
