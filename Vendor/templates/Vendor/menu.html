@@ -59,7 +59,12 @@
                     </div>
                 </div>
 
-                <div class="item-title"><p>{{i.item_name}}</p></div>
+                {% if i.item_name|length > 12 %}
+                    <div class="item-title"><p>{{i.item_name | slice:"12" }}...</p></div>
+                {% else %}
+                    <div class="item-title"><p>{{i.item_name}}</p></div>
+                {% endif %}
+
                 {% if i.item_descr|length > 60 %}
                     <div class="item-descr"><p>{{i.item_descr | slice:"60" }}...</p></div>
                 {% else %}

@@ -58,7 +58,11 @@
                         <img class="mostcherished-img" src="{{i.item_img_def.url}}" onerror=this.onerror=null;this.src='{% static "default-pics/default-item.svg" %}'; alt="" srcset="">
                     </a>
                 </div>
-                <h2 class="top-cuisines-descr">{{i.item_name}}</h2>
+                {% if i.item_name|length > 20 %}
+                    <h2 class="top-cuisines-descr">{{i.item_name | slice:"20" }}...</h2>
+                {% else %}
+                    <h2 class="top-cuisines-descr">{{i.item_name}}</h2>
+                {% endif %}
 
             </div>
             {% endfor %}       
