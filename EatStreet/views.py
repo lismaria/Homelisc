@@ -1,16 +1,12 @@
-from http.client import GATEWAY_TIMEOUT
-import math
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from Vendor.models import Category, ItemImage, Shop, Item, Review, VendorReply, Wishlist
-from Vendor.forms import ReplyPostForm, ReviewForm
+from Vendor.forms import  ReviewForm
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
-from django.db.models import Q
+from django.contrib.postgres.search import SearchVector
 
 def home(request):
     pass
@@ -65,8 +61,8 @@ def category(request):
     except Category.DoesNotExist:
         pass
 
-    shopqs = Shop.objects.annotate(search=SearchVector('shop_name', 'shop_tags', 'shop_descr'),).filter(search=category)
-    itemqs = Item.objects.annotate(search=SearchVector('item_name', 'item_category', 'item_descr',),).filter(search=category)
+    shopqs = Shop.objects.annotate(search=SearchVector('shop_name', 'shop_tags', 'shop_descr'),).filter(search=category).order_by(F('shop_rating').desc(nulls_last=True))
+    itemqs = Item.objects.annotate(search=SearchVector('item_name', 'item_category', 'item_descr',),).filter(search=category).order_by(F('item_rating').desc(nulls_last=True))
 
     usershopwish, useritemwish = wishlist_arrs(request.user.id)
 

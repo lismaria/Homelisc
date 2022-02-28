@@ -1,4 +1,3 @@
-from dataclasses import fields
 from django import forms
 import Vendor.models as Vendor
 
