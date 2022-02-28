@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*jdy)s!qh$+ey&kr+g=9)7$ol$upgbwx4-=w_isfb^r80*xn+*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Email Settings 
 if DEBUG:
@@ -39,7 +39,7 @@ else:
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = 'Homelisc Family <noreply@homelisc.com>'
 
-ALLOWED_HOSTS = ['streetsnax.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','homelisc.herokuapp.com']
 
 
 # Application definition
