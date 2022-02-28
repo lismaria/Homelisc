@@ -348,7 +348,6 @@ def item_add(request):
             if itemForm.is_valid():
                 instance = itemForm.save(commit=False)
                 instance.shop_id = shopInfo
-                instance.item_img_def = files[0]
                 instance.save()
                 ser_instance = serializers.serialize('json', [ instance, ])
 
@@ -384,6 +383,11 @@ def item_add(request):
                     img.save()
                     ser_img = ser_img + serializers.serialize('json', [ img, ])
                     # return JsonResponse({"instance": ser_instance}, status=200)
+                
+                imageQuerySet = ItemImage.objects.filter(item_id=instance.id).distinct('item_id')
+                for i in imageQuerySet:
+                    instance.item_img_def = i.item_img
+                instance.save()
             else:
                 return JsonResponse({"error": imageForm.errors}, status=400)
         else:
