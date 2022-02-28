@@ -61,7 +61,7 @@ class ShopCreationForm(forms.ModelForm):
         }
         widgets = {
             'shop_name': forms.TextInput(attrs={'placeholder':'Shop Name'}),
-            'shop_tags': forms.TextInput(attrs={'placeholder':'Tags (eg. Chocolates,Crafts,..)'}),
+            'shop_tags': forms.TextInput(attrs={'placeholder':'Tags (eg. Chocolates,Crafts,.. max:3)'}),
             'shop_descr': forms.Textarea(attrs={'placeholder':'Shop Description'}),
             'shop_contact': forms.TextInput(attrs={'placeholder':'Shop Contact Number','pattern':'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'}),
             'shop_state': forms.Select(attrs={'id':'select-state'}),
