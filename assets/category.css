@@ -4,6 +4,7 @@
     grid-template-rows:repeat(20,1fr);
     height:90vh;
     min-height: calc(var(--vh, 1vh) * 90);
+    max-height: calc(var(--vh, 1vh) * 90);
     justify-items: center;
     padding:2.5rem 2.5rem 0 2.5rem;
 }
