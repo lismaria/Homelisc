@@ -70,7 +70,7 @@
 .cuisine-img{
     width: 7rem;
     height: 7rem;
-    background-color: var(--black);
+    /* background-color: var(--black); */
     border-radius: 50%;
 }
 

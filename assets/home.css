@@ -15,8 +15,8 @@
 }
 
 .logo{
-    grid-column:3/11;
-    grid-row:4/8;
+    grid-column: 1/13;
+    grid-row: 3/10;
     width:auto;
     height:auto;
 }
@@ -73,7 +73,7 @@
     grid-auto-columns:25%;
     grid-template-rows: repeat(2,1fr);
     overflow-x: scroll;
-    gap: 2.8rem;
+    gap: 2rem;
     white-space: nowrap;
 }
 
