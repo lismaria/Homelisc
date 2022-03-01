@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import F, Avg, Sum, Count
+from django.db.models import F, Sum, Count
 from django.db.models.functions import TruncDate
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -40,12 +40,12 @@ def check_vendor_details(request, id):
 def getThemeOfTheDay(categories):
     theme = Theme.objects.filter(date=datetime.datetime.now().strftime('%Y-%m-%d')).values()
     if theme:
-        theme_items = Item.objects.filter(item_category__contains=[theme[0]['theme']]).order_by(F('item_rating').desc(nulls_last=True),F('item_wishlist_count').desc(nulls_last=True))[:4]
+        theme_items = Item.objects.filter(item_category__contains=[theme[0]['theme']]).order_by(F('item_rating').desc(nulls_last=True),'-item_clicks_count','-item_wishlist_count')[:4]
         themeotd = theme[0]['theme']
     else:
         catlist = [i.category_name for i in categories]
         created_theme = Theme.objects.create(theme=random.choice(catlist),date=datetime.datetime.now().strftime('%Y-%m-%d'))
-        theme_items = Item.objects.filter(item_category__contains=[created_theme]).order_by(F('item_rating').desc(nulls_last=True),F('item_wishlist_count').desc(nulls_last=True))[:4]
+        theme_items = Item.objects.filter(item_category__contains=[created_theme]).order_by(F('item_rating').desc(nulls_last=True),'-item_clicks_count','-item_wishlist_count')[:4]
         themeotd = created_theme
     return theme_items, themeotd
 
@@ -57,9 +57,9 @@ def home(request):
         categories = Category.objects.all()
         theme_items, themeotd = getThemeOfTheDay(categories)
 
-        shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),F('shop_wishlist_count').desc(nulls_last=True))[:6]
+        shops = Shop.objects.order_by(F('shop_rating').desc(nulls_last=True),'-shop_clicks_count','-shop_wishlist_count')[:6]
         topcats = Category.objects.order_by('-category_count')[:10]
-        bestpicks = Item.objects.order_by(F('item_rating').desc(nulls_last=True),F('item_wishlist_count').desc(nulls_last=True))[:4]
+        bestpicks = Item.objects.order_by(F('item_rating').desc(nulls_last=True),'-item_clicks_count','-item_wishlist_count')[:4]
         return render(request,'home.html',{'shops':shops,'categories':categories, 'topcats':topcats, 'bestpicks':bestpicks,'themeotd':themeotd,'theme_items':theme_items})
 
     elif (request.user.is_authenticated and request.user.is_vendor == True):
@@ -348,7 +348,6 @@ def item_add(request):
             if itemForm.is_valid():
                 instance = itemForm.save(commit=False)
                 instance.shop_id = shopInfo
-                instance.item_img_def = files[0]
                 instance.save()
                 ser_instance = serializers.serialize('json', [ instance, ])
 
@@ -384,6 +383,11 @@ def item_add(request):
                     img.save()
                     ser_img = ser_img + serializers.serialize('json', [ img, ])
                     # return JsonResponse({"instance": ser_instance}, status=200)
+                
+                imageQuerySet = ItemImage.objects.filter(item_id=instance.id).distinct('item_id')
+                for i in imageQuerySet:
+                    instance.item_img_def = i.item_img
+                instance.save()
             else:
                 return JsonResponse({"error": imageForm.errors}, status=400)
         else:

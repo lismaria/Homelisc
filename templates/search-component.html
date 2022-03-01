@@ -35,7 +35,7 @@
               {
                   id: '{{ i.id }}',
                   category_img: '{{i.category_img.url}}',
-                  value: '{{i.category_name}}',
+                  value: '{{i.category_name |capfirst }}',
               },
           {% endfor %}
       ];

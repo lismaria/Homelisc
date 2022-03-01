@@ -15,7 +15,7 @@
             {% if categoryInfo %}
             <div class="cuisine-header">
                 <div class="cuisine-title-descr">
-                    <h2>{{categoryInfo.category_name}}</h2>
+                    <h2>{{categoryInfo.category_name |capfirst }}</h2>
                     <p>{{categoryInfo.category_descr}}</p>
                 </div>
                 <div class="cuisine-img-bg">
