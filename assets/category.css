@@ -3,7 +3,7 @@
     grid-template-columns:repeat(12,1fr);
     grid-template-rows:repeat(20,1fr);
     height:90vh;
-    height: calc(var(--vh, 1vh) * 90);
+    min-height: calc(var(--vh, 1vh) * 90);
     justify-items: center;
     padding:2.5rem 2.5rem 0 2.5rem;
 }
@@ -546,4 +546,8 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+}
+
+.lower-nav-ul{
+    min-height: calc(var(--vh, 1vh) * 10.1);
 }

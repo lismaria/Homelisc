@@ -57,7 +57,7 @@ def category(request):
     categories = Category.objects.all()
     categoryInfo = {}
     try:
-        categoryInfo = Category.objects.get(category_name=category)
+        categoryInfo = Category.objects.get(category_name=category.lower())
     except Category.DoesNotExist:
         pass
 
