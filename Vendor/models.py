@@ -91,7 +91,7 @@ class VendorReply(models.Model):
 class Category(models.Model):
     category_name = models.CharField(verbose_name="Category Name",max_length=50, blank=False, unique=True)
     category_descr = models.TextField(verbose_name="Category Description",null=True,blank=True,default=None)
-    category_img = models.ImageField(verbose_name="Category Image",blank=True,default="default.png")
+    category_img = models.ImageField(verbose_name="Category Image",blank=True,default="default-category.svg")
     category_count = models.IntegerField(verbose_name="Category Count",null=True, blank=True, default=1)
 
     def __str__(self):
