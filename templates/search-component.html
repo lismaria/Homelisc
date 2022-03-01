@@ -55,7 +55,6 @@
 
     $(document).ready(function () {
         function findIt() {
-            console.log("hi")
             searchVal = $("#search-field").val();
             $('#search-a').attr({href: "{% url 'category' %}?c="+searchVal})
             // $().
