@@ -69,13 +69,13 @@ $(document).ready(function () {
         $(".vendor-acc-profile").slideToggle("slow");
     });
 
-    $( "input[type=text], input[type=email], input[type=password], input[type=tel], textarea" ).focus(function() {
+    $( "input[type=text], input[type=email], input[type=password], input[type=tel], input[type=number], textarea" ).focus(function() {
         $(".register-shop-wrapper").css({'min-height':init_vh*100+'px'});
         $(".shop-wrapper, .add-item-wrapper").css({'min-height':init_vh*81+'px'});
         $(".vendor-nav-ul").css({'display': 'none'});
     });
     
-    $( "input[type=text], input[type=email], input[type=password], input[type=tel], textarea" ).blur(function() {
+    $( "input[type=text], input[type=email], input[type=password], input[type=tel], input[type=number], textarea" ).blur(function() {
         $(".register-shop-wrapper, .shop-wrapper, .add-item-wrapper").css({'min-height':'auto'});
         $(".vendor-nav-ul").css({'display': 'grid'});
     });
