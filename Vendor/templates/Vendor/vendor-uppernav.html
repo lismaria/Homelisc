@@ -47,6 +47,10 @@
             $(".vendor-acc-profile>div").css({'min-height':'auto'});
         })
 
+        $("#change_pic").on('change',function(){
+            $("#dp").css({'object-fit':'cover','background-color':'transparent'});
+        })
+
         /*
             On submiting the form, send the POST ajax
             request to server and after successfull submission

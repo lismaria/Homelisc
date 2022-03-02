@@ -189,6 +189,14 @@
         if($('.add-logo-frame img').attr('src')!="")
             $('.add-logolabel>p, .add-logolabel>svg').css({'z-index':-1})
 
+        that = $(".add-logo-frame")
+        shop_src = that.find('img:first').attr('src')
+        if(shop_src == '/media/default-shop.svg')
+        {
+            shop_name = $(".shop-info__main").find('h2').text()
+            shop_initial = shop_name.charAt(0).toLowerCase()
+            defaultColors(that,shop_initial)
+        }
 
         const API_KEY='dTdYMkMxdjYyaFZzQllqMHp6ZWxud3piSk53bTBiWmdIZU95R1VVWA=='
         $.ajax({

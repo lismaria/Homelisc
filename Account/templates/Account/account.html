@@ -155,6 +155,10 @@
         $(document).ready(function() {
             let init_vh = window.innerHeight * 0.01;
 
+            $("#change_pic").on('change',function(){
+                $("#dp").css({'object-fit':'cover','background-color':'transparent'});
+            })
+
             user_that = $(".profile-info")
             user_form_that = $(".profile-info__edit")
             user_src = user_that.find('img').attr('src')
