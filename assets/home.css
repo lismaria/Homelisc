@@ -129,6 +129,16 @@
     font-size: 1.8rem;
 }
 
+.view-all-themeotd{
+    padding-top: 1rem;
+    padding-right: 2.5rem;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.4rem;
+    font-family: Poppins;
+    color: var(--primary);
+}
+
 .top-places-title{
     margin-top: 5rem;
     font-family: Poppins;
