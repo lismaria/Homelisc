@@ -160,7 +160,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')   # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_SSL_REDIRECT = False  # Turn it to True while production only
+SECURE_SSL_REDIRECT = True  # Turn it to True while production only
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
